@@ -1,6 +1,11 @@
 {
   "name": "edwardsharp.org",
-  "version": "0.1.0",
+  "description": "3dwardsharp.organization",
+  "homepage": "http://edwardsharp.org",
+  "license": "GPL-3.0",
+  "author": {"name": "3dwardsharp", "email": "dont@fuck-with.me", "url": "http://edwardsharp.org"},
+  "repository": {"type": "git", "url": "https://github.com/edwardsharp/edwardsharp.org.git"},
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -42,5 +47,8 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "prettier": {
+    "tabWidth": 2
+  }
 }
