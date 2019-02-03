@@ -3,26 +3,39 @@
   "description": "3dwardsharp.organization",
   "homepage": "http://edwardsharp.org",
   "license": "GPL-3.0",
-  "author": {"name": "3dwardsharp", "email": "dont@fuck-with.me", "url": "http://edwardsharp.org"},
-  "repository": {"type": "git", "url": "https://github.com/edwardsharp/edwardsharp.org.git"},
+  "author": {
+    "name": "3dwardsharp",
+    "email": "dont@fuck-with.me",
+    "url": "http://edwardsharp.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/edwardsharp/edwardsharp.org.git"
+  },
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "start": "vue-cli-service serve -o",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "storybook": "start-storybook -p 6969 -c .storybook"
   },
   "dependencies": {
     "vue": "^2.5.17"
   },
   "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@storybook/vue": "^4.1.2",
     "@vue/cli-plugin-babel": "^3.2.0",
     "@vue/cli-plugin-eslint": "^3.2.0",
     "@vue/cli-service": "^3.2.0",
     "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.4",
+    "babel-preset-vue": "^2.0.2",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0-0",
-    "vue-template-compiler": "^2.5.17"
+    "vue-loader": "^15.4.2",
+    "vue-template-compiler": "^2.5.21"
   },
   "eslintConfig": {
     "root": true,
