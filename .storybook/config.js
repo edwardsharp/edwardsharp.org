@@ -1,16 +1,16 @@
 import { configure } from '@storybook/vue';
 
 import Vue from 'vue';
-import Vuex from 'vuex'; // Vue plugins
+// import Vuex from 'vuex'; // Vue plugins
 
 // Import your custom components.
-import HelloWorld from '../src/components/HelloWorld.vue';
+import Hello from '../src/components/Hello';
 
 // Install Vue plugins.
-Vue.use(Vuex);
+// Vue.use(Vuex);
 
 // Register custom components.
-Vue.component('hello-world', HelloWorld);
+Vue.component('hello', Hello);
 
 function loadStories() {
   // You can require as many stories as you need.
