@@ -1,0 +1,36 @@
+{
+  "name": "edwardsharp.org",
+  "version": "0.0.1",
+  "private": true,
+  "description": "personel homepage of 3dwardsharp",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "start-storybook -p 9001 -c .storybook"
+  },
+  "keywords": [],
+  "author": {
+    "name": "3dwardsharp",
+    "url": "https://github.com/edwardsharp"
+  },
+  "license": "GPL-3.0",
+  "dependencies": {
+    "vue": "^2.5.2",
+    "vue-class-component": "^6.0.0",
+    "vue-property-decorator": "^6.0.0",
+    "vue-router": "^3.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@storybook/vue": "^4.1.11",
+    "babel-loader": "^8.0.5",
+    "babel-preset-vue": "^2.0.2",
+    "css-loader": "^0.28.1",
+    "ts-loader": "^2.0.3",
+    "typescript": "^2.7.2",
+    "vue-loader": "^12.2.2",
+    "vue-template-compiler": "^2.6.2",
+    "webpack": "^2.5.0"
+  }
+}
