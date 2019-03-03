@@ -1,14 +1,23 @@
 
-var path = require('path')
-var webpack = require('webpack')
+const path = require('path')
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
   entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
+    publicPath: '',
     filename: 'build.js'
   },
+  plugins: [
+    new VueLoaderPlugin(),
+    new HtmlWebpackPlugin({
+      // Load a custom template (lodash by default)
+      template: 'index.html'
+    })
+  ],
   module: {
     rules: [
       {
@@ -26,12 +35,19 @@ module.exports = {
         }
       },
       {
-        test: /\.tsx?$/,
+        test: /\.ts?$/,
         loader: 'ts-loader',
         exclude: /node_modules/,
         options: {
           appendTsSuffixTo: [/\.vue$/],
         }
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'vue-style-loader',
+          'css-loader'
+        ]
       },
       {
         test: /\.(png|jpg|gif|svg)$/,

@@ -10,4 +10,8 @@ this is a typescript Vue project, see [TS_Vue_README.md](TS_Vue_README.md)
 npm run build -- --watch
 ```
 
+### ref
+
+https://vue-loader.vuejs.org/guide/#manual-configuration
+
 🗣 [/Microsoft/TypeScript-Vue-Starter](https://github.com/Microsoft/TypeScript-Vue-Starter)
