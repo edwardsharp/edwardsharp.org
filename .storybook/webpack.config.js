@@ -1,119 +1,23 @@
-// psst. webpack config, pass it on...
-// module.exports = require('../webpack.config.js');
+const path = require("path");
 
-module.exports = {
-  module: {
-    rules: [
-      {
-        test: /\.vue$/,
-        loader: 'vue-loader',
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: 'babel-loader',
-          },
-        ],
-      },
-      {
-        test: /\.ts?$/,
-        loader: 'ts-loader',
-        exclude: /node_modules/,
-        options: {
-          appendTsSuffixTo: [/\.vue$/],
-        }
-      },
-      {
-        test: /\.css$/,
-        use: [
-          'vue-style-loader',
-          'css-loader'
-        ]
-      },
-      {
-        test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]?[hash]'
-        }
+// Export a function. Accept the base config as the only param.
+module.exports = (storybookBaseConfig, configType) => {
+  // configType has a value of 'DEVELOPMENT' or 'PRODUCTION'
+  // You can change the configuration based on that.
+  // 'PRODUCTION' is used when building the static version of storybook.
+
+  // ugh, need a TS specific loader. maybe in the future this additional webpack config will not be needed?!
+  storybookBaseConfig.module.rules.push(
+    {
+      test: /\.ts?$/,
+      loader: 'ts-loader',
+      exclude: /node_modules/,
+      options: {
+        appendTsSuffixTo: [/\.vue$/],
       }
-    ],
-  },
-  // resolve: {
-  //   alias: {
-  //     'vue$': 'vue/dist/vue.esm.js',
-  //   },
-  // }
-  resolve: {
-    extensions: ['.ts', '.js', '.vue', '.json'],
-    alias: {
-      'vue$': 'vue/dist/vue.esm.js'
     }
-  },
+  );
+
+  // Return the altered config
+  return storybookBaseConfig;
 };
-
-
-// // const path = require('path')
-// const webpack = require('webpack')
-// // const HtmlWebpackPlugin = require('html-webpack-plugin')
-// const VueLoaderPlugin = require('vue-loader/lib/plugin')
-
-// module.exports = {
-//   plugins: [
-//     new VueLoaderPlugin() // ,
-//     // new HtmlWebpackPlugin({
-//     //   // Load a custom template (lodash by default)
-//     //   template: 'index.html'
-//     // })
-//   ],
-//   module: {
-//     rules: [
-//       {
-//         test: /\.vue$/,
-//         loader: 'vue-loader',
-//         options: {
-//           loaders: {
-//             // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
-//             // the "scss" and "sass" values for the lang attribute to the right configs here.
-//             // other preprocessors should work out of the box, no loader config like this necessary.
-//             'scss': 'vue-style-loader!css-loader!sass-loader',
-//             'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax',
-//           }
-//           // other vue-loader options go here
-//         }
-//       },
-//       {
-//         test: /\.ts?$/,
-//         loader: 'ts-loader',
-//         exclude: /node_modules/,
-//         options: {
-//           appendTsSuffixTo: [/\.vue$/],
-//         }
-//       },
-//       {
-//         test: /\.css$/,
-//         use: [
-//           'vue-style-loader',
-//           'css-loader'
-//         ]
-//       },
-//       {
-//         test: /\.(png|jpg|gif|svg)$/,
-//         loader: 'file-loader',
-//         options: {
-//           name: '[name].[ext]?[hash]'
-//         }
-//       }
-//     ]
-//   },
-//   resolve: {
-//     extensions: ['.ts', '.js', '.vue', '.json'],
-//     alias: {
-//       'vue$': 'vue/dist/vue.esm.js'
-//     }
-//   },
-
-// }
-
