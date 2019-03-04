@@ -2,6 +2,9 @@
 
 [gh-pages](https://edwardsharp.github.io/edwardsharp.org/)
 
+[![Storybook](https://github.com/storybooks/brand/blob/master/badge/badge-storybook.svg)](https://edwardsharp.github.io/edwardsharp.org/storybook/)
+
+
 i was a tumblr once but now i'm here.
 
 this is a typescript Vue project, see [TS_Vue_README.md](TS_Vue_README.md) 
