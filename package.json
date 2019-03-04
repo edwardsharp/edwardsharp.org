@@ -8,7 +8,7 @@
     "url": "https://github.com/edwardsharp"
   },
   "scripts": {
-    "build": "webpack && [ -d './storybook-static' ] && cp -R ./storybook-static/ ./dist/storybook/",
+    "build": "webpack && [ -d './storybook-static' ] && cp -R ./storybook-static/ ./dist/storybook/ && mv ./dist/ ./docs/",
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "vue-cli-service storybook:serve -p 9002 -c .storybook",
     "storybook:build": "vue-cli-service storybook:build -c .storybook"
