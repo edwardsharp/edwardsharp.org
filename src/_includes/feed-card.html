@@ -21,12 +21,12 @@
         >
       {% endif %}
       <div class="hex-card__copy">
-        <span class="hex-card__kind">{{ post.kind | default: 'entry' | escape }}</span>
+        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%Y-%m-%d' }}</time>
         <h2 class="hex-card__title">{{ title | escape }}</h2>
         <p class="hex-card__excerpt">
           {{ post.description | default: post.content | strip_html | normalize_whitespace | truncate: 180 | escape }}
         </p>
-        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%Y-%m-%d' }}</time>
+        <span class="hex-card__kind">{{ post.kind | default: 'entry' | escape }}</span>
       </div>
     </div>
   </a>

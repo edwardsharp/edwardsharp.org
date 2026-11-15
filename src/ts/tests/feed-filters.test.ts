@@ -42,3 +42,49 @@ test("filtered views preserve order and support direct singleton tags and colon-
   assert.deepEqual(filterPosts(posts, "type:missing"), []);
   assert.throws(() => filterPosts(posts, "invalid"), /invalid journal filter/);
 });
+
+const aliases = [
+  {
+    id: 1,
+    kind: "photo",
+    tags: ["PDX", "p-d_x", "future death toll", "Future_Death-Toll", " _- "],
+  },
+  { id: 2, kind: "audio", tags: [" p d x ", "FUTUREDEATHTOLL"] },
+  {
+    id: 3,
+    kind: "photo",
+    tags: ["pdx", "futuredeath.agency", "future_death_agency"],
+  },
+  { id: 4, kind: "photo", tags: ["futuredeath.agency"] },
+];
+
+test("tag groups merge case and separator variants without double-counting posts", () => {
+  const original = structuredClone(aliases);
+  assert.deepEqual(filterChoices(aliases).tags, [
+    { value: "tag:futuredeath.agency", label: "futuredeath.agency (2)" },
+    { value: "tag:futuredeathtoll", label: "future death toll (2)" },
+    { value: "tag:pdx", label: "pdx (3)" },
+  ]);
+  assert.deepEqual(aliases, original);
+});
+
+test("existing tag links match grouped aliases while other punctuation stays meaningful", () => {
+  for (const filter of ["tag:PDX", "tag:p-d_x", "tag: p d x "])
+    assert.deepEqual(
+      filterPosts(aliases, filter).map((post) => post.id),
+      [1, 2, 3],
+    );
+  assert.deepEqual(
+    filterPosts(aliases, "tag:Future_Death-Toll").map((post) => post.id),
+    [1, 2],
+  );
+  assert.deepEqual(
+    filterPosts(aliases, "tag:futuredeath.agency").map((post) => post.id),
+    [3, 4],
+  );
+  assert.deepEqual(
+    filterPosts(aliases, "tag:futuredeathagency").map((post) => post.id),
+    [3],
+  );
+  assert.deepEqual(filterPosts(aliases, "tag: _- "), []);
+});

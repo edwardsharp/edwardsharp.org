@@ -7,8 +7,9 @@ import {
   windowScroll,
 } from "@tanstack/virtual-core";
 import { buildRows, geometry, rowForIndex } from "./honeycomb.ts";
-import { filterChoices, filterPosts } from "./feed-filters.ts";
+import { filterChoices, filterPosts, tagKey } from "./feed-filters.ts";
 import { enhancePostDialog } from "./post-dialog.ts";
+import { createTextBackdrop } from "./text-backdrop.ts";
 
 interface PreviewPost {
   id: string;
@@ -68,10 +69,10 @@ function createCard(post: PreviewPost, index: number, total: number) {
   const date = textElement("time", "", post.label);
   date.dateTime = post.date;
   copy.append(
-    textElement("span", "hex-card__kind", post.kind),
+    date,
     textElement("h2", "hex-card__title", post.title),
     textElement("p", "hex-card__excerpt", post.excerpt),
-    date,
+    textElement("span", "hex-card__kind", post.kind),
   );
   if (post.image) {
     const image = document.createElement("img");
@@ -136,6 +137,7 @@ function enhanceFeed(
   };
   const matchingPosts = (filter: string) => filterPosts(allPosts, filter);
   function selectFilter(filter: string) {
+    if (filter.startsWith("tag:")) filter = `tag:${tagKey(filter.slice(4))}`;
     filterSelect.querySelector("option[data-current-filter]")?.remove();
     if (
       filter &&
@@ -167,6 +169,8 @@ function enhanceFeed(
   let focusedIndex: number | null = null;
   let pendingFrame = 0;
   const mounted = new Map<number, HTMLElement>();
+  const maskedCopies = new WeakSet<HTMLElement>();
+  let paintTextBackdrop: ((copy: HTMLElement) => void) | null = null;
   const initialFocused = document.activeElement?.closest(".hex-card");
   if (initialFocused) {
     const url = initialFocused.getAttribute("data-post-url");
@@ -218,6 +222,15 @@ function enhanceFeed(
       }
       if (grid.children.item(position) !== node) {
         grid.insertBefore(node, grid.children.item(position));
+      }
+    }
+    if (paintTextBackdrop) {
+      for (const copy of grid.querySelectorAll<HTMLElement>(
+        ".has-image .hex-card__copy",
+      )) {
+        if (maskedCopies.has(copy)) continue;
+        paintTextBackdrop(copy);
+        maskedCopies.add(copy);
       }
     }
   }
@@ -430,6 +443,14 @@ function enhanceFeed(
   updateStatus();
   if (focusedIndex !== null) focusTile(focusedIndex);
   void document.fonts.ready.then(updateGeometry);
+  void createTextBackdrop()
+    .then((paint) => {
+      paintTextBackdrop = paint;
+      if (paint) render();
+    })
+    .catch((error: unknown) => {
+      console.warn("could not prepare text backdrop blur", error);
+    });
   window.addEventListener("pagehide", (event) => {
     if (!event.persisted) {
       cleanup();
