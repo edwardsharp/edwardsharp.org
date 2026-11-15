@@ -14,7 +14,7 @@ npm ci
 npm run build && JEKYLL_ENV=production bundle exec jekyll build
 ```
 
-- font: `Fraunces` header/headings at 100, bold at 800; license in `src/assets/fonts/OFL.txt`.
+font: `Fraunces` header/headings at 100, bold at 800; license in `src/assets/fonts/OFL.txt`.
 
 ---
 
