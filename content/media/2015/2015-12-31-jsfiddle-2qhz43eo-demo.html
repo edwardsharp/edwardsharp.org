@@ -1,0 +1,31 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="https://fiddle.jshell.net/edwardsharp/2qhz43eo/listing_embed/?disableModals=true&amp;version=4"><title>get selected input text</title>
+<link rel="stylesheet" type="text/css" href="/css/normalize.css">
+<style id="compiled-css" type="text/css">
+      
+
+      /* EOS */
+    </style></head><body><textarea id="test" rows="10" cols="50">Some text, yo!</textarea>
+<br />
+<input type="button" onmousedown="alert(isTextSelected(document.getElementById('test')));" value="What's Selected?">
+
+<script type="text/javascript">
+
+function isTextSelected(input) {
+  if (typeof input.selectionStart == "number") {
+    if (input.selectionEnd - input.selectionStart > 0) {
+      var text = input.value;
+      return text.substring(input.selectionStart, input.selectionEnd);
+    } else {
+      return 'N0THING!';
+    }
+  }
+  //else if (typeof document.selection != "undefined") {
+  //    input.focus();
+  //    return document.selection.createRange().text == input.value;
+  //}
+
+}
+
+
+  </script></body></html>

@@ -1,0 +1,687 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="https://fiddle.jshell.net/edwardsharp/5dnpx3zc/listing_embed/?disableModals=true&amp;version=8"><title>pointer info</title>
+
+<style id="compiled-css" type="text/css">
+      * {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: #111;
+  color: #eee;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'SF Mono', Menlo, Monaco, monospace;
+}
+
+body {
+  overflow: hidden;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+#controls {
+  flex: 0 0 auto;
+  padding: 10px;
+  background: #222;
+  border-bottom: 1px solid #444;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+button {
+  font: inherit;
+  color: white;
+  background: #444;
+  border: 1px solid #666;
+  border-radius: 6px;
+  padding: 7px 12px;
+}
+
+button:active {
+  background: #666;
+}
+
+#status {
+  color: #aaa;
+  font-size: 12px;
+}
+
+#testArea {
+  flex: 1 1 auto;
+  min-height: 0;
+
+  /*
+       * Critical for touch/stylus testing:
+       * don't let the browser interpret the gesture as scrolling,
+       * zooming, navigation, etc.
+       */
+  touch-action: none;
+
+  position: relative;
+  overflow: hidden;
+
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 25px 25px;
+}
+
+#crosshair {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  margin-left: -15px;
+  margin-top: -15px;
+  border: 1px solid #0ff;
+  border-radius: 50%;
+  pointer-events: none;
+  display: none;
+}
+
+#crosshair::before,
+#crosshair::after {
+  content: '';
+  position: absolute;
+  background: #0ff;
+}
+
+#crosshair::before {
+  width: 1px;
+  height: 44px;
+  left: 14px;
+  top: -8px;
+}
+
+#crosshair::after {
+  width: 44px;
+  height: 1px;
+  left: -8px;
+  top: 14px;
+}
+
+#output {
+  position: absolute;
+  inset: 10px;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.event {
+  position: absolute;
+  left: 0;
+  top: 0;
+  min-width: 300px;
+  max-width: min(650px, calc(100vw - 20px));
+  max-height: calc(100% - 0px);
+  overflow: auto;
+
+  padding: 10px;
+  border-radius: 8px;
+
+  background: rgba(0, 0, 0, 0.82);
+  border: 1px solid #444;
+
+  font-size: 12px;
+  line-height: 1.4;
+
+  pointer-events: auto;
+}
+
+.event-title {
+  color: #5ff;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.section {
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px solid #333;
+  color: #aaa;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+}
+
+.key {
+  color: #aaa;
+  flex: 0 0 170px;
+}
+
+.value {
+  color: #fff;
+  overflow-wrap: anywhere;
+}
+
+.interesting {
+  color: #ffcf5c;
+}
+
+#log {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: min(500px, calc(100vw - 20px));
+  max-height: 40%;
+  overflow: auto;
+
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 8px;
+
+  font-size: 11px;
+  pointer-events: auto;
+}
+
+.log-line {
+  white-space: nowrap;
+}
+
+.log-line span:first-child {
+  color: #5ff;
+}
+
+
+      /* EOS */
+    </style></head><body><div id="app">
+  <div id="controls">
+    <button id="clear">Clear</button>
+    <button id="toggleLog">Toggle Event Log</button>
+    <span id="status">Waiting for pointer...</span>
+  </div>
+
+  <div id="testArea">
+    <div id="crosshair"></div>
+
+    <div id="output"></div>
+
+    <div id="log"></div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+"use strict";
+
+const testArea = document.getElementById("testArea");
+const output = document.getElementById("output");
+const log = document.getElementById("log");
+const crosshair = document.getElementById("crosshair");
+const status = document.getElementById("status");
+
+const MAX_LOG_LINES = 100;
+
+document.getElementById("clear").addEventListener("click", () => {
+  output.innerHTML = "";
+  log.innerHTML = "";
+  status.textContent = "Cleared";
+});
+
+document.getElementById("toggleLog").addEventListener("click", () => {
+  log.hidden = !log.hidden;
+});
+
+/*
+ * Properties defined by PointerEvent / MouseEvent / Event.
+ *
+ * We intentionally probe the properties rather than assuming that
+ * every browser implements every one.
+ */
+const EVENT_PROPERTIES = [
+  // Event
+  [
+    "Event",
+    [
+      "type",
+      // "timeStamp",
+      // "bubbles",
+      // "cancelable",
+      // "defaultPrevented",
+      // "isTrusted",
+      // "composed",
+      // "eventPhase",
+    ],
+  ],
+
+  // Pointer identity
+  ["Pointer", ["pointerId", "pointerType", "isPrimary"]],
+
+  // Position
+  [
+    "Position",
+    [
+      // "clientX",
+      // "clientY",
+      // "pageX",
+      // "pageY",
+      // "screenX",
+      // "screenY",
+      // "offsetX",
+      // "offsetY",
+      "movementX",
+      "movementY",
+    ],
+  ],
+
+  // Contact geometry
+  ["Contact Geometry", ["width", "height", "pressure", "tangentialPressure"]],
+
+  // Pen orientation
+  [
+    "Pen Orientation",
+    ["tiltX", "tiltY", "twist", "altitudeAngle", "azimuthAngle"],
+  ],
+
+  // Buttons
+  ["Buttons", ["button", "buttons"]],
+
+  // Modifier keys
+  ["Modifier Keys", ["ctrlKey", "shiftKey", "altKey", "metaKey"]],
+
+  // Target / capture
+  ["Target", ["target", "currentTarget"]],
+];
+
+/*
+ * These are the Pointer Events we try to observe.
+ *
+ * pointerrawupdate is particularly interesting for high-frequency
+ * stylus input because it can expose updates before normal pointermove
+ * processing/coalescing.
+ */
+const POINTER_EVENTS = [
+  "pointerover",
+  "pointerenter",
+  "pointerdown",
+  "pointermove",
+  "pointerrawupdate",
+  "pointerup",
+  "pointercancel",
+  "pointerout",
+  "pointerleave",
+  "gotpointercapture",
+  "lostpointercapture",
+];
+
+function hasProperty(obj, name) {
+  return name in obj;
+}
+
+function formatNumber(value) {
+  if (typeof value !== "number") {
+    return String(value);
+  }
+
+  if (!Number.isFinite(value)) {
+    return String(value);
+  }
+
+  return Number(value.toFixed(6));
+}
+
+function formatValue(value) {
+  if (value === null) {
+    return "null";
+  }
+
+  if (value === undefined) {
+    return "undefined";
+  }
+
+  if (typeof value === "number") {
+    return formatNumber(value);
+  }
+
+  if (typeof value === "boolean") {
+    return value ? "true" : "false";
+  }
+
+  if (value instanceof Element) {
+    return `<${value.tagName.toLowerCase()}${value.id ? "#" + value.id : ""}>`;
+  }
+
+  return String(value);
+}
+
+function makeRow(name, value, interesting = false) {
+  const row = document.createElement("div");
+  row.className = "row";
+
+  const key = document.createElement("div");
+  key.className = "key";
+  key.textContent = name;
+
+  const val = document.createElement("div");
+  val.className = "value" + (interesting ? " interesting" : "");
+  val.textContent = formatValue(value);
+
+  row.appendChild(key);
+  row.appendChild(val);
+
+  return row;
+}
+
+function addSection(container, title) {
+  const section = document.createElement("div");
+  section.className = "section";
+  section.textContent = title;
+  container.appendChild(section);
+}
+
+/*
+ * Get a compact representation of a PointerEvent.
+ */
+function getEventData(e) {
+  const data = {};
+
+  for (const [, properties] of EVENT_PROPERTIES) {
+    for (const property of properties) {
+      if (hasProperty(e, property)) {
+        try {
+          data[property] = e[property];
+        } catch {
+          data[property] = "<error>";
+        }
+      }
+    }
+  }
+
+  return data;
+}
+
+function showEvent(e) {
+  /*
+   * Don't create a giant DOM tree for every pointermove.
+   * Replace the displayed event with the newest event.
+   */
+  output.innerHTML = "";
+
+  const box = document.createElement("div");
+  box.className = "event";
+
+  const title = document.createElement("div");
+  title.className = "event-title";
+  title.textContent = e.type;
+
+  box.appendChild(title);
+
+  for (const [sectionName, properties] of EVENT_PROPERTIES) {
+    const available = properties.filter((p) => hasProperty(e, p));
+
+    if (!available.length) {
+      continue;
+    }
+
+    addSection(box, sectionName);
+
+    for (const property of available) {
+      let value;
+
+      try {
+        value = e[property];
+      } catch {
+        value = "<error>";
+      }
+
+      const interesting = [
+        "pointerType",
+        "isPrimary",
+        "pressure",
+        "tangentialPressure",
+        "tiltX",
+        "tiltY",
+        "twist",
+        "altitudeAngle",
+        "azimuthAngle",
+      ].includes(property);
+
+      box.appendChild(makeRow(property, value, interesting));
+    }
+  }
+
+  /*
+   * Feature detection for the newer coalesced/predicted APIs.
+   */
+  addSection(box, "High-frequency Pointer Data");
+
+  if (typeof e.getCoalescedEvents === "function") {
+    const events = e.getCoalescedEvents();
+
+    box.appendChild(makeRow("getCoalescedEvents()", events.length));
+
+    if (events.length) {
+      const last = events[events.length - 1];
+
+      box.appendChild(
+        makeRow(
+          "last coalesced",
+          `x=${formatNumber(last.clientX)}, ` +
+            `y=${formatNumber(last.clientY)}, ` +
+            `pressure=${formatNumber(last.pressure)}, ` +
+            `tiltX=${formatNumber(last.tiltX)}, ` +
+            `tiltY=${formatNumber(last.tiltY)}`,
+        ),
+      );
+    }
+  } else {
+    box.appendChild(makeRow("getCoalescedEvents()", "NOT SUPPORTED"));
+  }
+
+  if (typeof e.getPredictedEvents === "function") {
+    const events = e.getPredictedEvents();
+
+    box.appendChild(makeRow("getPredictedEvents()", events.length));
+
+    if (events.length) {
+      const last = events[events.length - 1];
+
+      box.appendChild(
+        makeRow(
+          "last predicted",
+          `x=${formatNumber(last.clientX)}, ` +
+            `y=${formatNumber(last.clientY)}, ` +
+            `pressure=${formatNumber(last.pressure)}`,
+        ),
+      );
+    }
+  } else {
+    box.appendChild(makeRow("getPredictedEvents()", "NOT SUPPORTED"));
+  }
+
+  /*
+   * Show every property actually present on the event prototype.
+   * This catches browser-specific/new PointerEvent properties that
+   * aren't in our predefined list.
+   */
+  addSection(box, "Other PointerEvent Properties");
+
+  const known = new Set();
+
+  for (const [, properties] of EVENT_PROPERTIES) {
+    for (const property of properties) {
+      known.add(property);
+    }
+  }
+
+  let proto = e;
+
+  const discovered = new Set();
+
+  while (proto && proto !== Object.prototype) {
+    for (const property of Object.getOwnPropertyNames(proto)) {
+      discovered.add(property);
+    }
+
+    proto = Object.getPrototypeOf(proto);
+  }
+
+  const other = [...discovered]
+    .filter(
+      (name) =>
+        !known.has(name) &&
+        name !== "constructor" &&
+        !name.startsWith("webkit"),
+    )
+    .sort();
+
+  for (const property of other) {
+    let value;
+
+    try {
+      value = e[property];
+    } catch {
+      continue;
+    }
+
+    /*
+     * Don't dump methods/functions.
+     */
+    if (typeof value === "function") {
+      continue;
+    }
+
+    box.appendChild(makeRow(property, value));
+  }
+
+  output.appendChild(box);
+}
+
+function updatePointerPosition(e) {
+  if (typeof e.clientX !== "number") {
+    return;
+  }
+
+  const rect = testArea.getBoundingClientRect();
+
+  crosshair.style.left = `${e.clientX - rect.left}px`;
+  crosshair.style.top = `${e.clientY - rect.top}px`;
+  crosshair.style.display = "block";
+}
+
+function addLog(e) {
+  const line = document.createElement("div");
+  line.className = "log-line";
+
+  const time = new Date().toLocaleTimeString();
+
+  line.innerHTML =
+    `<span>${time}</span> ` +
+    `${escapeHtml(e.type)} ` +
+    `id=${escapeHtml(e.pointerId)} ` +
+    `type=${escapeHtml(e.pointerType)} ` +
+    `primary=${escapeHtml(e.isPrimary)} ` +
+    `pressure=${escapeHtml(formatNumber(e.pressure))}`;
+
+  log.appendChild(line);
+
+  while (log.children.length > MAX_LOG_LINES) {
+    log.removeChild(log.firstChild);
+  }
+
+  log.scrollTop = log.scrollHeight;
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+/*
+ * Install every PointerEvent listener.
+ */
+for (const eventName of POINTER_EVENTS) {
+  testArea.addEventListener(
+    eventName,
+    (e) => {
+      updatePointerPosition(e);
+      showEvent(e);
+      addLog(e);
+
+      status.textContent =
+        `${e.type} · ` +
+        `pointerType=${e.pointerType} · ` +
+        `id=${e.pointerId}`;
+    },
+    {
+      passive: true,
+    },
+  );
+}
+
+/*
+ * Also listen for traditional mouse events.
+ *
+ * This is useful for seeing whether the browser is producing
+ * compatibility mouse events from the Pencil/touch input.
+ */
+const MOUSE_EVENTS = [
+  "mousedown",
+  "mousemove",
+  "mouseup",
+  "click",
+  "dblclick",
+  "contextmenu",
+];
+
+for (const eventName of MOUSE_EVENTS) {
+  testArea.addEventListener(
+    eventName,
+    (e) => {
+      addLog(e);
+    },
+    {
+      passive: true,
+    },
+  );
+}
+
+/*
+ * Show whether the browser exposes PointerEvent at all and which
+ * properties exist on its prototype.
+ */
+console.log("PointerEvent supported:", "PointerEvent" in window);
+
+if ("PointerEvent" in window) {
+  console.log(
+    "PointerEvent prototype:",
+    Object.getOwnPropertyNames(PointerEvent.prototype),
+  );
+
+  console.log("PointerEvent features:", {
+    altitudeAngle: "altitudeAngle" in PointerEvent.prototype,
+    azimuthAngle: "azimuthAngle" in PointerEvent.prototype,
+    tangentialPressure: "tangentialPressure" in PointerEvent.prototype,
+    twist: "twist" in PointerEvent.prototype,
+    width: "width" in PointerEvent.prototype,
+    height: "height" in PointerEvent.prototype,
+    pressure: "pressure" in PointerEvent.prototype,
+  });
+}
+
+/*
+ * Initial feature summary.
+ */
+status.textContent = "Ready — touch or use Apple Pencil in the area below.";
+
+
+  </script></body></html>

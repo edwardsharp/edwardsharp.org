@@ -1,0 +1,85 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="https://fiddle.jshell.net/edwardsharp/axmxa5kL/listing_embed/?disableModals=true&amp;version=0"><title>JS: canvas Drag 'n Drop</title>
+
+<style id="compiled-css" type="text/css">
+      html,body{margin:0; padding:0}
+canvas {display:block}
+
+      /* EOS */
+    </style></head><body>
+<script type="text/javascript">
+
+Number.prototype.clamp = Number.prototype.clamp || function (min, max) {
+    return this < min ? min : (this > max ? max : this);
+};
+
+var canvas = document.createElement('canvas'),
+    ctx = canvas.getContext('2d'),
+    width = canvas.width = window.innerWidth,
+    height = canvas.height = window.innerHeight;
+
+document.body.appendChild(canvas);
+
+var mouse = {
+    x: 0,
+    y: 0,
+    down: false,
+    hover: function (rect) {
+        return (this.x > rect.x && this.x < (rect.x + rect.w)) && (this.y > rect.y && this.y < (rect.y + rect.h));
+    }
+};
+
+var shape = {
+    w: 100,
+    h: 100,
+    x: width / 2 - 50,
+    y: height / 2 - 50,
+    xOff: 0,
+    yOff: 0,
+    hover: false
+};
+
+function clear() {
+    ctx.clearRect(0, 0, width, height);
+}
+
+function update() {
+    shape.hover = mouse.hover(shape);
+
+    if (shape.hover && mouse.down) {
+        shape.x = mouse.x - shape.xOff;
+        shape.y = mouse.y - shape.yOff;
+    }
+
+    shape.x = shape.x.clamp(0, width - shape.w);
+    shape.y = shape.y.clamp(0, height - shape.h);
+}
+
+function draw() {
+    var hover = shape.hover ? '#222' : '#000';
+    ctx.fillStyle = mouse.down ? "#444" : hover;
+    ctx.fillRect(shape.x, shape.y, shape.w, shape.h);
+}
+
+function mousemove(e) {
+    mouse.x = e.pageX - canvas.offsetLeft;
+    mouse.y = e.pageY - canvas.offsetTop;
+}
+
+function mousedown(e) {
+    mouse.down = e.type === "mousedown";
+    shape.xOff = mouse.x - shape.x;
+    shape.yOff = mouse.y - shape.y;
+}
+
+(function loop() {
+    clear();
+    update();
+    draw();
+    setTimeout(loop, 20);
+}());
+
+document.onmousemove = mousemove;
+document.onmousedown = document.onmouseup = mousedown;
+
+  </script></body></html>

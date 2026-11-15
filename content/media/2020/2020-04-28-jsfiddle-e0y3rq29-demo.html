@@ -1,0 +1,62 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="https://fiddle.jshell.net/edwardsharp/e0y3rq29/listing_embed/?disableModals=true&amp;version=3"><title>useInterval</title>
+<script type="text/javascript" src="//unpkg.com/react@18/umd/react.development.js"></script>
+<script type="text/javascript" src="//unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script type="text/javascript" src="https://jsfiddle.net/vite-dist/compiler/babel6-52398a05.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/normalize.css">
+<style id="compiled-css" type="text/css">
+      body {
+  background: #666;
+  padding: 20px;
+  font-family: sans-serrif;
+  font-size: 2em;
+  color: white;
+}
+
+button {
+  margin-left: 1em;
+  background-color: #000;
+  border-color: #000;
+  color: white;
+  font-size: 1em;
+}
+button:hover{
+  color: #eeddee;
+  border: inset 1px #eeddee;
+}
+
+
+      /* EOS */
+    </style></head><body><div id="app"></div>
+<script type="text/jsx" data-presets="es2017,react,stage-0" data-plugins="transform-decorators-legacy">
+
+function useInterval(callback, delay) {
+  const cbRef = React.useRef(callback)
+  React.useEffect(() => {
+    cbRef.current = callback
+  }, [callback])
+  React.useEffect(() => {
+    function tick() {
+      cbRef.current()
+    }
+    const id = window.setInterval(tick, delay)
+    return () => window.clearInterval(id)
+  }, [delay])
+}
+
+
+function HelloWorld(){
+	useInterval(() => console.log("yo"), 100)
+  useInterval(() => console.log("yo dawg"), 100)
+  
+ 	return (
+  	<div>
+  	 see console.log
+  	</div>
+  )
+}
+
+ReactDOM.render(<HelloWorld />, document.querySelector("#app"))
+
+
+  </script></body></html>

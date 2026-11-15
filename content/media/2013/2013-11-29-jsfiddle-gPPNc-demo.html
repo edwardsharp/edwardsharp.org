@@ -1,0 +1,31 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="https://fiddle.jshell.net/edwardsharp/gPPNc/listing_embed/?disableModals=true&amp;version=1"><title>jsfiddle / gPPNc</title>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="https://code.createjs.com/soundjs-0.5.0.min.js"></script>
+<script type="text/javascript" src="https://code.createjs.com/preloadjs-0.3.0.min.js"></script>
+<style id="compiled-css" type="text/css">
+      
+
+      /* EOS */
+    </style></head><body><script src="http://code.createjs.com/soundjs-0.5.0.min.js"></script>
+<script src="http://code.createjs.com/preloadjs-0.3.0.min.js"></script>
+<button id="play">Play</button>
+<button id="stop">Stop</button>
+<script type="text/javascript">
+
+var manifest = [
+    {id:"waiting", src:"http://futuredeathtoll.com/upload/filez/djhrn.mp3"}
+    
+]
+var preload = new createjs.LoadQueue()
+preload.installPlugin(createjs.Sound)
+preload.loadManifest(manifest)
+
+$('#play').on('click',function() {
+    createjs.Sound.play("waiting", createjs.Sound.INTERRUPT_NONE, 0, 0, -1, 1)
+});
+$('#stop').on('click',function() {
+    createjs.Sound.stop()
+});
+
+  </script></body></html>

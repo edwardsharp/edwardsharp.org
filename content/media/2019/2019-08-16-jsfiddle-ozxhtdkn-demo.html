@@ -1,0 +1,144 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="https://fiddle.jshell.net/edwardsharp/ozxhtdkn/listing_embed/?disableModals=true&amp;version=68"><title>interview puzzle</title>
+
+<style id="compiled-css" type="text/css">
+      body{
+  font-family: san-serrif;
+}
+
+      /* EOS */
+    </style></head><body>
+<script type="text/javascript">
+
+/* so i failed this interview question; but i'm stubborn, tho.
+ * :/
+ * given the matrix below
+ * find the 1 values that are clustered together:
+ * either next to (left or right) or above or below.
+ * then replace those 1 values with how many are clustered.
+*/
+
+const matrix = [
+  [0,1,0,0,0,0,1,1,1,1],
+  [0,0,1,0,0,0,0,1,0,1],
+  [0,0,1,0,0,1,0,0,0,1],
+  [1,0,1,0,1,1,0,0,1,1],
+  [1,1,0,0,0,0,1,1,0,0],
+  [0,0,1,1,1,0,0,0,0,1],
+]
+let clusters = [];
+let vertz = {};
+
+function yyC(k, i) {
+  k = parseInt(k);
+  i = parseInt(i);
+  //forward
+  for (let z = i; z < 10; z++) {
+    if (matrix[k][z]) {
+      vertz[`${k}:${z}`] = 1;
+    } else { break; }
+  }
+  //backward
+  for (let z = i; z > -1; z--) {
+    if (matrix[k][z]) {
+      vertz[`${k}:${z}`] = 1;
+    } else { break; }
+  }
+}
+
+function zC(x,i){
+  //go up
+  for (let k = x; k > -1; k--) {
+    if (matrix[k][i]) {
+      vertz[`${k}:${i}`] = 1;
+      yyC(k,i);
+    } else { break; }
+  }
+  //go down
+  for (let k = x; k < 6; k++) {
+    if (matrix[k][i]) {
+      vertz[`${k}:${i}`] = 1;
+      yyC(k,i);
+    } else { break; }
+  }
+}
+
+function yC(k, i) {
+  k = parseInt(k);
+  i = parseInt(i);
+  //forward
+  for (let z = i; z < 10; z++) {
+    if (matrix[k][z]) {
+      vertz[`${k}:${z}`] = 1;
+      zC(k,z);
+    } else { break; }
+  }
+  //backward
+  for (let z = i; z > -1; z--) {
+    if (matrix[k][z]) {
+      vertz[`${k}:${z}`] = 1;
+      zC(k,z);
+    } else { break; }
+  }
+}
+
+function xC(x,i){
+  //go up
+  for (let k = x; k > -1; k--) {
+    if (matrix[k][i]) {
+      vertz[`${k}:${i}`] = 1;
+      //also go forward/backward.
+      yC(k, i);
+    } else { break; }
+  }
+  //go down
+  for (let k = x; k < 6; k++) {
+    if (matrix[k][i]) {
+      vertz[`${k}:${i}`] = 1;
+      //also go forward/backward.
+      yC(k, i);
+    } else { break; }
+  }
+}
+
+function nC(x, y) {
+  x = parseInt(x);
+  y = parseInt(y);
+  vertz = {};
+
+  //check here & go forward.
+  for (let i = y; i < 10; i++) {
+    if (matrix[x][i]) {
+      vertz[`${x}:${i}`] = 1;
+      xC(x,i);
+    } else { break; }
+  }
+  //go backward.
+  for (let i = y; i > -1; i--) {
+    if (matrix[x][i]) {
+      vertz[`${x}:${i}`] = 1;
+      xC(x,i);
+    } else { break; }
+  }
+
+  console.log(`${x}:${y} ${Object.keys(vertz).length} vertz:`,vertz)
+  return Object.keys(vertz).length;
+}
+
+for (const x in matrix) {
+  clusters[x] = [];
+  for (const y in matrix[x]) {
+    clusters[x][y] = matrix[x][y] === 1 ? nC(x, y) : 0;
+  }
+} 
+console.log(clusters);
+for(let item of matrix){
+	document.body.innerHTML += `<div>${JSON.stringify(item)}</div>`;
+}
+document.body.innerHTML += '<hr>';
+for (let fuck of clusters) {
+  document.body.innerHTML += `<div>${JSON.stringify(fuck)}</div>`;
+}
+
+
+  </script></body></html>

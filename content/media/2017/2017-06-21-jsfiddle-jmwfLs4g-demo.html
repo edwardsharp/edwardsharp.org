@@ -1,0 +1,166 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="https://fiddle.jshell.net/edwardsharp/jmwfLs4g/listing_embed/?disableModals=true&amp;version=2"><title>chat window thing</title>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<style id="compiled-css" type="text/css">
+      body {
+    font-family: "Segoe UI", "Lucida Grande", "Helvetica Neue", sans-serif;
+}
+.messenger {
+    height: 350px; width: 270px;
+    background: #fff;
+    position: fixed;
+    bottom: 50px; right: 20px;
+    border-radius: 0 0 4px 4px;
+    -moz-border-radius: 0 0 4px 4px;
+    -webkit-border-radius: 0 0 4px 4px;
+}
+.messenger:before {
+    content: "";
+    position: absolute;
+    top: 100.1%;
+    left: 214px;
+    border-style: solid;
+    border-width: 15px 13px 0;
+    border-color: #a3a3a3 transparent;
+    display: block;
+    width: 0;
+    z-index: 0;
+}
+.messenger:after {
+    content: "";
+    position: absolute;
+    bottom: -14.4px;
+    left: 215px;
+    border-style: solid;
+    border-width: 15px 12px 0;
+    border-color: #f0f0f0 transparent;
+    display: block;
+    width: 0;
+    z-index: 1;
+}
+.messenger_headerWrap {
+    height: 35px; width: 100%;
+    color: #FFF; font-size: 15px;
+    background: #333; vertical-align: middle;
+}
+.messenger-header {
+    position: absolute;
+    top: 7px; left: 7px;
+    max-width: 200px;
+}
+.messenger-actions {
+    position: absolute;
+    right: 7px;
+}
+.tbox {
+    height: 78.2%; width: 268px;
+    border: 1px solid #a3a3a3;
+    background: #fff;
+    border-bottom: 0;
+    font-size: 14px;
+    overflow: auto;
+}
+.msgWrap_n {
+    width: 238px; max-height: 245px;
+    padding: 10px;
+    position: relative;
+    top: 5px;
+}
+.picWrap_u {
+    height: 35px; width: 35px;
+    background: #444;
+    position: absolute;
+    bottom: 15px; right: 20px;
+    display: inline-block;
+}
+.msgWrap_u {
+    width: 180px; min-height: 20px;
+    color: #FFF;
+    position: relative;
+    word-wrap: break-word;
+}
+.UIgBubble {
+    padding: 5px;
+    background: #0099CC;
+    border: #1874CD solid 1px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    display:inline-block;
+}
+.UIgBubble:before {
+    content: "";
+    position: absolute;
+    bottom: 5px;
+    left: 100%;
+    border-style: solid;
+    border-width: 7px 0 7px 10px;
+    border-color: transparent #1874CD;
+    display: block;
+    width: 0;
+    z-index: 0;
+}
+.UIgBubble:after {
+    content: "";
+    position: absolute;
+    bottom: 5px;
+    right: -7px;
+    border-style: solid;
+    border-width: 7px 0 7px 10px;
+    border-color: transparent #0099CC;
+    display: block;
+    width: 0;
+    z-index: 1;
+}
+.textareaWrap {
+    height: 35px; width: 268px;
+    background: transparent;
+}
+.messenger-header, .uiCloseSmall:hover {
+    cursor: pointer;
+}
+textarea[name=chat] {
+    resize: none;
+    height: 24px; width: 254px;
+    padding: 7px;
+    display: block;
+    font-size: 14px;
+    background: #f0f0f0;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-top: 1px solid #d3d3d3;
+    border-left: 1px solid #a3a3a3;
+    border-bottom: 1px solid #a3a3a3;
+    border-right: 1px solid #a3a3a3;
+}
+textarea:hover {
+    outline: none;
+    border-color: #668CFF;
+    box-shadow: 0 0 1px #668CFF;
+}
+textarea:focus {
+    outline: none;
+    border-color: #4D79FF;
+    box-shadow: 0 0 2px #4D79FF;
+}
+
+      /* EOS */
+    </style></head><body><div class="messenger">
+    <div class="messenger_headerWrap">
+        <span class="messenger-header">eeddee</span>
+        <span class="messenger-actions">
+            <span class="uiCloseSmall">&times</span>
+        </span>
+    </div>
+    <div class="tbox">
+        <div class="msgWrap_n">
+            
+        </div>
+    </div>
+    <div class="textareaWrap">
+        <textarea class="nobr" name="chat"></textarea>
+    </div>
+</div>
+<script type="text/javascript">
+
+  </script></body></html>

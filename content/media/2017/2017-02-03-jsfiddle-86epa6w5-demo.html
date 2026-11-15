@@ -1,0 +1,86 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="https://fiddle.jshell.net/edwardsharp/86epa6w5/listing_embed/?disableModals=true&amp;version=10"><title>jQuery donation slider</title>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="//code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
+<style id="compiled-css" type="text/css">
+      #slider-donation {
+  float: left;
+  width: 60%;
+  margin: 0.8em 1.5em 0.8em 1.5em;
+}
+
+#slider-donation label {
+  position: absolute;
+  width: 20px;
+  margin-left: -2em;
+  text-align: center;
+  margin-top: 20px;
+}
+
+#slider-donation label:first-of-type {
+  margin-left: 0;
+}
+
+#slider-txt {
+  font-size: 1.9em;
+  padding: 0.1em;
+  border: thin solid gray;
+  border-radius: 3px;
+  width: 2.5em;
+}
+
+#slider-donation .ui-slider-handle {
+  border-radius: 50px;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+}
+
+#slider-donation .ui-slider-handle .ui-state-default,
+#slider-donation .ui-widget-content .ui-state-default {
+  background: #BDC3C7;
+}
+
+#slider-donation .ui-slider-range {
+  background: #59BA41;
+}
+
+#slider-donation.ui-widget-content {
+  background: #ECF0F1;
+  border: none;
+}
+
+
+      /* EOS */
+    </style></head><body><div id="slider-donation"></div>
+<input id="slider-txt" type="number" min="18" />
+
+<script type="text/javascript">
+
+jQuery(document).ready(function($) {
+  $("#slider-donation").slider({
+    range: "min",
+    value: 100,
+    min: 18,
+    max: 666,
+    step: 1,
+    animate: 200,
+    slide: function(event, ui) {
+      $("#slider-txt").val(ui.value);
+    }
+  }).each(function() {
+    var opt = $(this).data().uiSlider.options;
+    var vals = opt.max - opt.min;
+    for (var i = opt.min - 1; i < opt.max; i++) {
+      if (i == opt.min - 1 || i == opt.max - 1) {
+        var el = $('<label>$' + (i + 1) + '</label>').css('left', ((i - opt.min) / vals) * 100 + '%');
+        $("#slider-donation").append(el);
+      }
+    }
+
+  });
+
+});
+
+
+  </script></body></html>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="https://fiddle.jshell.net/edwardsharp/k5eeL5qd/listing_embed/?disableModals=true&amp;version=1"><title>Angular Sortable Demo</title>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.8.3.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/normalize.css">
+<script type="text/javascript" src="//code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
+<script type="text/javascript" src="https://code.angularjs.org/1.0.0rc10/angular-1.0.0rc10.js"></script>
+<style id="compiled-css" type="text/css">
+      li {
+    padding: 5px;
+    border: 1px solid #999;
+    background: #eee;
+    margin: 5px;
+    cursor: move;
+}
+
+
+
+      /* EOS */
+    </style></head><body><script src="http://code.angularjs.org/1.0.0rc10/angular-1.0.0rc10.js"></script>
+<div ng-controller="SortableCTRL">
+    <ul id="sortable">
+        <li ng-repeat="item in sortableArray" ng-bind="item"></li>
+    </ul>
+    
+    <button ng-click="add()">Add</button>
+    <hr>
+    <pre ng-bind="sortableArray|json"></pre>
+</div>
+
+<script type="text/javascript">
+
+function SortableCTRL($scope) {
+    var sortableEle;
+    
+    $scope.sortableArray = [
+        'Zero', 'One', 'Two'
+    ];
+    
+    $scope.add = function() {
+        $scope.sortableArray.push('Item: '+$scope.sortableArray.length);
+        
+        sortableEle.refresh();
+    }
+    
+    $scope.dragStart = function(e, ui) {
+        ui.item.data('start', ui.item.index());
+    }
+    $scope.dragEnd = function(e, ui) {
+        var start = ui.item.data('start'),
+            end = ui.item.index();
+        
+        $scope.sortableArray.splice(end, 0, 
+            $scope.sortableArray.splice(start, 1)[0]);
+        
+        $scope.$apply();
+    }
+        
+    sortableEle = $('#sortable').sortable({
+        start: $scope.dragStart,
+        update: $scope.dragEnd
+    });
+}
+
+
+
+
+  </script></body></html>

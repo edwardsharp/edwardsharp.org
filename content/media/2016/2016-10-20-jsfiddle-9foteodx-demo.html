@@ -1,0 +1,66 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="https://fiddle.jshell.net/edwardsharp/9foteodx/listing_embed/?disableModals=true&amp;version=8"><title>polyfiddle</title>
+
+<style id="compiled-css" type="text/css">
+      body {
+  font-family: sans-serif;
+}
+
+
+      /* EOS */
+    </style></head><body><script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.4.8/fabric.min.js"></script>
+<base href="https://polygit.org/components/">
+<script src="webcomponentsjs/webcomponents-lite.min.js"></script>
+<link href="polymer/polymer.html" rel="import">
+
+<dom-module id="x-example">
+  <template>
+    <h1>polyfiddle</h1>
+    <div id="objectTools" hidden$="{{objectToolsHidden}}">
+      <h1> object toolz!</h1>
+    </div>
+    <canvas id="c" width="400" height="400"></canvas>
+  </template>
+  <script>
+  Polymer({
+    is: 'x-example',
+    properties: {
+      canvas: Object,
+      objectToolsHidden: {
+      	type: Boolean,
+        notify: true,
+        value: true
+      }
+    },
+    _onObjectSelected: function(e){
+    	//hmm, this is the canvas elem... (???)
+    	this.set('objectToolsHidden', false);
+    },
+    _onSelectionCleared: function(e){
+    	this.set('objectToolsHidden', true);
+    },
+    ready: function(){
+      this.canvas = new fabric.Canvas(this.$.c);
+      var rect = new fabric.Rect({
+          top : 100,
+          left : 100,
+          width : 60,
+          height : 70,
+          fill : 'black'
+      });
+
+      this.canvas.add(rect);
+      
+      this.canvas.on({
+       'object:selected': this._onObjectSelected.bind(this),
+       'selection:cleared': this._onSelectionCleared.bind(this)
+      });
+    }
+  });
+  </script>
+</dom-module>
+
+<x-example></x-example>
+<script type="text/javascript">
+
+  </script></body></html>

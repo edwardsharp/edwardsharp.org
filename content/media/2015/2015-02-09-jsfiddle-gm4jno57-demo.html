@@ -1,0 +1,33 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="https://fiddle.jshell.net/edwardsharp/gm4jno57/listing_embed/?disableModals=true&amp;version=1"><title>jsfiddle / gm4jno57</title>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.js"></script>
+<style id="compiled-css" type="text/css">
+      
+
+      /* EOS */
+    </style></head><body><div ng-app ng-controller="jsonp_thingy">
+    <button ng-click="doRequest()">Make JSONP request</button>
+</div>
+<script type="text/javascript">
+
+// pop open yr console
+
+function jsonp_callback(data) {
+    // returning from async callbacks is (generally) meaningless
+    console.log(data.found);
+}
+
+function jsonp_thingy($scope, $http) {
+    $scope.doRequest = function() {
+        var url = "http://public-api.wordpress.com/rest/v1/sites/wtmpeachtest.wordpress.com/posts?callback=jsonp_callback";
+
+        $http.jsonp(url);
+    };
+
+    var url = "http://public-api.wordpress.com/rest/v1/sites/wtmpeachtest.wordpress.com/posts?callback=jsonp_callback";
+
+    $http.jsonp(url);
+}
+
+
+  </script></body></html>

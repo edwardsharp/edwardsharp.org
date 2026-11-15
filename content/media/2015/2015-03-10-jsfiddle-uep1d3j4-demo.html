@@ -1,0 +1,76 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="https://fiddle.jshell.net/edwardsharp/uep1d3j4/listing_embed/?disableModals=true&amp;version=5"><title>simple angular json request</title>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.js"></script>
+<script type="text/javascript" src="https://momentjs.com/downloads/moment.js"></script>
+<style id="compiled-css" type="text/css">
+      
+
+      /* EOS */
+    </style></head><body><script src="http://momentjs.com/downloads/moment.js"></script>
+<div ng-app="">
+  <div ng-controller="FetchCtrl">
+    <button ng-click="updateModel('GET', 'http-hello.html')">Sample GET</button>
+    <button ng-click="updateModel('GET', googleCalUrl())">GoogleCal</button>
+    <button ng-click="updateModel('JSONP', 'http://angularjs.org/greet.php?callback=JSON_CALLBACK&name=Super%20Hero')">Sample JSONP</button>
+    <button ng-click="updateModel('JSONP', 'http://angularjs.org/doesntexist&callback=JSON_CALLBACK')">Invalid JSONP</button>
+      <br />
+    <select ng-model="method"> 
+      <option>GET</option>
+      <option>JSON</option>
+      <option>JSONP</option>
+    </select>
+      <br />
+    <input type="text" ng-model="url" size="80"/>
+    <button ng-click="fetch()">fetch</button><br>
+    
+    <pre>http status code: {{status}}</pre>
+    <pre>http response data: {{data}}</pre>
+  </div>
+  
+  
+  <!-- http-hello.html -->
+  <script type="text/ng-template" id="http-hello.html">
+    Hello, $http! (in-line templates r kool!)
+  </script>
+</div>
+<script type="text/javascript">
+
+function FetchCtrl($scope, $http, $templateCache) {
+  $scope.method = 'JSONP';
+  $scope.url = 'http://ec2-54-225-22-193.compute-1.amazonaws.com/api/search';
+
+  $scope.fetch = function() {
+    $scope.code = null;
+    $scope.response = null;
+
+    $http({method: $scope.method, url: $scope.url, cache: $templateCache}).
+      success(function(data, status) {
+        $scope.status = status;
+        $scope.data = data;
+      }).
+      error(function(data, status) {
+        $scope.data = data || "Request failed";
+        $scope.status = status;
+    });
+  };
+
+  $scope.updateModel = function(method, url) {
+    $scope.method = method;
+    $scope.url = url;
+  };
+    
+    $scope.googleCalUrl = function() {
+        var start_date = new Date();
+        var end_date = moment(new Date(start_date)).add(1, 'days'); 
+        var cal_id = 'edward%40edwardsharp.net';
+        var cal_api_key = 'REDACTED_API_KEY'; 
+        console.log("hey");
+        return 'https://www.googleapis.com/calendar/v3/calendars/' + cal_id + '/events?singleEvents=true&orderBy=startTime&timeMin=' + start_date.toISOString() + '&timeMax=' +end_date.toISOString() + '&key=' + cal_api_key;
+        
+    };
+      
+}
+
+
+
+  </script></body></html>

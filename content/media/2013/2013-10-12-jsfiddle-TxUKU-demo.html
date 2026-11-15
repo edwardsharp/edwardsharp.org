@@ -1,0 +1,42 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="https://fiddle.jshell.net/edwardsharp/TxUKU/listing_embed/?disableModals=true&amp;version=1"><title>jsfiddle / TxUKU</title>
+<script type="text/javascript" src="//code.jquery.com/jquery-compat-git.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi?fake=.js"></script>
+<script type="text/javascript" charset="UTF-8" src="https://www.gstatic.com/charts/51/loader.js"></script>
+<link id="load-css-0" rel="stylesheet" type="text/css" href="https://www.gstatic.com/charts/51/css/core/tooltip.css">
+<link id="load-css-1" rel="stylesheet" type="text/css" href="https://www.gstatic.com/charts/51/css/util/util.css">
+<script type="text/javascript" charset="UTF-8" src="https://www.gstatic.com/charts/51/js/jsapi_compiled_default_module.js"></script>
+<script type="text/javascript" charset="UTF-8" src="https://www.gstatic.com/charts/51/js/jsapi_compiled_graphics_module.js"></script>
+<script type="text/javascript" charset="UTF-8" src="https://www.gstatic.com/charts/51/js/jsapi_compiled_ui_module.js"></script>
+<script type="text/javascript" charset="UTF-8" src="https://www.gstatic.com/charts/51/js/jsapi_compiled_corechart_module.js"></script>
+<style id="compiled-css" type="text/css">
+      
+
+      /* EOS */
+    </style></head><body><script src="http://www.google.com/jsapi?fake=.js"></script>
+
+<body style="font-family: Arial;border: 0 none;">
+  <div id="visualization_div" style="width: 600px; height: 400px;"></div>
+
+<script type="text/javascript">
+
+google.load('visualization', '1', {packages: ['corechart']});
+    function drawVisualization() {
+      var queryText = encodeURIComponent("SELECT Year, Austria, Bulgaria, Denmark, Greece FROM 641716");
+      google.visualization.drawChart({
+        "containerId": "visualization_div",
+        "dataSourceUrl": 'https://www.google.com/fusiontables/gvizdata?tq=',
+        "query":"SELECT Year, Austria, Bulgaria, Denmark, Greece FROM 641716",
+        "refreshInterval": 5,
+        "chartType": "BarChart",
+        "options": {
+          "title":"Yearly Coffee Consumption by Country",
+          "vAxis": {"title": "Year"},
+          "hAxis": {"title": "Cups"}
+        }
+      });
+    }
+
+    google.setOnLoadCallback(drawVisualization);
+
+  </script></body></html>

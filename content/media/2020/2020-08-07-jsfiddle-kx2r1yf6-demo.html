@@ -1,0 +1,45 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="https://fiddle.jshell.net/edwardsharp/kx2r1yf6/listing_embed/?disableModals=true&amp;version=12"><title>jsfiddle / kx2r1yf6</title>
+
+<style id="compiled-css" type="text/css">
+      #exactMatchLabel {
+  display: flex;
+  align-items: center;
+}
+
+#exactMatchLabel input {
+  display: none;
+}
+
+#exactMatchLabel span.check {
+  height: 30px;
+  width: 30px;
+  border: 1px solid grey;
+  display: inline-block;
+  position: relative;
+}
+
+#exactMatchLabel [type=checkbox]:checked+span.check:before {
+  content: '\00d7';
+  position: absolute;
+  top: -14px;
+  left: 2px;
+  font-size: 45px;
+}
+
+#exactMatchLabel span.label {
+  margin-left: 0.5em;
+}
+
+
+      /* EOS */
+    </style></head><body><label id="exactMatchLabel">
+  <input type='checkbox'>
+  <span class="check"></span>
+  <span class="label">Checkbox label text</span>
+</label>
+
+
+<script type="text/javascript">
+
+  </script></body></html>

@@ -1,0 +1,93 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="https://fiddle.jshell.net/edwardsharp/q3jq6ztm/listing_embed/?disableModals=true&amp;version=7"><title>tubeslide</title>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.6.2.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/normalize.css">
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.js"></script>
+<style id="compiled-css" type="text/css">
+      .parent {
+  width: 100%;
+}
+
+.list {
+  background-color: #d0d0d0;
+  color: white;
+  white-space: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  /*text-align:left;*/
+}
+
+.item {
+  background-color: #404040;
+  height: 270px;
+  width: 320px;
+  margin: 0 4px 8px 4px;
+  cursor: pointer;
+  display: inline-block;
+  /*float:left;*/
+  /*float:none;*/
+  /*clear:both;*/
+}
+
+.placeholder {
+  height: 270px;
+  width: 60px;
+  display: inline-block;
+  margin: 10px;
+  background-color: yellow;
+}
+
+
+      /* EOS */
+    </style></head><body><script src="//cdn.jsdelivr.net/jquery.scrollto/2.1.2/jquery.scrollTo.min.js"></script>
+<button id="new_elem">new elem</button>
+<div id="parent" class="parent">
+  <div id="list" class="list">
+    <div class="item">A</div>
+    <div class="item">B</div>
+    <div class="item">C</div>
+    <div class="item">D</div>
+    <div class="item">E</div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+function nextLetter() {
+  s = $("#list .item").last().html();
+  return s.replace(/([a-zA-Z])[^a-zA-Z]*$/, function(a) {
+    var c = a.charCodeAt(0);
+    switch (c) {
+      case 90:
+        return 'A';
+      case 122:
+        return 'a';
+      default:
+        return String.fromCharCode(++c);
+    }
+  });
+}
+
+$(function() {
+  $('#list').disableSelection().sortable({
+    scroll: true,
+    placeholder: 'placeholder',
+    start: function(event, ui) {
+      ui.placeholder.html('&nbsp;')
+    },
+    axis: 'x'
+  });
+
+  $("#new_elem").click(function() {
+    $('<div/>', {
+      class: 'item',
+      text: nextLetter()
+    }).appendTo('#list');
+    $("#list").sortable('refresh');
+    $("#list").scrollTo($("#list .item").last(), 800);
+  });
+
+});
+
+
+  </script></body></html>

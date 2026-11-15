@@ -1,0 +1,43 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="https://fiddle.jshell.net/edwardsharp/3b4g0s0v/listing_embed/?disableModals=true&amp;version=9"><title>jsfiddle / 3b4g0s0v</title>
+<script type="text/javascript" src="//code.jquery.com/jquery-2.0.2.js"></script>
+<script type="text/javascript" src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<script type="text/javascript" src="https://momentjs.com/downloads/moment.js"></script>
+<style id="compiled-css" type="text/css">
+      
+
+      /* EOS */
+    </style></head><body><script src="http://momentjs.com/downloads/moment.js"></script>
+<div id="datepicker"></div>
+
+<script type="text/javascript">
+
+$(function() {
+  var maxDate = "2016-09-02";
+
+  $("#datepicker").datepicker({
+    dateFormat: "yy-mm-dd",
+    minDate: 0,
+    maxDate: maxDate,
+    showOtherMonths: true,
+    selectOtherMonths: true,
+    onSelect: function(date) {
+      d = new Date(date);
+      $("#datepicker").attr('data-date', (d.getDate() +1));
+      var d = moment(date, "YY-MM-DD");
+      setTimeout(function(){
+        $(".ui-datepicker-month").html(d.format("MMMM D,"));
+      }, 100);
+      
+    },
+    onChangeMonthYear: function(date) {
+      console.log("onChangeMonthYear", date);
+    },
+
+  });
+
+});
+
+
+  </script></body></html>

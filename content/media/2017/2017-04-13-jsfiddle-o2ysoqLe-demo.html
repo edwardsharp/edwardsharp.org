@@ -1,0 +1,65 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="https://fiddle.jshell.net/edwardsharp/o2ysoqLe/listing_embed/?disableModals=true&amp;version=0"><title>file api thing</title>
+
+<style id="compiled-css" type="text/css">
+      #holder {
+  border: 10px dashed #ccc;
+  min-width: 300px;
+  max-width: 100%;
+  height: 150px;
+  margin: 20px auto;
+  padding-top: 0.5em;
+  text-align: center;
+  font-size: 3em;
+}
+
+#holder.hover {
+  border: 10px dashed #333;
+  background-color: white;
+}
+
+
+      /* EOS */
+    </style></head><body><div id="holder">upload shit!</div>
+<p id="status">File API &nbsp; FileReader API not supported, sorry! :(</p>
+<script type="text/javascript">
+
+var holder = document.getElementById('holder'),
+  state = document.getElementById('status');
+
+if (typeof window.FileReader === 'undefined') {
+  state.className = 'fail';
+} else {
+  state.className = 'success';
+  state.innerHTML = '';
+}
+
+holder.ondragover = function() {
+  this.className = 'hover';
+  this.innerHTML = 'drop here!';
+  return false;
+};
+holder.ondragend = function() {
+  this.className = '';
+  this.innerHTML = 'upload shit!';
+  return false;
+};
+holder.ondrop = function(e) {
+  this.className = '';
+  this.innerHTML = '';
+  e.preventDefault();
+
+  var file = e.dataTransfer.files[0],
+    reader = new FileReader();
+  reader.onload = function(event) {
+    console.log(event.target);
+    holder.style.background = 'url(' + event.target.result + ') no-repeat center';
+  };
+  console.log(file);
+  reader.readAsDataURL(file);
+
+  return false;
+};
+
+
+  </script></body></html>

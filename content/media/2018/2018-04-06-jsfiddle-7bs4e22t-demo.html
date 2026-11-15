@@ -1,0 +1,25 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="https://fiddle.jshell.net/edwardsharp/7bs4e22t/listing_embed/?disableModals=true&amp;version=7"><title>pd-fileutils</title>
+<script type="text/javascript" src="//code.jquery.com/jquery-2.2.4.js"></script>
+<style id="compiled-css" type="text/css">
+      
+
+      /* EOS */
+    </style></head><body><script src="https://cdn.jsdelivr.net/npm/pd-fileutils@0.3.5/dist/pd-fileutils-latest.min.js"></script>
+<div id="svg"></div>
+
+<script type="text/javascript">
+
+// see: https://github.com/sebpiq/pd-fileutils
+var patch_url = 'https://raw.githubusercontent.com/edwardsharp/puredata/master/noise_wash_mod.pd';
+/* var demo_patch = '#N canvas 778 17 450 300 10;\n#X obj 14 13 loadbang;\n#X obj 14 34 print bla;\n#X connect 0 0 1 0;'; */
+
+$.get(patch_url, function(patchStr) {
+	var patch = pdfu.parse(patchStr);
+  var rendered = pdfu.renderSvg(patch, {svgFile: false});
+  $('#svg').html(rendered);
+})
+
+
+
+  </script></body></html>

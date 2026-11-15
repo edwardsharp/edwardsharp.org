@@ -1,0 +1,113 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="https://fiddle.jshell.net/edwardsharp/mdxejn65/listing_embed/?disableModals=true&amp;version=68"><title>jsfiddle / mdxejn65</title>
+
+<style id="compiled-css" type="text/css">
+      body{background-color: black;}
+
+      /* EOS */
+    </style></head><body><script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/93/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/r16/Stats.min.js"></script>
+<script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+
+<script type="text/javascript">
+
+var scene = new THREE.Scene();
+
+
+var width = 600;
+var height = 400;
+var aspect = width/height;
+var near = 1;
+var far = 1500;
+var angle = 45; //19
+
+var camera = new THREE.PerspectiveCamera(
+	angle, aspect, near, far);
+//camera.position.y=-100;
+camera.position.z=900;
+
+
+var light = new THREE.PointLight(0xFFFFFF);
+light.position.x=0;
+light.position.y=0;
+light.position.z=100;
+scene.add(light);
+
+
+var renderer =  new THREE.WebGLRenderer();
+renderer.setSize(width,height);
+document.body.appendChild(renderer.domElement);
+
+
+// controls
+var controls = new THREE.OrbitControls( camera, renderer.domElement );
+controls.maxPolarAngle = Math.PI * 0.5;
+controls.minDistance = 100;
+controls.maxDistance = 1000;
+
+var stats = new Stats();
+stats.domElement.style.position = 'absolute';
+stats.domElement.style.bottom = '0px';
+document.body.appendChild(stats.domElement);
+
+var terrain;
+var rotX = 90;
+var rotZ = 0;
+var vertz = 175;
+var geometry = new THREE.PlaneGeometry(600, 600,vertz, vertz);
+//random z verticies:
+/* for(var index=0;index<geometry.vertices.length;index++){
+    geometry.vertices[index].z = Math.floor((Math.random()*10)+1);
+} */
+
+var material = new THREE.MeshBasicMaterial({
+    wireframe: true,
+    color: '#2ed2d8'
+});
+
+terrain = new THREE.Mesh(geometry,material);
+terrain.overdraw = true;
+terrain.rotation.x = rotX;
+terrain.rotation.z = rotZ;
+scene.add(terrain);
+
+
+var spehere;
+var ballPosition = new THREE.Vector3( 0, 45, 0 );
+var ballSize = 40;
+var ballGeo = new THREE.SphereBufferGeometry( ballSize, 32, 16 );
+var ballMaterial = new THREE.MeshLambertMaterial();
+sphere = new THREE.Mesh( ballGeo, ballMaterial );
+scene.add( sphere );
+
+
+var animate = function (){
+  requestAnimationFrame( animate );
+  
+  var diff = new THREE.Vector3();
+  ballPosition.z = - Math.sin( Date.now() / 600 ) * 90; //+ 40;
+  ballPosition.x = Math.cos( Date.now() / 400 ) * 70;
+  for (i = 0; i < terrain.geometry.vertices.length; i ++ ) {
+    //var vertClone = terrain.geometry.vertices[i].clone();
+    var pos = terrain.geometry.vertices[i];
+    diff.subVectors( pos, ballPosition );
+    
+    if ( diff.length() < ballSize ) {
+      // collided
+      diff.normalize().multiplyScalar( ballSize );
+      pos.copy( ballPosition ).add( diff );
+    }
+
+  }
+  terrain.geometry.verticesNeedUpdate = true;
+  //terrain.geometry.normalsNeedUpdate = true;
+  sphere.position.copy( ballPosition );
+  
+  renderer.render( scene, camera );
+  stats.update();
+};
+
+animate();
+
+
+  </script></body></html>

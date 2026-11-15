@@ -1,0 +1,68 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="https://fiddle.jshell.net/edwardsharp/ed8hca6b/listing_embed/?disableModals=true&amp;version=2"><title>collapse table col</title>
+<script type="text/javascript" src="//code.jquery.com/jquery-git.js"></script>
+<style id="compiled-css" type="text/css">
+      
+
+      /* EOS */
+    </style></head><body><table id="tableone" border="1">
+    <thead>
+        <tr>
+            <th>0</th>
+            <th>1</th>
+            <th>2</th>
+        </tr>
+    </thead>
+    <tody>
+    <tr class="del">
+        <td>Row 0 Column 0</td>
+        <td >Row 0 Column 1</td>
+        <td >Row 0 Column 2</td>
+    </tr>
+    <tr class="del">
+        <td>Row 1 Column 0</td>
+        <td>Row 1 Column 1</td>
+        <td>Row 1 Column 2</td>
+    </tr>
+    <tr class="del">
+        <td>Row 2 Column 0</td>
+        <td>Row 2 Column 1</td>
+        <td>Row 2 Column 2</td>
+    </tr>
+    <tr class="del">
+        <td>Row 3 Column 0</td>
+        <td>Row 3 Column 1</td>
+        <td>Row 3 Column 2</td>
+    </tr>
+     <tr class="del">
+        <td>Row 4 Column 0</td>
+        <td>Row 4 Column 1</td>
+        <td>Row 4 Column 2</td>
+    </tr>
+     <tr class="del">
+        <td>Row 5 Column 0</td>
+        <td>Row 5 Column 1</td>
+        <td>Row 5 Column 2</td>
+    </tr>
+    </tbody>
+    
+</table>
+    <input id="btnHide" type="button" value="Hide Column 2"/>
+
+
+</html>
+
+ 
+<script type="text/javascript">
+
+$(document).ready(function() {
+    $('thead tr th').click(function() {
+        var index = $(this).index() + 1;
+        $("td:nth-child(" + index + ")").toggle();
+        //$('td:nth-child(2),th:nth-child(2)').hide();
+    });
+});
+
+
+
+  </script></body></html>

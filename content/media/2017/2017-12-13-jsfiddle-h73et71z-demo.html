@@ -1,0 +1,35 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="https://fiddle.jshell.net/edwardsharp/h73et71z/listing_embed/?disableModals=true&amp;version=1"><title>text selection</title>
+
+<style id="compiled-css" type="text/css">
+      
+
+      /* EOS */
+    </style></head><body><p>
+  <input type="text" id="mytextbox" size="20" value="foo bar" />
+</p>
+<p>
+  <button onclick="_setSelection()">set selection</button>
+  <button onclick="_getSelection()">get selection</button>
+</p>
+<p id="selection">
+</p>
+
+<script type="text/javascript">
+
+//https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/setSelectionRange
+
+function _setSelection() {
+  var input = document.getElementById("mytextbox");
+  input.focus();
+  input.setSelectionRange(2, 5);
+}
+
+function _getSelection() {
+  var s = window.getSelection();
+  var elem = document.getElementById('selection');
+  elem.innerHTML = 'selected: ' + s;
+}
+
+
+  </script></body></html>
