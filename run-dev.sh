@@ -2,4 +2,5 @@
 set -euo pipefail
 
 cd -- "$(dirname -- "${BASH_SOURCE[0]}")"
+npm run build
 exec bundle exec jekyll serve --incremental "$@"

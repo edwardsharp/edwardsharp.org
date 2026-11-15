@@ -17,7 +17,11 @@
     {% endif %}
     <link rel="stylesheet" href="{{ '/assets/site.css' | relative_url }}" />
   </head>
-  <body>
+  <body
+    {% if page.feed %}
+      class="home-page"
+    {% endif %}
+  >
     <a class="skip-link" href="#main">skip to content</a>
     <div class="site-shell">
       {% include header.html %}
@@ -27,5 +31,11 @@
         <span>made with 💖 in NYC</span>
       </footer>
     </div>
+    {% if page.feed %}
+      <script type="module" src="{{ '/src/assets/feed.bundle.js' | relative_url }}"></script>
+    {% endif %}
+    {% if page.archive %}
+      <script type="module" src="{{ '/src/assets/archive.bundle.js' | relative_url }}"></script>
+    {% endif %}
   </body>
 </html>

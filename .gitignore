@@ -4,4 +4,6 @@
 /.sass-cache/
 /.bundle/
 /vendor/
+/node_modules/
+/src/assets/*.bundle.js
 .DS_Store

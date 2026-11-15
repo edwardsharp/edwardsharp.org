@@ -1,0 +1,13 @@
+{% assign entry = include.entry %}
+{% assign title = entry.preview_title | default: entry.title %}
+{% if title == 'no title' %}
+  {% capture title %}{{ entry.tumblr_type | default: 'post' }} / {{ entry.date | date: '%Y-%m-%d' }}{% endcapture %}
+{% endif %}
+<li>
+  {% if entry.collection == 'posts' %}
+    <time datetime="{{ entry.date | date: '%Y-%m-%d' }}">{{ entry.date | date: '%Y-%m-%d' }}</time>
+  {% else %}
+    <span class="archive-label">page</span>
+  {% endif %}
+  <a href="{{ entry.url | relative_url }}">{{ title | escape }}</a>
+</li>

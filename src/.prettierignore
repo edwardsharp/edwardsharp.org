@@ -1,0 +1,5 @@
+../content/_posts/
+../content/media/
+assets/*.bundle.js
+assets/fonts/
+../package-lock.json

@@ -21,6 +21,11 @@ jobs:
       pages: read
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - run: npm ci && npm test && npm run build
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.3"

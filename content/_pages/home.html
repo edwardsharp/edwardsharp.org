@@ -2,8 +2,9 @@
 title: home
 layout: default
 permalink: /
+feed: true
+searchable: false
 ---
-
 <section class="intro" aria-labelledby="intro-title">
   <p class="eyebrow">a personal corner of the web</p>
   <h1 id="intro-title">3dwardsharp<span class="accent">.</span></h1>
@@ -14,9 +15,28 @@ permalink: /
   <header class="section-heading">
     <h2 id="journal-title">journal</h2>
     <span class="eyebrow">
-      {{- site.posts.size }} {% if site.posts.size == 1 %}entry{% else
-      %}entries{% endif -%}
+      {{- site.posts.size }}
+      {% if site.posts.size == 1 -%}
+        entry
+      {%- else -%}
+        entries
+      {%- endif -%}
     </span>
   </header>
-  {% include post-list.html %}
+  {% if site.posts.size > 0 %}
+    <div class="honeycomb-shell" data-honeycomb data-feed-url="{{ '/feed.json' | relative_url }}">
+      <div class="honeycomb" role="list" aria-label="post previews">
+        {% for post in site.posts limit: 14 %}
+          {% include feed-card.html post=post %}
+        {% endfor %}
+      </div>
+      <div class="feed-controls">
+        <p class="feed-status" role="status" aria-live="polite">preview tiles; open a post to read or play it.</p>
+        <button class="feed-more" type="button" hidden>load more posts</button>
+        <a href="{{ '/archive/' | relative_url }}">browse the archive</a>
+      </div>
+    </div>
+  {% else %}
+    {% include post-list.html %}
+  {% endif %}
 </section>

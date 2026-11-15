@@ -38,11 +38,24 @@ strict_front_matter: true
 liquid:
   error_mode: strict
 
+plugins:
+  - jekyll-redirect-from
+
 exclude:
   - README.md
   - Gemfile
   - Gemfile.lock
+  - package.json
+  - package-lock.json
   - run-dev.sh
+  - node_modules
+  - src/tsconfig.json
+  - src/prettier.config.mjs
+  - src/tests
+  - src/assets/feed.ts
+  - src/assets/honeycomb.ts
+  - src/assets/archive.ts
+  - src/assets/search.ts
   - vendor
   - .bundle
   - .github
