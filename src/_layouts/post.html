@@ -20,7 +20,7 @@ layout: default
         {% for tag in page.tags %}
           <li>
             <a href="{{ '/' | relative_url }}?tag={{ tag | url_encode | escape }}">
-              {{- tag | escape }} ({{ site.tags[tag].size }})</a
+              {{- tag | escape }} ({{ tag | post_tag_count }})</a
             >
           </li>
         {% endfor %}

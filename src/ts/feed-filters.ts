@@ -7,19 +7,31 @@ export function tagKey(tag: string): string {
   return tag.toLowerCase().replace(/[\s_-]+/g, "");
 }
 
-export function filterChoices(posts: readonly FilterPost[]) {
-  const typeCounts = new Map<string, number>();
+export function countTags(
+  posts: readonly Pick<FilterPost, "tags">[],
+): Map<string, number> {
   const tagCounts = new Map<string, number>();
-  const tagLabels = new Map<string, string>();
   for (const post of posts) {
-    typeCounts.set(post.kind, (typeCounts.get(post.kind) ?? 0) + 1);
     const seen = new Set<string>();
     for (const tag of post.tags) {
       const key = tagKey(tag);
       if (!key || seen.has(key)) continue;
       seen.add(key);
       tagCounts.set(key, (tagCounts.get(key) ?? 0) + 1);
-      if (!tagLabels.has(key))
+    }
+  }
+  return tagCounts;
+}
+
+export function filterChoices(posts: readonly FilterPost[]) {
+  const typeCounts = new Map<string, number>();
+  const tagCounts = countTags(posts);
+  const tagLabels = new Map<string, string>();
+  for (const post of posts) {
+    typeCounts.set(post.kind, (typeCounts.get(post.kind) ?? 0) + 1);
+    for (const tag of post.tags) {
+      const key = tagKey(tag);
+      if (key && !tagLabels.has(key))
         tagLabels.set(key, tag.trim().toLowerCase().replace(/\s+/g, " "));
     }
   }
@@ -31,7 +43,11 @@ export function filterChoices(posts: readonly FilterPost[]) {
   ) =>
     [...counts]
       .filter(([, count]) => count >= minimum)
-      .sort(([a], [b]) => a.localeCompare(b))
+      .sort(
+        ([a, aCount], [b, bCount]) =>
+          (prefix === "tag" ? bCount - aCount : 0) ||
+          (labels?.get(a) ?? a).localeCompare(labels?.get(b) ?? b),
+      )
       .map(([value, count]) => ({
         value: `${prefix}:${value}`,
         label: `${labels?.get(value) ?? value} (${count})`,

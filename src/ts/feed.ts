@@ -116,11 +116,11 @@ function enhanceFeed(
     throw new Error("missing feed controls");
   const choices = filterChoices(allPosts);
   const types = document.createElement("optgroup");
-  types.label = "post types";
+  types.label = "post typez";
   for (const { label, value } of choices.types)
     types.append(new Option(label, value));
   const tags = document.createElement("optgroup");
-  tags.label = "tags";
+  tags.label = "tagz";
   for (const { label, value } of choices.tags)
     tags.append(new Option(label, value));
   filterSelect.replaceChildren(
