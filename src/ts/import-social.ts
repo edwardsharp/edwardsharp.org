@@ -22,6 +22,9 @@ const platforms = [
   "youtube",
   "vimeo",
   "soundcloud",
+  "flickr",
+  "archive",
+  "bandcamp",
 ] as const;
 type Platform = (typeof platforms)[number];
 const kinds = [

@@ -281,3 +281,62 @@ test("existing posts are registered without touching their media; malformed hist
   );
   await assert.rejects(importPosts(input, report, root), SyntaxError);
 });
+
+test("Flickr, Archive.org, and Bandcamp captures keep dates, project tags, source links, and import history", async (t) => {
+  const root = await mkdtemp(join(tmpdir(), "social-import-test-"));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  const input = join(root, "capture.json");
+  const report = join(root, "report.json");
+  const sources: SocialPost[] = [
+    {
+      ...post,
+      platform: "flickr",
+      kind: "photo",
+      url: "https://www.flickr.com/photos/example/123/",
+    },
+    {
+      ...post,
+      platform: "archive",
+      kind: "audio",
+      url: "https://archive.org/details/example",
+    },
+    {
+      ...post,
+      platform: "bandcamp",
+      kind: "audio",
+      date: "2014-06-01",
+      url: "https://example.bandcamp.com/album/example",
+    },
+  ];
+  for (const source of sources) {
+    source.html = "<p>original caption</p>";
+    source.tags = ["futuredeath.agency"];
+  }
+  await writeFile(input, JSON.stringify(sources));
+  await importPosts(input, report, root);
+  assert.equal(JSON.parse(await readFile(report, "utf8")).imported.length, 3);
+  for (const source of sources) {
+    const markdown = await readFile(
+      join(
+        root,
+        `content/_posts/2014/2014-06-01-${source.platform}-${source.id}.md`,
+      ),
+      "utf8",
+    );
+    assert.ok(markdown.includes(`href="${source.url}"`));
+    assert.match(markdown, /original caption/);
+    assert.match(markdown, /futuredeath\.agency/);
+    assert.ok(markdown.includes(`kind: "${source.kind}"`));
+    assert.ok(
+      markdown.includes(
+        source.platform === "bandcamp"
+          ? 'date: "2014-06-01"\ndate_precision: "day"'
+          : 'date: "2014-06-01T14:20:30.000Z"\ndate_precision: "second"',
+      ),
+    );
+  }
+  await importPosts(input, report, root);
+  const rerun = JSON.parse(await readFile(report, "utf8"));
+  assert.equal(rerun.imported.length, 0);
+  assert.equal(rerun.skipped.length, 3);
+});
