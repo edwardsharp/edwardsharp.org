@@ -9,4 +9,5 @@ kind: "photo"
 preview_image: "/content/media/2026/local-photo-1b926d48d74986f4129dc67eb707ced00c24b30fffb24eb30ec028e34743e685-1.png"
 preview_alt: "bart"
 ---
-<p><img src="{{ '/content/media/2026/local-photo-1b926d48d74986f4129dc67eb707ced00c24b30fffb24eb30ec028e34743e685-1.png' | relative_url }}" alt="bart" loading="lazy" decoding="async"></p>
+
+![bart](/content/media/2026/local-photo-1b926d48d74986f4129dc67eb707ced00c24b30fffb24eb30ec028e34743e685-1.png)

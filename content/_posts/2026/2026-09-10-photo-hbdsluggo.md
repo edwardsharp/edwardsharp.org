@@ -9,4 +9,5 @@ kind: "photo"
 preview_image: "/content/media/2026/local-photo-c8adb8030b168446bafe837435977ea2bb9badc31da3797cd8c104456200acc1-1.jpg"
 preview_alt: "hbdsluggo"
 ---
-<p><img src="{{ '/content/media/2026/local-photo-c8adb8030b168446bafe837435977ea2bb9badc31da3797cd8c104456200acc1-1.jpg' | relative_url }}" alt="hbdsluggo" loading="lazy" decoding="async"></p>
+
+![hbdsluggo](/content/media/2026/local-photo-c8adb8030b168446bafe837435977ea2bb9badc31da3797cd8c104456200acc1-1.jpg)

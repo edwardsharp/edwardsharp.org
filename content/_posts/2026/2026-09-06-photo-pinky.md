@@ -9,4 +9,5 @@ kind: "photo"
 preview_image: "/content/media/2026/local-photo-f7cdf3f11617b862678d5d00f6ddae30f20c334b09ff74d6b24692ca5c14f6f0-1.jpg"
 preview_alt: "pinky"
 ---
-<p><img src="{{ '/content/media/2026/local-photo-f7cdf3f11617b862678d5d00f6ddae30f20c334b09ff74d6b24692ca5c14f6f0-1.jpg' | relative_url }}" alt="pinky" loading="lazy" decoding="async"></p>
+
+![pinky](/content/media/2026/local-photo-f7cdf3f11617b862678d5d00f6ddae30f20c334b09ff74d6b24692ca5c14f6f0-1.jpg)

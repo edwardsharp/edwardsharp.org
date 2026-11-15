@@ -9,4 +9,5 @@ kind: "photo"
 preview_image: "/content/media/2026/local-photo-43eb19f3a90273984757a46045184476d076448f6c6e8c6c6114331702d98dc0-1.png"
 preview_alt: "peesoap"
 ---
-<p><img src="{{ '/content/media/2026/local-photo-43eb19f3a90273984757a46045184476d076448f6c6e8c6c6114331702d98dc0-1.png' | relative_url }}" alt="peesoap" loading="lazy" decoding="async"></p>
+
+![peesoap](/content/media/2026/local-photo-43eb19f3a90273984757a46045184476d076448f6c6e8c6c6114331702d98dc0-1.png)
