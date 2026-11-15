@@ -53,6 +53,7 @@ exclude:
   - src/tsconfig.json
   - src/prettier.config.mjs
   - src/ts
+  - src/utilz
   - src/_plugins
   - vendor
   - .bundle

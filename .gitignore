@@ -7,3 +7,7 @@
 /node_modules/
 /assets/site.js
 .DS_Store
+/src/utilz/.venv/
+/src/utilz/.tools/
+__pycache__/
+.DS_Store

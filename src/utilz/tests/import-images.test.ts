@@ -19,7 +19,69 @@ import {
   imageLocation,
   imagePostFilename,
   importImages,
+  readPhotosMetadata,
 } from "../import-images.ts";
+
+test(
+  "Photos metadata supplies capture dates, captions, tags and place names without GPS or Liquid images",
+  {
+    skip: spawnSync("magick", ["-version"]).error
+      ? "requires ImageMagick"
+      : false,
+  },
+  async (t) => {
+    const temporary = await mkdtemp(join(tmpdir(), "photos-import-test-"));
+    t.after(() => rm(temporary, { recursive: true, force: true }));
+    const source = join(temporary, "source");
+    const root = join(temporary, "site");
+    await mkdir(source);
+    const image = join(source, "IMG_1208.png");
+    const made = spawnSync("magick", ["-size", "8x8", "xc:red", image]);
+    assert.equal(made.status, 0, made.stderr.toString());
+    const file = join(temporary, "metadata.json");
+    const record = {
+      date: "2020-06-01T12:00:01-04:00",
+      last_modified: "2020-07-01T12:00:01-04:00",
+      title: "performance",
+      description: "a caption",
+      tags: ["noise", "NOISE", "photo"],
+      place: "A venue, Brooklyn, New York, United States",
+    };
+    await writeFile(file, JSON.stringify({ [image]: record }));
+    const photosMetadata = await readPhotosMetadata(file);
+    await importImages(
+      {
+        directory: source,
+        dateSource: "exif",
+        photosets: [],
+        location: false,
+        videos: false,
+        dryRun: false,
+        photosMetadata,
+      },
+      root,
+    );
+    const output = await readFile(
+      join(root, "content/_posts/2020/2020-06-01-photo-performance.md"),
+      "utf8",
+    );
+    assert.match(output, /date: "2020-06-01T16:00:01.000Z"/);
+    assert.match(output, /last_modified: "2020-07-01T16:00:01.000Z"/);
+    assert.match(output, /tags: \["photo","noise"\]/);
+    assert.match(
+      output,
+      /location_name: "A venue, Brooklyn, New York, United States"/,
+    );
+    assert.match(output, /a caption/);
+    assert.match(output, /^!\[performance\]\(\/content\/media\/2020\//m);
+    assert.doesNotMatch(output, /relative_url|<img|latitude|longitude/);
+    await writeFile(
+      file,
+      JSON.stringify({ [image]: { ...record, date: "2020-06-01" } }),
+    );
+    await assert.rejects(readPhotosMetadata(file), /timestamp/);
+  },
+);
 
 test("post filenames distinguish screenshots and photos without repeating capture dates", () => {
   const date = new Date(2026, 0, 6, 15, 35, 19).toISOString();
@@ -132,6 +194,71 @@ test("EXIF GPS rational values retain hemisphere; missing and corrupt data stay 
 });
 
 test(
+  "exact images in another platform's post are skipped without duplicating media or touching that post",
+  {
+    skip: spawnSync("magick", ["-version"]).error
+      ? "requires ImageMagick"
+      : false,
+  },
+  async (t) => {
+    const temporary = await mkdtemp(join(tmpdir(), "image-dedup-test-"));
+    t.after(() => rm(temporary, { recursive: true, force: true }));
+    const source = join(temporary, "source");
+    const root = join(temporary, "site");
+    const media = join(root, "content/media/2020/existing.png");
+    const post = join(root, "content/_posts/2020/2020-01-01-archive.md");
+    await mkdir(source);
+    await mkdir(join(root, "content/media/2020"), { recursive: true });
+    await mkdir(join(root, "content/_posts/2020"), { recursive: true });
+    const image = join(source, "copied.png");
+    const made = spawnSync("magick", [
+      "-size",
+      "8x8",
+      "xc:blue",
+      "-set",
+      "comment",
+      "original metadata",
+      image,
+    ]);
+    assert.equal(made.status, 0, made.stderr.toString());
+    const converted = spawnSync("magick", [
+      image,
+      "-auto-orient",
+      "-strip",
+      "-define",
+      "png:exclude-chunks=all",
+      media,
+    ]);
+    assert.equal(converted.status, 0, converted.stderr.toString());
+    const text =
+      "---\nkind: photo\n---\n![existing](/content/media/2020/existing.png)\n";
+    await writeFile(post, text);
+    const options = {
+      directory: source,
+      dateSource: "created" as const,
+      photosets: [],
+      location: false,
+      videos: false,
+      dryRun: false,
+    };
+    assert.deepEqual(await importImages(options, root), {
+      imported: 0,
+      skipped: 1,
+    });
+    assert.equal(await readFile(post, "utf8"), text);
+    assert.equal(
+      (await readdir(join(root, "content/_posts"), { recursive: true })).filter(
+        (file) => file.endsWith(".md"),
+      ).length,
+      1,
+    );
+    assert.deepEqual(await readdir(join(root, "content/media/2020")), [
+      "existing.png",
+    ]);
+  },
+);
+
+test(
   "imports strip metadata, group images, and never restore or overwrite edited posts",
   {
     skip: spawnSync("magick", ["-version"]).error
@@ -203,7 +330,7 @@ test(
       );
       assert.match(contents[screenshot]!, /tags: \["photo","screenshot"\]/);
       const set = contents.find((text) => text.includes('title: "set"'))!;
-      assert.equal((set.match(/<img /g) ?? []).length, 2);
+      assert.equal((set.match(/^!\[/gm) ?? []).length, 2);
       assert.match(set, /kind: "photo"/);
       const newest = Math.max(
         (await stat(join(source, "set", "one.png"))).birthtime.getTime(),
@@ -232,7 +359,12 @@ test(
         original,
       );
       const post = join(root, "content", "_posts", files[screenshot]!);
-      const historyPath = join(root, "src", "ts", "image-import-history.jsonl");
+      const historyPath = join(
+        root,
+        "src",
+        "utilz",
+        "image-import-history.jsonl",
+      );
       const history = await readFile(historyPath);
       await writeFile(post, "manually edited post\n");
       const moved = join(root, "content", "_posts", "renamed.md");

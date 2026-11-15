@@ -13,10 +13,10 @@ import {
   writeFile,
 } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { basename, dirname, extname, join, resolve } from "node:path";
+import { basename, dirname, extname, join, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
-import { escapeHTML } from "./import-social.ts";
+import { escapeHTML, sourceDate } from "./import-social.ts";
 
 type Exif = Record<string, string>;
 type Coordinates = { latitude: number; longitude: number };
@@ -27,6 +27,15 @@ export interface ImageImportOptions {
   location: boolean;
   videos: boolean;
   dryRun: boolean;
+  photosMetadata?: ReadonlyMap<string, PhotosMetadata>;
+}
+export interface PhotosMetadata {
+  date: string;
+  title: string;
+  description: string;
+  tags: string[];
+  place: string | null;
+  last_modified: string | null;
 }
 interface Asset {
   filename: string;
@@ -35,6 +44,7 @@ interface Asset {
   hash: string;
   video: boolean;
   location?: Coordinates;
+  photos?: PhotosMetadata;
 }
 
 const imageExtensions = new Set([
@@ -300,21 +310,32 @@ async function collect(
       if (set && video)
         throw new Error(`photo set contains a video: ${filename}`);
       const exif = video ? {} : readExif(filename);
-      if (!video && options.dateSource === "exif" && !exif.OffsetTimeOriginal)
+      const photos = options.photosMetadata?.get(filename);
+      if (options.photosMetadata && !photos)
+        throw new Error(`missing Photos metadata: ${filename}`);
+      if (
+        !video &&
+        !photos &&
+        options.dateSource === "exif" &&
+        !exif.OffsetTimeOriginal
+      )
         console.warn(
           `EXIF has no capture offset; using machine timezone for ${filename}`,
         );
       const asset: Asset = {
         filename,
-        title: basename(filename, extname(filename)),
-        date: imageDate(
-          filename,
-          (await stat(filename)).birthtime,
-          exif,
-          video ? "created" : options.dateSource,
-        ),
+        title: photos?.title.trim() || basename(filename, extname(filename)),
+        date:
+          photos?.date ??
+          imageDate(
+            filename,
+            (await stat(filename)).birthtime,
+            exif,
+            video ? "created" : options.dateSource,
+          ),
         hash: await hashFile(filename),
         video,
+        ...(photos ? { photos } : {}),
       };
       if (!video && options.location) {
         const location = imageLocation(exif);
@@ -339,7 +360,7 @@ export async function importImages(
   root = fileURLToPath(new URL("../../", import.meta.url)),
 ): Promise<{ imported: number; skipped: number }> {
   const groups = await collect(options);
-  const historyFile = join(root, "src", "ts", "image-import-history.jsonl");
+  const historyFile = join(root, "src", "utilz", "image-import-history.jsonl");
   const history = new Set<string>();
   for (const line of (await optionalText(historyFile))
     .split("\n")
@@ -353,7 +374,16 @@ export async function importImages(
     history.add(id);
   }
   const recorded = new Set(history);
+  async function remember(id: string) {
+    history.add(id);
+    if (!options.dryRun && !recorded.has(id)) {
+      await mkdir(dirname(historyFile), { recursive: true });
+      await appendFile(historyFile, `${JSON.stringify(id)}\n`, { flag: "a" });
+      recorded.add(id);
+    }
+  }
   const postsDir = join(root, "content", "_posts");
+  const referencedImages = new Set<string>();
   let postFiles: string[];
   try {
     postFiles = await readdir(postsDir, { recursive: true });
@@ -364,11 +394,48 @@ export async function importImages(
   }
   for (const filename of postFiles) {
     if (!filename.endsWith(".md")) continue;
+    const text = await readFile(join(postsDir, filename), "utf8");
     const match =
-      /^source_id: "(local-(?:photo|video|set)-[a-f0-9]{64})"$/m.exec(
-        await readFile(join(postsDir, filename), "utf8"),
-      );
+      /^source_id: "(local-(?:photo|video|set)-[a-f0-9]{64})"$/m.exec(text);
     if (match) history.add(match[1]!);
+    for (const match of text.matchAll(/\/content\/media\/[^"'()\s<>]+/g)) {
+      const url = new URL(match[0], "https://local.invalid").pathname;
+      if (
+        url.startsWith("/content/media/") &&
+        imageExtensions.has(extname(url).toLowerCase())
+      )
+        referencedImages.add(url);
+    }
+  }
+  const publishedImages = new Map<string, string>();
+  let indexed = false;
+  async function existingImages() {
+    if (!indexed) {
+      for (const url of referencedImages) {
+        try {
+          const filename = resolve(root, decodeURIComponent(url).slice(1));
+          if (
+            !filename.startsWith(`${resolve(root, "content", "media")}${sep}`)
+          )
+            throw new Error(
+              `image reference leaves the media directory: ${url}`,
+            );
+          publishedImages.set(await hashFile(filename), url);
+        } catch (error) {
+          if (!(
+            error instanceof Error &&
+            "code" in error &&
+            error.code === "ENOENT"
+          ))
+            throw error;
+          console.warn(
+            `referenced image unavailable for duplicate check: ${url}`,
+          );
+        }
+      }
+      indexed = true;
+    }
+    return publishedImages;
   }
   let imported = 0;
   let skipped = 0;
@@ -386,12 +453,16 @@ export async function importImages(
           .digest("hex")
       : group.assets[0]!.hash;
     const id = `local-${group.set ? "set" : kind}-${digest}`;
-    if (history.has(id)) {
-      if (!options.dryRun && !recorded.has(id)) {
-        await mkdir(dirname(historyFile), { recursive: true });
-        await appendFile(historyFile, `${JSON.stringify(id)}\n`, { flag: "a" });
-        recorded.add(id);
-      }
+    const duplicate =
+      !group.set && !video && !history.has(id)
+        ? (await existingImages()).get(group.assets[0]!.hash)
+        : undefined;
+    if (history.has(id) || duplicate) {
+      if (duplicate)
+        console.info(
+          `skipping exact image duplicate already used by a post: ${duplicate}`,
+        );
+      await remember(id);
       skipped++;
       continue;
     }
@@ -399,7 +470,10 @@ export async function importImages(
     console.info(
       `${options.dryRun ? "would import" : "importing"} ${date} ${kind}: ${group.title} (${group.assets.length} file${group.assets.length === 1 ? "" : "s"})`,
     );
-    if (options.dryRun) continue;
+    if (options.dryRun) {
+      await remember(id);
+      continue;
+    }
     const readableName = imagePostFilename(group.title, date, kind);
     const year = readableName.slice(0, 4);
     const postName = postFiles.includes(join(year, readableName))
@@ -409,6 +483,7 @@ export async function importImages(
     try {
       const outputs: { local: string; url: string }[] = [];
       const locations: ({ image: string } & Coordinates)[] = [];
+      const places: { image: string; name: string }[] = [];
       const body: string[] = [];
       let preview = "";
       for (const [index, asset] of group.assets.entries()) {
@@ -487,15 +562,40 @@ export async function importImages(
           stripImage(asset.filename, local);
           preview ||= url;
           body.push(
-            `<p><img src="${liquidURL(url)}" alt="${escapeHTML(asset.title)}" loading="lazy" decoding="async"></p>`,
+            `![${escapeHTML(asset.title).replace(/[\\[\]]/g, "\\$&")}](${url})`,
           );
         }
+        if (asset.photos?.description.trim())
+          body.push(escapeHTML(asset.photos.description.trim()));
+        if (asset.photos?.place)
+          places.push({ image: url, name: asset.photos.place });
         if (asset.location) locations.push({ image: url, ...asset.location });
         outputs.push({ local, url });
+      }
+      if (!group.set && !video) {
+        const duplicate = (await existingImages()).get(
+          await hashFile(outputs[0]!.local),
+        );
+        if (duplicate) {
+          console.info(
+            `skipping exact converted-image duplicate already used by a post: ${duplicate}`,
+          );
+          await remember(id);
+          skipped++;
+          continue;
+        }
       }
       const tags = [kind];
       if (group.assets.some((asset) => /^screen\s*shot\b/i.test(asset.title)))
         tags.push("screenshot");
+      for (const asset of group.assets)
+        for (const tag of asset.photos?.tags ?? [])
+          if (
+            !tags.some(
+              (existing) => existing.toLowerCase() === tag.trim().toLowerCase(),
+            )
+          )
+            tags.push(tag.trim());
       const fields: Record<string, unknown> = {
         title: group.title,
         date,
@@ -511,6 +611,16 @@ export async function importImages(
         if (group.set) fields.locations = locations;
         else fields.location = group.assets[0]!.location;
       }
+      if (places.length) {
+        if (group.set) fields.locations = places;
+        else fields.location_name = places[0]!.name;
+      }
+      const modified = group.assets
+        .flatMap((asset) =>
+          asset.photos?.last_modified ? [asset.photos.last_modified] : [],
+        )
+        .sort();
+      if (modified.length) fields.last_modified = modified.at(-1)!;
       for (const output of outputs) {
         if ((await stat(output.local)).size >= 100_000_000)
           throw new Error(
@@ -540,14 +650,14 @@ export async function importImages(
         postFile,
         `---\n${Object.entries(fields)
           .map(([key, value]) => `${key}: ${JSON.stringify(value)}`)
-          .join("\n")}\n---\n${body.join("\n")}\n`,
+          .join("\n")}\n---\n${body.join("\n\n")}\n`,
         { flag: "wx" },
       );
       postFiles.push(join(year, postName));
-      await mkdir(dirname(historyFile), { recursive: true });
-      await appendFile(historyFile, `${JSON.stringify(id)}\n`, { flag: "a" });
-      history.add(id);
-      recorded.add(id);
+      await remember(id);
+      if (!video)
+        for (const output of outputs)
+          publishedImages.set(await hashFile(output.local), output.url);
       imported++;
     } finally {
       await rm(temporary, { recursive: true });
@@ -557,6 +667,58 @@ export async function importImages(
     `${imported} imported, ${skipped} skipped${options.dryRun ? " (dry run)" : ""}`,
   );
   return { imported, skipped };
+}
+
+export async function readPhotosMetadata(
+  filename: string,
+): Promise<Map<string, PhotosMetadata>> {
+  const records: unknown = JSON.parse(await readFile(filename, "utf8"));
+  if (!records || typeof records !== "object" || Array.isArray(records))
+    throw new Error(
+      "Photos metadata must be an object keyed by absolute filename",
+    );
+  const result = new Map<string, PhotosMetadata>();
+  for (const [path, value] of Object.entries(records)) {
+    if (
+      !value ||
+      typeof value !== "object" ||
+      Array.isArray(value) ||
+      !("date" in value) ||
+      typeof value.date !== "string" ||
+      !("title" in value) ||
+      typeof value.title !== "string" ||
+      !("description" in value) ||
+      typeof value.description !== "string" ||
+      !("tags" in value) ||
+      !Array.isArray(value.tags) ||
+      !value.tags.every(
+        (tag: unknown) => typeof tag === "string" && tag.trim(),
+      ) ||
+      !("place" in value) ||
+      (value.place !== null && typeof value.place !== "string") ||
+      !("last_modified" in value) ||
+      (value.last_modified !== null &&
+        typeof value.last_modified !== "string") ||
+      resolve(path) !== path
+    )
+      throw new Error(`invalid Photos metadata: ${path}`);
+    const date = sourceDate(value.date);
+    if (date.precision !== "second")
+      throw new Error(`Photos capture date needs a timestamp: ${path}`);
+    const modified =
+      value.last_modified === null ? null : sourceDate(value.last_modified);
+    if (modified && modified.precision !== "second")
+      throw new Error(`Photos modification date needs a timestamp: ${path}`);
+    result.set(path, {
+      date: date.date,
+      title: value.title,
+      description: value.description,
+      tags: value.tags,
+      place: value.place,
+      last_modified: modified?.date ?? null,
+    });
+  }
+  return result;
 }
 
 if (import.meta.main) {
@@ -569,6 +731,7 @@ if (import.meta.main) {
         location: { type: "boolean", default: false },
         videos: { type: "boolean", default: false },
         "dry-run": { type: "boolean", default: false },
+        "photos-metadata": { type: "string" },
         help: { type: "boolean", default: false },
       },
     });
@@ -587,6 +750,13 @@ if (import.meta.main) {
         location: values.location,
         videos: values.videos,
         dryRun: values["dry-run"],
+        ...(values["photos-metadata"]
+          ? {
+              photosMetadata: await readPhotosMetadata(
+                values["photos-metadata"],
+              ),
+            }
+          : {}),
       });
     }
   } catch (error) {

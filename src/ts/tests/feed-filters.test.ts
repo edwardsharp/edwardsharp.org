@@ -49,6 +49,26 @@ test("filtered views preserve order and support direct singleton tags and colon-
   assert.throws(() => filterPosts(posts, "invalid"), /invalid journal filter/);
 });
 
+test("doodles have their own type choice and reader sequence, separate from photos", () => {
+  const posts = [
+    { url: "/new-doodle", kind: "doodle", tags: ["drawing"] },
+    { url: "/photo", kind: "photo", tags: ["drawing"] },
+    { url: "/old-doodle", kind: "doodle", tags: ["drawing"] },
+  ];
+  assert.deepEqual(filterChoices(posts).types, [
+    { value: "type:doodle", label: "doodle (2)" },
+    { value: "type:photo", label: "photo (1)" },
+  ]);
+  assert.deepEqual(readerSelection(posts, "", posts[0]!).posts, [
+    posts[0],
+    posts[2],
+  ]);
+  assert.deepEqual(
+    readerSelection(posts, "tag:drawing", posts[0]!).posts,
+    posts,
+  );
+});
+
 test("reader defaults to the opening kind but tag filters include every matching kind in date order", () => {
   const feed = posts.map((post) => ({ ...post, url: `/post/${post.id}/` }));
   const opening = feed[2]!;

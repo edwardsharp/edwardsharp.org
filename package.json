@@ -6,11 +6,13 @@
     "node": ">=22.18.0"
   },
   "scripts": {
-    "import:social": "node src/ts/import-social.ts",
-    "import:images": "node src/ts/import-images.ts",
+    "import:social": "node src/utilz/import-social.ts",
+    "import:images": "node src/utilz/import-images.ts",
+    "export:notes": "python3 src/utilz/export-notes.py",
+    "import:photos": "src/utilz/.venv/bin/python src/utilz/import-photos.py",
     "build": "npm run typecheck && node src/ts/esbuild.config.ts",
     "typecheck": "tsc --project src/tsconfig.json",
-    "test": "node --test src/ts/tests/*.test.ts",
+    "test": "node --test src/ts/tests/*.test.ts src/utilz/tests/*.test.ts && python3 -m unittest discover -s src/utilz/tests -p '*_test.py'",
     "format": "prettier . --write --ignore-unknown --ignore-path .gitignore --ignore-path src/.prettierignore",
     "format:check": "prettier . --check --ignore-unknown --ignore-path .gitignore --ignore-path src/.prettierignore"
   },

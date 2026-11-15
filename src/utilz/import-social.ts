@@ -29,6 +29,7 @@ const platforms = [
 type Platform = (typeof platforms)[number];
 const kinds = [
   "entry",
+  "doodle",
   "photo",
   "photoset",
   "audio",
@@ -582,7 +583,7 @@ export async function importPosts(
   const data: unknown = JSON.parse(await readFile(input, "utf8"));
   if (!Array.isArray(data) || !data.every(isSocialPost))
     throw new Error("expected an array of SocialPost records");
-  const historyFile = join(root, "src", "ts", "social-import-history.jsonl");
+  const historyFile = join(root, "src", "utilz", "social-import-history.jsonl");
   const history = await importHistory(historyFile);
   await mkdir(dirname(historyFile), { recursive: true });
   const remember = async (identity: string): Promise<void> => {
@@ -707,7 +708,7 @@ if (import.meta.main) {
   if (!input || !report) {
     console.error("usage: npm run import:social -- capture.json report.json");
     console.error(
-      "capture.json: SocialPost[] with original source dates; see src/ts/import-social.ts",
+      "capture.json: SocialPost[] with original source dates; see src/utilz/import-social.ts",
     );
     process.exitCode = 1;
   } else {

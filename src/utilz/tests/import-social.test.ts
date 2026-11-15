@@ -357,7 +357,7 @@ test("existing posts are registered without touching their media; malformed hist
   );
   assert.equal(await readFile(demo, "utf8"), "my edited demo\n");
   await writeFile(
-    join(root, "src/ts/social-import-history.jsonl"),
+    join(root, "src/utilz/social-import-history.jsonl"),
     "{not json}\n",
   );
   await assert.rejects(importPosts(input, report, root), SyntaxError);
