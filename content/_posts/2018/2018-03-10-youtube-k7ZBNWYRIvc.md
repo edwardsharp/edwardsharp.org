@@ -1,0 +1,19 @@
+---
+title: "026"
+date: "2018-03-10T00:46:23.000Z"
+date_precision: "second"
+tags: ["youtube","video","futuredeath.agency"]
+permalink: "/post/youtube-k7ZBNWYRIvc/"
+source_id: "k7ZBNWYRIvc"
+kind: "video"
+source_platform: "youtube"
+source_url: "https://www.youtube.com/watch?v=k7ZBNWYRIvc"
+preview_image: "/content/media/2018/2018-03-10-youtube-k7ZBNWYRIvc-892d57a214.jpg"
+---
+<div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/k7ZBNWYRIvc" title="026" loading="lazy" allowfullscreen></iframe></div>
+<p>future_death_agency <br>
+black_tapez<br>
+recorded in 2017 @LACUNA in portland, oregon<br>
+3dwardsharp &amp; twon moss<br>
+http://futuredeath.agency</p>
+<p><a href="https://www.youtube.com/watch?v=k7ZBNWYRIvc">original youtube post</a></p>
