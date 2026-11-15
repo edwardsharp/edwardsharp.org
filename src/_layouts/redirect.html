@@ -1,0 +1,25 @@
+{% assign redirect_entry = page %}
+{% assign redirect_entries = site.documents | concat: site.pages %}
+{% for entry in redirect_entries %}
+  {% assign redirect_url = entry.url | absolute_url %}
+  {% if redirect_url == page.redirect.to %}
+    {% assign redirect_entry = entry %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+<!doctype html>
+<html lang="{{ site.lang | default: 'en' | escape }}">
+  <head>
+    <meta charset="utf-8" />
+    {% include metadata.html entry=redirect_entry url=page.redirect.to %}
+    <meta http-equiv="refresh" content="0; url={{ page.redirect.to | escape }}" />
+    <meta name="robots" content="noindex" />
+    <script>
+      window.location.href = {{ page.redirect.to_js }};
+    </script>
+  </head>
+  <body>
+    <h1>redirecting...</h1>
+    <a href="{{ page.redirect.to | escape }}">continue to the page</a>
+  </body>
+</html>
