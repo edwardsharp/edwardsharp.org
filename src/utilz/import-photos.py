@@ -1,4 +1,4 @@
-"""Import only a folder of Photos exports; cached place names become PUBLIC metadata."""
+"""Import Photos exports in six-hour groups; cached place names become PUBLIC metadata."""
 
 import argparse
 from datetime import datetime
@@ -163,7 +163,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("directory", type=Path, help="manually exported images; keep original filenames and capture metadata")
     parser.add_argument("--library", type=Path, help="Photos library; defaults to the last-opened library")
-    parser.add_argument("--photoset", action="append", default=[], help="group a direct child folder; repeatable")
+    parser.add_argument("--photoset", action="append", default=[], help="keep a direct child folder together instead of six-hour grouping; repeatable")
     parser.add_argument("--dry-run", action="store_true", help="match metadata and preview posts without writing site content")
     args = parser.parse_args()
     directory = args.directory.expanduser().resolve(strict=True)

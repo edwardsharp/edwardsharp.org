@@ -47,6 +47,11 @@ interface Asset {
   location?: Coordinates;
   photos?: PhotosMetadata;
 }
+interface ImageGroup {
+  title: string;
+  assets: Asset[];
+  set: boolean;
+}
 
 const imageExtensions = new Set([
   ".jpg",
@@ -269,9 +274,7 @@ function stripImage(input: string, output: string): void {
     throw new Error(`image metadata profiles remain: ${output}`);
 }
 
-async function collect(
-  options: ImageImportOptions,
-): Promise<{ title: string; assets: Asset[]; set: boolean }[]> {
+async function collect(options: ImageImportOptions): Promise<ImageGroup[]> {
   const directory = resolve(options.directory);
   const children = await readdir(directory, { withFileTypes: true });
   for (const name of options.photosets)
@@ -279,11 +282,8 @@ async function collect(
       throw new Error(
         `photoset must name an existing direct child directory: ${name}`,
       );
-  const groups: { title: string; assets: Asset[]; set: boolean }[] = [];
-  async function walk(
-    folder: string,
-    set?: { title: string; assets: Asset[]; set: boolean },
-  ) {
+  const groups: ImageGroup[] = [];
+  async function walk(folder: string, set?: ImageGroup) {
     for (const entry of (await readdir(folder, { withFileTypes: true })).sort(
       (a, b) => a.name.localeCompare(b.name),
     )) {
@@ -367,11 +367,17 @@ async function collect(
   });
   for (const group of ready) {
     if (!group.assets.length) throw new Error(`empty photoset: ${group.title}`);
-    group.assets.sort(
-      (a, b) => a.date.localeCompare(b.date) || a.title.localeCompare(b.title),
-    );
+    group.assets.sort(compareCaptureTime);
   }
   return ready;
+}
+
+function compareCaptureTime(a: Asset, b: Asset): number {
+  return (
+    Date.parse(a.date) - Date.parse(b.date) ||
+    a.title.localeCompare(b.title) ||
+    a.filename.localeCompare(b.filename)
+  );
 }
 
 export async function importImages(
@@ -461,6 +467,53 @@ export async function importImages(
   let imported = 0;
   let skipped = 0;
   let failedConversions = 0;
+  const automaticGroups = new Set<ImageGroup>();
+  if (options.photosMetadata) {
+    const assets: Asset[] = [];
+    const seen = new Set<string>();
+    const candidates = groups
+      .filter((group) => !group.set && !group.assets[0]!.video)
+      .flatMap((group) => group.assets)
+      .sort(compareCaptureTime);
+    for (const asset of candidates) {
+      const id = `local-photo-${asset.hash}`;
+      const duplicate = !history.has(id)
+        ? (await existingImages()).get(asset.hash)
+        : undefined;
+      if (history.has(id) || duplicate || seen.has(asset.hash)) {
+        console.info(
+          `skipping previously imported/duplicate Photos image: ${asset.filename}`,
+        );
+        if (history.has(id) || duplicate) await remember(id);
+        skipped++;
+        continue;
+      }
+      seen.add(asset.hash);
+      assets.push(asset);
+    }
+    const grouped: ImageGroup[] = [];
+    for (const asset of assets) {
+      const current = grouped.at(-1);
+      if (
+        !current ||
+        Date.parse(asset.date) - Date.parse(current.assets[0]!.date) >
+          6 * 60 * 60 * 1000
+      ) {
+        const group = { title: asset.title, assets: [asset], set: false };
+        grouped.push(group);
+        automaticGroups.add(group);
+      } else {
+        current.assets.push(asset);
+        current.set = true;
+      }
+    }
+    groups.splice(
+      0,
+      groups.length,
+      ...groups.filter((group) => group.set || group.assets[0]!.video),
+      ...grouped,
+    );
+  }
   for (const group of groups) {
     const video = group.assets[0]!.video;
     const kind = video ? "video" : "photo";
@@ -682,6 +735,9 @@ export async function importImages(
       );
       postFiles.push(join(year, postName));
       await remember(id);
+      if (automaticGroups.has(group))
+        for (const asset of group.assets)
+          await remember(`local-photo-${asset.hash}`);
       if (!video)
         for (const output of outputs)
           publishedImages.set(await hashFile(output.local), output.url);

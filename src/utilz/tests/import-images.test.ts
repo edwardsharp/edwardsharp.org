@@ -20,6 +20,7 @@ import {
   imagePostFilename,
   importImages,
   readPhotosMetadata,
+  type PhotosMetadata,
 } from "../import-images.ts";
 
 test(
@@ -152,6 +153,206 @@ test(
       importImages({ ...options, photosMetadata: new Map() }, root),
       /no usable Photos images/,
     );
+  },
+);
+
+test(
+  "Photos imports group chronologically within six hours, including the boundary, while explicit sets stay intact",
+  {
+    skip: spawnSync("magick", ["-version"]).error
+      ? "requires ImageMagick"
+      : false,
+  },
+  async (t) => {
+    const temporary = await mkdtemp(join(tmpdir(), "photos-time-groups-"));
+    t.after(() => rm(temporary, { recursive: true, force: true }));
+    const source = join(temporary, "source");
+    const root = join(temporary, "site");
+    const metadata: Record<string, PhotosMetadata> = {};
+    for (const fixture of [
+      {
+        name: "z-earliest",
+        date: "2020-12-31T23:00:00Z",
+        color: "red",
+        folder: "",
+      },
+      {
+        name: "m-middle",
+        date: "2021-01-01T04:00:00+02:00",
+        color: "blue",
+        folder: "nested",
+      },
+      {
+        name: "a-boundary",
+        date: "2020-12-31T23:00:00-06:00",
+        color: "green",
+        folder: "",
+      },
+      {
+        name: "b-over",
+        date: "2021-01-01T05:00:00.001Z",
+        color: "yellow",
+        folder: "",
+      },
+      {
+        name: "c-second",
+        date: "2021-01-01T09:00:00Z",
+        color: "purple",
+        folder: "",
+      },
+      {
+        name: "y-distant",
+        date: "2023-11-05T12:00:00Z",
+        color: "orange",
+        folder: "",
+      },
+      {
+        name: "manual-old",
+        date: "2015-01-01T12:00:00Z",
+        color: "black",
+        folder: "chosen",
+      },
+      {
+        name: "manual-new",
+        date: "2025-01-01T12:00:00Z",
+        color: "white",
+        folder: "chosen",
+      },
+    ]) {
+      const directory = join(source, fixture.folder);
+      await mkdir(directory, { recursive: true });
+      const image = join(directory, `${fixture.name}.png`);
+      const made = spawnSync("magick", [
+        "-size",
+        "8x8",
+        `xc:${fixture.color}`,
+        image,
+      ]);
+      assert.equal(made.status, 0, made.stderr.toString());
+      metadata[image] = {
+        date: fixture.date,
+        title: fixture.name,
+        description: `caption ${fixture.name}`,
+        tags: ["noise"],
+        place: "somewhere",
+        last_modified: null,
+        needs_review: fixture.name === "m-middle",
+      };
+    }
+    const file = join(temporary, "metadata.json");
+    await writeFile(file, JSON.stringify(metadata));
+    const options = {
+      directory: source,
+      dateSource: "exif" as const,
+      photosets: ["chosen"],
+      location: false,
+      videos: false,
+      dryRun: false,
+      photosMetadata: await readPhotosMetadata(file),
+    };
+    await importImages({ ...options, dryRun: true }, root);
+    await assert.rejects(stat(root), { code: "ENOENT" });
+    assert.equal((await importImages(options, root)).imported, 4);
+    const posts = await readdir(join(root, "content/_posts"), {
+      recursive: true,
+    });
+    const documents = await Promise.all(
+      posts
+        .filter((path) => path.endsWith(".md"))
+        .map((path) => readFile(join(root, "content/_posts", path), "utf8")),
+    );
+    const first = documents.find((text) =>
+      text.includes('title: "z-earliest"'),
+    );
+    const second = documents.find((text) => text.includes('title: "b-over"'));
+    const distant = documents.find((text) =>
+      text.includes('title: "y-distant"'),
+    );
+    const manual = documents.find((text) => text.includes('title: "chosen"'));
+    assert.ok(first && second && distant && manual);
+    assert.deepEqual(
+      [...first.matchAll(/^!\[([^\]]+)\]/gm)].map((match) => match[1]),
+      ["z-earliest", "m-middle", "a-boundary"],
+    );
+    assert.match(first, /^date: "2021-01-01T05:00:00.000Z"$/m);
+    assert.match(first, /^needs_review: true$/m);
+    assert.match(first, /^locations: \[/m);
+    assert.deepEqual(
+      [...second.matchAll(/^!\[([^\]]+)\]/gm)].map((match) => match[1]),
+      ["b-over", "c-second"],
+    );
+    assert.equal(distant.match(/^!\[/gm)?.length, 1);
+    assert.equal(manual.match(/^!\[/gm)?.length, 2);
+    assert.match(manual, /^date: "2025-01-01T12:00:00.000Z"$/m);
+  },
+);
+
+test(
+  "automatic Photos groups skip duplicate exports and remember individual members on later imports",
+  {
+    skip: spawnSync("magick", ["-version"]).error
+      ? "requires ImageMagick"
+      : false,
+  },
+  async (t) => {
+    const temporary = await mkdtemp(join(tmpdir(), "photos-group-history-"));
+    t.after(() => rm(temporary, { recursive: true, force: true }));
+    const source = join(temporary, "source");
+    const root = join(temporary, "site");
+    await mkdir(source);
+    const photosMetadata = new Map<string, PhotosMetadata>();
+    async function add(name: string, color: string, hour: number) {
+      const image = join(source, `${name}.png`);
+      const made = spawnSync("magick", ["-size", "8x8", `xc:${color}`, image]);
+      assert.equal(made.status, 0, made.stderr.toString());
+      photosMetadata.set(image, {
+        date: `2020-06-01T${hour}:00:00.000Z`,
+        title: name,
+        description: "",
+        tags: [],
+        place: null,
+        last_modified: null,
+      });
+      return image;
+    }
+    const original = await add("old", "blue", 12);
+    const duplicate = join(source, "old-copy.png");
+    await writeFile(duplicate, await readFile(original));
+    const originalMetadata = photosMetadata.get(original);
+    assert.ok(originalMetadata);
+    photosMetadata.set(duplicate, {
+      ...originalMetadata,
+      date: "2020-06-01T13:00:00.000Z",
+      title: "old-copy",
+    });
+    const options = {
+      directory: source,
+      dateSource: "exif" as const,
+      photosets: [],
+      location: false,
+      videos: false,
+      dryRun: false,
+      photosMetadata,
+    };
+    assert.equal((await importImages(options, root)).imported, 1);
+    const originalPost = join(
+      root,
+      "content/_posts/2020/2020-06-01-photo-old.md",
+    );
+    const edited = `${await readFile(originalPost, "utf8")}\nuser edit\n`;
+    await writeFile(originalPost, edited);
+    await add("new-one", "green", 14);
+    await add("new-two", "red", 15);
+    assert.equal((await importImages(options, root)).imported, 1);
+    assert.equal((await importImages(options, root)).imported, 0);
+    await add("new-three", "purple", 16);
+    assert.equal((await importImages(options, root)).imported, 1);
+    assert.equal((await importImages(options, root)).imported, 0);
+    assert.equal(await readFile(originalPost, "utf8"), edited);
+    const posts = await readdir(join(root, "content/_posts"), {
+      recursive: true,
+    });
+    assert.equal(posts.filter((path) => path.endsWith(".md")).length, 3);
   },
 );
 
