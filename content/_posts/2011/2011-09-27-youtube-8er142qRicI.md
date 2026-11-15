@@ -8,7 +8,7 @@ source_id: "8er142qRicI"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=8er142qRicI"
-preview_image: "/content/media/2011/2011-09-27-youtube-8er142qRicI-5c031a0d00.jpg"
+preview_image: "/content/media/2011/2011-09-27-youtube-8er142qRicI-5c031a0d00.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/8er142qRicI" title="chipper__shredder__algi_cazz" loading="lazy" allowfullscreen></iframe></div>

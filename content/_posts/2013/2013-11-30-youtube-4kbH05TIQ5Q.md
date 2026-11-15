@@ -8,7 +8,7 @@ source_id: "4kbH05TIQ5Q"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=4kbH05TIQ5Q"
-preview_image: "/content/media/2013/2013-11-30-youtube-4kbH05TIQ5Q-f4d340f5f9.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-4kbH05TIQ5Q-f4d340f5f9.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/4kbH05TIQ5Q" title="18. write 3m read 3m" loading="lazy" allowfullscreen></iframe></div>

@@ -8,7 +8,7 @@ source_id: "tBE7Fg802oM"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=tBE7Fg802oM"
-preview_image: "/content/media/2013/2013-09-01-youtube-tBE7Fg802oM-69137536d3.jpg"
+preview_image: "/content/media/2013/2013-09-01-youtube-tBE7Fg802oM-69137536d3.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/tBE7Fg802oM" title="PRISONCORPSTUFF" loading="lazy" allowfullscreen></iframe></div>

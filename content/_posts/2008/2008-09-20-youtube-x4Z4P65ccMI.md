@@ -8,7 +8,7 @@ source_id: "x4Z4P65ccMI"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=x4Z4P65ccMI"
-preview_image: "/content/media/2008/2008-09-20-youtube-x4Z4P65ccMI-0852cfaa99.jpg"
+preview_image: "/content/media/2008/2008-09-20-youtube-x4Z4P65ccMI-0852cfaa99.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/x4Z4P65ccMI" title="jewles" loading="lazy" allowfullscreen></iframe></div>

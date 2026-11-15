@@ -8,7 +8,7 @@ source_id: "N8xjfWeQN8s"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=N8xjfWeQN8s"
-preview_image: "/content/media/2013/2013-11-30-youtube-N8xjfWeQN8s-cef46c8e98.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-N8xjfWeQN8s-cef46c8e98.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/N8xjfWeQN8s" title="37. go outside &amp; say random lines of #TEXT" loading="lazy" allowfullscreen></iframe></div>

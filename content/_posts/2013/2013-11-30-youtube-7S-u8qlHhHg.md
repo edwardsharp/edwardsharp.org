@@ -8,7 +8,7 @@ source_id: "7S-u8qlHhHg"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=7S-u8qlHhHg"
-preview_image: "/content/media/2013/2013-11-30-youtube-7S-u8qlHhHg-106d375d5e.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-7S-u8qlHhHg-106d375d5e.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/7S-u8qlHhHg" title="86. locate a can of trash and stare into the abyss" loading="lazy" allowfullscreen></iframe></div>

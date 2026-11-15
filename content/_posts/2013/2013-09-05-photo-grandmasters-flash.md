@@ -6,10 +6,10 @@ tags: ["photo","grandmasters"]
 permalink: "/post/photo-17842720834060015/"
 source_id: "photo-17842720834060015"
 kind: "photo"
-preview_image: "/content/media/2013/2013-09-05-photo-17842720834060015-1.jpg"
+preview_image: "/content/media/2013/2013-09-05-photo-17842720834060015-1.webp"
 preview_alt: "#grandmasters'flash"
 ---
 
-![#grandmasters'flash](/content/media/2013/2013-09-05-photo-17842720834060015-1.jpg)
+![#grandmasters'flash](/content/media/2013/2013-09-05-photo-17842720834060015-1.webp)
 
 #grandmasters'flash

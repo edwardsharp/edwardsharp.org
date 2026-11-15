@@ -8,7 +8,7 @@ source_id: "x-8oC-pQ_4E"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=x-8oC-pQ_4E"
-preview_image: "/content/media/2015/2015-06-28-youtube-x-8oC-pQ_4E-026a28858b.jpg"
+preview_image: "/content/media/2015/2015-06-28-youtube-x-8oC-pQ_4E-026a28858b.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/x-8oC-pQ_4E" title="NOON NOISE &amp; PANCAKEZ: INFILTRATION LAB" loading="lazy" allowfullscreen></iframe></div>

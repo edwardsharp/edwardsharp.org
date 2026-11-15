@@ -8,7 +8,7 @@ source_id: "FoJHA2Tqrb0"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=FoJHA2Tqrb0"
-preview_image: "/content/media/2015/2015-01-25-youtube-FoJHA2Tqrb0-2bf6234c00.jpg"
+preview_image: "/content/media/2015/2015-01-25-youtube-FoJHA2Tqrb0-2bf6234c00.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/FoJHA2Tqrb0" title="urbandecayovergrowthoverpricedbrokenwindowproperty" loading="lazy" allowfullscreen></iframe></div>

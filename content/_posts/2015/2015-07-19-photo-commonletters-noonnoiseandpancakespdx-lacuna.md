@@ -6,10 +6,10 @@ tags: ["photo","commonletters","noonnoiseandpancakespdx","LACUNA"]
 permalink: "/post/photo-17842056880060015/"
 source_id: "photo-17842056880060015"
 kind: "photo"
-preview_image: "/content/media/2015/2015-07-19-photo-17842056880060015-1.jpg"
+preview_image: "/content/media/2015/2015-07-19-photo-17842056880060015-1.webp"
 preview_alt: "#commonletters #noonnoiseandpancakespdx #LACUNA"
 ---
 
-![#commonletters #noonnoiseandpancakespdx #LACUNA](/content/media/2015/2015-07-19-photo-17842056880060015-1.jpg)
+![#commonletters #noonnoiseandpancakespdx #LACUNA](/content/media/2015/2015-07-19-photo-17842056880060015-1.webp)
 
 #commonletters #noonnoiseandpancakespdx #LACUNA

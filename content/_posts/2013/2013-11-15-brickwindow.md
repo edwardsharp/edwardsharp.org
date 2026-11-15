@@ -5,12 +5,12 @@ tags: []
 permalink: /post/67094243309/
 source_id: '67094243309'
 kind: photo
-preview_image: /content/media/2013/2013-11-15-brickwindow.jpg
+preview_image: /content/media/2013/2013-11-15-brickwindow.webp
 preview_alt: brickwindow
 source_url: http://edwardsharp.org/post/67094243309/brickwindow
 redirect_from:
 - /post/67094243309/brickwindow/
 ---
-![brickwindow](/content/media/2013/2013-11-15-brickwindow.jpg)
+![brickwindow](/content/media/2013/2013-11-15-brickwindow.webp)
 
 #brickwindow

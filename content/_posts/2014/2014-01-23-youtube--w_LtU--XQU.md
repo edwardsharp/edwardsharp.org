@@ -8,7 +8,7 @@ source_id: "-w_LtU--XQU"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=-w_LtU--XQU"
-preview_image: "/content/media/2014/2014-01-23-youtube--w_LtU--XQU-0193e6bc5e.jpg"
+preview_image: "/content/media/2014/2014-01-23-youtube--w_LtU--XQU-0193e6bc5e.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/-w_LtU--XQU" title="VV/LD TØR∇S" loading="lazy" allowfullscreen></iframe></div>

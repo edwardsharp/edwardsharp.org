@@ -8,7 +8,7 @@ source_id: "fzmqA6e_c-8"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=fzmqA6e_c-8"
-preview_image: "/content/media/2013/2013-11-30-youtube-fzmqA6e_c-8-5a8f744ec9.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-fzmqA6e_c-8-5a8f744ec9.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/fzmqA6e_c-8" title="26. say sorry into a bag" loading="lazy" allowfullscreen></iframe></div>

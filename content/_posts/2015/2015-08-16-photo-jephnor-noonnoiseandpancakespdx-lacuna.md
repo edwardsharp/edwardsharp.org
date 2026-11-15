@@ -6,10 +6,10 @@ tags: ["photo","jephnor","noonnoiseandpancakespdx","LACUNA"]
 permalink: "/post/photo-17842184296060015/"
 source_id: "photo-17842184296060015"
 kind: "photo"
-preview_image: "/content/media/2015/2015-08-16-photo-17842184296060015-1.jpg"
+preview_image: "/content/media/2015/2015-08-16-photo-17842184296060015-1.webp"
 preview_alt: "#jephnor #noonnoiseandpancakespdx #LACUNA"
 ---
 
-![#jephnor #noonnoiseandpancakespdx #LACUNA](/content/media/2015/2015-08-16-photo-17842184296060015-1.jpg)
+![#jephnor #noonnoiseandpancakespdx #LACUNA](/content/media/2015/2015-08-16-photo-17842184296060015-1.webp)
 
 #jephnor #noonnoiseandpancakespdx #LACUNA

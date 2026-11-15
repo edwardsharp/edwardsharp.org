@@ -8,7 +8,7 @@ source_id: "JfJT-yQhzbc"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=JfJT-yQhzbc"
-preview_image: "/content/media/2013/2013-11-30-youtube-JfJT-yQhzbc-f7f553f220.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-JfJT-yQhzbc-f7f553f220.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/JfJT-yQhzbc" title="94. - 95." loading="lazy" allowfullscreen></iframe></div>

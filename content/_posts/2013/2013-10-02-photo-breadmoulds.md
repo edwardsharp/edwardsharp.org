@@ -6,10 +6,10 @@ tags: ["photo","breadmoulds"]
 permalink: "/post/photo-17842734247060015/"
 source_id: "photo-17842734247060015"
 kind: "photo"
-preview_image: "/content/media/2013/2013-10-02-photo-17842734247060015-1.jpg"
+preview_image: "/content/media/2013/2013-10-02-photo-17842734247060015-1.webp"
 preview_alt: "#breadmoulds"
 ---
 
-![#breadmoulds](/content/media/2013/2013-10-02-photo-17842734247060015-1.jpg)
+![#breadmoulds](/content/media/2013/2013-10-02-photo-17842734247060015-1.webp)
 
 #breadmoulds

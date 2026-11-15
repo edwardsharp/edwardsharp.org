@@ -8,7 +8,7 @@ source_id: "hud02Um_ans"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=hud02Um_ans"
-preview_image: "/content/media/2018/2018-03-08-youtube-hud02Um_ans-9ced189150.jpg"
+preview_image: "/content/media/2018/2018-03-08-youtube-hud02Um_ans-9ced189150.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/hud02Um_ans" title="016" loading="lazy" allowfullscreen></iframe></div>

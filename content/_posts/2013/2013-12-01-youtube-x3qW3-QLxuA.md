@@ -8,7 +8,7 @@ source_id: "x3qW3-QLxuA"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=x3qW3-QLxuA"
-preview_image: "/content/media/2013/2013-12-01-youtube-x3qW3-QLxuA-c9f6d373e2.jpg"
+preview_image: "/content/media/2013/2013-12-01-youtube-x3qW3-QLxuA-c9f6d373e2.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/x3qW3-QLxuA" title="48. say aloud childhood memories while walking backwards" loading="lazy" allowfullscreen></iframe></div>

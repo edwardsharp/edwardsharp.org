@@ -8,7 +8,7 @@ source_id: "dAIaLBmFQaA"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=dAIaLBmFQaA"
-preview_image: "/content/media/2014/2014-07-13-youtube-dAIaLBmFQaA-c9f47d1f30.jpg"
+preview_image: "/content/media/2014/2014-07-13-youtube-dAIaLBmFQaA-c9f47d1f30.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/dAIaLBmFQaA" title="urban hike 01" loading="lazy" allowfullscreen></iframe></div>

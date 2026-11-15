@@ -8,7 +8,7 @@ source_id: "SQgjBGToI0c"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=SQgjBGToI0c"
-preview_image: "/content/media/2014/2014-03-22-youtube-SQgjBGToI0c-1cc040125e.jpg"
+preview_image: "/content/media/2014/2014-03-22-youtube-SQgjBGToI0c-1cc040125e.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/SQgjBGToI0c" title="Ohio State University 02" loading="lazy" allowfullscreen></iframe></div>

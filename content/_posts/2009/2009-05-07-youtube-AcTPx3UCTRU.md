@@ -8,7 +8,7 @@ source_id: "AcTPx3UCTRU"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=AcTPx3UCTRU"
-preview_image: "/content/media/2009/2009-05-07-youtube-AcTPx3UCTRU-274b260abe.jpg"
+preview_image: "/content/media/2009/2009-05-07-youtube-AcTPx3UCTRU-274b260abe.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/AcTPx3UCTRU" title="LEMP 02" loading="lazy" allowfullscreen></iframe></div>

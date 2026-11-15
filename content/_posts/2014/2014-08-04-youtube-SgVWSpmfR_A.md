@@ -8,7 +8,7 @@ source_id: "SgVWSpmfR_A"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=SgVWSpmfR_A"
-preview_image: "/content/media/2014/2014-08-04-youtube-SgVWSpmfR_A-8fcfff436e.jpg"
+preview_image: "/content/media/2014/2014-08-04-youtube-SgVWSpmfR_A-8fcfff436e.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/SgVWSpmfR_A" title="OPEN SPACE at Panoply Performance Lab" loading="lazy" allowfullscreen></iframe></div>

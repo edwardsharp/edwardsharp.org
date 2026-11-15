@@ -8,7 +8,7 @@ source_id: "fbDQhY3EdAI"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=fbDQhY3EdAI"
-preview_image: "/content/media/2013/2013-11-30-youtube-fbDQhY3EdAI-16eae09600.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-fbDQhY3EdAI-16eae09600.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/fbDQhY3EdAI" title="80. make noises with your mouth closed" loading="lazy" allowfullscreen></iframe></div>

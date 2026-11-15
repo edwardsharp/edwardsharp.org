@@ -8,7 +8,7 @@ source_id: "Sv4yxQ6Gidk"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=Sv4yxQ6Gidk"
-preview_image: "/content/media/2013/2013-11-30-youtube-Sv4yxQ6Gidk-ab2c9469cc.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-Sv4yxQ6Gidk-ab2c9469cc.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/Sv4yxQ6Gidk" title="F-DT door busterz open/close" loading="lazy" allowfullscreen></iframe></div>

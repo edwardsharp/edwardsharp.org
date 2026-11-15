@@ -8,7 +8,7 @@ source_id: "tvAhQM-eabY"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=tvAhQM-eabY"
-preview_image: "/content/media/2013/2013-12-19-youtube-tvAhQM-eabY-4d651adb5e.jpg"
+preview_image: "/content/media/2013/2013-12-19-youtube-tvAhQM-eabY-4d651adb5e.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/tvAhQM-eabY" title="chezb04" loading="lazy" allowfullscreen></iframe></div>

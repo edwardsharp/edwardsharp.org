@@ -8,7 +8,7 @@ source_id: "RWeWHekPFDg"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=RWeWHekPFDg"
-preview_image: "/content/media/2013/2013-05-01-youtube-RWeWHekPFDg-b3da2c9d5e.jpg"
+preview_image: "/content/media/2013/2013-05-01-youtube-RWeWHekPFDg-b3da2c9d5e.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/RWeWHekPFDg" title="prisoncorp04" loading="lazy" allowfullscreen></iframe></div>

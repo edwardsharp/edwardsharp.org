@@ -8,7 +8,7 @@ source_id: "Rkbr47wW7b0"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=Rkbr47wW7b0"
-preview_image: "/content/media/2013/2013-11-30-youtube-Rkbr47wW7b0-3185d14ede.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-Rkbr47wW7b0-3185d14ede.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/Rkbr47wW7b0" title="65. take off your bootz put one back one and walk around the room" loading="lazy" allowfullscreen></iframe></div>

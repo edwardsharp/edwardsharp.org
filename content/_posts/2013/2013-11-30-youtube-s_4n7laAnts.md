@@ -8,7 +8,7 @@ source_id: "s_4n7laAnts"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=s_4n7laAnts"
-preview_image: "/content/media/2013/2013-11-30-youtube-s_4n7laAnts-43cd697f26.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-s_4n7laAnts-43cd697f26.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/s_4n7laAnts" title="61. handcuff your hand to a chair" loading="lazy" allowfullscreen></iframe></div>

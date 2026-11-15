@@ -8,7 +8,7 @@ source_id: "y76Wz9TfiLM"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=y76Wz9TfiLM"
-preview_image: "/content/media/2013/2013-11-30-youtube-y76Wz9TfiLM-f53c2a60ae.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-y76Wz9TfiLM-f53c2a60ae.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/y76Wz9TfiLM" title="97. gradually but determinedly become more present" loading="lazy" allowfullscreen></iframe></div>

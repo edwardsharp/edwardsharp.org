@@ -8,7 +8,7 @@ source_id: "g4mXrSdhfHk"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=g4mXrSdhfHk"
-preview_image: "/content/media/2013/2013-11-30-youtube-g4mXrSdhfHk-c1187ad7e8.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-g4mXrSdhfHk-c1187ad7e8.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/g4mXrSdhfHk" title="12. say PDX housing ad price/desc." loading="lazy" allowfullscreen></iframe></div>

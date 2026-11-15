@@ -8,7 +8,7 @@ source_id: "dWzldDF2xew"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=dWzldDF2xew"
-preview_image: "/content/media/2013/2013-11-30-youtube-dWzldDF2xew-162b71c4a9.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-dWzldDF2xew-162b71c4a9.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/dWzldDF2xew" title="112. laying with your back on the floor..." loading="lazy" allowfullscreen></iframe></div>

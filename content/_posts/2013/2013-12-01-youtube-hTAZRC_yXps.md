@@ -8,7 +8,7 @@ source_id: "hTAZRC_yXps"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=hTAZRC_yXps"
-preview_image: "/content/media/2013/2013-12-01-youtube-hTAZRC_yXps-8a4b7779a2.jpg"
+preview_image: "/content/media/2013/2013-12-01-youtube-hTAZRC_yXps-8a4b7779a2.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/hTAZRC_yXps" title="82. sing from the lowest to the highest pitch you can" loading="lazy" allowfullscreen></iframe></div>

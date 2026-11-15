@@ -8,7 +8,7 @@ source_id: "ppZiXmlZ-KQ"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=ppZiXmlZ-KQ"
-preview_image: "/content/media/2014/2014-04-09-youtube-ppZiXmlZ-KQ-a2506e0055.jpg"
+preview_image: "/content/media/2014/2014-04-09-youtube-ppZiXmlZ-KQ-a2506e0055.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/ppZiXmlZ-KQ" title="MY CASTLE OF QUIET" loading="lazy" allowfullscreen></iframe></div>

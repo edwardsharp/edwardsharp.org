@@ -6,10 +6,10 @@ tags: ["photo","blacklivesmatter"]
 permalink: "/post/photo-17906971585459170/"
 source_id: "photo-17906971585459170"
 kind: "photo"
-preview_image: "/content/media/2020/2020-06-01-photo-17906971585459170-1.jpg"
+preview_image: "/content/media/2020/2020-06-01-photo-17906971585459170-1.webp"
 preview_alt: "fuck the police #blacklivesmatter"
 ---
 
-![fuck the police #blacklivesmatter](/content/media/2020/2020-06-01-photo-17906971585459170-1.jpg)
+![fuck the police #blacklivesmatter](/content/media/2020/2020-06-01-photo-17906971585459170-1.webp)
 
 fuck the police #blacklivesmatter

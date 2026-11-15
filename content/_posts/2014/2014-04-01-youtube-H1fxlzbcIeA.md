@@ -8,7 +8,7 @@ source_id: "H1fxlzbcIeA"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=H1fxlzbcIeA"
-preview_image: "/content/media/2014/2014-04-01-youtube-H1fxlzbcIeA-35a5e57dc9.jpg"
+preview_image: "/content/media/2014/2014-04-01-youtube-H1fxlzbcIeA-35a5e57dc9.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/H1fxlzbcIeA" title="DIRT SALON 02" loading="lazy" allowfullscreen></iframe></div>

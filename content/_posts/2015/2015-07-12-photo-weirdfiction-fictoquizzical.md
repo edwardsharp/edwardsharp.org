@@ -6,10 +6,10 @@ tags: ["photo","WEIRDFICTION","fictoquizzical"]
 permalink: "/post/photo-17842024093060015/"
 source_id: "photo-17842024093060015"
 kind: "photo"
-preview_image: "/content/media/2015/2015-07-12-photo-17842024093060015-1.jpg"
+preview_image: "/content/media/2015/2015-07-12-photo-17842024093060015-1.webp"
 preview_alt: "#WEIRDFICTION #fictoquizzical"
 ---
 
-![#WEIRDFICTION #fictoquizzical](/content/media/2015/2015-07-12-photo-17842024093060015-1.jpg)
+![#WEIRDFICTION #fictoquizzical](/content/media/2015/2015-07-12-photo-17842024093060015-1.webp)
 
 #WEIRDFICTION #fictoquizzical

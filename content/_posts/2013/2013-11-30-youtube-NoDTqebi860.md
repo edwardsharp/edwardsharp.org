@@ -8,7 +8,7 @@ source_id: "NoDTqebi860"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=NoDTqebi860"
-preview_image: "/content/media/2013/2013-11-30-youtube-NoDTqebi860-6ac211e2b6.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-NoDTqebi860-6ac211e2b6.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/NoDTqebi860" title="F-DT floor busterz" loading="lazy" allowfullscreen></iframe></div>

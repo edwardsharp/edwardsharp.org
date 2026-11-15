@@ -8,7 +8,7 @@ source_id: "0cK15TIpRGI"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=0cK15TIpRGI"
-preview_image: "/content/media/2013/2013-11-30-youtube-0cK15TIpRGI-64aa3bedce.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-0cK15TIpRGI-64aa3bedce.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/0cK15TIpRGI" title="38. march in a line" loading="lazy" allowfullscreen></iframe></div>

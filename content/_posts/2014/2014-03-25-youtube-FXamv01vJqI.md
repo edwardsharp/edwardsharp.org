@@ -8,7 +8,7 @@ source_id: "FXamv01vJqI"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=FXamv01vJqI"
-preview_image: "/content/media/2014/2014-03-25-youtube-FXamv01vJqI-7fba3cf8d4.jpg"
+preview_image: "/content/media/2014/2014-03-25-youtube-FXamv01vJqI-7fba3cf8d4.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/FXamv01vJqI" title="RUBBER CITY NOISE CAVE 00" loading="lazy" allowfullscreen></iframe></div>

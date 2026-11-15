@@ -8,7 +8,7 @@ source_id: "PPtdaD6uSIc"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=PPtdaD6uSIc"
-preview_image: "/content/media/2013/2013-02-13-youtube-PPtdaD6uSIc-f623bc49ec.jpg"
+preview_image: "/content/media/2013/2013-02-13-youtube-PPtdaD6uSIc-f623bc49ec.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/PPtdaD6uSIc" title="chezb01" loading="lazy" allowfullscreen></iframe></div>

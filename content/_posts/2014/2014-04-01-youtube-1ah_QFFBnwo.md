@@ -8,7 +8,7 @@ source_id: "1ah_QFFBnwo"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=1ah_QFFBnwo"
-preview_image: "/content/media/2014/2014-04-01-youtube-1ah_QFFBnwo-82a97be546.jpg"
+preview_image: "/content/media/2014/2014-04-01-youtube-1ah_QFFBnwo-82a97be546.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/1ah_QFFBnwo" title="MY PLACE PIZZA" loading="lazy" allowfullscreen></iframe></div>

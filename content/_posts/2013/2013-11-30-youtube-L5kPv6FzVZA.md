@@ -8,7 +8,7 @@ source_id: "L5kPv6FzVZA"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=L5kPv6FzVZA"
-preview_image: "/content/media/2013/2013-11-30-youtube-L5kPv6FzVZA-e5207c96cd.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-L5kPv6FzVZA-e5207c96cd.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/L5kPv6FzVZA" title="79. move specifically in response to sounds around you" loading="lazy" allowfullscreen></iframe></div>

@@ -8,7 +8,7 @@ source_id: "00gPOz1HgMU"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=00gPOz1HgMU"
-preview_image: "/content/media/2013/2013-11-30-youtube-00gPOz1HgMU-0be56321cd.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-00gPOz1HgMU-0be56321cd.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/00gPOz1HgMU" title="40. read 3m baghead remember 3m" loading="lazy" allowfullscreen></iframe></div>

@@ -6,10 +6,10 @@ tags: ["photo","brickwindow"]
 permalink: "/post/photo-17842757578060015/"
 source_id: "photo-17842757578060015"
 kind: "photo"
-preview_image: "/content/media/2013/2013-11-22-photo-17842757578060015-1.jpg"
+preview_image: "/content/media/2013/2013-11-22-photo-17842757578060015-1.webp"
 preview_alt: "#brickwindow"
 ---
 
-![#brickwindow](/content/media/2013/2013-11-22-photo-17842757578060015-1.jpg)
+![#brickwindow](/content/media/2013/2013-11-22-photo-17842757578060015-1.webp)
 
 #brickwindow

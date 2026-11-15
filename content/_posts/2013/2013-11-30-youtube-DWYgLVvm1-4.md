@@ -8,7 +8,7 @@ source_id: "DWYgLVvm1-4"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=DWYgLVvm1-4"
-preview_image: "/content/media/2013/2013-11-30-youtube-DWYgLVvm1-4-5a01cbbc85.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-DWYgLVvm1-4-5a01cbbc85.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/DWYgLVvm1-4" title="66. put bag on head &amp; tape someone else" loading="lazy" allowfullscreen></iframe></div>

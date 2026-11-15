@@ -8,7 +8,7 @@ source_id: "p2NO8r8xijs"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=p2NO8r8xijs"
-preview_image: "/content/media/2013/2013-04-17-youtube-p2NO8r8xijs-e92ae5b823.jpg"
+preview_image: "/content/media/2013/2013-04-17-youtube-p2NO8r8xijs-e92ae5b823.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/p2NO8r8xijs" title="HOUSEOFDESIRE" loading="lazy" allowfullscreen></iframe></div>

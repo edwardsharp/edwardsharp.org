@@ -8,7 +8,7 @@ source_id: "uu8izAckFlc"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=uu8izAckFlc"
-preview_image: "/content/media/2010/2010-11-11-youtube-uu8izAckFlc-e891b7889e.jpg"
+preview_image: "/content/media/2010/2010-11-11-youtube-uu8izAckFlc-e891b7889e.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/uu8izAckFlc" title="cool off tozz" loading="lazy" allowfullscreen></iframe></div>

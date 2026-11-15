@@ -6,10 +6,10 @@ tags: ["photo","recentsculpture"]
 permalink: "/post/photo-17870319523076492/"
 source_id: "photo-17870319523076492"
 kind: "photo"
-preview_image: "/content/media/2017/2017-04-29-photo-17870319523076492-1.jpg"
+preview_image: "/content/media/2017/2017-04-29-photo-17870319523076492-1.webp"
 preview_alt: "#recentsculpture"
 ---
 
-![#recentsculpture](/content/media/2017/2017-04-29-photo-17870319523076492-1.jpg)
+![#recentsculpture](/content/media/2017/2017-04-29-photo-17870319523076492-1.webp)
 
 #recentsculpture

@@ -8,7 +8,7 @@ source_id: "jE4VA4FdtWI"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=jE4VA4FdtWI"
-preview_image: "/content/media/2014/2014-07-09-youtube-jE4VA4FdtWI-ba279a0bc8.jpg"
+preview_image: "/content/media/2014/2014-07-09-youtube-jE4VA4FdtWI-ba279a0bc8.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/jE4VA4FdtWI" title="NIGHTSHIFTheadzupdisplay" loading="lazy" allowfullscreen></iframe></div>

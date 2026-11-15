@@ -8,7 +8,7 @@ source_id: "WYMwqdAfXw0"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=WYMwqdAfXw0"
-preview_image: "/content/media/2013/2013-12-01-youtube-WYMwqdAfXw0-3d9b652701.jpg"
+preview_image: "/content/media/2013/2013-12-01-youtube-WYMwqdAfXw0-3d9b652701.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/WYMwqdAfXw0" title="47. observe things in the space around you. let those observations guide your movement" loading="lazy" allowfullscreen></iframe></div>

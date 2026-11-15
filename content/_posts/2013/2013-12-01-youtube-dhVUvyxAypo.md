@@ -8,7 +8,7 @@ source_id: "dhVUvyxAypo"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=dhVUvyxAypo"
-preview_image: "/content/media/2013/2013-12-01-youtube-dhVUvyxAypo-4d7d6b8a11.jpg"
+preview_image: "/content/media/2013/2013-12-01-youtube-dhVUvyxAypo-4d7d6b8a11.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/dhVUvyxAypo" title="49. say aloud memories having to do with getting something for free" loading="lazy" allowfullscreen></iframe></div>

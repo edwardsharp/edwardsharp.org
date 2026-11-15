@@ -8,7 +8,7 @@ source_id: "pzFA1JEM3V0"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=pzFA1JEM3V0"
-preview_image: "/content/media/2014/2014-03-11-youtube-pzFA1JEM3V0-72690808be.jpg"
+preview_image: "/content/media/2014/2014-03-11-youtube-pzFA1JEM3V0-72690808be.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/pzFA1JEM3V0" title="OMAHA, NE" loading="lazy" allowfullscreen></iframe></div>

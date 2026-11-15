@@ -8,7 +8,7 @@ source_id: "A4sI01n-oDA"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=A4sI01n-oDA"
-preview_image: "/content/media/2014/2014-03-18-youtube-A4sI01n-oDA-7034cfe488.jpg"
+preview_image: "/content/media/2014/2014-03-18-youtube-A4sI01n-oDA-7034cfe488.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/A4sI01n-oDA" title="pubicspaceone" loading="lazy" allowfullscreen></iframe></div>

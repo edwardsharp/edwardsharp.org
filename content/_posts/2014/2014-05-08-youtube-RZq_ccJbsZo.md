@@ -8,7 +8,7 @@ source_id: "RZq_ccJbsZo"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=RZq_ccJbsZo"
-preview_image: "/content/media/2014/2014-05-08-youtube-RZq_ccJbsZo-f24299a1e7.jpg"
+preview_image: "/content/media/2014/2014-05-08-youtube-RZq_ccJbsZo-f24299a1e7.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/RZq_ccJbsZo" title="rattle blaze foot" loading="lazy" allowfullscreen></iframe></div>

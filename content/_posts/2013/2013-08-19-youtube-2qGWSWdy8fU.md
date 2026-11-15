@@ -8,7 +8,7 @@ source_id: "2qGWSWdy8fU"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=2qGWSWdy8fU"
-preview_image: "/content/media/2013/2013-08-19-youtube-2qGWSWdy8fU-b509a5dd45.jpg"
+preview_image: "/content/media/2013/2013-08-19-youtube-2qGWSWdy8fU-b509a5dd45.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/2qGWSWdy8fU" title="prisoncorp07" loading="lazy" allowfullscreen></iframe></div>

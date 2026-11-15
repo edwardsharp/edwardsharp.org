@@ -8,7 +8,7 @@ source_id: "06sFTYh0Y-M"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=06sFTYh0Y-M"
-preview_image: "/content/media/2013/2013-11-30-youtube-06sFTYh0Y-M-e5c808e246.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-06sFTYh0Y-M-e5c808e246.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/06sFTYh0Y-M" title="101. exit the space and look back in through the windows" loading="lazy" allowfullscreen></iframe></div>

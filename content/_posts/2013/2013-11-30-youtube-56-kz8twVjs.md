@@ -8,7 +8,7 @@ source_id: "56-kz8twVjs"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=56-kz8twVjs"
-preview_image: "/content/media/2013/2013-11-30-youtube-56-kz8twVjs-e16c017278.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-56-kz8twVjs-e16c017278.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/56-kz8twVjs" title="34. eat food" loading="lazy" allowfullscreen></iframe></div>

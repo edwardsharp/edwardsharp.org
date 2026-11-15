@@ -6,12 +6,12 @@ tags: ["photo"]
 permalink: "/post/photo-17862516944367830/"
 source_id: "photo-17862516944367830"
 kind: "photo"
-preview_image: "/content/media/2021/2021-01-28-photo-17862516944367830-1.jpg"
+preview_image: "/content/media/2021/2021-01-28-photo-17862516944367830-1.webp"
 preview_alt: "moonpix && beigetonez"
 ---
 
-![moonpix && beigetonez (1 of 2)](/content/media/2021/2021-01-28-photo-17862516944367830-1.jpg)
+![moonpix && beigetonez (1 of 2)](/content/media/2021/2021-01-28-photo-17862516944367830-1.webp)
 
-![moonpix && beigetonez (2 of 2)](/content/media/2021/2021-01-28-photo-17862516944367830-2.jpg)
+![moonpix && beigetonez (2 of 2)](/content/media/2021/2021-01-28-photo-17862516944367830-2.webp)
 
 moonpix && beigetonez

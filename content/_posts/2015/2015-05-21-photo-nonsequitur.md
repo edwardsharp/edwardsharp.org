@@ -6,10 +6,10 @@ tags: ["photo","nonsequitur"]
 permalink: "/post/photo-17841733765060015/"
 source_id: "photo-17841733765060015"
 kind: "photo"
-preview_image: "/content/media/2015/2015-05-21-photo-17841733765060015-1.jpg"
+preview_image: "/content/media/2015/2015-05-21-photo-17841733765060015-1.webp"
 preview_alt: "#nonsequitur"
 ---
 
-![#nonsequitur](/content/media/2015/2015-05-21-photo-17841733765060015-1.jpg)
+![#nonsequitur](/content/media/2015/2015-05-21-photo-17841733765060015-1.webp)
 
 #nonsequitur

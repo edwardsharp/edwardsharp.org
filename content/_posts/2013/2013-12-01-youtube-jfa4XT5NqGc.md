@@ -8,7 +8,7 @@ source_id: "jfa4XT5NqGc"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=jfa4XT5NqGc"
-preview_image: "/content/media/2013/2013-12-01-youtube-jfa4XT5NqGc-da3d23f2e6.jpg"
+preview_image: "/content/media/2013/2013-12-01-youtube-jfa4XT5NqGc-da3d23f2e6.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/jfa4XT5NqGc" title="90. plug your ears, move elbows and knees in synchronization" loading="lazy" allowfullscreen></iframe></div>

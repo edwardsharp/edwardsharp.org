@@ -8,7 +8,7 @@ source_id: "Ue_psjkssrE"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=Ue_psjkssrE"
-preview_image: "/content/media/2011/2011-02-07-youtube-Ue_psjkssrE-1b7f587066.jpg"
+preview_image: "/content/media/2011/2011-02-07-youtube-Ue_psjkssrE-1b7f587066.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/Ue_psjkssrE" title="head_pump" loading="lazy" allowfullscreen></iframe></div>

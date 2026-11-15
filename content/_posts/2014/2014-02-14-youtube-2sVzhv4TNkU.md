@@ -8,7 +8,7 @@ source_id: "2sVzhv4TNkU"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=2sVzhv4TNkU"
-preview_image: "/content/media/2014/2014-02-14-youtube-2sVzhv4TNkU-09899f3a61.jpg"
+preview_image: "/content/media/2014/2014-02-14-youtube-2sVzhv4TNkU-09899f3a61.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/2sVzhv4TNkU" title="flower delivery" loading="lazy" allowfullscreen></iframe></div>

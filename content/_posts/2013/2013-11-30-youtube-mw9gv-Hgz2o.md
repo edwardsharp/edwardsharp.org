@@ -8,7 +8,7 @@ source_id: "mw9gv-Hgz2o"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=mw9gv-Hgz2o"
-preview_image: "/content/media/2013/2013-11-30-youtube-mw9gv-Hgz2o-3217c41a26.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-mw9gv-Hgz2o-3217c41a26.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/mw9gv-Hgz2o" title="15. drink water" loading="lazy" allowfullscreen></iframe></div>

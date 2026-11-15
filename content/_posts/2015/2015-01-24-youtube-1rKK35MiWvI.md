@@ -8,7 +8,7 @@ source_id: "1rKK35MiWvI"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=1rKK35MiWvI"
-preview_image: "/content/media/2015/2015-01-24-youtube-1rKK35MiWvI-01cbfa60f4.jpg"
+preview_image: "/content/media/2015/2015-01-24-youtube-1rKK35MiWvI-01cbfa60f4.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/1rKK35MiWvI" title="pplcam capture23 with pplpianoit" loading="lazy" allowfullscreen></iframe></div>

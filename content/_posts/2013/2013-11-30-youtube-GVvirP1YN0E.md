@@ -8,7 +8,7 @@ source_id: "GVvirP1YN0E"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=GVvirP1YN0E"
-preview_image: "/content/media/2013/2013-11-30-youtube-GVvirP1YN0E-52e6794804.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-GVvirP1YN0E-52e6794804.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/GVvirP1YN0E" title="109. pretend there is a helicopter chasing you" loading="lazy" allowfullscreen></iframe></div>

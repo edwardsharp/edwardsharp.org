@@ -8,7 +8,7 @@ source_id: "tOOpdzGbIP0"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=tOOpdzGbIP0"
-preview_image: "/content/media/2013/2013-11-30-youtube-tOOpdzGbIP0-dd92be7c24.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-tOOpdzGbIP0-dd92be7c24.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/tOOpdzGbIP0" title="108. intersect the lines that divide or delineate space around you" loading="lazy" allowfullscreen></iframe></div>

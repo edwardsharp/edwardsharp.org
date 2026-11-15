@@ -8,7 +8,7 @@ source_id: "n6HPBg5uazU"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=n6HPBg5uazU"
-preview_image: "/content/media/2013/2013-11-30-youtube-n6HPBg5uazU-87816123e4.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-n6HPBg5uazU-87816123e4.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/n6HPBg5uazU" title="16. body scan put me in coach" loading="lazy" allowfullscreen></iframe></div>

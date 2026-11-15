@@ -8,7 +8,7 @@ source_id: "wprur_GN-xE"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=wprur_GN-xE"
-preview_image: "/content/media/2013/2013-07-21-youtube-wprur_GN-xE-8104089692.jpg"
+preview_image: "/content/media/2013/2013-07-21-youtube-wprur_GN-xE-8104089692.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/wprur_GN-xE" title="PWR_MESH LOBSTER CLAW" loading="lazy" allowfullscreen></iframe></div>

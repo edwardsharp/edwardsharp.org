@@ -8,7 +8,7 @@ source_id: "-zG-l_4LvrQ"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=-zG-l_4LvrQ"
-preview_image: "/content/media/2013/2013-11-30-youtube--zG-l_4LvrQ-f3a94f37f2.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube--zG-l_4LvrQ-f3a94f37f2.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/-zG-l_4LvrQ" title="98. take 66 steps, describe the object nearest to you when you complete" loading="lazy" allowfullscreen></iframe></div>

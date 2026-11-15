@@ -8,7 +8,7 @@ source_id: "Ton7rbX0Urg"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=Ton7rbX0Urg"
-preview_image: "/content/media/2011/2011-09-05-youtube-Ton7rbX0Urg-472856ce08.jpg"
+preview_image: "/content/media/2011/2011-09-05-youtube-Ton7rbX0Urg-472856ce08.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/Ton7rbX0Urg" title="Dustin Zemel -- Omniscient Documentary: Experiment 1 @ False Front" loading="lazy" allowfullscreen></iframe></div>

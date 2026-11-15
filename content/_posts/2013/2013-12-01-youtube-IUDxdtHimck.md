@@ -8,7 +8,7 @@ source_id: "IUDxdtHimck"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=IUDxdtHimck"
-preview_image: "/content/media/2013/2013-12-01-youtube-IUDxdtHimck-28b828dad1.jpg"
+preview_image: "/content/media/2013/2013-12-01-youtube-IUDxdtHimck-28b828dad1.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/IUDxdtHimck" title="43. alternate falling into someone's arms" loading="lazy" allowfullscreen></iframe></div>

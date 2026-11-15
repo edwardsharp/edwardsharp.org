@@ -6,10 +6,10 @@ tags: ["photo","CONTACT"]
 permalink: "/post/photo-17842741321060015/"
 source_id: "photo-17842741321060015"
 kind: "photo"
-preview_image: "/content/media/2013/2013-10-17-photo-17842741321060015-1.jpg"
+preview_image: "/content/media/2013/2013-10-17-photo-17842741321060015-1.webp"
 preview_alt: "#CONTACT"
 ---
 
-![#CONTACT](/content/media/2013/2013-10-17-photo-17842741321060015-1.jpg)
+![#CONTACT](/content/media/2013/2013-10-17-photo-17842741321060015-1.webp)
 
 #CONTACT

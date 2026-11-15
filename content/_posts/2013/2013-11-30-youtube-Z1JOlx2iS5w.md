@@ -8,7 +8,7 @@ source_id: "Z1JOlx2iS5w"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=Z1JOlx2iS5w"
-preview_image: "/content/media/2013/2013-11-30-youtube-Z1JOlx2iS5w-52317fa4cf.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-Z1JOlx2iS5w-52317fa4cf.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/Z1JOlx2iS5w" title="85. put both your arms above head, rotate head forwards and backwards" loading="lazy" allowfullscreen></iframe></div>

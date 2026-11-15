@@ -8,7 +8,7 @@ source_id: "Mm1PmlZcV9o"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=Mm1PmlZcV9o"
-preview_image: "/content/media/2013/2013-11-30-youtube-Mm1PmlZcV9o-f437491bd6.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-Mm1PmlZcV9o-f437491bd6.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/Mm1PmlZcV9o" title="25. bag shake" loading="lazy" allowfullscreen></iframe></div>

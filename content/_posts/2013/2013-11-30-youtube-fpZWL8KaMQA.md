@@ -8,7 +8,7 @@ source_id: "fpZWL8KaMQA"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=fpZWL8KaMQA"
-preview_image: "/content/media/2013/2013-11-30-youtube-fpZWL8KaMQA-c8d067f20f.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-fpZWL8KaMQA-c8d067f20f.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/fpZWL8KaMQA" title="14. contact mic floor" loading="lazy" allowfullscreen></iframe></div>

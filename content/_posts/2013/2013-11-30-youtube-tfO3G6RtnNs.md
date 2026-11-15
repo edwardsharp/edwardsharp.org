@@ -8,7 +8,7 @@ source_id: "tfO3G6RtnNs"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=tfO3G6RtnNs"
-preview_image: "/content/media/2013/2013-11-30-youtube-tfO3G6RtnNs-a5d437f8ca.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-tfO3G6RtnNs-a5d437f8ca.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/tfO3G6RtnNs" title="9. read a #TEXT continued" loading="lazy" allowfullscreen></iframe></div>

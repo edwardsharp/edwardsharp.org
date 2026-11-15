@@ -6,10 +6,10 @@ tags: ["photo","muscularbonding"]
 permalink: "/post/photo-17865969376215698/"
 source_id: "photo-17865969376215698"
 kind: "photo"
-preview_image: "/content/media/2018/2018-02-18-photo-17865969376215698-1.jpg"
+preview_image: "/content/media/2018/2018-02-18-photo-17865969376215698-1.webp"
 preview_alt: "#muscularbonding"
 ---
 
-![#muscularbonding](/content/media/2018/2018-02-18-photo-17865969376215698-1.jpg)
+![#muscularbonding](/content/media/2018/2018-02-18-photo-17865969376215698-1.webp)
 
 #muscularbonding

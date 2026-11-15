@@ -8,7 +8,7 @@ source_id: "lhFC4A5JFM0"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=lhFC4A5JFM0"
-preview_image: "/content/media/2014/2014-09-11-youtube-lhFC4A5JFM0-03853ad0a6.jpg"
+preview_image: "/content/media/2014/2014-09-11-youtube-lhFC4A5JFM0-03853ad0a6.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/lhFC4A5JFM0" title="KIM FATALE with FUTURE DEATH TOLL at bizarre" loading="lazy" allowfullscreen></iframe></div>

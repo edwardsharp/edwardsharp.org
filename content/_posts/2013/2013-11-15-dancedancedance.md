@@ -5,12 +5,12 @@ tags: []
 permalink: /post/67108658009/
 source_id: '67108658009'
 kind: photo
-preview_image: /content/media/2013/2013-11-15-dancedancedance.jpg
+preview_image: /content/media/2013/2013-11-15-dancedancedance.webp
 preview_alt: dancedancedance
 source_url: http://edwardsharp.org/post/67108658009/dancedancedance
 redirect_from:
 - /post/67108658009/dancedancedance/
 ---
-![dancedancedance](/content/media/2013/2013-11-15-dancedancedance.jpg)
+![dancedancedance](/content/media/2013/2013-11-15-dancedancedance.webp)
 
 #dancedancedance

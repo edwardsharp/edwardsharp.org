@@ -8,7 +8,7 @@ source_id: "Mof5oHAIYfg"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=Mof5oHAIYfg"
-preview_image: "/content/media/2014/2014-06-18-youtube-Mof5oHAIYfg-12e2b40831.jpg"
+preview_image: "/content/media/2014/2014-06-18-youtube-Mof5oHAIYfg-12e2b40831.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/Mof5oHAIYfg" title="drumsofdeath" loading="lazy" allowfullscreen></iframe></div>

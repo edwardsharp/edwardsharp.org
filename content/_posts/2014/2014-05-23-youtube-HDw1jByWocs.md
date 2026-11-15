@@ -8,7 +8,7 @@ source_id: "HDw1jByWocs"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=HDw1jByWocs"
-preview_image: "/content/media/2014/2014-05-23-youtube-HDw1jByWocs-2a214f9f63.jpg"
+preview_image: "/content/media/2014/2014-05-23-youtube-HDw1jByWocs-2a214f9f63.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/HDw1jByWocs" title="INCEN•DIARIO II" loading="lazy" allowfullscreen></iframe></div>

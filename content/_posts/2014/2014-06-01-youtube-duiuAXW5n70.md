@@ -8,7 +8,7 @@ source_id: "duiuAXW5n70"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=duiuAXW5n70"
-preview_image: "/content/media/2014/2014-06-01-youtube-duiuAXW5n70-37eca72f75.jpg"
+preview_image: "/content/media/2014/2014-06-01-youtube-duiuAXW5n70-37eca72f75.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/duiuAXW5n70" title="BOS14 04" loading="lazy" allowfullscreen></iframe></div>

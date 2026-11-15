@@ -8,7 +8,7 @@ source_id: "rX0R9ztI8RY"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=rX0R9ztI8RY"
-preview_image: "/content/media/2014/2014-01-06-youtube-rX0R9ztI8RY-591e396174.jpg"
+preview_image: "/content/media/2014/2014-01-06-youtube-rX0R9ztI8RY-591e396174.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/rX0R9ztI8RY" title="panoply performance laboratory (open performance jan5, 2014)" loading="lazy" allowfullscreen></iframe></div>

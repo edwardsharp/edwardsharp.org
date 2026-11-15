@@ -8,7 +8,7 @@ source_id: "oRHsicHAh8k"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=oRHsicHAh8k"
-preview_image: "/content/media/2009/2009-01-04-youtube-oRHsicHAh8k-2d6ccdd118.jpg"
+preview_image: "/content/media/2009/2009-01-04-youtube-oRHsicHAh8k-2d6ccdd118.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/oRHsicHAh8k" title="PUT DOWN YOUR BIKE, RECEIVE THIS FAX." loading="lazy" allowfullscreen></iframe></div>

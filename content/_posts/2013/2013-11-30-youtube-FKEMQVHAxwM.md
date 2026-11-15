@@ -8,7 +8,7 @@ source_id: "FKEMQVHAxwM"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=FKEMQVHAxwM"
-preview_image: "/content/media/2013/2013-11-30-youtube-FKEMQVHAxwM-39aacfe151.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-FKEMQVHAxwM-39aacfe151.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/FKEMQVHAxwM" title="1. sprinkle glitter" loading="lazy" allowfullscreen></iframe></div>

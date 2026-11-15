@@ -8,7 +8,7 @@ source_id: "S4vn1P-Nk3Y"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=S4vn1P-Nk3Y"
-preview_image: "/content/media/2014/2014-06-01-youtube-S4vn1P-Nk3Y-c88b5d8f4c.jpg"
+preview_image: "/content/media/2014/2014-06-01-youtube-S4vn1P-Nk3Y-c88b5d8f4c.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/S4vn1P-Nk3Y" title="BOS14 01" loading="lazy" allowfullscreen></iframe></div>

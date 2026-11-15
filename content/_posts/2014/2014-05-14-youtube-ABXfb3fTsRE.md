@@ -8,7 +8,7 @@ source_id: "ABXfb3fTsRE"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=ABXfb3fTsRE"
-preview_image: "/content/media/2014/2014-05-14-youtube-ABXfb3fTsRE-35552f8f63.jpg"
+preview_image: "/content/media/2014/2014-05-14-youtube-ABXfb3fTsRE-35552f8f63.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/ABXfb3fTsRE" title="EFF14 trailer" loading="lazy" allowfullscreen></iframe></div>

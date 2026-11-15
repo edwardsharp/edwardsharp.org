@@ -8,7 +8,7 @@ source_id: "b2QxGFO0JFw"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=b2QxGFO0JFw"
-preview_image: "/content/media/2013/2013-11-30-youtube-b2QxGFO0JFw-fe78be9adb.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-b2QxGFO0JFw-fe78be9adb.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/b2QxGFO0JFw" title="F-DT door busterz jump mic" loading="lazy" allowfullscreen></iframe></div>

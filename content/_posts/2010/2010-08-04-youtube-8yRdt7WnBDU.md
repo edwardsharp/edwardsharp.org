@@ -8,7 +8,7 @@ source_id: "8yRdt7WnBDU"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=8yRdt7WnBDU"
-preview_image: "/content/media/2010/2010-08-04-youtube-8yRdt7WnBDU-414fe685ea.jpg"
+preview_image: "/content/media/2010/2010-08-04-youtube-8yRdt7WnBDU-414fe685ea.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/8yRdt7WnBDU" title="NAN NAN nanoloop" loading="lazy" allowfullscreen></iframe></div>

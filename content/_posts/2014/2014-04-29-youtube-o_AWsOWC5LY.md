@@ -8,7 +8,7 @@ source_id: "o_AWsOWC5LY"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=o_AWsOWC5LY"
-preview_image: "/content/media/2014/2014-04-29-youtube-o_AWsOWC5LY-ddd6a25fa8.jpg"
+preview_image: "/content/media/2014/2014-04-29-youtube-o_AWsOWC5LY-ddd6a25fa8.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/o_AWsOWC5LY" title="APRIL 2014 OPEN SPACE 02" loading="lazy" allowfullscreen></iframe></div>

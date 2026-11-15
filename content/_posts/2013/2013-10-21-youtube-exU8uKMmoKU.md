@@ -8,7 +8,7 @@ source_id: "exU8uKMmoKU"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=exU8uKMmoKU"
-preview_image: "/content/media/2013/2013-10-21-youtube-exU8uKMmoKU-16dc75617f.jpg"
+preview_image: "/content/media/2013/2013-10-21-youtube-exU8uKMmoKU-16dc75617f.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/exU8uKMmoKU" title="timepowerwealth" loading="lazy" allowfullscreen></iframe></div>

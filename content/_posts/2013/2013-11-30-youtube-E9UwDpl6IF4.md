@@ -8,7 +8,7 @@ source_id: "E9UwDpl6IF4"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=E9UwDpl6IF4"
-preview_image: "/content/media/2013/2013-11-30-youtube-E9UwDpl6IF4-e4fad4b439.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-E9UwDpl6IF4-e4fad4b439.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/E9UwDpl6IF4" title="7. write six wordz on a body" loading="lazy" allowfullscreen></iframe></div>

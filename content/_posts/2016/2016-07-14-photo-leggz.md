@@ -6,10 +6,10 @@ tags: ["photo","leggz"]
 permalink: "/post/photo-17849221756080224/"
 source_id: "photo-17849221756080224"
 kind: "photo"
-preview_image: "/content/media/2016/2016-07-14-photo-17849221756080224-1.jpg"
+preview_image: "/content/media/2016/2016-07-14-photo-17849221756080224-1.webp"
 preview_alt: "#leggz"
 ---
 
-![#leggz](/content/media/2016/2016-07-14-photo-17849221756080224-1.jpg)
+![#leggz](/content/media/2016/2016-07-14-photo-17849221756080224-1.webp)
 
 #leggz

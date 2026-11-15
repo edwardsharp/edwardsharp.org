@@ -8,7 +8,7 @@ source_id: "SAblNYaEWGg"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=SAblNYaEWGg"
-preview_image: "/content/media/2014/2014-05-04-youtube-SAblNYaEWGg-971cf22069.jpg"
+preview_image: "/content/media/2014/2014-05-04-youtube-SAblNYaEWGg-971cf22069.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/SAblNYaEWGg" title="SPEECHMUSICCAMP:::::::::" loading="lazy" allowfullscreen></iframe></div>

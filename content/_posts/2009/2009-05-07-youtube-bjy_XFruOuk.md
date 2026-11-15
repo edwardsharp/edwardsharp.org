@@ -8,7 +8,7 @@ source_id: "bjy_XFruOuk"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=bjy_XFruOuk"
-preview_image: "/content/media/2009/2009-05-07-youtube-bjy_XFruOuk-ceb273c2c2.jpg"
+preview_image: "/content/media/2009/2009-05-07-youtube-bjy_XFruOuk-ceb273c2c2.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/bjy_XFruOuk" title="LEMP 01" loading="lazy" allowfullscreen></iframe></div>

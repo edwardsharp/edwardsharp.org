@@ -8,7 +8,7 @@ source_id: "xqwHTPWtnHY"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=xqwHTPWtnHY"
-preview_image: "/content/media/2014/2014-05-05-youtube-xqwHTPWtnHY-5fdd121e48.jpg"
+preview_image: "/content/media/2014/2014-05-05-youtube-xqwHTPWtnHY-5fdd121e48.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/xqwHTPWtnHY" title="PERFORMANCE ART OPEN SPACE MAY" loading="lazy" allowfullscreen></iframe></div>

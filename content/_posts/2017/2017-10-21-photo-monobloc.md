@@ -6,10 +6,10 @@ tags: ["photo","monobloc"]
 permalink: "/post/photo-17902860148025272/"
 source_id: "photo-17902860148025272"
 kind: "photo"
-preview_image: "/content/media/2017/2017-10-21-photo-17902860148025272-1.jpg"
+preview_image: "/content/media/2017/2017-10-21-photo-17902860148025272-1.webp"
 preview_alt: "#monobloc"
 ---
 
-![#monobloc](/content/media/2017/2017-10-21-photo-17902860148025272-1.jpg)
+![#monobloc](/content/media/2017/2017-10-21-photo-17902860148025272-1.webp)
 
 #monobloc

@@ -8,7 +8,7 @@ source_id: "EWATUc6MbIs"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=EWATUc6MbIs"
-preview_image: "/content/media/2014/2014-06-30-youtube-EWATUc6MbIs-d66c6997c2.jpg"
+preview_image: "/content/media/2014/2014-06-30-youtube-EWATUc6MbIs-d66c6997c2.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/EWATUc6MbIs" title="LUMEN04" loading="lazy" allowfullscreen></iframe></div>

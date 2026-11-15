@@ -8,7 +8,7 @@ source_id: "TiytiWeeFFo"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=TiytiWeeFFo"
-preview_image: "/content/media/2013/2013-11-30-youtube-TiytiWeeFFo-0a045ac4cf.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-TiytiWeeFFo-0a045ac4cf.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/TiytiWeeFFo" title="F-DT door busterz burn 6.66 checks to stay warm" loading="lazy" allowfullscreen></iframe></div>

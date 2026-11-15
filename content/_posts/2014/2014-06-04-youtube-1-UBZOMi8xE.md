@@ -8,7 +8,7 @@ source_id: "1-UBZOMi8xE"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=1-UBZOMi8xE"
-preview_image: "/content/media/2014/2014-06-04-youtube-1-UBZOMi8xE-5ce78c5228.jpg"
+preview_image: "/content/media/2014/2014-06-04-youtube-1-UBZOMi8xE-5ce78c5228.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/1-UBZOMi8xE" title="WHATISEMPERIMENTALMUSICPART1_01 at PPL" loading="lazy" allowfullscreen></iframe></div>

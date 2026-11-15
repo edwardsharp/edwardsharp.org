@@ -8,7 +8,7 @@ source_id: "dHm8gbEmInk"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=dHm8gbEmInk"
-preview_image: "/content/media/2014/2014-11-20-youtube-dHm8gbEmInk-8779e8ee92.jpg"
+preview_image: "/content/media/2014/2014-11-20-youtube-dHm8gbEmInk-8779e8ee92.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/dHm8gbEmInk" title="logz" loading="lazy" allowfullscreen></iframe></div>

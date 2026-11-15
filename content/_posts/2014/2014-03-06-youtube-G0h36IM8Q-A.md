@@ -8,7 +8,7 @@ source_id: "G0h36IM8Q-A"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=G0h36IM8Q-A"
-preview_image: "/content/media/2014/2014-03-06-youtube-G0h36IM8Q-A-d1e1a4bdeb.jpg"
+preview_image: "/content/media/2014/2014-03-06-youtube-G0h36IM8Q-A-d1e1a4bdeb.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/G0h36IM8Q-A" title="UK (sorry)" loading="lazy" allowfullscreen></iframe></div>

@@ -8,7 +8,7 @@ source_id: "6fnc9NsZldk"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=6fnc9NsZldk"
-preview_image: "/content/media/2013/2013-11-30-youtube-6fnc9NsZldk-2fba9cc499.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-6fnc9NsZldk-2fba9cc499.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/6fnc9NsZldk" title="100. have a conversation with yourself" loading="lazy" allowfullscreen></iframe></div>

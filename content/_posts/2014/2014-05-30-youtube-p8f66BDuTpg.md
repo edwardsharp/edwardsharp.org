@@ -8,7 +8,7 @@ source_id: "p8f66BDuTpg"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=p8f66BDuTpg"
-preview_image: "/content/media/2014/2014-05-30-youtube-p8f66BDuTpg-18873a9cd5.jpg"
+preview_image: "/content/media/2014/2014-05-30-youtube-p8f66BDuTpg-18873a9cd5.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/p8f66BDuTpg" title="BOS14 trailer" loading="lazy" allowfullscreen></iframe></div>

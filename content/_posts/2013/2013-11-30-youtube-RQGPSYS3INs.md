@@ -8,7 +8,7 @@ source_id: "RQGPSYS3INs"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=RQGPSYS3INs"
-preview_image: "/content/media/2013/2013-11-30-youtube-RQGPSYS3INs-c8b6757da5.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-RQGPSYS3INs-c8b6757da5.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/RQGPSYS3INs" title="91. move about the room and say aloud the things you see" loading="lazy" allowfullscreen></iframe></div>

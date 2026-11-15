@@ -6,8 +6,8 @@ tags: ["photo"]
 permalink: "/post/local-photo-63966a6837d7152f69e10b130ff9402161cb066d712edd572f0ed7ec37e66c50/"
 source_id: "local-photo-63966a6837d7152f69e10b130ff9402161cb066d712edd572f0ed7ec37e66c50"
 kind: "photo"
-preview_image: "/content/media/2026/local-photo-63966a6837d7152f69e10b130ff9402161cb066d712edd572f0ed7ec37e66c50-1.png"
+preview_image: "/content/media/2026/local-photo-63966a6837d7152f69e10b130ff9402161cb066d712edd572f0ed7ec37e66c50-1.webp"
 preview_alt: "rainbowpi"
 ---
 
-![rainbowpi](/content/media/2026/local-photo-63966a6837d7152f69e10b130ff9402161cb066d712edd572f0ed7ec37e66c50-1.png)
+![rainbowpi](/content/media/2026/local-photo-63966a6837d7152f69e10b130ff9402161cb066d712edd572f0ed7ec37e66c50-1.webp)

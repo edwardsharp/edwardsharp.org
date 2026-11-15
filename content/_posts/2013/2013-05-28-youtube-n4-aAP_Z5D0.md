@@ -8,7 +8,7 @@ source_id: "n4-aAP_Z5D0"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=n4-aAP_Z5D0"
-preview_image: "/content/media/2013/2013-05-28-youtube-n4-aAP_Z5D0-bde9ba49ba.jpg"
+preview_image: "/content/media/2013/2013-05-28-youtube-n4-aAP_Z5D0-bde9ba49ba.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/n4-aAP_Z5D0" title="P(risioncorp)WNW122" loading="lazy" allowfullscreen></iframe></div>

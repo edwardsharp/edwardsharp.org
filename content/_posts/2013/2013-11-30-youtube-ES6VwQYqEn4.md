@@ -8,7 +8,7 @@ source_id: "ES6VwQYqEn4"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=ES6VwQYqEn4"
-preview_image: "/content/media/2013/2013-11-30-youtube-ES6VwQYqEn4-3ab2fb142e.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-ES6VwQYqEn4-3ab2fb142e.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/ES6VwQYqEn4" title="6. put your shirt over your head and move around the space" loading="lazy" allowfullscreen></iframe></div>

@@ -8,7 +8,7 @@ source_id: "v9IpebEDtOM"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=v9IpebEDtOM"
-preview_image: "/content/media/2014/2014-06-29-youtube-v9IpebEDtOM-1ee445c901.jpg"
+preview_image: "/content/media/2014/2014-06-29-youtube-v9IpebEDtOM-1ee445c901.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/v9IpebEDtOM" title="LUMEN01" loading="lazy" allowfullscreen></iframe></div>

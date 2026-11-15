@@ -8,7 +8,7 @@ source_id: "kd3BAogIQ3A"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=kd3BAogIQ3A"
-preview_image: "/content/media/2013/2013-11-30-youtube-kd3BAogIQ3A-3bb8d1b1d5.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-kd3BAogIQ3A-3bb8d1b1d5.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/kd3BAogIQ3A" title="87. take the PWR MESH and place it on various objectz in the space..." loading="lazy" allowfullscreen></iframe></div>

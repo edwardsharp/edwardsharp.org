@@ -8,7 +8,7 @@ source_id: "sKwj_rbIDZI"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=sKwj_rbIDZI"
-preview_image: "/content/media/2015/2015-06-28-youtube-sKwj_rbIDZI-0d44167483.jpg"
+preview_image: "/content/media/2015/2015-06-28-youtube-sKwj_rbIDZI-0d44167483.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/sKwj_rbIDZI" title="NOON NOISE &amp; PANCAKEZ: JMEJ &amp; XNOR" loading="lazy" allowfullscreen></iframe></div>

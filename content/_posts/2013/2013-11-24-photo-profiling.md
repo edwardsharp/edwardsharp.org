@@ -6,10 +6,10 @@ tags: ["photo","profiling"]
 permalink: "/post/photo-17842758286060015/"
 source_id: "photo-17842758286060015"
 kind: "photo"
-preview_image: "/content/media/2013/2013-11-24-photo-17842758286060015-1.jpg"
+preview_image: "/content/media/2013/2013-11-24-photo-17842758286060015-1.webp"
 preview_alt: "#profiling"
 ---
 
-![#profiling](/content/media/2013/2013-11-24-photo-17842758286060015-1.jpg)
+![#profiling](/content/media/2013/2013-11-24-photo-17842758286060015-1.webp)
 
 #profiling

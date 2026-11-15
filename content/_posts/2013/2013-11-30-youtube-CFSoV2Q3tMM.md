@@ -8,7 +8,7 @@ source_id: "CFSoV2Q3tMM"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=CFSoV2Q3tMM"
-preview_image: "/content/media/2013/2013-11-30-youtube-CFSoV2Q3tMM-81fd76214c.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-CFSoV2Q3tMM-81fd76214c.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/CFSoV2Q3tMM" title="11. shake" loading="lazy" allowfullscreen></iframe></div>

@@ -8,7 +8,7 @@ source_id: "Yg5pEg01l8k"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=Yg5pEg01l8k"
-preview_image: "/content/media/2013/2013-11-30-youtube-Yg5pEg01l8k-bf210bd3bd.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-Yg5pEg01l8k-bf210bd3bd.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/Yg5pEg01l8k" title="84. stand in a corner of the room" loading="lazy" allowfullscreen></iframe></div>

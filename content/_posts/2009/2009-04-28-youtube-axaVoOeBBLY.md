@@ -8,7 +8,7 @@ source_id: "axaVoOeBBLY"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=axaVoOeBBLY"
-preview_image: "/content/media/2009/2009-04-28-youtube-axaVoOeBBLY-9333288543.jpg"
+preview_image: "/content/media/2009/2009-04-28-youtube-axaVoOeBBLY-9333288543.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/axaVoOeBBLY" title="b001n" loading="lazy" allowfullscreen></iframe></div>

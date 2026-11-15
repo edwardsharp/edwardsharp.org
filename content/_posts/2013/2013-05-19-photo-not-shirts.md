@@ -6,10 +6,10 @@ tags: ["photo","not-shirts"]
 permalink: "/post/photo-17842667278060015/"
 source_id: "photo-17842667278060015"
 kind: "photo"
-preview_image: "/content/media/2013/2013-05-19-photo-17842667278060015-1.jpg"
+preview_image: "/content/media/2013/2013-05-19-photo-17842667278060015-1.webp"
 preview_alt: "#not-shirts"
 ---
 
-![#not-shirts](/content/media/2013/2013-05-19-photo-17842667278060015-1.jpg)
+![#not-shirts](/content/media/2013/2013-05-19-photo-17842667278060015-1.webp)
 
 #not-shirts

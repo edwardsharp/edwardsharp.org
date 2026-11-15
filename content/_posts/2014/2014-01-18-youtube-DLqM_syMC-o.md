@@ -8,7 +8,7 @@ source_id: "DLqM_syMC-o"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=DLqM_syMC-o"
-preview_image: "/content/media/2014/2014-01-18-youtube-DLqM_syMC-o-30673336d1.jpg"
+preview_image: "/content/media/2014/2014-01-18-youtube-DLqM_syMC-o-30673336d1.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/DLqM_syMC-o" title="fragmentz02" loading="lazy" allowfullscreen></iframe></div>

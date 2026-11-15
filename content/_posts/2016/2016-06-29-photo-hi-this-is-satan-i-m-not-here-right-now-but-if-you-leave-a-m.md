@@ -6,10 +6,10 @@ tags: ["photo"]
 permalink: "/post/photo-17857871485008071/"
 source_id: "photo-17857871485008071"
 kind: "photo"
-preview_image: "/content/media/2016/2016-06-29-photo-17857871485008071-1.jpg"
+preview_image: "/content/media/2016/2016-06-29-photo-17857871485008071-1.webp"
 preview_alt: "hi this is satan, i'm not here right now but if you leave a message i'll get behind you."
 ---
 
-![hi this is satan, i'm not here right now but if you leave a message i'll get behind you.](/content/media/2016/2016-06-29-photo-17857871485008071-1.jpg)
+![hi this is satan, i'm not here right now but if you leave a message i'll get behind you.](/content/media/2016/2016-06-29-photo-17857871485008071-1.webp)
 
 hi this is satan, i'm not here right now but if you leave a message i'll get behind you.

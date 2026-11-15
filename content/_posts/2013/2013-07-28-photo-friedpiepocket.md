@@ -6,10 +6,10 @@ tags: ["photo","friedpiepocket"]
 permalink: "/post/photo-17842700803060015/"
 source_id: "photo-17842700803060015"
 kind: "photo"
-preview_image: "/content/media/2013/2013-07-28-photo-17842700803060015-1.jpg"
+preview_image: "/content/media/2013/2013-07-28-photo-17842700803060015-1.webp"
 preview_alt: "#friedpiepocket"
 ---
 
-![#friedpiepocket](/content/media/2013/2013-07-28-photo-17842700803060015-1.jpg)
+![#friedpiepocket](/content/media/2013/2013-07-28-photo-17842700803060015-1.webp)
 
 #friedpiepocket

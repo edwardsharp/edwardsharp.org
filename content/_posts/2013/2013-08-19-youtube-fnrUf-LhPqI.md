@@ -8,7 +8,7 @@ source_id: "fnrUf-LhPqI"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=fnrUf-LhPqI"
-preview_image: "/content/media/2013/2013-08-19-youtube-fnrUf-LhPqI-b22d001bc2.jpg"
+preview_image: "/content/media/2013/2013-08-19-youtube-fnrUf-LhPqI-b22d001bc2.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/fnrUf-LhPqI" title="buzzcut06" loading="lazy" allowfullscreen></iframe></div>

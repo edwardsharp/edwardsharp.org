@@ -8,7 +8,7 @@ source_id: "WmcSsFwOjuQ"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=WmcSsFwOjuQ"
-preview_image: "/content/media/2013/2013-12-01-youtube-WmcSsFwOjuQ-998bd0f384.jpg"
+preview_image: "/content/media/2013/2013-12-01-youtube-WmcSsFwOjuQ-998bd0f384.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/WmcSsFwOjuQ" title="41. baghead walk in sq. pattern" loading="lazy" allowfullscreen></iframe></div>

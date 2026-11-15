@@ -8,7 +8,7 @@ source_id: "V2mv4S_da-I"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=V2mv4S_da-I"
-preview_image: "/content/media/2014/2014-01-19-youtube-V2mv4S_da-I-1ca4cee699.jpg"
+preview_image: "/content/media/2014/2014-01-19-youtube-V2mv4S_da-I-1ca4cee699.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/V2mv4S_da-I" title="fragmentz00" loading="lazy" allowfullscreen></iframe></div>

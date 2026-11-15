@@ -6,10 +6,10 @@ tags: ["photo","magnets"]
 permalink: "/post/photo-17844984439074786/"
 source_id: "photo-17844984439074786"
 kind: "photo"
-preview_image: "/content/media/2016/2016-02-06-photo-17844984439074786-1.jpg"
+preview_image: "/content/media/2016/2016-02-06-photo-17844984439074786-1.webp"
 preview_alt: "#magnets:howdotheyevenwork"
 ---
 
-![#magnets:howdotheyevenwork](/content/media/2016/2016-02-06-photo-17844984439074786-1.jpg)
+![#magnets:howdotheyevenwork](/content/media/2016/2016-02-06-photo-17844984439074786-1.webp)
 
 #magnets:howdotheyevenwork

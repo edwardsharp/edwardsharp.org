@@ -8,7 +8,7 @@ source_id: "r2GsmZ6qZpQ"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=r2GsmZ6qZpQ"
-preview_image: "/content/media/2013/2013-11-30-youtube-r2GsmZ6qZpQ-14a203bd0e.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-r2GsmZ6qZpQ-14a203bd0e.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/r2GsmZ6qZpQ" title="68. write a word on the bottom of each of your feet" loading="lazy" allowfullscreen></iframe></div>

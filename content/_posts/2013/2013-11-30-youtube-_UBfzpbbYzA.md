@@ -8,7 +8,7 @@ source_id: "_UBfzpbbYzA"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=_UBfzpbbYzA"
-preview_image: "/content/media/2013/2013-11-30-youtube-_UBfzpbbYzA-963d6e5de7.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-_UBfzpbbYzA-963d6e5de7.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/_UBfzpbbYzA" title="8. $666 website shopping cart" loading="lazy" allowfullscreen></iframe></div>

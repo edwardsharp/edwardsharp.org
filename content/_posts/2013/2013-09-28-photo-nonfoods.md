@@ -6,10 +6,10 @@ tags: ["photo","nonfoods"]
 permalink: "/post/photo-17842732156060015/"
 source_id: "photo-17842732156060015"
 kind: "photo"
-preview_image: "/content/media/2013/2013-09-28-photo-17842732156060015-1.jpg"
+preview_image: "/content/media/2013/2013-09-28-photo-17842732156060015-1.webp"
 preview_alt: "#nonfoods"
 ---
 
-![#nonfoods](/content/media/2013/2013-09-28-photo-17842732156060015-1.jpg)
+![#nonfoods](/content/media/2013/2013-09-28-photo-17842732156060015-1.webp)
 
 #nonfoods

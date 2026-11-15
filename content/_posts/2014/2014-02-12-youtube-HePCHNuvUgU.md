@@ -8,7 +8,7 @@ source_id: "HePCHNuvUgU"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=HePCHNuvUgU"
-preview_image: "/content/media/2014/2014-02-12-youtube-HePCHNuvUgU-736338753b.jpg"
+preview_image: "/content/media/2014/2014-02-12-youtube-HePCHNuvUgU-736338753b.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/HePCHNuvUgU" title="declare independence - björk cover" loading="lazy" allowfullscreen></iframe></div>

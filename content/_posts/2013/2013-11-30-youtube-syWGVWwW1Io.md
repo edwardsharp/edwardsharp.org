@@ -8,7 +8,7 @@ source_id: "syWGVWwW1Io"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=syWGVWwW1Io"
-preview_image: "/content/media/2013/2013-11-30-youtube-syWGVWwW1Io-1f8844bf04.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-syWGVWwW1Io-1f8844bf04.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/syWGVWwW1Io" title="114. take shelter under something" loading="lazy" allowfullscreen></iframe></div>

@@ -8,7 +8,7 @@ source_id: "yEd_To_DyY8"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=yEd_To_DyY8"
-preview_image: "/content/media/2013/2013-11-30-youtube-yEd_To_DyY8-250bac57ae.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-yEd_To_DyY8-250bac57ae.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/yEd_To_DyY8" title="36. say random lines of #TEXT to someone else" loading="lazy" allowfullscreen></iframe></div>

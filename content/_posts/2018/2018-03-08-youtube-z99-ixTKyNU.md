@@ -8,7 +8,7 @@ source_id: "z99-ixTKyNU"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=z99-ixTKyNU"
-preview_image: "/content/media/2018/2018-03-08-youtube-z99-ixTKyNU-1e10dd0986.jpg"
+preview_image: "/content/media/2018/2018-03-08-youtube-z99-ixTKyNU-1e10dd0986.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/z99-ixTKyNU" title="011" loading="lazy" allowfullscreen></iframe></div>

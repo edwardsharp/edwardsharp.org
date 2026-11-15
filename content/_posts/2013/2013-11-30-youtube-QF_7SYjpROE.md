@@ -8,7 +8,7 @@ source_id: "QF_7SYjpROE"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=QF_7SYjpROE"
-preview_image: "/content/media/2013/2013-11-30-youtube-QF_7SYjpROE-2d243ea74b.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-QF_7SYjpROE-2d243ea74b.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/QF_7SYjpROE" title="96. untie and retie your shoez" loading="lazy" allowfullscreen></iframe></div>

@@ -8,7 +8,7 @@ source_id: "KahNj1CqOrg"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=KahNj1CqOrg"
-preview_image: "/content/media/2014/2014-04-01-youtube-KahNj1CqOrg-4a2efae7b6.jpg"
+preview_image: "/content/media/2014/2014-04-01-youtube-KahNj1CqOrg-4a2efae7b6.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/KahNj1CqOrg" title="Cincinnati Public Library 01" loading="lazy" allowfullscreen></iframe></div>

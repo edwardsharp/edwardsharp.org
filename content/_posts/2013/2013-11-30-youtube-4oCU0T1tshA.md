@@ -8,7 +8,7 @@ source_id: "4oCU0T1tshA"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=4oCU0T1tshA"
-preview_image: "/content/media/2013/2013-11-30-youtube-4oCU0T1tshA-dbc13a77d3.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-4oCU0T1tshA-dbc13a77d3.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/4oCU0T1tshA" title="89. light a sage smudge stick and walk around the space" loading="lazy" allowfullscreen></iframe></div>

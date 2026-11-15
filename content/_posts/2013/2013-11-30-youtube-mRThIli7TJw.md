@@ -8,7 +8,7 @@ source_id: "mRThIli7TJw"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=mRThIli7TJw"
-preview_image: "/content/media/2013/2013-11-30-youtube-mRThIli7TJw-430d6fa2e6.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-mRThIli7TJw-430d6fa2e6.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/mRThIli7TJw" title="81. have a conversation with someone else about predator drones" loading="lazy" allowfullscreen></iframe></div>

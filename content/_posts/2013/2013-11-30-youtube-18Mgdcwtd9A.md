@@ -8,7 +8,7 @@ source_id: "18Mgdcwtd9A"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=18Mgdcwtd9A"
-preview_image: "/content/media/2013/2013-11-30-youtube-18Mgdcwtd9A-19f1401d3b.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-18Mgdcwtd9A-19f1401d3b.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/18Mgdcwtd9A" title="24. resemble the movement of a telephone pole" loading="lazy" allowfullscreen></iframe></div>

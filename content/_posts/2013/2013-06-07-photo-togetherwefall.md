@@ -6,10 +6,10 @@ tags: ["photo","togetherwefall"]
 permalink: "/post/photo-17842676641060015/"
 source_id: "photo-17842676641060015"
 kind: "photo"
-preview_image: "/content/media/2013/2013-06-07-photo-17842676641060015-1.jpg"
+preview_image: "/content/media/2013/2013-06-07-photo-17842676641060015-1.webp"
 preview_alt: "#togetherwefall"
 ---
 
-![#togetherwefall](/content/media/2013/2013-06-07-photo-17842676641060015-1.jpg)
+![#togetherwefall](/content/media/2013/2013-06-07-photo-17842676641060015-1.webp)
 
 #togetherwefall

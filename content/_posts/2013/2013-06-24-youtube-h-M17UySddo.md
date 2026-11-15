@@ -8,7 +8,7 @@ source_id: "h-M17UySddo"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=h-M17UySddo"
-preview_image: "/content/media/2013/2013-06-24-youtube-h-M17UySddo-5a640bf5a7.jpg"
+preview_image: "/content/media/2013/2013-06-24-youtube-h-M17UySddo-5a640bf5a7.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/h-M17UySddo" title="PWNW16 [DARKNESS]" loading="lazy" allowfullscreen></iframe></div>

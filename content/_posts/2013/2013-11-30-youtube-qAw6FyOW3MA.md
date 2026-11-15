@@ -8,7 +8,7 @@ source_id: "qAw6FyOW3MA"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=qAw6FyOW3MA"
-preview_image: "/content/media/2013/2013-11-30-youtube-qAw6FyOW3MA-7ef38d2ed0.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-qAw6FyOW3MA-7ef38d2ed0.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/qAw6FyOW3MA" title="17. say BKLYN housing ad price/desc." loading="lazy" allowfullscreen></iframe></div>

@@ -8,7 +8,7 @@ source_id: "l1sx6oeBfkE"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=l1sx6oeBfkE"
-preview_image: "/content/media/2014/2014-03-22-youtube-l1sx6oeBfkE-065deea82d.jpg"
+preview_image: "/content/media/2014/2014-03-22-youtube-l1sx6oeBfkE-065deea82d.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/l1sx6oeBfkE" title="C.A.I.D." loading="lazy" allowfullscreen></iframe></div>

@@ -8,7 +8,7 @@ source_id: "r9NTyB0sq4o"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=r9NTyB0sq4o"
-preview_image: "/content/media/2013/2013-11-30-youtube-r9NTyB0sq4o-1ba009a032.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-r9NTyB0sq4o-1ba009a032.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/r9NTyB0sq4o" title="19. yell and be louder than those around you" loading="lazy" allowfullscreen></iframe></div>

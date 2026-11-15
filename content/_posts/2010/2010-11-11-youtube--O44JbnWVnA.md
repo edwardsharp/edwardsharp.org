@@ -8,7 +8,7 @@ source_id: "-O44JbnWVnA"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=-O44JbnWVnA"
-preview_image: "/content/media/2010/2010-11-11-youtube--O44JbnWVnA-6ba7278b71.jpg"
+preview_image: "/content/media/2010/2010-11-11-youtube--O44JbnWVnA-6ba7278b71.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/-O44JbnWVnA" title="GET ON THE TAIL PIPE GET GET GET ON THE TAIL PIPE" loading="lazy" allowfullscreen></iframe></div>

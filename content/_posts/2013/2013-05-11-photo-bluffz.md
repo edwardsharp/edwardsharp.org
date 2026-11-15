@@ -6,10 +6,10 @@ tags: ["photo","bluffz"]
 permalink: "/post/photo-17842662229060015/"
 source_id: "photo-17842662229060015"
 kind: "photo"
-preview_image: "/content/media/2013/2013-05-11-photo-17842662229060015-1.jpg"
+preview_image: "/content/media/2013/2013-05-11-photo-17842662229060015-1.webp"
 preview_alt: "#bluffz"
 ---
 
-![#bluffz](/content/media/2013/2013-05-11-photo-17842662229060015-1.jpg)
+![#bluffz](/content/media/2013/2013-05-11-photo-17842662229060015-1.webp)
 
 #bluffz

@@ -8,7 +8,7 @@ source_id: "fx_slZVBBgc"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=fx_slZVBBgc"
-preview_image: "/content/media/2013/2013-11-30-youtube-fx_slZVBBgc-569276e5fd.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-fx_slZVBBgc-569276e5fd.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/fx_slZVBBgc" title="64. with one or more objects create a line on the ground cross back and forth..." loading="lazy" allowfullscreen></iframe></div>

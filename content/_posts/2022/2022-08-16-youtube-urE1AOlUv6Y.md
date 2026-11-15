@@ -8,7 +8,7 @@ source_id: "urE1AOlUv6Y"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=urE1AOlUv6Y"
-preview_image: "/content/media/2022/2022-08-16-youtube-urE1AOlUv6Y-bc69de2865.jpg"
+preview_image: "/content/media/2022/2022-08-16-youtube-urE1AOlUv6Y-bc69de2865.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/urE1AOlUv6Y" title="coffin69" loading="lazy" allowfullscreen></iframe></div>

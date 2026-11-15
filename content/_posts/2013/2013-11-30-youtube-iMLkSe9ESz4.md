@@ -8,7 +8,7 @@ source_id: "iMLkSe9ESz4"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=iMLkSe9ESz4"
-preview_image: "/content/media/2013/2013-11-30-youtube-iMLkSe9ESz4-a017be17e5.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-iMLkSe9ESz4-a017be17e5.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/iMLkSe9ESz4" title="27. yell along with your refrigerator..." loading="lazy" allowfullscreen></iframe></div>

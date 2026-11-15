@@ -6,10 +6,10 @@ tags: ["photo","wav2txt"]
 permalink: "/post/photo-17842668634060015/"
 source_id: "photo-17842668634060015"
 kind: "photo"
-preview_image: "/content/media/2013/2013-05-22-photo-17842668634060015-1.jpg"
+preview_image: "/content/media/2013/2013-05-22-photo-17842668634060015-1.webp"
 preview_alt: "#wav2txt"
 ---
 
-![#wav2txt](/content/media/2013/2013-05-22-photo-17842668634060015-1.jpg)
+![#wav2txt](/content/media/2013/2013-05-22-photo-17842668634060015-1.webp)
 
 #wav2txt

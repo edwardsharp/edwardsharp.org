@@ -8,7 +8,7 @@ source_id: "4dsD4SSsqo8"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=4dsD4SSsqo8"
-preview_image: "/content/media/2008/2008-07-21-youtube-4dsD4SSsqo8-6ba1a60520.jpg"
+preview_image: "/content/media/2008/2008-07-21-youtube-4dsD4SSsqo8-6ba1a60520.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/4dsD4SSsqo8" title="vizerx(1).AVI" loading="lazy" allowfullscreen></iframe></div>

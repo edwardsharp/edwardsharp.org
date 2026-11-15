@@ -6,10 +6,10 @@ tags: ["photo","protohead"]
 permalink: "/post/photo-17842708912060015/"
 source_id: "photo-17842708912060015"
 kind: "photo"
-preview_image: "/content/media/2013/2013-08-12-photo-17842708912060015-1.jpg"
+preview_image: "/content/media/2013/2013-08-12-photo-17842708912060015-1.webp"
 preview_alt: "#protohead"
 ---
 
-![#protohead](/content/media/2013/2013-08-12-photo-17842708912060015-1.jpg)
+![#protohead](/content/media/2013/2013-08-12-photo-17842708912060015-1.webp)
 
 #protohead

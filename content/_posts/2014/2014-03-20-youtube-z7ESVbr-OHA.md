@@ -8,7 +8,7 @@ source_id: "z7ESVbr-OHA"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=z7ESVbr-OHA"
-preview_image: "/content/media/2014/2014-03-20-youtube-z7ESVbr-OHA-2150828252.jpg"
+preview_image: "/content/media/2014/2014-03-20-youtube-z7ESVbr-OHA-2150828252.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/z7ESVbr-OHA" title="Evolution Collective" loading="lazy" allowfullscreen></iframe></div>

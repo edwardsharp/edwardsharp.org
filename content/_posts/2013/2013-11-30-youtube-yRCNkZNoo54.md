@@ -8,7 +8,7 @@ source_id: "yRCNkZNoo54"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=yRCNkZNoo54"
-preview_image: "/content/media/2013/2013-11-30-youtube-yRCNkZNoo54-ad733d3074.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-yRCNkZNoo54-ad733d3074.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/yRCNkZNoo54" title="93. move around the space and say text that can be read" loading="lazy" allowfullscreen></iframe></div>

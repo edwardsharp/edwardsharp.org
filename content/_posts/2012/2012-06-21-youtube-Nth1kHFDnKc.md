@@ -8,7 +8,7 @@ source_id: "Nth1kHFDnKc"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=Nth1kHFDnKc"
-preview_image: "/content/media/2012/2012-06-21-youtube-Nth1kHFDnKc-e87b2b0fa1.jpg"
+preview_image: "/content/media/2012/2012-06-21-youtube-Nth1kHFDnKc-e87b2b0fa1.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/Nth1kHFDnKc" title="MSHR @ Appendix Project Space [TOUCH SOUND]" loading="lazy" allowfullscreen></iframe></div>

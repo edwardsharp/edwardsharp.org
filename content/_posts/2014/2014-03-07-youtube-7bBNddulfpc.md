@@ -8,7 +8,7 @@ source_id: "7bBNddulfpc"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=7bBNddulfpc"
-preview_image: "/content/media/2014/2014-03-07-youtube-7bBNddulfpc-e3b5634b1a.jpg"
+preview_image: "/content/media/2014/2014-03-07-youtube-7bBNddulfpc-e3b5634b1a.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/7bBNddulfpc" title="I.D.E.A.S. 40203 Contemporary Art Chamber of Commerce" loading="lazy" allowfullscreen></iframe></div>

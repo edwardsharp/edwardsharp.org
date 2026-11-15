@@ -8,7 +8,7 @@ source_id: "ff98onuAMa0"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=ff98onuAMa0"
-preview_image: "/content/media/2013/2013-11-30-youtube-ff98onuAMa0-49b62e284c.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-ff98onuAMa0-49b62e284c.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/ff98onuAMa0" title="23. move diagonally through the space" loading="lazy" allowfullscreen></iframe></div>

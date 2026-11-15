@@ -8,7 +8,7 @@ source_id: "Fag-QJ2OKaI"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=Fag-QJ2OKaI"
-preview_image: "/content/media/2014/2014-07-16-youtube-Fag-QJ2OKaI-291ce6f373.jpg"
+preview_image: "/content/media/2014/2014-07-16-youtube-Fag-QJ2OKaI-291ce6f373.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/Fag-QJ2OKaI" title="stopnodancingnotevenwhenyouronapartyline" loading="lazy" allowfullscreen></iframe></div>

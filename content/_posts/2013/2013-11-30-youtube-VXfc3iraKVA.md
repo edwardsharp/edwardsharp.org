@@ -8,7 +8,7 @@ source_id: "VXfc3iraKVA"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=VXfc3iraKVA"
-preview_image: "/content/media/2013/2013-11-30-youtube-VXfc3iraKVA-fbf78d8b53.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-VXfc3iraKVA-fbf78d8b53.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/VXfc3iraKVA" title="107. tape your mouth shut. you are now a statue" loading="lazy" allowfullscreen></iframe></div>

@@ -8,7 +8,7 @@ source_id: "PPTbjAxz9vM"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=PPTbjAxz9vM"
-preview_image: "/content/media/2013/2013-11-30-youtube-PPTbjAxz9vM-779f3b624b.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-PPTbjAxz9vM-779f3b624b.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/PPTbjAxz9vM" title="33. look out a window" loading="lazy" allowfullscreen></iframe></div>

@@ -9,10 +9,10 @@ kind: "photo"
 source_platform: "ello"
 source_url: "https://ello.co/3dwardsharp/post/evbpr0igmx9tlbjgjzhkow"
 archive_url: "https://web.archive.org/web/20210614012230id_/https://ello.co/3dwardsharp"
-preview_image: "/content/media/2017/2017-11-21-ello-evbpr0igmx9tlbjgjzhkow-31fdc13d79.jpg"
+preview_image: "/content/media/2017/2017-11-21-ello-evbpr0igmx9tlbjgjzhkow-31fdc13d79.webp"
 ---
 
-![](/content/media/2017/2017-11-21-ello-evbpr0igmx9tlbjgjzhkow-31fdc13d79.jpg)
+![](/content/media/2017/2017-11-21-ello-evbpr0igmx9tlbjgjzhkow-31fdc13d79.webp)
 
 [#tonyclifton](https://ello.co/search?terms=%23tonyclifton)
 

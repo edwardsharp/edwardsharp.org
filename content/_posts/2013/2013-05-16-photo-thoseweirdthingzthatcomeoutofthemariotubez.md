@@ -6,10 +6,10 @@ tags: ["photo","thoseweirdthingzthatcomeoutofthemariotubez"]
 permalink: "/post/photo-17842665568060015/"
 source_id: "photo-17842665568060015"
 kind: "photo"
-preview_image: "/content/media/2013/2013-05-16-photo-17842665568060015-1.jpg"
+preview_image: "/content/media/2013/2013-05-16-photo-17842665568060015-1.webp"
 preview_alt: "#thoseweirdthingzthatcomeoutofthemariotubez"
 ---
 
-![#thoseweirdthingzthatcomeoutofthemariotubez](/content/media/2013/2013-05-16-photo-17842665568060015-1.jpg)
+![#thoseweirdthingzthatcomeoutofthemariotubez](/content/media/2013/2013-05-16-photo-17842665568060015-1.webp)
 
 #thoseweirdthingzthatcomeoutofthemariotubez

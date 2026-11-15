@@ -8,7 +8,7 @@ source_id: "hdATzuSoth4"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=hdATzuSoth4"
-preview_image: "/content/media/2013/2013-11-30-youtube-hdATzuSoth4-1f8b6a2dbc.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-hdATzuSoth4-1f8b6a2dbc.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/hdATzuSoth4" title="32. notice the architecture" loading="lazy" allowfullscreen></iframe></div>

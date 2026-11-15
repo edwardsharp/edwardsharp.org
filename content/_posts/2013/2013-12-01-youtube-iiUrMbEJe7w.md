@@ -8,7 +8,7 @@ source_id: "iiUrMbEJe7w"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=iiUrMbEJe7w"
-preview_image: "/content/media/2013/2013-12-01-youtube-iiUrMbEJe7w-1e9b3ddfa2.jpg"
+preview_image: "/content/media/2013/2013-12-01-youtube-iiUrMbEJe7w-1e9b3ddfa2.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/iiUrMbEJe7w" title="45. make breathing audible" loading="lazy" allowfullscreen></iframe></div>

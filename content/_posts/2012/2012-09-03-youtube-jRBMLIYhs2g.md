@@ -8,7 +8,7 @@ source_id: "jRBMLIYhs2g"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=jRBMLIYhs2g"
-preview_image: "/content/media/2012/2012-09-03-youtube-jRBMLIYhs2g-aa6d1b5281.jpg"
+preview_image: "/content/media/2012/2012-09-03-youtube-jRBMLIYhs2g-aa6d1b5281.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/jRBMLIYhs2g" title="techne rendered dawn" loading="lazy" allowfullscreen></iframe></div>

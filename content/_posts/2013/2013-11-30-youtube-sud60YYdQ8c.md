@@ -8,7 +8,7 @@ source_id: "sud60YYdQ8c"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=sud60YYdQ8c"
-preview_image: "/content/media/2013/2013-11-30-youtube-sud60YYdQ8c-c55539ae5f.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-sud60YYdQ8c-c55539ae5f.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/sud60YYdQ8c" title="68. write a word on the bottoms your feet angle 2" loading="lazy" allowfullscreen></iframe></div>

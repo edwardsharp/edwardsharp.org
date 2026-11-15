@@ -8,7 +8,7 @@ source_id: "bm0nyvbKa-U"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=bm0nyvbKa-U"
-preview_image: "/content/media/2013/2013-11-30-youtube-bm0nyvbKa-U-1562d296d8.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-bm0nyvbKa-U-1562d296d8.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/bm0nyvbKa-U" title="106. stick out your tongue moving it around the perimeter of your mouth..." loading="lazy" allowfullscreen></iframe></div>

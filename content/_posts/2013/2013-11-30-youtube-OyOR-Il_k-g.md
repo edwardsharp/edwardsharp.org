@@ -8,7 +8,7 @@ source_id: "OyOR-Il_k-g"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=OyOR-Il_k-g"
-preview_image: "/content/media/2013/2013-11-30-youtube-OyOR-Il_k-g-0eb2a24e08.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-OyOR-Il_k-g-0eb2a24e08.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/OyOR-Il_k-g" title="77. mumble to yourself starting softly and getting progressively louder" loading="lazy" allowfullscreen></iframe></div>

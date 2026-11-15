@@ -8,7 +8,7 @@ source_id: "paWWdtPcDwU"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=paWWdtPcDwU"
-preview_image: "/content/media/2015/2015-04-24-youtube-paWWdtPcDwU-58b7129dc0.jpg"
+preview_image: "/content/media/2015/2015-04-24-youtube-paWWdtPcDwU-58b7129dc0.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/paWWdtPcDwU" title="BODYSCAN CONFERENCE CALL" loading="lazy" allowfullscreen></iframe></div>

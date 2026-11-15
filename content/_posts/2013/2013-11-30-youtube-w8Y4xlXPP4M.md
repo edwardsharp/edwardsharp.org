@@ -8,7 +8,7 @@ source_id: "w8Y4xlXPP4M"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=w8Y4xlXPP4M"
-preview_image: "/content/media/2013/2013-11-30-youtube-w8Y4xlXPP4M-ae31d79cab.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-w8Y4xlXPP4M-ae31d79cab.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/w8Y4xlXPP4M" title="22. hum along with the power generator" loading="lazy" allowfullscreen></iframe></div>

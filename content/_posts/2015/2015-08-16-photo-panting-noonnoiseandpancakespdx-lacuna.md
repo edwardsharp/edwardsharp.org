@@ -6,10 +6,10 @@ tags: ["photo","panting","noonnoiseandpancakespdx","LACUNA"]
 permalink: "/post/photo-17842184287060015/"
 source_id: "photo-17842184287060015"
 kind: "photo"
-preview_image: "/content/media/2015/2015-08-16-photo-17842184287060015-1.jpg"
+preview_image: "/content/media/2015/2015-08-16-photo-17842184287060015-1.webp"
 preview_alt: "#panting #noonnoiseandpancakespdx #LACUNA"
 ---
 
-![#panting #noonnoiseandpancakespdx #LACUNA](/content/media/2015/2015-08-16-photo-17842184287060015-1.jpg)
+![#panting #noonnoiseandpancakespdx #LACUNA](/content/media/2015/2015-08-16-photo-17842184287060015-1.webp)
 
 #panting #noonnoiseandpancakespdx #LACUNA

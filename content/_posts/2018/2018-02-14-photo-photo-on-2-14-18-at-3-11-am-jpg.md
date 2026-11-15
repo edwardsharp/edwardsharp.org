@@ -6,10 +6,10 @@ tags: ["photo"]
 permalink: "/post/photo-17910905242117017/"
 source_id: "photo-17910905242117017"
 kind: "photo"
-preview_image: "/content/media/2018/2018-02-14-photo-17910905242117017-1.jpg"
+preview_image: "/content/media/2018/2018-02-14-photo-17910905242117017-1.webp"
 preview_alt: "photo on 2-14-18 at 3.11 AM.jpg"
 ---
 
-![photo on 2-14-18 at 3.11 AM.jpg](/content/media/2018/2018-02-14-photo-17910905242117017-1.jpg)
+![photo on 2-14-18 at 3.11 AM.jpg](/content/media/2018/2018-02-14-photo-17910905242117017-1.webp)
 
 photo on 2-14-18 at 3.11 AM.jpg

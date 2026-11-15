@@ -6,10 +6,10 @@ tags: ["photo","noise"]
 permalink: "/post/photo-17847136972113109/"
 source_id: "photo-17847136972113109"
 kind: "photo"
-preview_image: "/content/media/2016/2016-05-03-photo-17847136972113109-1.jpg"
+preview_image: "/content/media/2016/2016-05-03-photo-17847136972113109-1.webp"
 preview_alt: "#noise"
 ---
 
-![#noise](/content/media/2016/2016-05-03-photo-17847136972113109-1.jpg)
+![#noise](/content/media/2016/2016-05-03-photo-17847136972113109-1.webp)
 
 #noise

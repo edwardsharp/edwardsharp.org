@@ -8,7 +8,7 @@ source_id: "ckr0YOCcYMA"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=ckr0YOCcYMA"
-preview_image: "/content/media/2014/2014-03-05-youtube-ckr0YOCcYMA-0c806f84a0.jpg"
+preview_image: "/content/media/2014/2014-03-05-youtube-ckr0YOCcYMA-0c806f84a0.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/ckr0YOCcYMA" title="skylab" loading="lazy" allowfullscreen></iframe></div>

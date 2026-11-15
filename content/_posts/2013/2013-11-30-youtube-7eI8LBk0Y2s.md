@@ -8,7 +8,7 @@ source_id: "7eI8LBk0Y2s"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=7eI8LBk0Y2s"
-preview_image: "/content/media/2013/2013-11-30-youtube-7eI8LBk0Y2s-91b29a4b57.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-7eI8LBk0Y2s-91b29a4b57.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/7eI8LBk0Y2s" title="13. contact mic air bag" loading="lazy" allowfullscreen></iframe></div>

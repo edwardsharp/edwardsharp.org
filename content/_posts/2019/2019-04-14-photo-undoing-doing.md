@@ -6,10 +6,10 @@ tags: ["photo"]
 permalink: "/post/photo-17973869410245904/"
 source_id: "photo-17973869410245904"
 kind: "photo"
-preview_image: "/content/media/2019/2019-04-14-photo-17973869410245904-1.jpg"
+preview_image: "/content/media/2019/2019-04-14-photo-17973869410245904-1.webp"
 preview_alt: "UNDOING (& doing)"
 ---
 
-![UNDOING (& doing)](/content/media/2019/2019-04-14-photo-17973869410245904-1.jpg)
+![UNDOING (& doing)](/content/media/2019/2019-04-14-photo-17973869410245904-1.webp)
 
 UNDOING (& doing)

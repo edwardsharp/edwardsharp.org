@@ -8,7 +8,7 @@ source_id: "NOON-NOISEPANCAKESJun15-aug302015"
 kind: "audio"
 source_platform: "archive"
 source_url: "https://archive.org/details/NOON-NOISEPANCAKESJun15-aug302015"
-preview_image: "/content/media/2015/2015-10-24-archive-NOON-NOISEPANCAKESJun15-aug302015-9e0b3023d0.jpg"
+preview_image: "/content/media/2015/2015-10-24-archive-NOON-NOISEPANCAKESJun15-aug302015-9e0b3023d0.webp"
 ---
 
 <iframe title="NOON-NOISE&amp;PANCAKES jun15-aug30 2015" width="100%" height="400" loading="lazy" src="https://archive.org/embed/NOON-NOISEPANCAKESJun15-aug302015?playlist=1"></iframe>

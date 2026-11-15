@@ -8,7 +8,7 @@ source_id: "-3OUaZjL1Tw"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=-3OUaZjL1Tw"
-preview_image: "/content/media/2011/2011-12-10-youtube--3OUaZjL1Tw-e56e2ba9c2.jpg"
+preview_image: "/content/media/2011/2011-12-10-youtube--3OUaZjL1Tw-e56e2ba9c2.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/-3OUaZjL1Tw" title="jelleyhaxx" loading="lazy" allowfullscreen></iframe></div>

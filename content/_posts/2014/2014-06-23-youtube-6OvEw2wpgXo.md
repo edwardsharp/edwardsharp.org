@@ -8,7 +8,7 @@ source_id: "6OvEw2wpgXo"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=6OvEw2wpgXo"
-preview_image: "/content/media/2014/2014-06-23-youtube-6OvEw2wpgXo-1c22379a5b.jpg"
+preview_image: "/content/media/2014/2014-06-23-youtube-6OvEw2wpgXo-1c22379a5b.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/6OvEw2wpgXo" title="CAGE" loading="lazy" allowfullscreen></iframe></div>

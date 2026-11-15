@@ -6,10 +6,10 @@ tags: ["photo"]
 permalink: "/post/photo-18108001987076019/"
 source_id: "photo-18108001987076019"
 kind: "photo"
-preview_image: "/content/media/2019/2019-12-13-photo-18108001987076019-1.jpg"
+preview_image: "/content/media/2019/2019-12-13-photo-18108001987076019-1.webp"
 preview_alt: "i’ll be the greatest fan of @lorene.problems’s life"
 ---
 
-![i’ll be the greatest fan of @lorene.problems’s life](/content/media/2019/2019-12-13-photo-18108001987076019-1.jpg)
+![i’ll be the greatest fan of @lorene.problems’s life](/content/media/2019/2019-12-13-photo-18108001987076019-1.webp)
 
 i’ll be the greatest fan of @lorene.problems’s life

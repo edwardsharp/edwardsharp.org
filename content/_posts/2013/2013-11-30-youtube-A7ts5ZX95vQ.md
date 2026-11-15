@@ -8,7 +8,7 @@ source_id: "A7ts5ZX95vQ"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=A7ts5ZX95vQ"
-preview_image: "/content/media/2013/2013-11-30-youtube-A7ts5ZX95vQ-4983c35f1d.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-A7ts5ZX95vQ-4983c35f1d.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/A7ts5ZX95vQ" title="110. pretend there is a ghost chasing you" loading="lazy" allowfullscreen></iframe></div>

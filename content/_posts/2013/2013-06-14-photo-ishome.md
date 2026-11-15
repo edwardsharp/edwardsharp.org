@@ -6,10 +6,10 @@ tags: ["photo","ishome"]
 permalink: "/post/photo-17842679884060015/"
 source_id: "photo-17842679884060015"
 kind: "photo"
-preview_image: "/content/media/2013/2013-06-14-photo-17842679884060015-1.jpg"
+preview_image: "/content/media/2013/2013-06-14-photo-17842679884060015-1.webp"
 preview_alt: "#ishome"
 ---
 
-![#ishome](/content/media/2013/2013-06-14-photo-17842679884060015-1.jpg)
+![#ishome](/content/media/2013/2013-06-14-photo-17842679884060015-1.webp)
 
 #ishome

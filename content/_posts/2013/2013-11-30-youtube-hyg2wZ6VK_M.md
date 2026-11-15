@@ -8,7 +8,7 @@ source_id: "hyg2wZ6VK_M"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=hyg2wZ6VK_M"
-preview_image: "/content/media/2013/2013-11-30-youtube-hyg2wZ6VK_M-ca31958647.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-hyg2wZ6VK_M-ca31958647.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/hyg2wZ6VK_M" title="99. interact with an inanimate object" loading="lazy" allowfullscreen></iframe></div>

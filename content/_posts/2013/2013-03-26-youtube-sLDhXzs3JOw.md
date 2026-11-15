@@ -8,7 +8,7 @@ source_id: "sLDhXzs3JOw"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=sLDhXzs3JOw"
-preview_image: "/content/media/2013/2013-03-26-youtube-sLDhXzs3JOw-410e45577f.jpg"
+preview_image: "/content/media/2013/2013-03-26-youtube-sLDhXzs3JOw-410e45577f.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/sLDhXzs3JOw" title="dorkbotPDX 0x0A -- church of robotron" loading="lazy" allowfullscreen></iframe></div>

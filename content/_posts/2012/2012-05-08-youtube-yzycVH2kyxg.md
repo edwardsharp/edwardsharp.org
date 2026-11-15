@@ -8,7 +8,7 @@ source_id: "yzycVH2kyxg"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=yzycVH2kyxg"
-preview_image: "/content/media/2012/2012-05-08-youtube-yzycVH2kyxg-70ee9ba046.jpg"
+preview_image: "/content/media/2012/2012-05-08-youtube-yzycVH2kyxg-70ee9ba046.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/yzycVH2kyxg" title="Future Death Toll Low Lives 4 @PICA" loading="lazy" allowfullscreen></iframe></div>

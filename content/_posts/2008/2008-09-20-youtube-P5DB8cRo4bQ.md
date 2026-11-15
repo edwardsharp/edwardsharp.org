@@ -8,7 +8,7 @@ source_id: "P5DB8cRo4bQ"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=P5DB8cRo4bQ"
-preview_image: "/content/media/2008/2008-09-20-youtube-P5DB8cRo4bQ-e84b1e9951.jpg"
+preview_image: "/content/media/2008/2008-09-20-youtube-P5DB8cRo4bQ-e84b1e9951.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/P5DB8cRo4bQ" title="plywood" loading="lazy" allowfullscreen></iframe></div>

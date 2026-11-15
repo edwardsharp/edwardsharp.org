@@ -8,7 +8,7 @@ source_id: "fydwzfnHtio"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=fydwzfnHtio"
-preview_image: "/content/media/2013/2013-11-30-youtube-fydwzfnHtio-1204150524.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-fydwzfnHtio-1204150524.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/fydwzfnHtio" title="3. take off your shirt and pantz and put them back on backwardz" loading="lazy" allowfullscreen></iframe></div>

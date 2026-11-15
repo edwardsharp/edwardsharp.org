@@ -8,7 +8,7 @@ source_id: "uY0tUhDawLQ"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=uY0tUhDawLQ"
-preview_image: "/content/media/2013/2013-11-30-youtube-uY0tUhDawLQ-e69f6fb181.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-uY0tUhDawLQ-e69f6fb181.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/uY0tUhDawLQ" title="88. The rib cage can move by itself from side to side on a plane parallel to the floor" loading="lazy" allowfullscreen></iframe></div>

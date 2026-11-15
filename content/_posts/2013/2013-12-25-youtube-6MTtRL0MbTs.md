@@ -8,7 +8,7 @@ source_id: "6MTtRL0MbTs"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=6MTtRL0MbTs"
-preview_image: "/content/media/2013/2013-12-25-youtube-6MTtRL0MbTs-f5ccbfc35b.jpg"
+preview_image: "/content/media/2013/2013-12-25-youtube-6MTtRL0MbTs-f5ccbfc35b.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/6MTtRL0MbTs" title="you might think he loves you for your money but..." loading="lazy" allowfullscreen></iframe></div>

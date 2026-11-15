@@ -8,7 +8,7 @@ source_id: "lLd-lCkQuTo"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=lLd-lCkQuTo"
-preview_image: "/content/media/2012/2012-10-06-youtube-lLd-lCkQuTo-481913c658.jpg"
+preview_image: "/content/media/2012/2012-10-06-youtube-lLd-lCkQuTo-481913c658.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/lLd-lCkQuTo" title="6x mod_time_stepper.pd" loading="lazy" allowfullscreen></iframe></div>

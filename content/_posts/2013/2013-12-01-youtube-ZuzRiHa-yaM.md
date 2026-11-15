@@ -8,7 +8,7 @@ source_id: "ZuzRiHa-yaM"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=ZuzRiHa-yaM"
-preview_image: "/content/media/2013/2013-12-01-youtube-ZuzRiHa-yaM-f7df8d8277.jpg"
+preview_image: "/content/media/2013/2013-12-01-youtube-ZuzRiHa-yaM-f7df8d8277.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/ZuzRiHa-yaM" title="44. jump while the contact mic is on floor" loading="lazy" allowfullscreen></iframe></div>

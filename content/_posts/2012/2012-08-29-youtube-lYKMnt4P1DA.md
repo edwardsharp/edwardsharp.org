@@ -8,7 +8,7 @@ source_id: "lYKMnt4P1DA"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=lYKMnt4P1DA"
-preview_image: "/content/media/2012/2012-08-29-youtube-lYKMnt4P1DA-a3f0cf9dca.jpg"
+preview_image: "/content/media/2012/2012-08-29-youtube-lYKMnt4P1DA-a3f0cf9dca.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/lYKMnt4P1DA" title="TECHNE RENDERED DAWN rope test 1" loading="lazy" allowfullscreen></iframe></div>

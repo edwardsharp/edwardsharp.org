@@ -8,7 +8,7 @@ source_id: "ERcJ7X9YD_M"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=ERcJ7X9YD_M"
-preview_image: "/content/media/2013/2013-11-30-youtube-ERcJ7X9YD_M-6b3f5a62eb.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-ERcJ7X9YD_M-6b3f5a62eb.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/ERcJ7X9YD_M" title="24. resemble the movement of a telephone pole angle 2" loading="lazy" allowfullscreen></iframe></div>

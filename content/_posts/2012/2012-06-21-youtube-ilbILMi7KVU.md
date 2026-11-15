@@ -8,7 +8,7 @@ source_id: "ilbILMi7KVU"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=ilbILMi7KVU"
-preview_image: "/content/media/2012/2012-06-21-youtube-ilbILMi7KVU-e820937424.jpg"
+preview_image: "/content/media/2012/2012-06-21-youtube-ilbILMi7KVU-e820937424.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/ilbILMi7KVU" title="MSHR @ Appendix Project Space, PDX" loading="lazy" allowfullscreen></iframe></div>

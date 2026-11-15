@@ -8,7 +8,7 @@ source_id: "T28eEc-ThpY"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=T28eEc-ThpY"
-preview_image: "/content/media/2014/2014-09-05-youtube-T28eEc-ThpY-689e04adb5.jpg"
+preview_image: "/content/media/2014/2014-09-05-youtube-T28eEc-ThpY-689e04adb5.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/T28eEc-ThpY" title="whatisseenandwhatishidden" loading="lazy" allowfullscreen></iframe></div>

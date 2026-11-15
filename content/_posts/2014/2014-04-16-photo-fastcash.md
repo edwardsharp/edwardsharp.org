@@ -6,10 +6,10 @@ tags: ["photo","fastcash"]
 permalink: "/post/photo-17842869121060015/"
 source_id: "photo-17842869121060015"
 kind: "photo"
-preview_image: "/content/media/2014/2014-04-16-photo-17842869121060015-1.jpg"
+preview_image: "/content/media/2014/2014-04-16-photo-17842869121060015-1.webp"
 preview_alt: "#fastcash"
 ---
 
-![#fastcash](/content/media/2014/2014-04-16-photo-17842869121060015-1.jpg)
+![#fastcash](/content/media/2014/2014-04-16-photo-17842869121060015-1.webp)
 
 #fastcash

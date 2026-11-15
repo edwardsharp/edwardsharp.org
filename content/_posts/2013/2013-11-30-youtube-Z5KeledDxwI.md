@@ -8,7 +8,7 @@ source_id: "Z5KeledDxwI"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=Z5KeledDxwI"
-preview_image: "/content/media/2013/2013-11-30-youtube-Z5KeledDxwI-47844cd2ca.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-Z5KeledDxwI-47844cd2ca.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/Z5KeledDxwI" title="35. changed into pure seeing..." loading="lazy" allowfullscreen></iframe></div>

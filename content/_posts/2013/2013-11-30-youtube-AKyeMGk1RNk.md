@@ -8,7 +8,7 @@ source_id: "AKyeMGk1RNk"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=AKyeMGk1RNk"
-preview_image: "/content/media/2013/2013-11-30-youtube-AKyeMGk1RNk-450e86cb35.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-AKyeMGk1RNk-450e86cb35.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/AKyeMGk1RNk" title="39. read #TEXT quietly to someone else" loading="lazy" allowfullscreen></iframe></div>

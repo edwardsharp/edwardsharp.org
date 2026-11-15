@@ -8,7 +8,7 @@ source_id: "3nSUV5d5nLA"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=3nSUV5d5nLA"
-preview_image: "/content/media/2013/2013-11-30-youtube-3nSUV5d5nLA-de6b537fa9.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-3nSUV5d5nLA-de6b537fa9.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/3nSUV5d5nLA" title="73. whip your backside with the non buckle side of your belt" loading="lazy" allowfullscreen></iframe></div>

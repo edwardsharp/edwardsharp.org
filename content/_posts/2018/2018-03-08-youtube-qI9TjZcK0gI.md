@@ -8,7 +8,7 @@ source_id: "qI9TjZcK0gI"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=qI9TjZcK0gI"
-preview_image: "/content/media/2018/2018-03-08-youtube-qI9TjZcK0gI-d34509c225.jpg"
+preview_image: "/content/media/2018/2018-03-08-youtube-qI9TjZcK0gI-d34509c225.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/qI9TjZcK0gI" title="004 4:44" loading="lazy" allowfullscreen></iframe></div>

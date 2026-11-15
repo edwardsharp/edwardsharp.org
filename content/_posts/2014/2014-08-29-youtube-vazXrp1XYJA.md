@@ -8,7 +8,7 @@ source_id: "vazXrp1XYJA"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=vazXrp1XYJA"
-preview_image: "/content/media/2014/2014-08-29-youtube-vazXrp1XYJA-68926f18fb.jpg"
+preview_image: "/content/media/2014/2014-08-29-youtube-vazXrp1XYJA-68926f18fb.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/vazXrp1XYJA" title="undergoundglimmerzinthenight" loading="lazy" allowfullscreen></iframe></div>

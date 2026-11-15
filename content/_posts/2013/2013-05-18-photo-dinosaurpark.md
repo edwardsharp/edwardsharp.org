@@ -6,10 +6,10 @@ tags: ["photo","dinosaurpark"]
 permalink: "/post/photo-17842666591060015/"
 source_id: "photo-17842666591060015"
 kind: "photo"
-preview_image: "/content/media/2013/2013-05-18-photo-17842666591060015-1.jpg"
+preview_image: "/content/media/2013/2013-05-18-photo-17842666591060015-1.webp"
 preview_alt: "#dinosaurpark"
 ---
 
-![#dinosaurpark](/content/media/2013/2013-05-18-photo-17842666591060015-1.jpg)
+![#dinosaurpark](/content/media/2013/2013-05-18-photo-17842666591060015-1.webp)
 
 #dinosaurpark

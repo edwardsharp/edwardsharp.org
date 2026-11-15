@@ -8,7 +8,7 @@ source_id: "tEuZXot1jRU"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=tEuZXot1jRU"
-preview_image: "/content/media/2013/2013-11-30-youtube-tEuZXot1jRU-0d289df5b4.jpg"
+preview_image: "/content/media/2013/2013-11-30-youtube-tEuZXot1jRU-0d289df5b4.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/tEuZXot1jRU" title="104. try to calm a crowd" loading="lazy" allowfullscreen></iframe></div>

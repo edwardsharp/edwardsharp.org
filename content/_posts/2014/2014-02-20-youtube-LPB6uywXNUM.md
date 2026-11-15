@@ -8,7 +8,7 @@ source_id: "LPB6uywXNUM"
 kind: "video"
 source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=LPB6uywXNUM"
-preview_image: "/content/media/2014/2014-02-20-youtube-LPB6uywXNUM-0e507a35f1.jpg"
+preview_image: "/content/media/2014/2014-02-20-youtube-LPB6uywXNUM-0e507a35f1.webp"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/LPB6uywXNUM" title="HEAD_TAPE" loading="lazy" allowfullscreen></iframe></div>
