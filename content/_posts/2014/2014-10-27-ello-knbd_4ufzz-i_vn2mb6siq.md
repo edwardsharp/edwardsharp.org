@@ -14,4 +14,4 @@ preview_image: "/content/media/2014/2014-10-27-ello-knbd_4ufzz-i_vn2mb6siq-42137
 
 ![](/content/media/2014/2014-10-27-ello-knbd_4ufzz-i_vn2mb6siq-421372c98f.jpg)
 
-<p><a href="https://ello.co/3dwardsharp/post/knbd_4ufzz-i_vn2mb6siq">original ello post</a> · <a href="https://web.archive.org/web/20210614012230id_/https://ello.co/3dwardsharp">archived post</a></p>
+[original ello post](https://ello.co/3dwardsharp/post/knbd_4ufzz-i_vn2mb6siq) · [archived post](https://web.archive.org/web/20210614012230id_/https://ello.co/3dwardsharp)

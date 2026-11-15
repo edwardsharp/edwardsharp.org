@@ -12,4 +12,4 @@ preview_alt: "#mmmpi"
 
 ![#mmmpi](/content/media/2013/2013-08-20-photo-17842712821060015-1.jpg)
 
-<p>#mmmpi</p>
+#mmmpi

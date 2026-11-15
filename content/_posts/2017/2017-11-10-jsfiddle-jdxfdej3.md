@@ -10,205 +10,218 @@ source_platform: "jsfiddle"
 source_url: "https://jsfiddle.net/edwardsharp/jdxfdej3/"
 source_revision: 0
 ---
+
 <iframe class="code-demo" src="{{ '/content/media/2017/2017-11-10-jsfiddle-jdxfdej3-demo.html' | relative_url }}" title="fabric canvas inch grid" width="100%" height="480" loading="lazy" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe>
-<p>fabric.js elements rendered at 72dpi, which is a somewhat standard (and rough) density (...i guess?) </p>
-<h2>html</h2>
-<pre class="highlight"><code class="language-html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.5.0/fabric.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
-<span class="nt">&lt;canvas</span> <span class="na">id=</span><span class="s">"c"</span> <span class="na">width=</span><span class="s">"1000"</span> <span class="na">height=</span><span class="s">"1000"</span><span class="nt">&gt;&lt;/canvas&gt;</span>
-</code></pre>
-<h2>css</h2>
-<pre class="highlight"><code class="language-css"><span class="nt">html</span><span class="o">,</span>
-<span class="nt">body</span> <span class="p">&#123;</span>
-  <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
-  <span class="nl">padding</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
-<span class="p">&#125;</span>
-</code></pre>
-<h2>javascript</h2>
-<pre class="highlight"><code class="language-javascript"><span class="kd">var</span> <span class="nx">grid</span> <span class="o">=</span> <span class="mi">72</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">width</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
 
-<span class="nb">window</span><span class="p">.</span><span class="nx">canvas</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">fabric</span><span class="p">.</span><span class="nc">Canvas</span><span class="p">(</span><span class="dl">"</span><span class="s2">c</span><span class="dl">"</span><span class="p">,</span> <span class="p">&#123;</span>
-  <span class="na">selection</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-<span class="p">&#125;);</span>
+fabric.js elements rendered at 72dpi, which is a somewhat standard (and rough) density (...i guess?)
 
-<span class="c1">// Draw measuring area</span>
-<span class="c1">// First = first point</span>
-<span class="c1">//</span>
-<span class="c1">// Third = second point</span>
-<span class="kd">var</span> <span class="nx">measurementThickness</span> <span class="o">=</span> <span class="mi">60</span><span class="p">;</span>
-<span class="nb">window</span><span class="p">.</span><span class="nx">canvas</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span>
-  <span class="k">new</span> <span class="nx">fabric</span><span class="p">.</span><span class="nc">Rect</span><span class="p">(&#123;</span>
-    <span class="na">left</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="na">top</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="na">fill</span><span class="p">:</span> <span class="dl">"</span><span class="s2">#DDD</span><span class="dl">"</span><span class="p">,</span>
-    <span class="na">selectable</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-    <span class="na">width</span><span class="p">:</span> <span class="nx">measurementThickness</span><span class="p">,</span>
-    <span class="na">height</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
-  <span class="p">&#125;),</span>
-<span class="p">);</span>
+## html
 
-<span class="nb">window</span><span class="p">.</span><span class="nx">canvas</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span>
-  <span class="k">new</span> <span class="nx">fabric</span><span class="p">.</span><span class="nc">Rect</span><span class="p">(&#123;</span>
-    <span class="na">left</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="na">top</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="na">fill</span><span class="p">:</span> <span class="dl">"</span><span class="s2">#DDD</span><span class="dl">"</span><span class="p">,</span>
-    <span class="na">width</span><span class="p">:</span> <span class="mi">4000</span><span class="p">,</span>
-    <span class="na">selectable</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-    <span class="na">height</span><span class="p">:</span> <span class="nx">measurementThickness</span><span class="p">,</span>
-  <span class="p">&#125;),</span>
-<span class="p">);</span>
+```html
+<script src="//cdnjs.cloudflare.com/ajax/libs/fabric.js/1.5.0/fabric.min.js"></script>
+<canvas id="c" width="1000" height="1000"></canvas>
+```
 
-<span class="kd">var</span> <span class="nx">tickSize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">tickSizeFoot</span> <span class="o">=</span> <span class="mi">40</span><span class="p">;</span>
+## css
 
-<span class="c1">// Drag grid</span>
-<span class="kd">var</span> <span class="nx">count</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">footCount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+```css
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+```
 
-<span class="k">for </span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">width</span> <span class="o">/</span> <span class="nx">grid</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">&#123;</span>
-  <span class="kd">var</span> <span class="nx">offset</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">*</span> <span class="nx">grid</span><span class="p">,</span>
-    <span class="nx">location1</span> <span class="o">=</span> <span class="nx">offset</span> <span class="o">+</span> <span class="nx">measurementThickness</span><span class="p">,</span>
-    <span class="nx">isFoot</span> <span class="o">=</span> <span class="p">(</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">12</span> <span class="o">===</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">i</span> <span class="o">!==</span> <span class="mi">0</span><span class="p">;</span>
+## javascript
 
-  <span class="c1">// Grid ------------</span>
+```javascript
+var grid = 72;
+var width = 1000;
 
-  <span class="c1">// vertical</span>
-  <span class="nb">window</span><span class="p">.</span><span class="nx">canvas</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span>
-    <span class="k">new</span> <span class="nx">fabric</span><span class="p">.</span><span class="nc">Line</span><span class="p">([</span><span class="nx">location1</span><span class="p">,</span> <span class="nx">measurementThickness</span><span class="p">,</span> <span class="nx">location1</span><span class="p">,</span> <span class="nx">width</span><span class="p">],</span> <span class="p">&#123;</span>
-      <span class="na">stroke</span><span class="p">:</span> <span class="nx">isFoot</span> <span class="p">?</span> <span class="dl">"</span><span class="s2">#888</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">#ccc</span><span class="dl">"</span><span class="p">,</span>
-      <span class="na">selectable</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-    <span class="p">&#125;),</span>
-  <span class="p">);</span>
+window.canvas = new fabric.Canvas("c", {
+  selection: false,
+});
 
-  <span class="c1">// horizontal</span>
-  <span class="nb">window</span><span class="p">.</span><span class="nx">canvas</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span>
-    <span class="k">new</span> <span class="nx">fabric</span><span class="p">.</span><span class="nc">Line</span><span class="p">([</span><span class="nx">measurementThickness</span><span class="p">,</span> <span class="nx">location1</span><span class="p">,</span> <span class="nx">width</span><span class="p">,</span> <span class="nx">location1</span><span class="p">],</span> <span class="p">&#123;</span>
-      <span class="na">stroke</span><span class="p">:</span> <span class="nx">isFoot</span> <span class="p">?</span> <span class="dl">"</span><span class="s2">#888</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">#ccc</span><span class="dl">"</span><span class="p">,</span>
-      <span class="na">selectable</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-    <span class="p">&#125;),</span>
-  <span class="p">);</span>
+// Draw measuring area
+// First = first point
+//
+// Third = second point
+var measurementThickness = 60;
+window.canvas.add(
+  new fabric.Rect({
+    left: 0,
+    top: 0,
+    fill: "#DDD",
+    selectable: false,
+    width: measurementThickness,
+    height: 1000,
+  }),
+);
 
-  <span class="c1">// Ruler ------------</span>
+window.canvas.add(
+  new fabric.Rect({
+    left: 0,
+    top: 0,
+    fill: "#DDD",
+    width: 4000,
+    selectable: false,
+    height: measurementThickness,
+  }),
+);
 
-  <span class="c1">// left</span>
-  <span class="nb">window</span><span class="p">.</span><span class="nx">canvas</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span>
-    <span class="k">new</span> <span class="nx">fabric</span><span class="p">.</span><span class="nc">Line</span><span class="p">(</span>
-      <span class="p">[</span>
-        <span class="nx">measurementThickness</span> <span class="o">-</span> <span class="nx">tickSize</span><span class="p">,</span>
-        <span class="nx">location1</span><span class="p">,</span>
-        <span class="nx">measurementThickness</span><span class="p">,</span>
-        <span class="nx">location1</span><span class="p">,</span>
-      <span class="p">],</span>
-      <span class="p">&#123;</span>
-        <span class="na">stroke</span><span class="p">:</span> <span class="dl">"</span><span class="s2">#888</span><span class="dl">"</span><span class="p">,</span>
-        <span class="na">selectable</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="p">&#125;,</span>
-    <span class="p">),</span>
-  <span class="p">);</span>
-  <span class="nb">window</span><span class="p">.</span><span class="nx">canvas</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span>
-    <span class="k">new</span> <span class="nx">fabric</span><span class="p">.</span><span class="nc">Text</span><span class="p">(</span><span class="nx">count</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">"</span><span class="dl">'</span><span class="p">,</span> <span class="p">&#123;</span>
-      <span class="na">left</span><span class="p">:</span> <span class="nx">measurementThickness</span> <span class="o">-</span> <span class="nx">tickSize</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">7</span><span class="p">,</span>
-      <span class="na">top</span><span class="p">:</span> <span class="nx">location1</span><span class="p">,</span>
-      <span class="na">selectable</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="na">fontSize</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
-      <span class="na">fontFamily</span><span class="p">:</span> <span class="dl">"</span><span class="s2">san-serif</span><span class="dl">"</span><span class="p">,</span>
-    <span class="p">&#125;),</span>
-  <span class="p">);</span>
+var tickSize = 10;
+var tickSizeFoot = 40;
 
-  <span class="k">if </span><span class="p">(</span><span class="nx">isFoot</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="nx">footCount</span><span class="o">++</span><span class="p">;</span>
+// Drag grid
+var count = 1;
+var footCount = 0;
 
-    <span class="nb">window</span><span class="p">.</span><span class="nx">canvas</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span>
-      <span class="k">new</span> <span class="nx">fabric</span><span class="p">.</span><span class="nc">Line</span><span class="p">(</span>
-        <span class="p">[</span>
-          <span class="nx">measurementThickness</span> <span class="o">-</span> <span class="nx">tickSizeFoot</span><span class="p">,</span>
-          <span class="nx">location1</span><span class="p">,</span>
-          <span class="nx">measurementThickness</span><span class="p">,</span>
-          <span class="nx">location1</span><span class="p">,</span>
-        <span class="p">],</span>
-        <span class="p">&#123;</span>
-          <span class="na">stroke</span><span class="p">:</span> <span class="dl">"</span><span class="s2">#222</span><span class="dl">"</span><span class="p">,</span>
-          <span class="na">selectable</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="p">&#125;,</span>
-      <span class="p">),</span>
-    <span class="p">);</span>
-    <span class="nb">window</span><span class="p">.</span><span class="nx">canvas</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span>
-      <span class="k">new</span> <span class="nx">fabric</span><span class="p">.</span><span class="nc">Text</span><span class="p">(</span><span class="nx">footCount</span> <span class="o">+</span> <span class="dl">"</span><span class="se">\</span><span class="s2">'</span><span class="dl">"</span><span class="p">,</span> <span class="p">&#123;</span>
-        <span class="na">left</span><span class="p">:</span> <span class="nx">measurementThickness</span> <span class="o">-</span> <span class="nx">tickSizeFoot</span> <span class="o">-</span> <span class="mi">7</span><span class="p">,</span>
-        <span class="na">top</span><span class="p">:</span> <span class="nx">location1</span> <span class="o">+</span> <span class="mi">4</span><span class="p">,</span>
-        <span class="na">selectable</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="na">fontSize</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
-        <span class="na">fontFamily</span><span class="p">:</span> <span class="dl">"</span><span class="s2">san-serif</span><span class="dl">"</span><span class="p">,</span>
-      <span class="p">&#125;),</span>
-    <span class="p">);</span>
-  <span class="p">&#125;</span>
+for (var i = 0; i < width / grid; i++) {
+  var offset = i * grid,
+    location1 = offset + measurementThickness,
+    isFoot = (i + 1) % 12 === 0 && i !== 0;
 
-  <span class="c1">// top</span>
-  <span class="nb">window</span><span class="p">.</span><span class="nx">canvas</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span>
-    <span class="k">new</span> <span class="nx">fabric</span><span class="p">.</span><span class="nc">Line</span><span class="p">(</span>
-      <span class="p">[</span>
-        <span class="nx">location1</span><span class="p">,</span>
-        <span class="nx">measurementThickness</span> <span class="o">-</span> <span class="nx">tickSize</span><span class="p">,</span>
-        <span class="nx">location1</span><span class="p">,</span>
-        <span class="nx">measurementThickness</span><span class="p">,</span>
-      <span class="p">],</span>
-      <span class="p">&#123;</span>
-        <span class="na">stroke</span><span class="p">:</span> <span class="dl">"</span><span class="s2">#888</span><span class="dl">"</span><span class="p">,</span>
-        <span class="na">selectable</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="p">&#125;,</span>
-    <span class="p">),</span>
-  <span class="p">);</span>
-  <span class="nb">window</span><span class="p">.</span><span class="nx">canvas</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span>
-    <span class="k">new</span> <span class="nx">fabric</span><span class="p">.</span><span class="nc">Text</span><span class="p">(</span><span class="nx">count</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">"</span><span class="dl">'</span><span class="p">,</span> <span class="p">&#123;</span>
-      <span class="na">left</span><span class="p">:</span> <span class="nx">location1</span><span class="p">,</span>
-      <span class="na">top</span><span class="p">:</span> <span class="nx">measurementThickness</span> <span class="o">-</span> <span class="nx">tickSize</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">4</span><span class="p">,</span>
-      <span class="na">selectable</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="na">fontSize</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
-      <span class="na">fontFamily</span><span class="p">:</span> <span class="dl">"</span><span class="s2">san-serif</span><span class="dl">"</span><span class="p">,</span>
-    <span class="p">&#125;),</span>
-  <span class="p">);</span>
+  // Grid ------------
 
-  <span class="k">if </span><span class="p">(</span><span class="nx">isFoot</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="nb">window</span><span class="p">.</span><span class="nx">canvas</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span>
-      <span class="k">new</span> <span class="nx">fabric</span><span class="p">.</span><span class="nc">Line</span><span class="p">(</span>
-        <span class="p">[</span>
-          <span class="nx">location1</span><span class="p">,</span>
-          <span class="nx">measurementThickness</span> <span class="o">-</span> <span class="nx">tickSizeFoot</span><span class="p">,</span>
-          <span class="nx">location1</span><span class="p">,</span>
-          <span class="nx">measurementThickness</span><span class="p">,</span>
-        <span class="p">],</span>
-        <span class="p">&#123;</span>
-          <span class="na">stroke</span><span class="p">:</span> <span class="dl">"</span><span class="s2">#222</span><span class="dl">"</span><span class="p">,</span>
-          <span class="na">selectable</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="p">&#125;,</span>
-      <span class="p">),</span>
-    <span class="p">);</span>
-    <span class="nb">window</span><span class="p">.</span><span class="nx">canvas</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span>
-      <span class="k">new</span> <span class="nx">fabric</span><span class="p">.</span><span class="nc">Text</span><span class="p">(</span><span class="nx">footCount</span> <span class="o">+</span> <span class="dl">"</span><span class="se">\</span><span class="s2">'</span><span class="dl">"</span><span class="p">,</span> <span class="p">&#123;</span>
-        <span class="na">left</span><span class="p">:</span> <span class="nx">location1</span> <span class="o">+</span> <span class="mi">4</span><span class="p">,</span>
-        <span class="na">top</span><span class="p">:</span> <span class="nx">measurementThickness</span> <span class="o">-</span> <span class="nx">tickSizeFoot</span> <span class="o">-</span> <span class="mi">7</span><span class="p">,</span>
-        <span class="na">selectable</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="na">fontSize</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
-        <span class="na">fontFamily</span><span class="p">:</span> <span class="dl">"</span><span class="s2">san-serif</span><span class="dl">"</span><span class="p">,</span>
-      <span class="p">&#125;),</span>
-    <span class="p">);</span>
-  <span class="p">&#125;</span>
+  // vertical
+  window.canvas.add(
+    new fabric.Line([location1, measurementThickness, location1, width], {
+      stroke: isFoot ? "#888" : "#ccc",
+      selectable: false,
+    }),
+  );
 
-  <span class="nx">count</span><span class="o">++</span><span class="p">;</span>
-<span class="p">&#125;</span>
+  // horizontal
+  window.canvas.add(
+    new fabric.Line([measurementThickness, location1, width, location1], {
+      stroke: isFoot ? "#888" : "#ccc",
+      selectable: false,
+    }),
+  );
 
-<span class="c1">// snap to grid</span>
+  // Ruler ------------
 
-<span class="nb">window</span><span class="p">.</span><span class="nx">canvas</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">object:moving</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">&#123;</span>
-  <span class="c1">// Snap to grid</span>
-  <span class="nx">options</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nf">set</span><span class="p">(&#123;</span>
-    <span class="na">left</span><span class="p">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">round</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">left</span> <span class="o">/</span> <span class="nx">grid</span><span class="p">)</span> <span class="o">*</span> <span class="nx">grid</span><span class="p">,</span>
-    <span class="na">top</span><span class="p">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">round</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">top</span> <span class="o">/</span> <span class="nx">grid</span><span class="p">)</span> <span class="o">*</span> <span class="nx">grid</span><span class="p">,</span>
-  <span class="p">&#125;);</span>
+  // left
+  window.canvas.add(
+    new fabric.Line(
+      [
+        measurementThickness - tickSize,
+        location1,
+        measurementThickness,
+        location1,
+      ],
+      {
+        stroke: "#888",
+        selectable: false,
+      },
+    ),
+  );
+  window.canvas.add(
+    new fabric.Text(count + '"', {
+      left: measurementThickness - tickSize * 2 - 7,
+      top: location1,
+      selectable: false,
+      fontSize: 12,
+      fontFamily: "san-serif",
+    }),
+  );
 
-  <span class="c1">// Detect nearby plants</span>
-  <span class="nb">window</span><span class="p">.</span><span class="nx">canvas</span><span class="p">.</span><span class="nf">forEachObject</span><span class="p">(</span><span class="nf">function </span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="p">&#123;&#125;);</span>
-<span class="p">&#125;);</span>
-</code></pre>
+  if (isFoot) {
+    footCount++;
+
+    window.canvas.add(
+      new fabric.Line(
+        [
+          measurementThickness - tickSizeFoot,
+          location1,
+          measurementThickness,
+          location1,
+        ],
+        {
+          stroke: "#222",
+          selectable: false,
+        },
+      ),
+    );
+    window.canvas.add(
+      new fabric.Text(footCount + "\'", {
+        left: measurementThickness - tickSizeFoot - 7,
+        top: location1 + 4,
+        selectable: false,
+        fontSize: 12,
+        fontFamily: "san-serif",
+      }),
+    );
+  }
+
+  // top
+  window.canvas.add(
+    new fabric.Line(
+      [
+        location1,
+        measurementThickness - tickSize,
+        location1,
+        measurementThickness,
+      ],
+      {
+        stroke: "#888",
+        selectable: false,
+      },
+    ),
+  );
+  window.canvas.add(
+    new fabric.Text(count + '"', {
+      left: location1,
+      top: measurementThickness - tickSize * 2 - 4,
+      selectable: false,
+      fontSize: 12,
+      fontFamily: "san-serif",
+    }),
+  );
+
+  if (isFoot) {
+    window.canvas.add(
+      new fabric.Line(
+        [
+          location1,
+          measurementThickness - tickSizeFoot,
+          location1,
+          measurementThickness,
+        ],
+        {
+          stroke: "#222",
+          selectable: false,
+        },
+      ),
+    );
+    window.canvas.add(
+      new fabric.Text(footCount + "\'", {
+        left: location1 + 4,
+        top: measurementThickness - tickSizeFoot - 7,
+        selectable: false,
+        fontSize: 12,
+        fontFamily: "san-serif",
+      }),
+    );
+  }
+
+  count++;
+}
+
+// snap to grid
+
+window.canvas.on("object:moving", function (options) {
+  // Snap to grid
+  options.target.set({
+    left: Math.round(options.target.left / grid) * grid,
+    top: Math.round(options.target.top / grid) * grid,
+  });
+
+  // Detect nearby plants
+  window.canvas.forEachObject(function (obj) {});
+});
+```
+
 <p data-import-note="">this demo preserves the compiled output and may depend on external libraries or services that are no longer available.</p>
-<p><a href="https://jsfiddle.net/edwardsharp/jdxfdej3/">original jsfiddle post</a></p>
+
+[original jsfiddle post](https://jsfiddle.net/edwardsharp/jdxfdej3/)

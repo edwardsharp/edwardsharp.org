@@ -12,4 +12,4 @@ preview_alt: "😝#judgejudy"
 
 ![😝#judgejudy](/content/media/2020/2020-08-25-photo-17883207571710447-1.jpg)
 
-<p>😝#judgejudy</p>
+😝#judgejudy

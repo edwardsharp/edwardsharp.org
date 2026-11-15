@@ -12,4 +12,4 @@ preview_alt: "#church"
 
 ![#church](/content/media/2013/2013-11-23-photo-17842758199060015-1.jpg)
 
-<p>#church</p>
+#church

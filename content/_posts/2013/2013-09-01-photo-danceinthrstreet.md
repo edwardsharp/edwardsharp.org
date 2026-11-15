@@ -12,4 +12,4 @@ preview_alt: "#danceinthrstreet"
 
 ![#danceinthrstreet](/content/media/2013/2013-09-01-photo-17842719313060015-1.jpg)
 
-<p>#danceinthrstreet</p>
+#danceinthrstreet

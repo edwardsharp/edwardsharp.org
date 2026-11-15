@@ -12,4 +12,4 @@ preview_alt: "fuck fuck the police"
 
 ![fuck fuck the police](/content/media/2020/2020-06-02-photo-17850875846095557-1.jpg)
 
-<p>fuck fuck the police</p>
+fuck fuck the police

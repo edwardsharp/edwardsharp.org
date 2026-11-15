@@ -12,4 +12,4 @@ preview_alt: "#endless"
 
 ![#endless](/content/media/2016/2016-04-06-photo-17855631106003551-1.jpg)
 
-<p>#endless</p>
+#endless

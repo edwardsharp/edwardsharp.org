@@ -12,4 +12,4 @@ preview_alt: "#leggz"
 
 ![#leggz](/content/media/2016/2016-07-14-photo-17849221756080224-1.jpg)
 
-<p>#leggz</p>
+#leggz

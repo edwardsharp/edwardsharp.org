@@ -10,6 +10,7 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=qUy8Mf7Vl1U"
 preview_image: "/content/media/2009/2009-07-28-youtube-qUy8Mf7Vl1U-61f739187a.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/qUy8Mf7Vl1U" title="she is being kept alive by a" loading="lazy" allowfullscreen></iframe></div>
 
-<p><a href="https://www.youtube.com/watch?v=qUy8Mf7Vl1U">original youtube post</a></p>
+[original youtube post](https://www.youtube.com/watch?v=qUy8Mf7Vl1U)

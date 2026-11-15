@@ -10,6 +10,9 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=h-M17UySddo"
 preview_image: "/content/media/2013/2013-06-24-youtube-h-M17UySddo-5a640bf5a7.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/h-M17UySddo" title="PWNW16 [DARKNESS]" loading="lazy" allowfullscreen></iframe></div>
-<p>dancers: david ian griess, TWON (nathanaelthayermoss.com), keyon gaskin, &amp; edward sharp</p>
-<p><a href="https://www.youtube.com/watch?v=h-M17UySddo">original youtube post</a></p>
+
+dancers: david ian griess, TWON (nathanaelthayermoss.com), keyon gaskin, & edward sharp
+
+[original youtube post](https://www.youtube.com/watch?v=h-M17UySddo)

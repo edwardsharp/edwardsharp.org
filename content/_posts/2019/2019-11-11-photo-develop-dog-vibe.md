@@ -12,4 +12,4 @@ preview_alt: "develop dog vibe"
 
 ![develop dog vibe](/content/media/2019/2019-11-11-photo-17859760624589120-1.jpg)
 
-<p>develop dog vibe</p>
+develop dog vibe

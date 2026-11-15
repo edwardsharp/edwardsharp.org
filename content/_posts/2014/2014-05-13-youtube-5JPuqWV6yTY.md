@@ -10,6 +10,7 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=5JPuqWV6yTY"
 preview_image: "/content/media/2014/2014-05-13-youtube-5JPuqWV6yTY-93a0c00e64.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/5JPuqWV6yTY" title="markmanders_internvideoapp" loading="lazy" allowfullscreen></iframe></div>
 
-<p><a href="https://www.youtube.com/watch?v=5JPuqWV6yTY">original youtube post</a></p>
+[original youtube post](https://www.youtube.com/watch?v=5JPuqWV6yTY)

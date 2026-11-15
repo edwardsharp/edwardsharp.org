@@ -12,4 +12,4 @@ preview_alt: "#recentsculpture"
 
 ![#recentsculpture](/content/media/2017/2017-04-29-photo-17870319523076492-1.jpg)
 
-<p>#recentsculpture</p>
+#recentsculpture

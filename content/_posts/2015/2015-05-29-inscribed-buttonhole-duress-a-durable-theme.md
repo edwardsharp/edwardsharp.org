@@ -13,8 +13,8 @@ My fashions withstand mutiny, as in applicants to thermodynamics, humors bodied,
 
 I export medley of movings, indemnify noisiness, lighter, texaco, andes vidal production. I somatic useful objectives as methuselah statue, insulate foreheads, issues liked morbidly, dear anonymously, primers as a cornell, nda, andrea subscribed desuetude. I fingerprint wayward to welsh texan, tracks, breastworks, sweaty, hairier clincher, andalusian bodybuilding, mover intercepting traders momentarily, of beading.
 
-\-or\-
+-or-
 
 I’m fascinated with mutation as it applies to the human body and mind– mutation that brings about change in physical form both immediately (repetitive physical exertion, being out of breath, responsiveness to the present, and so on) and the long term (stamina, choreography, memory, text, etc.). My work advocates for a perception that is not instantaneous but durational; a duration that looks at the moving body as a quixotic material that’s responsive to the present context. Performance might be happening all the time?
 
-I explore mediums of movement, industrial noise, light, text, and video projections. I sometimes use objects as metaphorical stand\-ins for issues like mortality, death, anomie, prison as a corporation, bdsm, and subjective destitution. I’m finding ways to weld text, trashbags, breathing, sweat, hair clippers, and body movements into transcendent moments of beauty.
+I explore mediums of movement, industrial noise, light, text, and video projections. I sometimes use objects as metaphorical stand-ins for issues like mortality, death, anomie, prison as a corporation, bdsm, and subjective destitution. I’m finding ways to weld text, trashbags, breathing, sweat, hair clippers, and body movements into transcendent moments of beauty.

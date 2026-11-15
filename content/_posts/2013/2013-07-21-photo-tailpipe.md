@@ -12,4 +12,4 @@ preview_alt: "#tailpipe"
 
 ![#tailpipe](/content/media/2013/2013-07-21-photo-17842697923060015-1.jpg)
 
-<p>#tailpipe</p>
+#tailpipe

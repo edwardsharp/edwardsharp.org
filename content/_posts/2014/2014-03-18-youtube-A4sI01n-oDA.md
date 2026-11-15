@@ -10,6 +10,9 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=A4sI01n-oDA"
 preview_image: "/content/media/2014/2014-03-18-youtube-A4sI01n-oDA-7034cfe488.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/A4sI01n-oDA" title="pubicspaceone" loading="lazy" allowfullscreen></iframe></div>
-<p>PUBLIC SPACE ONE, Iowa City, IA</p>
-<p><a href="https://www.youtube.com/watch?v=A4sI01n-oDA">original youtube post</a></p>
+
+PUBLIC SPACE ONE, Iowa City, IA
+
+[original youtube post](https://www.youtube.com/watch?v=A4sI01n-oDA)

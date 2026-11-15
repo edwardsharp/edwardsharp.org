@@ -12,4 +12,4 @@ preview_alt: "#SYNTHR-6"
 
 ![#SYNTHR-6](/content/media/2013/2013-05-24-photo-17842669579060015-1.jpg)
 
-<p>#SYNTHR-6</p>
+#SYNTHR-6

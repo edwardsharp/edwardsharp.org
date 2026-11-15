@@ -12,4 +12,4 @@ preview_alt: "#forcepublique #noonnoiseandpancakespdx #LACUNA"
 
 ![#forcepublique #noonnoiseandpancakespdx #LACUNA](/content/media/2015/2015-07-19-photo-17842056889060015-1.jpg)
 
-<p>#forcepublique #noonnoiseandpancakespdx #LACUNA</p>
+#forcepublique #noonnoiseandpancakespdx #LACUNA

@@ -12,4 +12,4 @@ preview_alt: "LUCY YIM #aminorpublic #LACUNA"
 
 ![LUCY YIM #aminorpublic #LACUNA](/content/media/2015/2015-07-22-photo-17842066231060015-1.jpg)
 
-<p>LUCY YIM #aminorpublic #LACUNA</p>
+LUCY YIM #aminorpublic #LACUNA

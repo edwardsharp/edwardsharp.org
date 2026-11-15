@@ -12,4 +12,4 @@ preview_alt: "#RATBRO"
 
 ![#RATBRO](/content/media/2013/2013-12-14-photo-17842767127060015-1.jpg)
 
-<p>#RATBRO</p>
+#RATBRO

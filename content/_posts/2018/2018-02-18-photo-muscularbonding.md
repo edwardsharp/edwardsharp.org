@@ -12,4 +12,4 @@ preview_alt: "#muscularbonding"
 
 ![#muscularbonding](/content/media/2018/2018-02-18-photo-17865969376215698-1.jpg)
 
-<p>#muscularbonding</p>
+#muscularbonding

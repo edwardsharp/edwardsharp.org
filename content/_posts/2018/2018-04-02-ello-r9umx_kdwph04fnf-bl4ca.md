@@ -10,14 +10,14 @@ source_platform: "ello"
 source_url: "https://ello.co/3dwardsharp/post/r9umx_kdwph04fnf-bl4ca"
 archive_url: "https://web.archive.org/web/20210614012230id_/https://ello.co/3dwardsharp"
 ---
+
 <span data-import-note="" class="asset-notice">image unavailable in the recovered archive.</span>
 
+(hidden)  
+from plainsight  
+zomg, tele tele tellme
 
-<p>(hidden)<br>
-from plainsight<br>
-zomg, tele tele tellme</p>
+zomg, $ell yr$elf. zomg, plz don't.  
+just send me the link to yr archiv...
 
-<p>zomg, $ell yr$elf. zomg, plz don't. <br>
-just send me the link to yr archiv...</p>
-
-<p><a href="https://ello.co/3dwardsharp/post/r9umx_kdwph04fnf-bl4ca">original ello post</a> · <a href="https://web.archive.org/web/20210614012230id_/https://ello.co/3dwardsharp">archived post</a></p>
+[original ello post](https://ello.co/3dwardsharp/post/r9umx_kdwph04fnf-bl4ca) · [archived post](https://web.archive.org/web/20210614012230id_/https://ello.co/3dwardsharp)

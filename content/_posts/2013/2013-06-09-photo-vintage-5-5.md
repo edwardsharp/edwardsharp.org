@@ -12,4 +12,4 @@ preview_alt: "#vintage #5/$5"
 
 ![#vintage #5/$5](/content/media/2013/2013-06-09-photo-17842677694060015-1.jpg)
 
-<p>#vintage #5/$5</p>
+#vintage #5/$5

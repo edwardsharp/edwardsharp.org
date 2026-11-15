@@ -12,4 +12,4 @@ preview_alt: "#strapdown"
 
 ![#strapdown](/content/media/2013/2013-08-17-photo-17842711201060015-1.jpg)
 
-<p>#strapdown</p>
+#strapdown

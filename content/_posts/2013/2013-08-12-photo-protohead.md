@@ -12,4 +12,4 @@ preview_alt: "#protohead"
 
 ![#protohead](/content/media/2013/2013-08-12-photo-17842708912060015-1.jpg)
 
-<p>#protohead</p>
+#protohead

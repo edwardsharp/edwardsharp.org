@@ -12,4 +12,4 @@ preview_alt: "#powermesh"
 
 ![#powermesh](/content/media/2013/2013-12-17-photo-17842768057060015-1.jpg)
 
-<p>#powermesh</p>
+#powermesh

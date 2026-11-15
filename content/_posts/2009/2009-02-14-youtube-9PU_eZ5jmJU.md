@@ -10,8 +10,11 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=9PU_eZ5jmJU"
 preview_image: "/content/media/2009/2009-02-14-youtube-9PU_eZ5jmJU-3f1853f1af.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/9PU_eZ5jmJU" title="BIND4 + KILLURTV MASHUP [isadorawin-std]" loading="lazy" allowfullscreen></iframe></div>
-<p>created using isadorawin-std on a vista machine.<br>
-<br>
-PERFORMANCE</p>
-<p><a href="https://www.youtube.com/watch?v=9PU_eZ5jmJU">original youtube post</a></p>
+
+created using isadorawin-std on a vista machine.
+
+PERFORMANCE
+
+[original youtube post](https://www.youtube.com/watch?v=9PU_eZ5jmJU)

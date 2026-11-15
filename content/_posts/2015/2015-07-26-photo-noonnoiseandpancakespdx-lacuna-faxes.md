@@ -12,4 +12,4 @@ preview_alt: "#noonnoiseandpancakespdx #LACUNA #faxes #📠"
 
 ![#noonnoiseandpancakespdx #LACUNA #faxes #📠](/content/media/2015/2015-07-26-photo-17842089145060015-1.jpg)
 
-<p>#noonnoiseandpancakespdx #LACUNA #faxes #📠</p>
+#noonnoiseandpancakespdx #LACUNA #faxes #📠

@@ -12,4 +12,4 @@ preview_alt: "#totalwar"
 
 ![#totalwar](/content/media/2013/2013-12-08-photo-17842764214060015-1.jpg)
 
-<p>#totalwar</p>
+#totalwar

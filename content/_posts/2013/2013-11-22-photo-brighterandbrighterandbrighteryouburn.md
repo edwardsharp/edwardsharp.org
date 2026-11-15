@@ -12,4 +12,4 @@ preview_alt: "#brighterandbrighterandbrighteryouburn"
 
 ![#brighterandbrighterandbrighteryouburn](/content/media/2013/2013-11-22-photo-17842757779060015-1.jpg)
 
-<p>#brighterandbrighterandbrighteryouburn</p>
+#brighterandbrighterandbrighteryouburn

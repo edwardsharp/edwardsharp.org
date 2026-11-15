@@ -12,4 +12,4 @@ preview_alt: "#abyss"
 
 ![#abyss](/content/media/2016/2016-03-29-photo-17846295664115407-1.jpg)
 
-<p>#abyss</p>
+#abyss

@@ -10,6 +10,9 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=XkrCyIoYcyw"
 preview_image: "/content/media/2009/2009-03-24-youtube-XkrCyIoYcyw-98253409c5.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/XkrCyIoYcyw" title="canal 5" loading="lazy" allowfullscreen></iframe></div>
-<p>future death toll performing live in Lincoln, NE 02.27.09</p>
-<p><a href="https://www.youtube.com/watch?v=XkrCyIoYcyw">original youtube post</a></p>
+
+future death toll performing live in Lincoln, NE 02.27.09
+
+[original youtube post](https://www.youtube.com/watch?v=XkrCyIoYcyw)

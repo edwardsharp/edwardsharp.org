@@ -10,7 +10,10 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=z7ESVbr-OHA"
 preview_image: "/content/media/2014/2014-03-20-youtube-z7ESVbr-OHA-2150828252.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/z7ESVbr-OHA" title="Evolution Collective" loading="lazy" allowfullscreen></iframe></div>
-<p>March 15: Evolution Collective, Madison, WI<br>
-(https://www.facebook.com/pages/Evolution-Arts-Collective/183044838374847)</p>
-<p><a href="https://www.youtube.com/watch?v=z7ESVbr-OHA">original youtube post</a></p>
+
+March 15: Evolution Collective, Madison, WI  
+(https://www.facebook.com/pages/Evolution-Arts-Collective/183044838374847)
+
+[original youtube post](https://www.youtube.com/watch?v=z7ESVbr-OHA)

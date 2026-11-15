@@ -10,6 +10,9 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=IiiqSkU7osQ"
 preview_image: "/content/media/2013/2013-06-11-youtube-IiiqSkU7osQ-fd5cc8a3db.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/IiiqSkU7osQ" title="PWNW16 (buzzcut04)" loading="lazy" allowfullscreen></iframe></div>
-<p>collaborations with keyon gaskin</p>
-<p><a href="https://www.youtube.com/watch?v=IiiqSkU7osQ">original youtube post</a></p>
+
+collaborations with keyon gaskin
+
+[original youtube post](https://www.youtube.com/watch?v=IiiqSkU7osQ)

@@ -12,4 +12,4 @@ preview_alt: "#breadmoulds"
 
 ![#breadmoulds](/content/media/2013/2013-10-02-photo-17842734247060015-1.jpg)
 
-<p>#breadmoulds</p>
+#breadmoulds

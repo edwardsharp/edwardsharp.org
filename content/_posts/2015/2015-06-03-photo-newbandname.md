@@ -12,4 +12,4 @@ preview_alt: "#newbandname?"
 
 ![#newbandname?](/content/media/2015/2015-06-03-photo-17841638734060015-1.jpg)
 
-<p>#newbandname?</p>
+#newbandname?

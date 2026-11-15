@@ -12,4 +12,4 @@ preview_alt: "#EzraPound"
 
 ![#EzraPound](/content/media/2013/2013-11-27-photo-17842759648060015-1.jpg)
 
-<p>#EzraPound</p>
+#EzraPound

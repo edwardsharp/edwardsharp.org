@@ -18,4 +18,8 @@ preview_alt: "rectangle groupz is to be excelling andy anti is angry"
 
 ![rectangle groupz is to be excelling andy anti is angry (4 of 4)](/content/media/2019/2019-06-27-photo-17943527932288291-4.jpg)
 
-<p>rectangle groupz is to be excelling andy anti is angry <br>evenhandedly thoroughfare thermosphere winding arena-worth, thermosphere <br>it’s botched comradeship soothing: salve &amp; desuetude <br>recreate grotesquely is to be exclusiveness and antimicrobial is anguish <br>eveready thoughtfully therefore win arenaz wordiness.</p>
+rectangle groupz is to be excelling andy anti is angry  
+evenhandedly thoroughfare thermosphere winding arena-worth, thermosphere  
+it’s botched comradeship soothing: salve & desuetude  
+recreate grotesquely is to be exclusiveness and antimicrobial is anguish  
+eveready thoughtfully therefore win arenaz wordiness.

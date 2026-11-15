@@ -10,6 +10,9 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=l1sx6oeBfkE"
 preview_image: "/content/media/2014/2014-03-22-youtube-l1sx6oeBfkE-065deea82d.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/l1sx6oeBfkE" title="C.A.I.D." loading="lazy" allowfullscreen></iframe></div>
-<p>March 20: Detroit Contemporary/C.A.I.D., curated by Spread Art, Detroit, MI</p>
-<p><a href="https://www.youtube.com/watch?v=l1sx6oeBfkE">original youtube post</a></p>
+
+March 20: Detroit Contemporary/C.A.I.D., curated by Spread Art, Detroit, MI
+
+[original youtube post](https://www.youtube.com/watch?v=l1sx6oeBfkE)

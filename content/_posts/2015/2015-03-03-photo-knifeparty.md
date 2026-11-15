@@ -12,4 +12,4 @@ preview_alt: "#knifeparty"
 
 ![#knifeparty](/content/media/2015/2015-03-03-photo-17843195035060015-1.jpg)
 
-<p>#knifeparty</p>
+#knifeparty

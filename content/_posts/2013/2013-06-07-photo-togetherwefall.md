@@ -12,4 +12,4 @@ preview_alt: "#togetherwefall"
 
 ![#togetherwefall](/content/media/2013/2013-06-07-photo-17842676641060015-1.jpg)
 
-<p>#togetherwefall</p>
+#togetherwefall

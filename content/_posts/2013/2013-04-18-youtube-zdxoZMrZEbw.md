@@ -10,6 +10,9 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=zdxoZMrZEbw"
 preview_image: "/content/media/2013/2013-04-18-youtube-zdxoZMrZEbw-74ae49e47d.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/zdxoZMrZEbw" title="prisoncorp03" loading="lazy" allowfullscreen></iframe></div>
-<p>camera: elizabeth lamb</p>
-<p><a href="https://www.youtube.com/watch?v=zdxoZMrZEbw">original youtube post</a></p>
+
+camera: elizabeth lamb
+
+[original youtube post](https://www.youtube.com/watch?v=zdxoZMrZEbw)

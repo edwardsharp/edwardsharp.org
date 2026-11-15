@@ -11,128 +11,144 @@ source_platform: "jsfiddle"
 source_url: "https://jsfiddle.net/edwardsharp/cm6nee7b/1/"
 source_revision: 1
 ---
+
 <iframe class="code-demo" src="{{ '/content/media/2016/2016-01-01-jsfiddle-cm6nee7b-demo.html' | relative_url }}" title="Angular Sortable Demo" width="100%" height="480" loading="lazy" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe>
-<h2>html</h2>
-<pre class="highlight"><code class="language-html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"//rawgithub.com/angular-ui/ui-sortable/master/src/sortable.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
-<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
-<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
-<span class="nt">&lt;div</span> <span class="na">ng-app=</span><span class="s">"sortableApp"</span> <span class="na">ng-controller=</span><span class="s">"sortableController"</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;h2&gt;</span>ui.sortable demo<span class="nt">&lt;/h2&gt;</span>
 
-  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"floatleft"</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;ul</span> <span class="na">ui-sortable=</span><span class="s">"sortableOptions"</span> <span class="na">ng-model=</span><span class="s">"list"</span> <span class="na">class=</span><span class="s">"list"</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;li</span> <span class="na">ng-repeat=</span><span class="s">"item in list"</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span>&#123;&#123;item.text&#125;&#125;<span class="nt">&lt;/li&gt;</span>
-    <span class="nt">&lt;/ul&gt;</span>
-  <span class="nt">&lt;/div&gt;</span>
+## html
 
-  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"floatleft"</span> <span class="na">style=</span><span class="s">"margin-left: 20px"</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"list logList"</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;li</span> <span class="na">ng-repeat=</span><span class="s">"entry in sortingLog track by $index"</span> <span class="na">class=</span><span class="s">"logItem"</span><span class="nt">&gt;</span>
-        &#123;&#123;entry&#125;&#125;
-      <span class="nt">&lt;/li&gt;</span>
-    <span class="nt">&lt;/ul&gt;</span>
-  <span class="nt">&lt;/div&gt;</span>
+{% raw %}
 
-  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"clear"</span><span class="nt">&gt;&lt;/div&gt;</span>
-<span class="nt">&lt;/div&gt;</span>
-</code></pre>
-<h2>css</h2>
-<pre class="highlight"><code class="language-css"><span class="nc">.list</span> <span class="p">&#123;</span>
-  <span class="nl">list-style</span><span class="p">:</span> <span class="nb">none</span> <span class="nb">outside</span> <span class="nb">none</span><span class="p">;</span>
-  <span class="nl">margin</span><span class="p">:</span> <span class="m">10px</span> <span class="m">0</span> <span class="m">30px</span><span class="p">;</span>
-<span class="p">&#125;</span>
+```html
+<script src="//rawgithub.com/angular-ui/ui-sortable/master/src/sortable.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<div ng-app="sortableApp" ng-controller="sortableController" class="container">
+  <h2>ui.sortable demo</h2>
 
-<span class="nc">.item</span> <span class="p">&#123;</span>
-  <span class="nl">width</span><span class="p">:</span> <span class="m">200px</span><span class="p">;</span>
-  <span class="nl">padding</span><span class="p">:</span> <span class="m">5px</span> <span class="m">10px</span><span class="p">;</span>
-  <span class="nl">margin</span><span class="p">:</span> <span class="m">5px</span> <span class="m">0</span><span class="p">;</span>
-  <span class="nl">border</span><span class="p">:</span> <span class="m">2px</span> <span class="nb">solid</span> <span class="nx">#444</span><span class="p">;</span>
-  <span class="nl">border-radius</span><span class="p">:</span> <span class="m">5px</span><span class="p">;</span>
-  <span class="nl">background-color</span><span class="p">:</span> <span class="nx">#ea8a8a</span><span class="p">;</span>
+  <div class="floatleft">
+    <ul ui-sortable="sortableOptions" ng-model="list" class="list">
+      <li ng-repeat="item in list" class="item">{{item.text}}</li>
+    </ul>
+  </div>
 
-  <span class="nl">font-size</span><span class="p">:</span> <span class="m">1.1em</span><span class="p">;</span>
-  <span class="nl">font-weight</span><span class="p">:</span> <span class="nb">bold</span><span class="p">;</span>
-  <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
-  <span class="nl">cursor</span><span class="p">:</span> <span class="n">move</span><span class="p">;</span>
-<span class="p">&#125;</span>
+  <div class="floatleft" style="margin-left: 20px">
+    <ul class="list logList">
+      <li ng-repeat="entry in sortingLog track by $index" class="logItem">
+        {{entry}}
+      </li>
+    </ul>
+  </div>
 
-<span class="c">/***  Extra ***/</span>
+  <div class="clear"></div>
+</div>
+```
 
-<span class="nt">body</span> <span class="p">&#123;</span>
-  <span class="nl">font-family</span><span class="p">:</span> <span class="n">Verdana</span><span class="p">,</span> <span class="s1">"Trebuchet ms"</span><span class="p">,</span> <span class="n">Tahoma</span><span class="p">;</span>
-<span class="p">&#125;</span>
+{% endraw %}
 
-<span class="nc">.logList</span> <span class="p">&#123;</span>
-  <span class="nl">margin-top</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
-  <span class="nl">width</span><span class="p">:</span> <span class="m">250px</span><span class="p">;</span>
-  <span class="nl">min-height</span><span class="p">:</span> <span class="m">200px</span><span class="p">;</span>
-  <span class="nl">padding</span><span class="p">:</span> <span class="m">5px</span> <span class="m">15px</span><span class="p">;</span>
-  <span class="nl">border</span><span class="p">:</span> <span class="m">5px</span> <span class="nb">solid</span> <span class="nx">#000</span><span class="p">;</span>
-  <span class="nl">border-radius</span><span class="p">:</span> <span class="m">15px</span><span class="p">;</span>
-<span class="p">&#125;</span>
+## css
 
-<span class="nc">.logList</span><span class="nd">:before</span> <span class="p">&#123;</span>
-  <span class="nl">content</span><span class="p">:</span> <span class="s1">"log"</span><span class="p">;</span>
-  <span class="nl">padding</span><span class="p">:</span> <span class="m">0</span> <span class="m">5px</span><span class="p">;</span>
-  <span class="nl">position</span><span class="p">:</span> <span class="nb">relative</span><span class="p">;</span>
-  <span class="nl">top</span><span class="p">:</span> <span class="m">-1.1em</span><span class="p">;</span>
-  <span class="nl">background-color</span><span class="p">:</span> <span class="nx">#fff</span><span class="p">;</span>
-<span class="p">&#125;</span>
+```css
+.list {
+  list-style: none outside none;
+  margin: 10px 0 30px;
+}
 
-<span class="nc">.container</span> <span class="p">&#123;</span>
-  <span class="nl">width</span><span class="p">:</span> <span class="m">600px</span><span class="p">;</span>
-  <span class="nl">margin</span><span class="p">:</span> <span class="nb">auto</span><span class="p">;</span>
-<span class="p">&#125;</span>
+.item {
+  width: 200px;
+  padding: 5px 10px;
+  margin: 5px 0;
+  border: 2px solid #444;
+  border-radius: 5px;
+  background-color: #ea8a8a;
 
-<span class="nt">h2</span> <span class="p">&#123;</span>
-  <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
-<span class="p">&#125;</span>
+  font-size: 1.1em;
+  font-weight: bold;
+  text-align: center;
+  cursor: move;
+}
 
-<span class="nc">.floatleft</span> <span class="p">&#123;</span>
-  <span class="nl">float</span><span class="p">:</span> <span class="nb">left</span><span class="p">;</span>
-<span class="p">&#125;</span>
+/***  Extra ***/
 
-<span class="nc">.clear</span> <span class="p">&#123;</span>
-  <span class="nl">clear</span><span class="p">:</span> <span class="nb">both</span><span class="p">;</span>
-<span class="p">&#125;</span>
-</code></pre>
-<h2>javascript</h2>
-<pre class="highlight"><code class="language-javascript"><span class="kd">var</span> <span class="nx">myapp</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nf">module</span><span class="p">(</span><span class="dl">"</span><span class="s2">sortableApp</span><span class="dl">"</span><span class="p">,</span> <span class="p">[</span><span class="dl">"</span><span class="s2">ui.sortable</span><span class="dl">"</span><span class="p">]);</span>
+body {
+  font-family: Verdana, "Trebuchet ms", Tahoma;
+}
 
-<span class="nx">myapp</span><span class="p">.</span><span class="nf">controller</span><span class="p">(</span><span class="dl">"</span><span class="s2">sortableController</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">$scope</span><span class="p">)</span> <span class="p">&#123;</span>
-  <span class="kd">var</span> <span class="nx">tmpList</span> <span class="o">=</span> <span class="p">[];</span>
+.logList {
+  margin-top: 20px;
+  width: 250px;
+  min-height: 200px;
+  padding: 5px 15px;
+  border: 5px solid #000;
+  border-radius: 15px;
+}
 
-  <span class="k">for </span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">6</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="nx">tmpList</span><span class="p">.</span><span class="nf">push</span><span class="p">(&#123;</span>
-      <span class="na">text</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Item </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">i</span><span class="p">,</span>
-      <span class="na">value</span><span class="p">:</span> <span class="nx">i</span><span class="p">,</span>
-    <span class="p">&#125;);</span>
-  <span class="p">&#125;</span>
+.logList:before {
+  content: "log";
+  padding: 0 5px;
+  position: relative;
+  top: -1.1em;
+  background-color: #fff;
+}
 
-  <span class="nx">$scope</span><span class="p">.</span><span class="nx">list</span> <span class="o">=</span> <span class="nx">tmpList</span><span class="p">;</span>
+.container {
+  width: 600px;
+  margin: auto;
+}
 
-  <span class="nx">$scope</span><span class="p">.</span><span class="nx">sortingLog</span> <span class="o">=</span> <span class="p">[];</span>
+h2 {
+  text-align: center;
+}
 
-  <span class="nx">$scope</span><span class="p">.</span><span class="nx">sortableOptions</span> <span class="o">=</span> <span class="p">&#123;</span>
-    <span class="na">update</span><span class="p">:</span> <span class="nf">function </span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">ui</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="kd">var</span> <span class="nx">logEntry</span> <span class="o">=</span> <span class="nx">tmpList</span>
-        <span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="nf">function </span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="k">return</span> <span class="nx">i</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
-        <span class="p">&#125;)</span>
-        <span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="dl">"</span><span class="s2">, </span><span class="dl">"</span><span class="p">);</span>
-      <span class="nx">$scope</span><span class="p">.</span><span class="nx">sortingLog</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="dl">"</span><span class="s2">Update: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">logEntry</span><span class="p">);</span>
-    <span class="p">&#125;,</span>
-    <span class="na">stop</span><span class="p">:</span> <span class="nf">function </span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">ui</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="c1">// this callback has the changed model</span>
-      <span class="kd">var</span> <span class="nx">logEntry</span> <span class="o">=</span> <span class="nx">tmpList</span>
-        <span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="nf">function </span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="k">return</span> <span class="nx">i</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
-        <span class="p">&#125;)</span>
-        <span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="dl">"</span><span class="s2">, </span><span class="dl">"</span><span class="p">);</span>
-      <span class="nx">$scope</span><span class="p">.</span><span class="nx">sortingLog</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="dl">"</span><span class="s2">Stop: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">logEntry</span><span class="p">);</span>
-    <span class="p">&#125;,</span>
-  <span class="p">&#125;;</span>
-<span class="p">&#125;);</span>
-</code></pre>
+.floatleft {
+  float: left;
+}
+
+.clear {
+  clear: both;
+}
+```
+
+## javascript
+
+```javascript
+var myapp = angular.module("sortableApp", ["ui.sortable"]);
+
+myapp.controller("sortableController", function ($scope) {
+  var tmpList = [];
+
+  for (var i = 1; i <= 6; i++) {
+    tmpList.push({
+      text: "Item " + i,
+      value: i,
+    });
+  }
+
+  $scope.list = tmpList;
+
+  $scope.sortingLog = [];
+
+  $scope.sortableOptions = {
+    update: function (e, ui) {
+      var logEntry = tmpList
+        .map(function (i) {
+          return i.value;
+        })
+        .join(", ");
+      $scope.sortingLog.push("Update: " + logEntry);
+    },
+    stop: function (e, ui) {
+      // this callback has the changed model
+      var logEntry = tmpList
+        .map(function (i) {
+          return i.value;
+        })
+        .join(", ");
+      $scope.sortingLog.push("Stop: " + logEntry);
+    },
+  };
+});
+```
+
 <p data-import-note="">this demo preserves the compiled output and may depend on external libraries or services that are no longer available.</p>
-<p><a href="https://jsfiddle.net/edwardsharp/cm6nee7b/1/">original jsfiddle post</a></p>
+
+[original jsfiddle post](https://jsfiddle.net/edwardsharp/cm6nee7b/1/)

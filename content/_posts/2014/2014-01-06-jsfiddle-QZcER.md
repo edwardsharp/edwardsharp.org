@@ -10,203 +10,214 @@ source_platform: "jsfiddle"
 source_url: "https://jsfiddle.net/edwardsharp/QZcER/35/"
 source_revision: 35
 ---
+
 <iframe class="code-demo" src="{{ '/content/media/2014/2014-01-06-jsfiddle-QZcER-demo.html' | relative_url }}" title="more zoomin hexx" width="100%" height="480" loading="lazy" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe>
-<p>hmm, what about this one?</p>
-<h2>html</h2>
-<pre class="highlight"><code class="language-html"><span class="nt">&lt;script
-  </span><span class="na">type=</span><span class="s">"text/javascript"</span>
-  <span class="na">src=</span><span class="s">"http://janne.aukia.com/zoomooz/jquery.zoomooz.min.js"</span>
-<span class="nt">&gt;&lt;/script&gt;</span>
 
-<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"cluster"</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"hex-row row1"</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"hex none"</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"top"</span><span class="nt">&gt;&lt;/div&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"middle zoomTarget"</span><span class="nt">&gt;&lt;/div&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"bottom"</span><span class="nt">&gt;&lt;/div&gt;</span>
-    <span class="nt">&lt;/div&gt;</span>
-    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"hex"</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"top"</span><span class="nt">&gt;&lt;/div&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"middle zoomTarget"</span><span class="nt">&gt;</span>
+hmm, what about this one?
+
+## html
+
+```html
+<script
+  type="text/javascript"
+  src="//janne.aukia.com/zoomooz/jquery.zoomooz.min.js"
+></script>
+
+<div id="cluster">
+  <div class="hex-row row1">
+    <div class="hex none">
+      <div class="top"></div>
+      <div class="middle zoomTarget"></div>
+      <div class="bottom"></div>
+    </div>
+    <div class="hex">
+      <div class="top"></div>
+      <div class="middle zoomTarget">
         012345678901 234567890123 345678901234
-      <span class="nt">&lt;/div&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"bottom"</span><span class="nt">&gt;&lt;/div&gt;</span>
-    <span class="nt">&lt;/div&gt;</span>
-    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"hex none"</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"top"</span><span class="nt">&gt;&lt;/div&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"middle zoomTarget"</span><span class="nt">&gt;&lt;/div&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"bottom"</span><span class="nt">&gt;&lt;/div&gt;</span>
-    <span class="nt">&lt;/div&gt;</span>
-  <span class="nt">&lt;/div&gt;</span>
-  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"hex-row even row2"</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"hex northeast"</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"top"</span><span class="nt">&gt;&lt;/div&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"middle"</span><span class="nt">&gt;&lt;/div&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"bottom"</span><span class="nt">&gt;&lt;/div&gt;</span>
-    <span class="nt">&lt;/div&gt;</span>
-  <span class="nt">&lt;/div&gt;</span>
-  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"hex-row row3"</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"hex"</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"top"</span><span class="nt">&gt;&lt;/div&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"middle zoomTarget"</span><span class="nt">&gt;</span>
+      </div>
+      <div class="bottom"></div>
+    </div>
+    <div class="hex none">
+      <div class="top"></div>
+      <div class="middle zoomTarget"></div>
+      <div class="bottom"></div>
+    </div>
+  </div>
+  <div class="hex-row even row2">
+    <div class="hex northeast">
+      <div class="top"></div>
+      <div class="middle"></div>
+      <div class="bottom"></div>
+    </div>
+  </div>
+  <div class="hex-row row3">
+    <div class="hex">
+      <div class="top"></div>
+      <div class="middle zoomTarget">
         012345678901 234567890123 345678901234
-      <span class="nt">&lt;/div&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"bottom"</span><span class="nt">&gt;&lt;/div&gt;</span>
-    <span class="nt">&lt;/div&gt;</span>
-    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"hex east"</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"top"</span><span class="nt">&gt;&lt;/div&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"middle zoomTarget"</span><span class="nt">&gt;&lt;/div&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"bottom"</span><span class="nt">&gt;&lt;/div&gt;</span>
-    <span class="nt">&lt;/div&gt;</span>
-    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"hex"</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"top"</span><span class="nt">&gt;&lt;/div&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"middle zoomTarget"</span><span class="nt">&gt;</span>
+      </div>
+      <div class="bottom"></div>
+    </div>
+    <div class="hex east">
+      <div class="top"></div>
+      <div class="middle zoomTarget"></div>
+      <div class="bottom"></div>
+    </div>
+    <div class="hex">
+      <div class="top"></div>
+      <div class="middle zoomTarget">
         012345678901 234567890123 345678901234
-      <span class="nt">&lt;/div&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"bottom"</span><span class="nt">&gt;&lt;/div&gt;</span>
-    <span class="nt">&lt;/div&gt;</span>
-    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"hex none"</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"top"</span><span class="nt">&gt;&lt;/div&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"middle zoomTarget"</span><span class="nt">&gt;&lt;/div&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"bottom"</span><span class="nt">&gt;&lt;/div&gt;</span>
-    <span class="nt">&lt;/div&gt;</span>
-  <span class="nt">&lt;/div&gt;</span>
-  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"hex-row even row4"</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"hex southeast"</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"top"</span><span class="nt">&gt;&lt;/div&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"middle zoomTarget"</span><span class="nt">&gt;&lt;/div&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"bottom"</span><span class="nt">&gt;&lt;/div&gt;</span>
-    <span class="nt">&lt;/div&gt;</span>
-  <span class="nt">&lt;/div&gt;</span>
-  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"hex-row row5"</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"hex none"</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"top"</span><span class="nt">&gt;&lt;/div&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"middle zoomTarget"</span><span class="nt">&gt;&lt;/div&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"bottom"</span><span class="nt">&gt;&lt;/div&gt;</span>
-    <span class="nt">&lt;/div&gt;</span>
-    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"hex"</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"top"</span><span class="nt">&gt;&lt;/div&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"middle zoomTarget"</span><span class="nt">&gt;</span>
+      </div>
+      <div class="bottom"></div>
+    </div>
+    <div class="hex none">
+      <div class="top"></div>
+      <div class="middle zoomTarget"></div>
+      <div class="bottom"></div>
+    </div>
+  </div>
+  <div class="hex-row even row4">
+    <div class="hex southeast">
+      <div class="top"></div>
+      <div class="middle zoomTarget"></div>
+      <div class="bottom"></div>
+    </div>
+  </div>
+  <div class="hex-row row5">
+    <div class="hex none">
+      <div class="top"></div>
+      <div class="middle zoomTarget"></div>
+      <div class="bottom"></div>
+    </div>
+    <div class="hex">
+      <div class="top"></div>
+      <div class="middle zoomTarget">
         012345678901 234567890123 345678901234
-      <span class="nt">&lt;/div&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"bottom"</span><span class="nt">&gt;&lt;/div&gt;</span>
-    <span class="nt">&lt;/div&gt;</span>
-    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"hex none"</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"top"</span><span class="nt">&gt;&lt;/div&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"middle zoomTarget"</span><span class="nt">&gt;&lt;/div&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"bottom"</span><span class="nt">&gt;&lt;/div&gt;</span>
-    <span class="nt">&lt;/div&gt;</span>
-  <span class="nt">&lt;/div&gt;</span>
-<span class="nt">&lt;/div&gt;</span>
-</code></pre>
-<h2>css</h2>
-<pre class="highlight"><code class="language-css"><span class="nt">body</span> <span class="p">&#123;</span>
-  <span class="nl">background</span><span class="p">:</span> <span class="nx">#000</span><span class="p">;</span>
-  <span class="nl">padding</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
-  <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
-  <span class="nl">overflow-x</span><span class="p">:</span> <span class="nb">hidden</span><span class="p">;</span>
-<span class="p">&#125;</span>
+      </div>
+      <div class="bottom"></div>
+    </div>
+    <div class="hex none">
+      <div class="top"></div>
+      <div class="middle zoomTarget"></div>
+      <div class="bottom"></div>
+    </div>
+  </div>
+</div>
+```
 
-<span class="nt">p</span><span class="nc">.title</span> <span class="p">&#123;</span>
-  <span class="nl">padding-left</span><span class="p">:</span> <span class="m">5px</span><span class="p">;</span>
-  <span class="nl">font-size</span><span class="p">:</span> <span class="m">28px</span><span class="p">;</span>
-<span class="p">&#125;</span>
+## css
 
-<span class="nt">p</span><span class="nc">.subtitle</span> <span class="p">&#123;</span>
-  <span class="nl">font-size</span><span class="p">:</span> <span class="m">18px</span><span class="p">;</span>
-<span class="p">&#125;</span>
+```css
+body {
+  background: #000;
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+}
 
-<span class="nc">.bump</span> <span class="p">&#123;</span>
-<span class="p">&#125;</span>
+p.title {
+  padding-left: 5px;
+  font-size: 28px;
+}
 
-<span class="nc">.bump_left</span> <span class="p">&#123;</span>
-<span class="p">&#125;</span>
-<span class="nc">.bump_left</span><span class="nd">:hover</span> <span class="p">&#123;</span>
-  <span class="nl">border-color</span><span class="p">:</span> <span class="nx">yellow</span><span class="p">;</span>
-<span class="p">&#125;</span>
+p.subtitle {
+  font-size: 18px;
+}
 
-<span class="nf">#cluster</span> <span class="p">&#123;</span>
-  <span class="nl">padding</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
-<span class="p">&#125;</span>
-<span class="nc">.hex</span> <span class="p">&#123;</span>
-  <span class="nl">float</span><span class="p">:</span> <span class="nb">left</span><span class="p">;</span>
+.bump {
+}
 
-  <span class="nl">margin-bottom</span><span class="p">:</span> <span class="m">-28px</span><span class="p">;</span>
-<span class="p">&#125;</span>
-<span class="nc">.hex</span><span class="nd">:hover</span> <span class="nc">.top</span><span class="o">,</span>
-<span class="nc">.hex</span><span class="nd">:hover</span> <span class="nc">.bottom</span> <span class="p">&#123;</span>
-  <span class="nl">filter</span><span class="p">:</span> <span class="nb">alpha</span><span class="p">(</span><span class="nf">opacity</span><span class="err">=</span><span class="m">50</span><span class="p">);</span> <span class="c">/* internet explorer */</span>
-  <span class="nl">-khtml-opacity</span><span class="p">:</span> <span class="m">0.5</span><span class="p">;</span> <span class="c">/* khtml, old safari */</span>
-  <span class="nl">-moz-opacity</span><span class="p">:</span> <span class="m">0.5</span><span class="p">;</span> <span class="c">/* mozilla, netscape */</span>
-  <span class="nl">opacity</span><span class="p">:</span> <span class="m">0.5</span><span class="p">;</span> <span class="c">/* fx, safari, opera */</span>
-<span class="p">&#125;</span>
+.bump_left {
+}
+.bump_left:hover {
+  border-color: yellow;
+}
 
-<span class="nc">.hex</span> <span class="nc">.top</span> <span class="p">&#123;</span>
-  <span class="nl">width</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
-  <span class="nl">border-bottom</span><span class="p">:</span> <span class="m">30px</span> <span class="nb">solid</span> <span class="nx">#ff6600</span><span class="p">;</span>
-  <span class="nl">border-left</span><span class="p">:</span> <span class="m">52px</span> <span class="nb">solid</span> <span class="nb">transparent</span><span class="p">;</span>
-  <span class="nl">border-right</span><span class="p">:</span> <span class="m">52px</span> <span class="nb">solid</span> <span class="nb">transparent</span><span class="p">;</span>
-<span class="p">&#125;</span>
+#cluster {
+  padding: 10px;
+}
+.hex {
+  float: left;
 
-<span class="nc">.hex</span> <span class="nc">.middle</span> <span class="p">&#123;</span>
-  <span class="nl">width</span><span class="p">:</span> <span class="m">102px</span><span class="p">;</span>
-  <span class="nl">height</span><span class="p">:</span> <span class="m">63px</span><span class="p">;</span>
-  <span class="nl">background</span><span class="p">:</span> <span class="nx">#ff6600</span><span class="p">;</span>
-<span class="p">&#125;</span>
-<span class="nc">.hex</span> <span class="nc">.middle</span><span class="nd">:hover</span> <span class="p">&#123;</span>
-  <span class="nl">background</span><span class="p">:</span> <span class="nx">#000</span><span class="p">;</span>
-<span class="p">&#125;</span>
+  margin-bottom: -28px;
+}
+.hex:hover .top,
+.hex:hover .bottom {
+  filter: alpha(opacity=50); /* internet explorer */
+  -khtml-opacity: 0.5; /* khtml, old safari */
+  -moz-opacity: 0.5; /* mozilla, netscape */
+  opacity: 0.5; /* fx, safari, opera */
+}
 
-<span class="nc">.hex</span> <span class="nc">.bottom</span> <span class="p">&#123;</span>
-  <span class="nl">width</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
-  <span class="nl">border-top</span><span class="p">:</span> <span class="m">30px</span> <span class="nb">solid</span> <span class="nx">#ff6600</span><span class="p">;</span>
-  <span class="nl">border-left</span><span class="p">:</span> <span class="m">52px</span> <span class="nb">solid</span> <span class="nb">transparent</span><span class="p">;</span>
-  <span class="nl">border-right</span><span class="p">:</span> <span class="m">52px</span> <span class="nb">solid</span> <span class="nb">transparent</span><span class="p">;</span>
-<span class="p">&#125;</span>
-<span class="nc">.hex-row</span> <span class="p">&#123;</span>
-  <span class="nl">clear</span><span class="p">:</span> <span class="nb">left</span><span class="p">;</span>
-<span class="p">&#125;</span>
-<span class="nc">.hex-row.even</span> <span class="p">&#123;</span>
-  <span class="nl">margin-left</span><span class="p">:</span> <span class="m">53px</span><span class="p">;</span>
-<span class="p">&#125;</span>
+.hex .top {
+  width: 0;
+  border-bottom: 30px solid #ff6600;
+  border-left: 52px solid transparent;
+  border-right: 52px solid transparent;
+}
 
-<span class="nc">.tranz</span> <span class="p">&#123;</span>
-  <span class="nl">filter</span><span class="p">:</span> <span class="nb">alpha</span><span class="p">(</span><span class="nf">opacity</span><span class="err">=</span><span class="m">50</span><span class="p">);</span> <span class="c">/* internet explorer */</span>
-  <span class="nl">-khtml-opacity</span><span class="p">:</span> <span class="m">0.5</span><span class="p">;</span> <span class="c">/* khtml, old safari */</span>
-  <span class="nl">-moz-opacity</span><span class="p">:</span> <span class="m">0.5</span><span class="p">;</span> <span class="c">/* mozilla, netscape */</span>
-  <span class="nl">opacity</span><span class="p">:</span> <span class="m">0.5</span><span class="p">;</span> <span class="c">/* fx, safari, opera */</span>
-<span class="p">&#125;</span>
+.hex .middle {
+  width: 102px;
+  height: 63px;
+  background: #ff6600;
+}
+.hex .middle:hover {
+  background: #000;
+}
 
-<span class="nc">.none</span> <span class="p">&#123;</span>
-  <span class="nl">visibility</span><span class="p">:</span> <span class="nb">hidden</span><span class="p">;</span>
-<span class="p">&#125;</span>
+.hex .bottom {
+  width: 0;
+  border-top: 30px solid #ff6600;
+  border-left: 52px solid transparent;
+  border-right: 52px solid transparent;
+}
+.hex-row {
+  clear: left;
+}
+.hex-row.even {
+  margin-left: 53px;
+}
 
-<span class="nc">.hex</span> <span class="nc">.no-background</span> <span class="p">&#123;</span>
-  <span class="nl">color</span><span class="p">:</span> <span class="nx">#ff6600</span><span class="p">;</span>
-  <span class="nl">background-color</span><span class="p">:</span> <span class="nx">#000</span><span class="p">;</span>
-<span class="p">&#125;</span>
-<span class="nc">.hex</span> <span class="nc">.no-background</span><span class="nd">:hover</span> <span class="p">&#123;</span>
-<span class="p">&#125;</span>
+.tranz {
+  filter: alpha(opacity=50); /* internet explorer */
+  -khtml-opacity: 0.5; /* khtml, old safari */
+  -moz-opacity: 0.5; /* mozilla, netscape */
+  opacity: 0.5; /* fx, safari, opera */
+}
 
-<span class="nc">.northeast</span><span class="o">,</span>
-<span class="nc">.east</span><span class="o">,</span>
-<span class="nc">.southeast</span> <span class="p">&#123;</span>
-  <span class="nl">border-color</span><span class="p">:</span> <span class="nx">#000</span><span class="p">;</span>
-  <span class="nl">background</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
-<span class="p">&#125;</span>
+.none {
+  visibility: hidden;
+}
 
-<span class="nc">.northeast</span> <span class="p">&#123;</span>
-<span class="p">&#125;</span>
+.hex .no-background {
+  color: #ff6600;
+  background-color: #000;
+}
+.hex .no-background:hover {
+}
 
-<span class="nc">.east</span> <span class="p">&#123;</span>
-<span class="p">&#125;</span>
+.northeast,
+.east,
+.southeast {
+  border-color: #000;
+  background: none;
+}
 
-<span class="nc">.southeast</span> <span class="p">&#123;</span>
-<span class="p">&#125;</span>
-</code></pre>
-<h2>javascript</h2>
-<pre class="highlight"><code class="language-javascript"><span class="nf">jQuery</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nf">ready</span><span class="p">(</span><span class="nf">function </span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">&#123;</span>
-  <span class="cm">/*
+.northeast {
+}
+
+.east {
+}
+
+.southeast {
+}
+```
+
+## javascript
+
+```javascript
+jQuery(document).ready(function ($) {
+  /*
    clone = $('.hex_bot').clone();
     
     $('body').after(clone);
@@ -217,41 +228,43 @@ source_revision: 35
     offset = $('.hex_bot').offset();
     var fromtop = offset.top;
 
-    $(document).scroll(function() &#123;
+    $(document).scroll(function() {
         doc = $(this);
         dist = $(this).scrollTop();
 
-        if (dist &gt;= fromtop) &#123;
+        if (dist >= fromtop) {
             $(clone).show();
-            $('.hex_bot').css(&#123;
+            $('.hex_bot').css({
                 'position': 'fixed',
                 'top': '0',
 
-            &#125;);
+            });
 
-        &#125; else &#123;
-            $('.hex_bot').css(&#123;
+        } else {
+            $('.hex_bot').css({
                 'position': 'relative'
-            &#125;);
+            });
             $(clone).hide();
-        &#125;
-    &#125;);
+        }
+    });
 
-    $('.hex_bot').click(function() &#123;
-        $('body,html').animate(&#123;
+    $('.hex_bot').click(function() {
+        $('body,html').animate({
             scrollTop: 0
-        &#125;, 800);
+        }, 800);
         return false;
-    &#125;);*/</span>
+    });*/
 
-  <span class="nf">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">.middle</span><span class="dl">"</span><span class="p">).</span><span class="nf">click</span><span class="p">(</span><span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-    <span class="nf">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nf">addClass</span><span class="p">(</span><span class="dl">"</span><span class="s2">no-background</span><span class="dl">"</span><span class="p">);</span>
-  <span class="p">&#125;);</span>
+  $(".middle").click(function () {
+    $(this).addClass("no-background");
+  });
 
-  <span class="nf">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">body</span><span class="dl">"</span><span class="p">).</span><span class="nf">click</span><span class="p">(</span><span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-    <span class="nf">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">.no-background</span><span class="dl">"</span><span class="p">).</span><span class="nf">removeClass</span><span class="p">(</span><span class="dl">"</span><span class="s2">.no-background</span><span class="dl">"</span><span class="p">);</span>
-  <span class="p">&#125;);</span>
-<span class="p">&#125;);</span>
-</code></pre>
+  $("body").click(function () {
+    $(".no-background").removeClass(".no-background");
+  });
+});
+```
+
 <p data-import-note="">this demo preserves the compiled output and may depend on external libraries or services that are no longer available.</p>
-<p><a href="https://jsfiddle.net/edwardsharp/QZcER/35/">original jsfiddle post</a></p>
+
+[original jsfiddle post](https://jsfiddle.net/edwardsharp/QZcER/35/)

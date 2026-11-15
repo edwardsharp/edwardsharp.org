@@ -10,6 +10,9 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=vazXrp1XYJA"
 preview_image: "/content/media/2014/2014-08-29-youtube-vazXrp1XYJA-68926f18fb.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/vazXrp1XYJA" title="undergoundglimmerzinthenight" loading="lazy" allowfullscreen></iframe></div>
-<p>creditz: liz | mcsherry</p>
-<p><a href="https://www.youtube.com/watch?v=vazXrp1XYJA">original youtube post</a></p>
+
+creditz: liz \| mcsherry
+
+[original youtube post](https://www.youtube.com/watch?v=vazXrp1XYJA)

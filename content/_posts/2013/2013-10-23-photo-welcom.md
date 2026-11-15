@@ -12,4 +12,4 @@ preview_alt: "#welcom"
 
 ![#welcom](/content/media/2013/2013-10-23-photo-17842745119060015-1.jpg)
 
-<p>#welcom</p>
+#welcom

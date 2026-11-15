@@ -12,4 +12,4 @@ preview_alt: "#itspeanutbutterjellytime"
 
 ![#itspeanutbutterjellytime](/content/media/2013/2013-11-12-photo-17842753414060015-1.jpg)
 
-<p>#itspeanutbutterjellytime</p>
+#itspeanutbutterjellytime

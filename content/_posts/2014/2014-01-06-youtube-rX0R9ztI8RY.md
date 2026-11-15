@@ -10,21 +10,24 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=rX0R9ztI8RY"
 preview_image: "/content/media/2014/2014-01-06-youtube-rX0R9ztI8RY-591e396174.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/rX0R9ztI8RY" title="panoply performance laboratory (open performance jan5, 2014)" loading="lazy" allowfullscreen></iframe></div>
-<p>why exit the real?<br>
-it is bent perfectly?<br>
-it is bent like a dancer running away fearfully? <br>
-<br>
-cooperation<br>
-has a line stretched out<br>
-next to the street<br>
-come on up &amp;<br>
-have the meds<br>
-and stand in traffic<br>
-on this<br>
-official thrill corner<br>
-<br>
-a guise job is  <br>
-crush the parasite<br>
-with muscle</p>
-<p><a href="https://www.youtube.com/watch?v=rX0R9ztI8RY">original youtube post</a></p>
+
+why exit the real?  
+it is bent perfectly?  
+it is bent like a dancer running away fearfully?
+
+cooperation  
+has a line stretched out  
+next to the street  
+come on up &  
+have the meds  
+and stand in traffic  
+on this  
+official thrill corner
+
+a guise job is  
+crush the parasite  
+with muscle
+
+[original youtube post](https://www.youtube.com/watch?v=rX0R9ztI8RY)

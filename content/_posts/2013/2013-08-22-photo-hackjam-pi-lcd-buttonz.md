@@ -12,4 +12,4 @@ preview_alt: "#hackjam #pi #lcd #buttonz"
 
 ![#hackjam #pi #lcd #buttonz](/content/media/2013/2013-08-22-photo-17842713976060015-1.jpg)
 
-<p>#hackjam #pi #lcd #buttonz</p>
+#hackjam #pi #lcd #buttonz

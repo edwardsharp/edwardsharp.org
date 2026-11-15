@@ -12,4 +12,4 @@ preview_alt: "#friedpiepocket"
 
 ![#friedpiepocket](/content/media/2013/2013-07-28-photo-17842700803060015-1.jpg)
 
-<p>#friedpiepocket</p>
+#friedpiepocket

@@ -12,4 +12,4 @@ preview_alt: "#itsclppngbitch"
 
 ![#itsclppngbitch](/content/media/2013/2013-05-10-photo-17842661581060015-1.jpg)
 
-<p>#itsclppngbitch</p>
+#itsclppngbitch

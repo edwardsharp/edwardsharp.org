@@ -12,4 +12,4 @@ preview_alt: "#sunnyside #fresh"
 
 ![#sunnyside #fresh](/content/media/2013/2013-05-27-photo-17842671337060015-1.jpg)
 
-<p>#sunnyside #fresh</p>
+#sunnyside #fresh

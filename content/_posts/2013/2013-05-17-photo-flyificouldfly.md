@@ -12,4 +12,4 @@ preview_alt: "#flyificouldfly"
 
 ![#flyificouldfly](/content/media/2013/2013-05-17-photo-17842665811060015-1.jpg)
 
-<p>#flyificouldfly</p>
+#flyificouldfly

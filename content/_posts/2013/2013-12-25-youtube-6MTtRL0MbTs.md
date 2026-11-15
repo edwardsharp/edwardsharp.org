@@ -10,10 +10,13 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=6MTtRL0MbTs"
 preview_image: "/content/media/2013/2013-12-25-youtube-6MTtRL0MbTs-f5ccbfc35b.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/6MTtRL0MbTs" title="you might think he loves you for your money but..." loading="lazy" allowfullscreen></iframe></div>
-<p>you might think he loves you for your money but I know what he really loves you for it's your brand new staple gun (death grips video remix)<br>
-<br>
-audio: You might think he loves you for your money but I know what he really loves you for it's your brand new leopard skin pillbox hat<br>
-<br>
-death grips - government plates - 2013</p>
-<p><a href="https://www.youtube.com/watch?v=6MTtRL0MbTs">original youtube post</a></p>
+
+you might think he loves you for your money but I know what he really loves you for it's your brand new staple gun (death grips video remix)
+
+audio: You might think he loves you for your money but I know what he really loves you for it's your brand new leopard skin pillbox hat
+
+death grips - government plates - 2013
+
+[original youtube post](https://www.youtube.com/watch?v=6MTtRL0MbTs)

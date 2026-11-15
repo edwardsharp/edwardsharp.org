@@ -12,4 +12,4 @@ preview_alt: "#bettergetyrchipzout"
 
 ![#bettergetyrchipzout](/content/media/2015/2015-03-30-photo-17843202712060015-1.jpg)
 
-<p>#bettergetyrchipzout</p>
+#bettergetyrchipzout

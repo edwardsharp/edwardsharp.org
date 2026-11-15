@@ -12,4 +12,4 @@ preview_alt: "fuck the police #blacklivesmatter"
 
 ![fuck the police #blacklivesmatter](/content/media/2020/2020-06-01-photo-17906971585459170-1.jpg)
 
-<p>fuck the police #blacklivesmatter</p>
+fuck the police #blacklivesmatter

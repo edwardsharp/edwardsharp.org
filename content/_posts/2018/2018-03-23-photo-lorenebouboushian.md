@@ -12,4 +12,4 @@ preview_alt: "#lorenebouboushian"
 
 ![#lorenebouboushian](/content/media/2018/2018-03-23-photo-17934038926002219-1.jpg)
 
-<p>#lorenebouboushian</p>
+#lorenebouboushian

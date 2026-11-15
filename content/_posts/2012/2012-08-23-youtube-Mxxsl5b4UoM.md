@@ -10,6 +10,9 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=Mxxsl5b4UoM"
 preview_image: "/content/media/2012/2012-08-23-youtube-Mxxsl5b4UoM-c02cd731b5.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/Mxxsl5b4UoM" title="cam_synth_01" loading="lazy" allowfullscreen></iframe></div>
-<p>part two of some blob detection connected to a synthesizer tests...</p>
-<p><a href="https://www.youtube.com/watch?v=Mxxsl5b4UoM">original youtube post</a></p>
+
+part two of some blob detection connected to a synthesizer tests...
+
+[original youtube post](https://www.youtube.com/watch?v=Mxxsl5b4UoM)

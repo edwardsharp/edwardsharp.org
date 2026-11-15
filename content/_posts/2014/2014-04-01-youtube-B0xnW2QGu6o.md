@@ -10,6 +10,7 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=B0xnW2QGu6o"
 preview_image: "/content/media/2014/2014-04-01-youtube-B0xnW2QGu6o-ca4d999b13.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/B0xnW2QGu6o" title="FIREHARZARD" loading="lazy" allowfullscreen></iframe></div>
 
-<p><a href="https://www.youtube.com/watch?v=B0xnW2QGu6o">original youtube post</a></p>
+[original youtube post](https://www.youtube.com/watch?v=B0xnW2QGu6o)

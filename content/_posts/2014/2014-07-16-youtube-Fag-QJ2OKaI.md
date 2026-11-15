@@ -10,6 +10,7 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=Fag-QJ2OKaI"
 preview_image: "/content/media/2014/2014-07-16-youtube-Fag-QJ2OKaI-291ce6f373.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/Fag-QJ2OKaI" title="stopnodancingnotevenwhenyouronapartyline" loading="lazy" allowfullscreen></iframe></div>
 
-<p><a href="https://www.youtube.com/watch?v=Fag-QJ2OKaI">original youtube post</a></p>
+[original youtube post](https://www.youtube.com/watch?v=Fag-QJ2OKaI)

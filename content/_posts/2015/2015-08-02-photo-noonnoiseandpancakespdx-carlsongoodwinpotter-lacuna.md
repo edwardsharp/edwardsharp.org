@@ -12,4 +12,4 @@ preview_alt: "#noonnoiseandpancakespdx #CarlsonGoodwinPotter #LACUNA"
 
 ![#noonnoiseandpancakespdx #CarlsonGoodwinPotter #LACUNA](/content/media/2015/2015-08-02-photo-17842121683060015-1.jpg)
 
-<p>#noonnoiseandpancakespdx #CarlsonGoodwinPotter #LACUNA</p>
+#noonnoiseandpancakespdx #CarlsonGoodwinPotter #LACUNA

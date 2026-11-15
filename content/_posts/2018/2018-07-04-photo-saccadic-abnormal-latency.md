@@ -10,6 +10,6 @@ preview_image: "/content/media/2018/2018-07-04-photo-17867996515250704-1.jpg"
 preview_alt: "saccadic [abnormal latency] 🔊🔊🔊🔊☀️💦🥫🧟‍♀️👂🌽🎚🎹🎛⚡️🖤"
 ---
 
-![saccadic \[abnormal latency\] 🔊🔊🔊🔊☀️💦🥫🧟‍♀️👂🌽🎚🎹🎛⚡️🖤](/content/media/2018/2018-07-04-photo-17867996515250704-1.jpg)
+![saccadic [abnormal latency] 🔊🔊🔊🔊☀️💦🥫🧟‍♀️👂🌽🎚🎹🎛⚡️🖤](/content/media/2018/2018-07-04-photo-17867996515250704-1.jpg)
 
-<p>saccadic [abnormal latency] 🔊🔊🔊🔊☀️💦🥫🧟‍♀️👂🌽🎚🎹🎛⚡️🖤</p>
+saccadic [abnormal latency] 🔊🔊🔊🔊☀️💦🥫🧟‍♀️👂🌽🎚🎹🎛⚡️🖤

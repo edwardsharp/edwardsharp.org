@@ -10,6 +10,7 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=fWZHAy8zOOA"
 preview_image: "/content/media/2013/2013-06-26-youtube-fWZHAy8zOOA-266d152070.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/fWZHAy8zOOA" title="party light" loading="lazy" allowfullscreen></iframe></div>
 
-<p><a href="https://www.youtube.com/watch?v=fWZHAy8zOOA">original youtube post</a></p>
+[original youtube post](https://www.youtube.com/watch?v=fWZHAy8zOOA)

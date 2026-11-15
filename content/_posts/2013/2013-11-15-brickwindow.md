@@ -13,4 +13,4 @@ redirect_from:
 ---
 ![brickwindow](/content/media/2013/2013-11-15-brickwindow.jpg)
 
-\#brickwindow
+#brickwindow

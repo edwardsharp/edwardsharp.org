@@ -10,6 +10,7 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=x6VGawzdzr8"
 preview_image: "/content/media/2013/2013-12-14-youtube-x6VGawzdzr8-36e847f701.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/x6VGawzdzr8" title="ratBROmanison_chairdragRMX" loading="lazy" allowfullscreen></iframe></div>
 
-<p><a href="https://www.youtube.com/watch?v=x6VGawzdzr8">original youtube post</a></p>
+[original youtube post](https://www.youtube.com/watch?v=x6VGawzdzr8)

@@ -12,4 +12,4 @@ preview_alt: "#dejong"
 
 ![#dejong](/content/media/2013/2013-06-21-photo-17842683064060015-1.jpg)
 
-<p>#dejong</p>
+#dejong

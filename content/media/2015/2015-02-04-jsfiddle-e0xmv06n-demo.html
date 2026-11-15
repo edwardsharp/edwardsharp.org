@@ -1,8 +1,8 @@
 <!doctype html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="https://fiddle.jshell.net/edwardsharp/e0xmv06n/listing_embed/?disableModals=true&amp;version=13"><title>pushboard template (Google Calendar data source)</title>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="//fiddle.jshell.net/edwardsharp/e0xmv06n/listing_embed/?disableModals=true&amp;version=13"><title>pushboard template (Google Calendar data source)</title>
 <script type="text/javascript" src="//code.jquery.com/jquery-compat-git.js"></script>
 <link rel="stylesheet" type="text/css" href="/css/normalize.css">
-<script type="text/javascript" src="https://momentjs.com/downloads/moment.js"></script>
+<script type="text/javascript" src="//momentjs.com/downloads/moment.js"></script>
 <style id="compiled-css" type="text/css">
       img {
     width: 100%;
@@ -33,11 +33,11 @@ span {
 }
 
       /* EOS */
-    </style></head><body><script src="http://momentjs.com/downloads/moment.js"></script>
-<img border="0" src="http://i.imgur.com/EhMz9EM.jpg" />
+    </style></head><body><script src="//momentjs.com/downloads/moment.js"></script>
+<img border="0" src="//i.imgur.com/EhMz9EM.jpg" />
 <div id="header">
-    <p class="red">+ CLICK <a href="http://www.pushboardportland.com/">HERE</a> TO ADD AN EVENT TO AN UPCOMING WEEK. THIS WORKS BEST IF YOU SUBMIT YOUR EVENTS TO US EARLY.</p>
-    <p>+ VIEW GOOGLE CALENDAR OF ALL UPCOMING EVENTS <a href="https://www.google.com/calendar/embed?src=pushboardportland%40gmail.com&ctz=America/Los_Angeles">HERE</a>. YOU CAN SYNC THIS CALENDAR WITH YOUR OWN.</p>
+    <p class="red">+ CLICK <a href="//www.pushboardportland.com/">HERE</a> TO ADD AN EVENT TO AN UPCOMING WEEK. THIS WORKS BEST IF YOU SUBMIT YOUR EVENTS TO US EARLY.</p>
+    <p>+ VIEW GOOGLE CALENDAR OF ALL UPCOMING EVENTS <a href="//www.google.com/calendar/embed?src=pushboardportland%40gmail.com&ctz=America/Los_Angeles">HERE</a>. YOU CAN SYNC THIS CALENDAR WITH YOUR OWN.</p>
     <p>+ NEW INSTALLMENT EVERY MONDAY.</p>
 </div>
 <div id="output"></div>
@@ -88,7 +88,7 @@ weekAfterNextMonday.add(7, 'days');
 
 console.log(nextMonday().toISOString());
 console.log(weekAfterNextMonday.toISOString());
-var url = 'https://www.googleapis.com/calendar/v3/calendars/' + cal_id + '/events?singleEvents=true&orderBy=startTime&timeMin=' + nextMonday().toISOString() + '&timeMax=' +weekAfterNextMonday.toISOString() + '&key=' + cal_api_key;
+var url = '//www.googleapis.com/calendar/v3/calendars/' + cal_id + '/events?singleEvents=true&orderBy=startTime&timeMin=' + nextMonday().toISOString() + '&timeMax=' +weekAfterNextMonday.toISOString() + '&key=' + cal_api_key;
 
 console.log(url);
 

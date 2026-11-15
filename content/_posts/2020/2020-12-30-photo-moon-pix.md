@@ -10,10 +10,10 @@ preview_image: "/content/media/2020/2020-12-30-photo-17863568666322862-1.jpg"
 preview_alt: "moon_pix"
 ---
 
-![moon\_pix (1 of 3)](/content/media/2020/2020-12-30-photo-17863568666322862-1.jpg)
+![moon_pix (1 of 3)](/content/media/2020/2020-12-30-photo-17863568666322862-1.jpg)
 
-![moon\_pix (2 of 3)](/content/media/2020/2020-12-30-photo-17863568666322862-2.jpg)
+![moon_pix (2 of 3)](/content/media/2020/2020-12-30-photo-17863568666322862-2.jpg)
 
-![moon\_pix (3 of 3)](/content/media/2020/2020-12-30-photo-17863568666322862-3.jpg)
+![moon_pix (3 of 3)](/content/media/2020/2020-12-30-photo-17863568666322862-3.jpg)
 
-<p>moon_pix</p>
+moon_pix

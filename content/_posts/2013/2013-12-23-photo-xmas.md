@@ -12,4 +12,4 @@ preview_alt: "#XMAS"
 
 ![#XMAS](/content/media/2013/2013-12-23-photo-17842771243060015-1.jpg)
 
-<p>#XMAS</p>
+#XMAS

@@ -10,6 +10,9 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=il0OVGI8Tfg"
 preview_image: "/content/media/2013/2013-05-07-youtube-il0OVGI8Tfg-703bfefae1.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/il0OVGI8Tfg" title="pwnw11" loading="lazy" allowfullscreen></iframe></div>
-<p>collaborations with keyon gaskin</p>
-<p><a href="https://www.youtube.com/watch?v=il0OVGI8Tfg">original youtube post</a></p>
+
+collaborations with keyon gaskin
+
+[original youtube post](https://www.youtube.com/watch?v=il0OVGI8Tfg)

@@ -12,4 +12,4 @@ preview_alt: "#PPL-COA"
 
 ![#PPL-COA](/content/media/2014/2014-07-04-photo-17842902343060015-1.jpg)
 
-<p>#PPL-COA</p>
+#PPL-COA

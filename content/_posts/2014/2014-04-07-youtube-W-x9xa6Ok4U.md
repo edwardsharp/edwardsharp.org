@@ -10,8 +10,11 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=W-x9xa6Ok4U"
 preview_image: "/content/media/2014/2014-04-07-youtube-W-x9xa6Ok4U-3212132a48.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/W-x9xa6Ok4U" title="APRIL 2014 OPEN SPACE 00" loading="lazy" allowfullscreen></iframe></div>
-<p>APRIL 2014 PERFORMANCE OPEN SPACE<br>
-PANOPLY PERFORMANCE LAB <br>
-BROOKLYN, NY</p>
-<p><a href="https://www.youtube.com/watch?v=W-x9xa6Ok4U">original youtube post</a></p>
+
+APRIL 2014 PERFORMANCE OPEN SPACE  
+PANOPLY PERFORMANCE LAB  
+BROOKLYN, NY
+
+[original youtube post](https://www.youtube.com/watch?v=W-x9xa6Ok4U)

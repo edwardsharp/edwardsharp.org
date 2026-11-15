@@ -12,4 +12,4 @@ preview_alt: "#14contactmicfloor"
 
 ![#14contactmicfloor](/content/media/2013/2013-11-29-photo-17842760659060015-1.jpg)
 
-<p>#14contactmicfloor</p>
+#14contactmicfloor

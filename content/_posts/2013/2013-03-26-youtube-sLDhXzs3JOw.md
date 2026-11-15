@@ -10,9 +10,12 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=sLDhXzs3JOw"
 preview_image: "/content/media/2013/2013-03-26-youtube-sLDhXzs3JOw-410e45577f.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/sLDhXzs3JOw" title="dorkbotPDX 0x0A -- church of robotron" loading="lazy" allowfullscreen></iframe></div>
-<p>short cut from the COR presentation at dorkbotPDX <br>
-<br>
-http://dorkbotpdx.org/<br>
-http://churchofrobotron.com/</p>
-<p><a href="https://www.youtube.com/watch?v=sLDhXzs3JOw">original youtube post</a></p>
+
+short cut from the COR presentation at dorkbotPDX
+
+http://dorkbotpdx.org/  
+http://churchofrobotron.com/
+
+[original youtube post](https://www.youtube.com/watch?v=sLDhXzs3JOw)

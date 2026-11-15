@@ -12,4 +12,4 @@ preview_alt: "#livingartz #muscularbonding"
 
 ![#livingartz #muscularbonding](/content/media/2018/2018-03-03-photo-17927605981062309-1.jpg)
 
-<p>#livingartz #muscularbonding</p>
+#livingartz #muscularbonding

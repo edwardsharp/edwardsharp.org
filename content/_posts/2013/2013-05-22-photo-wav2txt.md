@@ -12,4 +12,4 @@ preview_alt: "#wav2txt"
 
 ![#wav2txt](/content/media/2013/2013-05-22-photo-17842668634060015-1.jpg)
 
-<p>#wav2txt</p>
+#wav2txt

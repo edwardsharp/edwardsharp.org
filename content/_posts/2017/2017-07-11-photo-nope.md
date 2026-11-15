@@ -12,4 +12,4 @@ preview_alt: "#nope"
 
 ![#nope](/content/media/2017/2017-07-11-photo-17888410528041527-1.jpg)
 
-<p>#nope</p>
+#nope

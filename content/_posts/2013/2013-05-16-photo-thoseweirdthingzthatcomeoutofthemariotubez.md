@@ -12,4 +12,4 @@ preview_alt: "#thoseweirdthingzthatcomeoutofthemariotubez"
 
 ![#thoseweirdthingzthatcomeoutofthemariotubez](/content/media/2013/2013-05-16-photo-17842665568060015-1.jpg)
 
-<p>#thoseweirdthingzthatcomeoutofthemariotubez</p>
+#thoseweirdthingzthatcomeoutofthemariotubez

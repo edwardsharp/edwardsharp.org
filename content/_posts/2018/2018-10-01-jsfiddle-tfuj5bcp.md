@@ -11,510 +11,522 @@ source_platform: "jsfiddle"
 source_url: "https://jsfiddle.net/edwardsharp/tfuj5bcp/21/"
 source_revision: 21
 ---
+
 <iframe class="code-demo" src="{{ '/content/media/2018/2018-10-01-jsfiddle-tfuj5bcp-demo.html' | relative_url }}" title="jsfiddle / tfuj5bcp" width="100%" height="480" loading="lazy" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe>
-<h2>html</h2>
-<pre class="highlight"><code class="language-html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"//d3js.org/d3.v3.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
-</code></pre>
-<h2>css</h2>
-<pre class="highlight"><code class="language-css"><span class="nc">.box</span> <span class="p">&#123;</span>
-  <span class="nl">font</span><span class="p">:</span> <span class="m">10px</span> <span class="nb">sans-serif</span><span class="p">;</span>
-<span class="p">&#125;</span>
 
-<span class="nc">.box</span> <span class="nt">line</span><span class="o">,</span>
-<span class="nc">.box</span> <span class="nt">rect</span><span class="o">,</span>
-<span class="nc">.box</span> <span class="nt">circle</span> <span class="p">&#123;</span>
-  <span class="py">fill</span><span class="p">:</span> <span class="nx">#fff</span><span class="p">;</span>
-  <span class="py">stroke</span><span class="p">:</span> <span class="nx">#000</span><span class="p">;</span>
-  <span class="py">stroke-width</span><span class="p">:</span> <span class="m">1.5px</span><span class="p">;</span>
-<span class="p">&#125;</span>
+## html
 
-<span class="nc">.box</span> <span class="nc">.center</span> <span class="p">&#123;</span>
-  <span class="py">stroke-dasharray</span><span class="p">:</span> <span class="m">3</span><span class="p">,</span> <span class="m">3</span><span class="p">;</span>
-<span class="p">&#125;</span>
+```html
+<script src="//d3js.org/d3.v3.min.js"></script>
+```
 
-<span class="nc">.box</span> <span class="nc">.outlier</span> <span class="p">&#123;</span>
-  <span class="py">fill</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
-  <span class="py">stroke</span><span class="p">:</span> <span class="nx">#ccc</span><span class="p">;</span>
-<span class="p">&#125;</span>
-</code></pre>
-<h2>javascript</h2>
-<pre class="highlight"><code class="language-javascript"><span class="c1">// load some stuff into a global var.</span>
-<span class="c1">// then do some etl magic.</span>
+## css
 
-<span class="c1">// some random data listID strings and then some random days 0.00 anywhere from 0- 90 dayz? ~15 "lists" with ~24 cardz each</span>
+```css
+.box {
+  font: 10px sans-serif;
+}
 
-<span class="c1">// so like build a graph that computez average time (dayz) for each list</span>
+.box line,
+.box rect,
+.box circle {
+  fill: #fff;
+  stroke: #000;
+  stroke-width: 1.5px;
+}
 
-<span class="cm">/* 			-				-				-				@				-
+.box .center {
+  stroke-dasharray: 3, 3;
+}
+
+.box .outlier {
+  fill: none;
+  stroke: #ccc;
+}
+```
+
+## javascript
+
+```javascript
+// load some stuff into a global var.
+// then do some etl magic.
+
+// some random data listID strings and then some random days 0.00 anywhere from 0- 90 dayz? ~15 "lists" with ~24 cardz each
+
+// so like build a graph that computez average time (dayz) for each list
+
+/* 			-				-				-				@				-
  * t		-				@				-				-				-
  * i		@				-				-				-				-
  * m		-				-				@				-				@
  * e		-				-				-				-				-
  *  	listA		listB		listC		listD		listE
- * 		 100		 80			 60			 50      30			&lt;-- total cards
+ * 		 100		 80			 60			 50      30			<-- total cards
  * 						    lists
- */</span>
-<span class="c1">// see: https://bl.ocks.org/mbostock/4061502</span>
-<span class="c1">// http://bl.ocks.org/jensgrubert/7789216</span>
+ */
+// see: https://bl.ocks.org/mbostock/4061502
+// http://bl.ocks.org/jensgrubert/7789216
 
-<span class="kd">let</span> <span class="nx">listData</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="p">&#123;</span>
-    <span class="na">listA</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span>
-    <span class="na">listB</span><span class="p">:</span> <span class="mf">14.05</span><span class="p">,</span>
-    <span class="na">listC</span><span class="p">:</span> <span class="mf">7.09</span><span class="p">,</span>
-    <span class="na">listD</span><span class="p">:</span> <span class="mf">20.01</span><span class="p">,</span>
-    <span class="na">listE</span><span class="p">:</span> <span class="mf">6.66</span><span class="p">,</span>
-  <span class="p">&#125;,</span>
-  <span class="p">&#123;</span>
-    <span class="na">listA</span><span class="p">:</span> <span class="mf">19.34</span><span class="p">,</span>
-    <span class="na">listB</span><span class="p">:</span> <span class="mf">15.47</span><span class="p">,</span>
-    <span class="na">listC</span><span class="p">:</span> <span class="mf">2.22</span><span class="p">,</span>
-    <span class="na">listD</span><span class="p">:</span> <span class="mf">24.43</span><span class="p">,</span>
-  <span class="p">&#125;,</span>
-<span class="p">];</span>
+let listData = [
+  {
+    listA: 10.0,
+    listB: 14.05,
+    listC: 7.09,
+    listD: 20.01,
+    listE: 6.66,
+  },
+  {
+    listA: 19.34,
+    listB: 15.47,
+    listC: 2.22,
+    listD: 24.43,
+  },
+];
 
-<span class="kd">let</span> <span class="nx">listT</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">2.82</span><span class="p">],</span>
-  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">],</span>
-  <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-  <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">2.76</span><span class="p">],</span>
-  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">],</span>
-  <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">3.83</span><span class="p">],</span>
-  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.83</span><span class="p">],</span>
-  <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">2.73</span><span class="p">],</span>
-  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.82</span><span class="p">],</span>
-  <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mf">4.78</span><span class="p">],</span>
-  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-  <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
-  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.76</span><span class="p">],</span>
-  <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mf">3.79</span><span class="p">],</span>
-  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.96</span><span class="p">],</span>
-  <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">],</span>
-<span class="p">];</span>
+let listT = [
+  [0, 2.82],
+  [1, 0.06],
+  [2, 0],
+  [0, 2.76],
+  [1, 0.06],
+  [0, 3.83],
+  [1, 3.83],
+  [0, 2.73],
+  [1, 0],
+  [1, 3.82],
+  [2, 4.78],
+  [1, 0],
+  [2, 3],
+  [1, 1.76],
+  [2, 3.79],
+  [1, 0.96],
+  [0, 0.02],
+];
 
-<span class="cm">/* BOX.JS */</span>
-<span class="p">(</span><span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-  <span class="c1">// Inspired by http://informationandvisualization.de/blog/box-plot</span>
-  <span class="nx">d3</span><span class="p">.</span><span class="nx">box</span> <span class="o">=</span> <span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-    <span class="kd">var</span> <span class="nx">width</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nx">height</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nx">duration</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="nx">domain</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="nx">value</span> <span class="o">=</span> <span class="nb">Number</span><span class="p">,</span>
-      <span class="nx">whiskers</span> <span class="o">=</span> <span class="nx">boxWhiskers</span><span class="p">,</span>
-      <span class="nx">quartiles</span> <span class="o">=</span> <span class="nx">boxQuartiles</span><span class="p">,</span>
-      <span class="nx">tickFormat</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+/* BOX.JS */
+(function () {
+  // Inspired by http://informationandvisualization.de/blog/box-plot
+  d3.box = function () {
+    var width = 1,
+      height = 1,
+      duration = 0,
+      domain = null,
+      value = Number,
+      whiskers = boxWhiskers,
+      quartiles = boxQuartiles,
+      tickFormat = null;
 
-    <span class="c1">// For each small multiple…</span>
-    <span class="kd">function</span> <span class="nf">box</span><span class="p">(</span><span class="nx">g</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="nx">g</span><span class="p">.</span><span class="nf">each</span><span class="p">(</span><span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nx">d</span> <span class="o">=</span> <span class="nx">d</span><span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="nx">value</span><span class="p">).</span><span class="nf">sort</span><span class="p">(</span><span class="nx">d3</span><span class="p">.</span><span class="nx">ascending</span><span class="p">);</span>
-        <span class="kd">var</span> <span class="nx">g</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="k">this</span><span class="p">),</span>
-          <span class="nx">n</span> <span class="o">=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span>
-          <span class="nx">min</span> <span class="o">=</span> <span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-          <span class="nx">max</span> <span class="o">=</span> <span class="nx">d</span><span class="p">[</span><span class="nx">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+    // For each small multiple…
+    function box(g) {
+      g.each(function (d, i) {
+        d = d.map(value).sort(d3.ascending);
+        var g = d3.select(this),
+          n = d.length,
+          min = d[0],
+          max = d[n - 1];
 
-        <span class="c1">// Compute quartiles. Must return exactly 3 elements.</span>
-        <span class="kd">var</span> <span class="nx">quartileData</span> <span class="o">=</span> <span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">quartiles</span> <span class="o">=</span> <span class="nf">quartiles</span><span class="p">(</span><span class="nx">d</span><span class="p">));</span>
+        // Compute quartiles. Must return exactly 3 elements.
+        var quartileData = (d.quartiles = quartiles(d));
 
-        <span class="c1">// Compute whiskers. Must return exactly 2 elements, or null.</span>
-        <span class="kd">var</span> <span class="nx">whiskerIndices</span> <span class="o">=</span> <span class="nx">whiskers</span> <span class="o">&amp;&amp;</span> <span class="nx">whiskers</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">d</span><span class="p">,</span> <span class="nx">i</span><span class="p">),</span>
-          <span class="nx">whiskerData</span> <span class="o">=</span>
-            <span class="nx">whiskerIndices</span> <span class="o">&amp;&amp;</span>
-            <span class="nx">whiskerIndices</span><span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="nf">function </span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="p">&#123;</span>
-              <span class="k">return</span> <span class="nx">d</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
-            <span class="p">&#125;);</span>
+        // Compute whiskers. Must return exactly 2 elements, or null.
+        var whiskerIndices = whiskers && whiskers.call(this, d, i),
+          whiskerData =
+            whiskerIndices &&
+            whiskerIndices.map(function (i) {
+              return d[i];
+            });
 
-        <span class="c1">// Compute outliers. If no whiskers are specified, all data are "outliers".</span>
-        <span class="c1">// We compute the outliers as indices, so that we can join across transitions!</span>
-        <span class="kd">var</span> <span class="nx">outlierIndices</span> <span class="o">=</span> <span class="nx">whiskerIndices</span>
-          <span class="p">?</span> <span class="nx">d3</span>
-              <span class="p">.</span><span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">whiskerIndices</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-              <span class="p">.</span><span class="nf">concat</span><span class="p">(</span><span class="nx">d3</span><span class="p">.</span><span class="nf">range</span><span class="p">(</span><span class="nx">whiskerIndices</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">n</span><span class="p">))</span>
-          <span class="p">:</span> <span class="nx">d3</span><span class="p">.</span><span class="nf">range</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>
+        // Compute outliers. If no whiskers are specified, all data are "outliers".
+        // We compute the outliers as indices, so that we can join across transitions!
+        var outlierIndices = whiskerIndices
+          ? d3
+              .range(0, whiskerIndices[0])
+              .concat(d3.range(whiskerIndices[1] + 1, n))
+          : d3.range(n);
 
-        <span class="c1">// Compute the new x-scale.</span>
-        <span class="kd">var</span> <span class="nx">x1</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">scale</span>
-          <span class="p">.</span><span class="nf">linear</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">domain</span><span class="p">((</span><span class="nx">domain</span> <span class="o">&amp;&amp;</span> <span class="nx">domain</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">d</span><span class="p">,</span> <span class="nx">i</span><span class="p">))</span> <span class="o">||</span> <span class="p">[</span><span class="nx">min</span><span class="p">,</span> <span class="nx">max</span><span class="p">])</span>
-          <span class="p">.</span><span class="nf">range</span><span class="p">([</span><span class="nx">height</span><span class="p">,</span> <span class="mi">0</span><span class="p">]);</span>
+        // Compute the new x-scale.
+        var x1 = d3.scale
+          .linear()
+          .domain((domain && domain.call(this, d, i)) || [min, max])
+          .range([height, 0]);
 
-        <span class="c1">// Retrieve the old x-scale, if this is an update.</span>
-        <span class="kd">var</span> <span class="nx">x0</span> <span class="o">=</span>
-          <span class="k">this</span><span class="p">.</span><span class="nx">__chart__</span> <span class="o">||</span>
-          <span class="nx">d3</span><span class="p">.</span><span class="nx">scale</span><span class="p">.</span><span class="nf">linear</span><span class="p">().</span><span class="nf">domain</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="kc">Infinity</span><span class="p">]).</span><span class="nf">range</span><span class="p">(</span><span class="nx">x1</span><span class="p">.</span><span class="nf">range</span><span class="p">());</span>
+        // Retrieve the old x-scale, if this is an update.
+        var x0 =
+          this.__chart__ ||
+          d3.scale.linear().domain([0, Infinity]).range(x1.range());
 
-        <span class="c1">// Stash the new scale.</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">__chart__</span> <span class="o">=</span> <span class="nx">x1</span><span class="p">;</span>
+        // Stash the new scale.
+        this.__chart__ = x1;
 
-        <span class="c1">// Note: the box, median, and box tick elements are fixed in number,</span>
-        <span class="c1">// so we only have to handle enter and update. In contrast, the outliers</span>
-        <span class="c1">// and other elements are variable, so we need to exit them! Variable</span>
-        <span class="c1">// elements also fade in and out.</span>
+        // Note: the box, median, and box tick elements are fixed in number,
+        // so we only have to handle enter and update. In contrast, the outliers
+        // and other elements are variable, so we need to exit them! Variable
+        // elements also fade in and out.
 
-        <span class="c1">// Update center line: the vertical line spanning the whiskers.</span>
-        <span class="kd">var</span> <span class="nx">center</span> <span class="o">=</span> <span class="nx">g</span>
-          <span class="p">.</span><span class="nf">selectAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">line.center</span><span class="dl">"</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">data</span><span class="p">(</span><span class="nx">whiskerData</span> <span class="p">?</span> <span class="p">[</span><span class="nx">whiskerData</span><span class="p">]</span> <span class="p">:</span> <span class="p">[]);</span>
+        // Update center line: the vertical line spanning the whiskers.
+        var center = g
+          .selectAll("line.center")
+          .data(whiskerData ? [whiskerData] : []);
 
-        <span class="nx">center</span>
-          <span class="p">.</span><span class="nf">enter</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">insert</span><span class="p">(</span><span class="dl">"</span><span class="s2">line</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">rect</span><span class="dl">"</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">class</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">center</span><span class="dl">"</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">x1</span><span class="dl">"</span><span class="p">,</span> <span class="nx">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y1</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nf">x0</span><span class="p">(</span><span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-          <span class="p">&#125;)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">x2</span><span class="dl">"</span><span class="p">,</span> <span class="nx">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y2</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nf">x0</span><span class="p">(</span><span class="nx">d</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
-          <span class="p">&#125;)</span>
-          <span class="p">.</span><span class="nf">style</span><span class="p">(</span><span class="dl">"</span><span class="s2">opacity</span><span class="dl">"</span><span class="p">,</span> <span class="mi">1</span><span class="nx">e</span><span class="o">-</span><span class="mi">6</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">transition</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">duration</span><span class="p">(</span><span class="nx">duration</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">style</span><span class="p">(</span><span class="dl">"</span><span class="s2">opacity</span><span class="dl">"</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y1</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nf">x1</span><span class="p">(</span><span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-          <span class="p">&#125;)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y2</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nf">x1</span><span class="p">(</span><span class="nx">d</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
-          <span class="p">&#125;);</span>
+        center
+          .enter()
+          .insert("line", "rect")
+          .attr("class", "center")
+          .attr("x1", width / 2)
+          .attr("y1", function (d) {
+            return x0(d[0]);
+          })
+          .attr("x2", width / 2)
+          .attr("y2", function (d) {
+            return x0(d[1]);
+          })
+          .style("opacity", 1e-6)
+          .transition()
+          .duration(duration)
+          .style("opacity", 1)
+          .attr("y1", function (d) {
+            return x1(d[0]);
+          })
+          .attr("y2", function (d) {
+            return x1(d[1]);
+          });
 
-        <span class="nx">center</span>
-          <span class="p">.</span><span class="nf">transition</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">duration</span><span class="p">(</span><span class="nx">duration</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">style</span><span class="p">(</span><span class="dl">"</span><span class="s2">opacity</span><span class="dl">"</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y1</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nf">x1</span><span class="p">(</span><span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-          <span class="p">&#125;)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y2</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nf">x1</span><span class="p">(</span><span class="nx">d</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
-          <span class="p">&#125;);</span>
+        center
+          .transition()
+          .duration(duration)
+          .style("opacity", 1)
+          .attr("y1", function (d) {
+            return x1(d[0]);
+          })
+          .attr("y2", function (d) {
+            return x1(d[1]);
+          });
 
-        <span class="nx">center</span>
-          <span class="p">.</span><span class="nf">exit</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">transition</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">duration</span><span class="p">(</span><span class="nx">duration</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">style</span><span class="p">(</span><span class="dl">"</span><span class="s2">opacity</span><span class="dl">"</span><span class="p">,</span> <span class="mi">1</span><span class="nx">e</span><span class="o">-</span><span class="mi">6</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y1</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nf">x1</span><span class="p">(</span><span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-          <span class="p">&#125;)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y2</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nf">x1</span><span class="p">(</span><span class="nx">d</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
-          <span class="p">&#125;)</span>
-          <span class="p">.</span><span class="nf">remove</span><span class="p">();</span>
+        center
+          .exit()
+          .transition()
+          .duration(duration)
+          .style("opacity", 1e-6)
+          .attr("y1", function (d) {
+            return x1(d[0]);
+          })
+          .attr("y2", function (d) {
+            return x1(d[1]);
+          })
+          .remove();
 
-        <span class="c1">// Update innerquartile box.</span>
-        <span class="kd">var</span> <span class="nx">box</span> <span class="o">=</span> <span class="nx">g</span><span class="p">.</span><span class="nf">selectAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">rect.box</span><span class="dl">"</span><span class="p">).</span><span class="nf">data</span><span class="p">([</span><span class="nx">quartileData</span><span class="p">]);</span>
+        // Update innerquartile box.
+        var box = g.selectAll("rect.box").data([quartileData]);
 
-        <span class="nx">box</span>
-          <span class="p">.</span><span class="nf">enter</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">rect</span><span class="dl">"</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">class</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">box</span><span class="dl">"</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">x</span><span class="dl">"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nf">x0</span><span class="p">(</span><span class="nx">d</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
-          <span class="p">&#125;)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">width</span><span class="dl">"</span><span class="p">,</span> <span class="nx">width</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">height</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nf">x0</span><span class="p">(</span><span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="nf">x0</span><span class="p">(</span><span class="nx">d</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
-          <span class="p">&#125;)</span>
-          <span class="p">.</span><span class="nf">transition</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">duration</span><span class="p">(</span><span class="nx">duration</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nf">x1</span><span class="p">(</span><span class="nx">d</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
-          <span class="p">&#125;)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">height</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nf">x1</span><span class="p">(</span><span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="nf">x1</span><span class="p">(</span><span class="nx">d</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
-          <span class="p">&#125;);</span>
+        box
+          .enter()
+          .append("rect")
+          .attr("class", "box")
+          .attr("x", 0)
+          .attr("y", function (d) {
+            return x0(d[2]);
+          })
+          .attr("width", width)
+          .attr("height", function (d) {
+            return x0(d[0]) - x0(d[2]);
+          })
+          .transition()
+          .duration(duration)
+          .attr("y", function (d) {
+            return x1(d[2]);
+          })
+          .attr("height", function (d) {
+            return x1(d[0]) - x1(d[2]);
+          });
 
-        <span class="nx">box</span>
-          <span class="p">.</span><span class="nf">transition</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">duration</span><span class="p">(</span><span class="nx">duration</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nf">x1</span><span class="p">(</span><span class="nx">d</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
-          <span class="p">&#125;)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">height</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nf">x1</span><span class="p">(</span><span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="nf">x1</span><span class="p">(</span><span class="nx">d</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
-          <span class="p">&#125;);</span>
+        box
+          .transition()
+          .duration(duration)
+          .attr("y", function (d) {
+            return x1(d[2]);
+          })
+          .attr("height", function (d) {
+            return x1(d[0]) - x1(d[2]);
+          });
 
-        <span class="c1">// Update median line.</span>
-        <span class="kd">var</span> <span class="nx">medianLine</span> <span class="o">=</span> <span class="nx">g</span><span class="p">.</span><span class="nf">selectAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">line.median</span><span class="dl">"</span><span class="p">).</span><span class="nf">data</span><span class="p">([</span><span class="nx">quartileData</span><span class="p">[</span><span class="mi">1</span><span class="p">]]);</span>
+        // Update median line.
+        var medianLine = g.selectAll("line.median").data([quartileData[1]]);
 
-        <span class="nx">medianLine</span>
-          <span class="p">.</span><span class="nf">enter</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">line</span><span class="dl">"</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">class</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">median</span><span class="dl">"</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">x1</span><span class="dl">"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y1</span><span class="dl">"</span><span class="p">,</span> <span class="nx">x0</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">x2</span><span class="dl">"</span><span class="p">,</span> <span class="nx">width</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y2</span><span class="dl">"</span><span class="p">,</span> <span class="nx">x0</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">transition</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">duration</span><span class="p">(</span><span class="nx">duration</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y1</span><span class="dl">"</span><span class="p">,</span> <span class="nx">x1</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y2</span><span class="dl">"</span><span class="p">,</span> <span class="nx">x1</span><span class="p">);</span>
+        medianLine
+          .enter()
+          .append("line")
+          .attr("class", "median")
+          .attr("x1", 0)
+          .attr("y1", x0)
+          .attr("x2", width)
+          .attr("y2", x0)
+          .transition()
+          .duration(duration)
+          .attr("y1", x1)
+          .attr("y2", x1);
 
-        <span class="nx">medianLine</span>
-          <span class="p">.</span><span class="nf">transition</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">duration</span><span class="p">(</span><span class="nx">duration</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y1</span><span class="dl">"</span><span class="p">,</span> <span class="nx">x1</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y2</span><span class="dl">"</span><span class="p">,</span> <span class="nx">x1</span><span class="p">);</span>
+        medianLine
+          .transition()
+          .duration(duration)
+          .attr("y1", x1)
+          .attr("y2", x1);
 
-        <span class="c1">// Update whiskers.</span>
-        <span class="kd">var</span> <span class="nx">whisker</span> <span class="o">=</span> <span class="nx">g</span><span class="p">.</span><span class="nf">selectAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">line.whisker</span><span class="dl">"</span><span class="p">).</span><span class="nf">data</span><span class="p">(</span><span class="nx">whiskerData</span> <span class="o">||</span> <span class="p">[]);</span>
+        // Update whiskers.
+        var whisker = g.selectAll("line.whisker").data(whiskerData || []);
 
-        <span class="nx">whisker</span>
-          <span class="p">.</span><span class="nf">enter</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">insert</span><span class="p">(</span><span class="dl">"</span><span class="s2">line</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">circle, text</span><span class="dl">"</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">class</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">whisker</span><span class="dl">"</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">x1</span><span class="dl">"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y1</span><span class="dl">"</span><span class="p">,</span> <span class="nx">x0</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">x2</span><span class="dl">"</span><span class="p">,</span> <span class="nx">width</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y2</span><span class="dl">"</span><span class="p">,</span> <span class="nx">x0</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">style</span><span class="p">(</span><span class="dl">"</span><span class="s2">opacity</span><span class="dl">"</span><span class="p">,</span> <span class="mi">1</span><span class="nx">e</span><span class="o">-</span><span class="mi">6</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">transition</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">duration</span><span class="p">(</span><span class="nx">duration</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y1</span><span class="dl">"</span><span class="p">,</span> <span class="nx">x1</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y2</span><span class="dl">"</span><span class="p">,</span> <span class="nx">x1</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">style</span><span class="p">(</span><span class="dl">"</span><span class="s2">opacity</span><span class="dl">"</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+        whisker
+          .enter()
+          .insert("line", "circle, text")
+          .attr("class", "whisker")
+          .attr("x1", 0)
+          .attr("y1", x0)
+          .attr("x2", width)
+          .attr("y2", x0)
+          .style("opacity", 1e-6)
+          .transition()
+          .duration(duration)
+          .attr("y1", x1)
+          .attr("y2", x1)
+          .style("opacity", 1);
 
-        <span class="nx">whisker</span>
-          <span class="p">.</span><span class="nf">transition</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">duration</span><span class="p">(</span><span class="nx">duration</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y1</span><span class="dl">"</span><span class="p">,</span> <span class="nx">x1</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y2</span><span class="dl">"</span><span class="p">,</span> <span class="nx">x1</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">style</span><span class="p">(</span><span class="dl">"</span><span class="s2">opacity</span><span class="dl">"</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+        whisker
+          .transition()
+          .duration(duration)
+          .attr("y1", x1)
+          .attr("y2", x1)
+          .style("opacity", 1);
 
-        <span class="nx">whisker</span>
-          <span class="p">.</span><span class="nf">exit</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">transition</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">duration</span><span class="p">(</span><span class="nx">duration</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y1</span><span class="dl">"</span><span class="p">,</span> <span class="nx">x1</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y2</span><span class="dl">"</span><span class="p">,</span> <span class="nx">x1</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">style</span><span class="p">(</span><span class="dl">"</span><span class="s2">opacity</span><span class="dl">"</span><span class="p">,</span> <span class="mi">1</span><span class="nx">e</span><span class="o">-</span><span class="mi">6</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">remove</span><span class="p">();</span>
+        whisker
+          .exit()
+          .transition()
+          .duration(duration)
+          .attr("y1", x1)
+          .attr("y2", x1)
+          .style("opacity", 1e-6)
+          .remove();
 
-        <span class="c1">// Update outliers.</span>
-        <span class="kd">var</span> <span class="nx">outlier</span> <span class="o">=</span> <span class="nx">g</span>
-          <span class="p">.</span><span class="nf">selectAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">circle.outlier</span><span class="dl">"</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">data</span><span class="p">(</span><span class="nx">outlierIndices</span><span class="p">,</span> <span class="nb">Number</span><span class="p">);</span>
+        // Update outliers.
+        var outlier = g
+          .selectAll("circle.outlier")
+          .data(outlierIndices, Number);
 
-        <span class="nx">outlier</span>
-          <span class="p">.</span><span class="nf">enter</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">insert</span><span class="p">(</span><span class="dl">"</span><span class="s2">circle</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">text</span><span class="dl">"</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">class</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">outlier</span><span class="dl">"</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">r</span><span class="dl">"</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">cx</span><span class="dl">"</span><span class="p">,</span> <span class="nx">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">cy</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nf">x0</span><span class="p">(</span><span class="nx">d</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
-          <span class="p">&#125;)</span>
-          <span class="p">.</span><span class="nf">style</span><span class="p">(</span><span class="dl">"</span><span class="s2">opacity</span><span class="dl">"</span><span class="p">,</span> <span class="mi">1</span><span class="nx">e</span><span class="o">-</span><span class="mi">6</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">transition</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">duration</span><span class="p">(</span><span class="nx">duration</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">cy</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nf">x1</span><span class="p">(</span><span class="nx">d</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
-          <span class="p">&#125;)</span>
-          <span class="p">.</span><span class="nf">style</span><span class="p">(</span><span class="dl">"</span><span class="s2">opacity</span><span class="dl">"</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+        outlier
+          .enter()
+          .insert("circle", "text")
+          .attr("class", "outlier")
+          .attr("r", 5)
+          .attr("cx", width / 2)
+          .attr("cy", function (i) {
+            return x0(d[i]);
+          })
+          .style("opacity", 1e-6)
+          .transition()
+          .duration(duration)
+          .attr("cy", function (i) {
+            return x1(d[i]);
+          })
+          .style("opacity", 1);
 
-        <span class="nx">outlier</span>
-          <span class="p">.</span><span class="nf">transition</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">duration</span><span class="p">(</span><span class="nx">duration</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">cy</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nf">x1</span><span class="p">(</span><span class="nx">d</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
-          <span class="p">&#125;)</span>
-          <span class="p">.</span><span class="nf">style</span><span class="p">(</span><span class="dl">"</span><span class="s2">opacity</span><span class="dl">"</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+        outlier
+          .transition()
+          .duration(duration)
+          .attr("cy", function (i) {
+            return x1(d[i]);
+          })
+          .style("opacity", 1);
 
-        <span class="nx">outlier</span>
-          <span class="p">.</span><span class="nf">exit</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">transition</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">duration</span><span class="p">(</span><span class="nx">duration</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">cy</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nf">x1</span><span class="p">(</span><span class="nx">d</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
-          <span class="p">&#125;)</span>
-          <span class="p">.</span><span class="nf">style</span><span class="p">(</span><span class="dl">"</span><span class="s2">opacity</span><span class="dl">"</span><span class="p">,</span> <span class="mi">1</span><span class="nx">e</span><span class="o">-</span><span class="mi">6</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">remove</span><span class="p">();</span>
+        outlier
+          .exit()
+          .transition()
+          .duration(duration)
+          .attr("cy", function (i) {
+            return x1(d[i]);
+          })
+          .style("opacity", 1e-6)
+          .remove();
 
-        <span class="c1">// Compute the tick format.</span>
-        <span class="kd">var</span> <span class="nx">format</span> <span class="o">=</span> <span class="nx">tickFormat</span> <span class="o">||</span> <span class="nx">x1</span><span class="p">.</span><span class="nf">tickFormat</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
+        // Compute the tick format.
+        var format = tickFormat || x1.tickFormat(8);
 
-        <span class="c1">// Update box ticks.</span>
-        <span class="kd">var</span> <span class="nx">boxTick</span> <span class="o">=</span> <span class="nx">g</span><span class="p">.</span><span class="nf">selectAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">text.box</span><span class="dl">"</span><span class="p">).</span><span class="nf">data</span><span class="p">(</span><span class="nx">quartileData</span><span class="p">);</span>
+        // Update box ticks.
+        var boxTick = g.selectAll("text.box").data(quartileData);
 
-        <span class="nx">boxTick</span>
-          <span class="p">.</span><span class="nf">enter</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">text</span><span class="dl">"</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">class</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">box</span><span class="dl">"</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">dy</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">.3em</span><span class="dl">"</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">dx</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nx">i</span> <span class="o">&amp;</span> <span class="mi">1</span> <span class="p">?</span> <span class="mi">6</span> <span class="p">:</span> <span class="o">-</span><span class="mi">6</span><span class="p">;</span>
-          <span class="p">&#125;)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">x</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nx">i</span> <span class="o">&amp;</span> <span class="mi">1</span> <span class="p">?</span> <span class="nx">width</span> <span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
-          <span class="p">&#125;)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y</span><span class="dl">"</span><span class="p">,</span> <span class="nx">x0</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">text-anchor</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nx">i</span> <span class="o">&amp;</span> <span class="mi">1</span> <span class="p">?</span> <span class="dl">"</span><span class="s2">start</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">end</span><span class="dl">"</span><span class="p">;</span>
-          <span class="p">&#125;)</span>
-          <span class="p">.</span><span class="nf">text</span><span class="p">(</span><span class="nx">format</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">transition</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">duration</span><span class="p">(</span><span class="nx">duration</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y</span><span class="dl">"</span><span class="p">,</span> <span class="nx">x1</span><span class="p">);</span>
+        boxTick
+          .enter()
+          .append("text")
+          .attr("class", "box")
+          .attr("dy", ".3em")
+          .attr("dx", function (d, i) {
+            return i & 1 ? 6 : -6;
+          })
+          .attr("x", function (d, i) {
+            return i & 1 ? width : 0;
+          })
+          .attr("y", x0)
+          .attr("text-anchor", function (d, i) {
+            return i & 1 ? "start" : "end";
+          })
+          .text(format)
+          .transition()
+          .duration(duration)
+          .attr("y", x1);
 
-        <span class="nx">boxTick</span><span class="p">.</span><span class="nf">transition</span><span class="p">().</span><span class="nf">duration</span><span class="p">(</span><span class="nx">duration</span><span class="p">).</span><span class="nf">text</span><span class="p">(</span><span class="nx">format</span><span class="p">).</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y</span><span class="dl">"</span><span class="p">,</span> <span class="nx">x1</span><span class="p">);</span>
+        boxTick.transition().duration(duration).text(format).attr("y", x1);
 
-        <span class="c1">// Update whisker ticks. These are handled separately from the box</span>
-        <span class="c1">// ticks because they may or may not exist, and we want don't want</span>
-        <span class="c1">// to join box ticks pre-transition with whisker ticks post-.</span>
-        <span class="kd">var</span> <span class="nx">whiskerTick</span> <span class="o">=</span> <span class="nx">g</span><span class="p">.</span><span class="nf">selectAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">text.whisker</span><span class="dl">"</span><span class="p">).</span><span class="nf">data</span><span class="p">(</span><span class="nx">whiskerData</span> <span class="o">||</span> <span class="p">[]);</span>
+        // Update whisker ticks. These are handled separately from the box
+        // ticks because they may or may not exist, and we want don't want
+        // to join box ticks pre-transition with whisker ticks post-.
+        var whiskerTick = g.selectAll("text.whisker").data(whiskerData || []);
 
-        <span class="nx">whiskerTick</span>
-          <span class="p">.</span><span class="nf">enter</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">text</span><span class="dl">"</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">class</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">whisker</span><span class="dl">"</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">dy</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">.3em</span><span class="dl">"</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">dx</span><span class="dl">"</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">x</span><span class="dl">"</span><span class="p">,</span> <span class="nx">width</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y</span><span class="dl">"</span><span class="p">,</span> <span class="nx">x0</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">text</span><span class="p">(</span><span class="nx">format</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">style</span><span class="p">(</span><span class="dl">"</span><span class="s2">opacity</span><span class="dl">"</span><span class="p">,</span> <span class="mi">1</span><span class="nx">e</span><span class="o">-</span><span class="mi">6</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">transition</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">duration</span><span class="p">(</span><span class="nx">duration</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y</span><span class="dl">"</span><span class="p">,</span> <span class="nx">x1</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">style</span><span class="p">(</span><span class="dl">"</span><span class="s2">opacity</span><span class="dl">"</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+        whiskerTick
+          .enter()
+          .append("text")
+          .attr("class", "whisker")
+          .attr("dy", ".3em")
+          .attr("dx", 6)
+          .attr("x", width)
+          .attr("y", x0)
+          .text(format)
+          .style("opacity", 1e-6)
+          .transition()
+          .duration(duration)
+          .attr("y", x1)
+          .style("opacity", 1);
 
-        <span class="nx">whiskerTick</span>
-          <span class="p">.</span><span class="nf">transition</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">duration</span><span class="p">(</span><span class="nx">duration</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">text</span><span class="p">(</span><span class="nx">format</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y</span><span class="dl">"</span><span class="p">,</span> <span class="nx">x1</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">style</span><span class="p">(</span><span class="dl">"</span><span class="s2">opacity</span><span class="dl">"</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+        whiskerTick
+          .transition()
+          .duration(duration)
+          .text(format)
+          .attr("y", x1)
+          .style("opacity", 1);
 
-        <span class="nx">whiskerTick</span>
-          <span class="p">.</span><span class="nf">exit</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">transition</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">duration</span><span class="p">(</span><span class="nx">duration</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y</span><span class="dl">"</span><span class="p">,</span> <span class="nx">x1</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">style</span><span class="p">(</span><span class="dl">"</span><span class="s2">opacity</span><span class="dl">"</span><span class="p">,</span> <span class="mi">1</span><span class="nx">e</span><span class="o">-</span><span class="mi">6</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">remove</span><span class="p">();</span>
-      <span class="p">&#125;);</span>
-      <span class="nx">d3</span><span class="p">.</span><span class="nx">timer</span><span class="p">.</span><span class="nf">flush</span><span class="p">();</span>
-    <span class="p">&#125;</span>
+        whiskerTick
+          .exit()
+          .transition()
+          .duration(duration)
+          .attr("y", x1)
+          .style("opacity", 1e-6)
+          .remove();
+      });
+      d3.timer.flush();
+    }
 
-    <span class="nx">box</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="k">return</span> <span class="nx">width</span><span class="p">;</span>
-      <span class="nx">width</span> <span class="o">=</span> <span class="nx">x</span><span class="p">;</span>
-      <span class="k">return</span> <span class="nx">box</span><span class="p">;</span>
-    <span class="p">&#125;;</span>
+    box.width = function (x) {
+      if (!arguments.length) return width;
+      width = x;
+      return box;
+    };
 
-    <span class="nx">box</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="k">return</span> <span class="nx">height</span><span class="p">;</span>
-      <span class="nx">height</span> <span class="o">=</span> <span class="nx">x</span><span class="p">;</span>
-      <span class="k">return</span> <span class="nx">box</span><span class="p">;</span>
-    <span class="p">&#125;;</span>
+    box.height = function (x) {
+      if (!arguments.length) return height;
+      height = x;
+      return box;
+    };
 
-    <span class="nx">box</span><span class="p">.</span><span class="nx">tickFormat</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="k">return</span> <span class="nx">tickFormat</span><span class="p">;</span>
-      <span class="nx">tickFormat</span> <span class="o">=</span> <span class="nx">x</span><span class="p">;</span>
-      <span class="k">return</span> <span class="nx">box</span><span class="p">;</span>
-    <span class="p">&#125;;</span>
+    box.tickFormat = function (x) {
+      if (!arguments.length) return tickFormat;
+      tickFormat = x;
+      return box;
+    };
 
-    <span class="nx">box</span><span class="p">.</span><span class="nx">duration</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="k">return</span> <span class="nx">duration</span><span class="p">;</span>
-      <span class="nx">duration</span> <span class="o">=</span> <span class="nx">x</span><span class="p">;</span>
-      <span class="k">return</span> <span class="nx">box</span><span class="p">;</span>
-    <span class="p">&#125;;</span>
+    box.duration = function (x) {
+      if (!arguments.length) return duration;
+      duration = x;
+      return box;
+    };
 
-    <span class="nx">box</span><span class="p">.</span><span class="nx">domain</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="k">return</span> <span class="nx">domain</span><span class="p">;</span>
-      <span class="nx">domain</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">==</span> <span class="kc">null</span> <span class="p">?</span> <span class="nx">x</span> <span class="p">:</span> <span class="nx">d3</span><span class="p">.</span><span class="nf">functor</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
-      <span class="k">return</span> <span class="nx">box</span><span class="p">;</span>
-    <span class="p">&#125;;</span>
+    box.domain = function (x) {
+      if (!arguments.length) return domain;
+      domain = x == null ? x : d3.functor(x);
+      return box;
+    };
 
-    <span class="nx">box</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="k">return</span> <span class="nx">value</span><span class="p">;</span>
-      <span class="nx">value</span> <span class="o">=</span> <span class="nx">x</span><span class="p">;</span>
-      <span class="k">return</span> <span class="nx">box</span><span class="p">;</span>
-    <span class="p">&#125;;</span>
+    box.value = function (x) {
+      if (!arguments.length) return value;
+      value = x;
+      return box;
+    };
 
-    <span class="nx">box</span><span class="p">.</span><span class="nx">whiskers</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="k">return</span> <span class="nx">whiskers</span><span class="p">;</span>
-      <span class="nx">whiskers</span> <span class="o">=</span> <span class="nx">x</span><span class="p">;</span>
-      <span class="k">return</span> <span class="nx">box</span><span class="p">;</span>
-    <span class="p">&#125;;</span>
+    box.whiskers = function (x) {
+      if (!arguments.length) return whiskers;
+      whiskers = x;
+      return box;
+    };
 
-    <span class="nx">box</span><span class="p">.</span><span class="nx">quartiles</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="k">return</span> <span class="nx">quartiles</span><span class="p">;</span>
-      <span class="nx">quartiles</span> <span class="o">=</span> <span class="nx">x</span><span class="p">;</span>
-      <span class="k">return</span> <span class="nx">box</span><span class="p">;</span>
-    <span class="p">&#125;;</span>
+    box.quartiles = function (x) {
+      if (!arguments.length) return quartiles;
+      quartiles = x;
+      return box;
+    };
 
-    <span class="k">return</span> <span class="nx">box</span><span class="p">;</span>
-  <span class="p">&#125;;</span>
+    return box;
+  };
 
-  <span class="kd">function</span> <span class="nf">boxWhiskers</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="k">return</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="nx">d</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
-  <span class="p">&#125;</span>
+  function boxWhiskers(d) {
+    return [0, d.length - 1];
+  }
 
-  <span class="kd">function</span> <span class="nf">boxQuartiles</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="k">return</span> <span class="p">[</span><span class="nx">d3</span><span class="p">.</span><span class="nf">quantile</span><span class="p">(</span><span class="nx">d</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">),</span> <span class="nx">d3</span><span class="p">.</span><span class="nf">quantile</span><span class="p">(</span><span class="nx">d</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="nx">d3</span><span class="p">.</span><span class="nf">quantile</span><span class="p">(</span><span class="nx">d</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">)];</span>
-  <span class="p">&#125;</span>
-<span class="p">&#125;)();</span>
-<span class="cm">/* end BOX.JS */</span>
-<span class="c1">/////////////////////////////</span>
+  function boxQuartiles(d) {
+    return [d3.quantile(d, 0.25), d3.quantile(d, 0.5), d3.quantile(d, 0.75)];
+  }
+})();
+/* end BOX.JS */
+/////////////////////////////
 
-<span class="kd">var</span> <span class="nx">margin</span> <span class="o">=</span> <span class="p">&#123;</span> <span class="na">top</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="na">right</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="na">bottom</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="na">left</span><span class="p">:</span> <span class="mi">50</span> <span class="p">&#125;,</span>
-  <span class="nx">width</span> <span class="o">=</span> <span class="mi">120</span> <span class="o">-</span> <span class="nx">margin</span><span class="p">.</span><span class="nx">left</span> <span class="o">-</span> <span class="nx">margin</span><span class="p">.</span><span class="nx">right</span><span class="p">,</span>
-  <span class="nx">height</span> <span class="o">=</span> <span class="mi">300</span> <span class="o">-</span> <span class="nx">margin</span><span class="p">.</span><span class="nx">top</span> <span class="o">-</span> <span class="nx">margin</span><span class="p">.</span><span class="nx">bottom</span><span class="p">;</span>
+var margin = { top: 10, right: 50, bottom: 20, left: 50 },
+  width = 120 - margin.left - margin.right,
+  height = 300 - margin.top - margin.bottom;
 
-<span class="kd">var</span> <span class="nx">min</span> <span class="o">=</span> <span class="kc">Infinity</span><span class="p">,</span>
-  <span class="nx">max</span> <span class="o">=</span> <span class="o">-</span><span class="kc">Infinity</span><span class="p">;</span>
+var min = Infinity,
+  max = -Infinity;
 
-<span class="kd">var</span> <span class="nx">chart</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nf">box</span><span class="p">().</span><span class="nf">width</span><span class="p">(</span><span class="nx">width</span><span class="p">).</span><span class="nf">height</span><span class="p">(</span><span class="nx">height</span><span class="p">);</span>
-<span class="c1">//.whiskers(iqr(1.5))</span>
+var chart = d3.box().width(width).height(height);
+//.whiskers(iqr(1.5))
 
-<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">[];</span>
+var data = [];
 
-<span class="nx">listT</span><span class="p">.</span><span class="nf">forEach</span><span class="p">(</span><span class="nf">function </span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">&#123;</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">x</span><span class="dl">"</span><span class="p">,</span> <span class="nx">x</span><span class="p">);</span>
-  <span class="kd">var</span> <span class="nx">e</span> <span class="o">=</span> <span class="nx">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="c1">//Math.floor(x[0] - 1),</span>
-    <span class="cm">/* r = Math.floor(x.Run - 1), */</span>
-    <span class="nx">s</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">floor</span><span class="p">(</span><span class="nx">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
-    <span class="nx">d</span> <span class="o">=</span> <span class="nx">data</span><span class="p">[</span><span class="nx">e</span><span class="p">];</span>
-  <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">d</span><span class="p">)</span> <span class="nx">d</span> <span class="o">=</span> <span class="nx">data</span><span class="p">[</span><span class="nx">e</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">s</span><span class="p">];</span>
-  <span class="k">else</span> <span class="nx">d</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
-  <span class="k">if </span><span class="p">(</span><span class="nx">s</span> <span class="o">&gt;</span> <span class="nx">max</span><span class="p">)</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">s</span><span class="p">;</span>
-  <span class="k">if </span><span class="p">(</span><span class="nx">s</span> <span class="o">&lt;</span> <span class="nx">min</span><span class="p">)</span> <span class="nx">min</span> <span class="o">=</span> <span class="nx">s</span><span class="p">;</span>
-<span class="p">&#125;);</span>
+listT.forEach(function (x) {
+  console.log("x", x);
+  var e = x[0], //Math.floor(x[0] - 1),
+    /* r = Math.floor(x.Run - 1), */
+    s = Math.floor(x[1]),
+    d = data[e];
+  if (!d) d = data[e] = [s];
+  else d.push(s);
+  if (s > max) max = s;
+  if (s < min) min = s;
+});
 
-<span class="nx">chart</span><span class="p">.</span><span class="nf">domain</span><span class="p">([</span><span class="nx">min</span><span class="p">,</span> <span class="nx">max</span><span class="p">]);</span>
+chart.domain([min, max]);
 
-<span class="kd">var</span> <span class="nx">svg</span> <span class="o">=</span> <span class="nx">d3</span>
-  <span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="dl">"</span><span class="s2">body</span><span class="dl">"</span><span class="p">)</span>
-  <span class="p">.</span><span class="nf">selectAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">svg</span><span class="dl">"</span><span class="p">)</span>
-  <span class="p">.</span><span class="nf">data</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
-  <span class="p">.</span><span class="nf">enter</span><span class="p">()</span>
-  <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">svg</span><span class="dl">"</span><span class="p">)</span>
-  <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">class</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">box</span><span class="dl">"</span><span class="p">)</span>
-  <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">width</span><span class="dl">"</span><span class="p">,</span> <span class="nx">width</span> <span class="o">+</span> <span class="nx">margin</span><span class="p">.</span><span class="nx">left</span> <span class="o">+</span> <span class="nx">margin</span><span class="p">.</span><span class="nx">right</span><span class="p">)</span>
-  <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">height</span><span class="dl">"</span><span class="p">,</span> <span class="nx">height</span> <span class="o">+</span> <span class="nx">margin</span><span class="p">.</span><span class="nx">bottom</span> <span class="o">+</span> <span class="nx">margin</span><span class="p">.</span><span class="nx">top</span><span class="p">)</span>
-  <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">g</span><span class="dl">"</span><span class="p">)</span>
-  <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">transform</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">translate(</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">margin</span><span class="p">.</span><span class="nx">left</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">,</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">margin</span><span class="p">.</span><span class="nx">top</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">)</span><span class="dl">"</span><span class="p">)</span>
-  <span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="nx">chart</span><span class="p">);</span>
+var svg = d3
+  .select("body")
+  .selectAll("svg")
+  .data(data)
+  .enter()
+  .append("svg")
+  .attr("class", "box")
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.bottom + margin.top)
+  .append("g")
+  .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+  .call(chart);
 
-<span class="c1">// Returns a function to compute the interquartile range.</span>
-<span class="kd">function</span> <span class="nf">iqr</span><span class="p">(</span><span class="nx">k</span><span class="p">)</span> <span class="p">&#123;</span>
-  <span class="k">return</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="kd">var</span> <span class="nx">q1</span> <span class="o">=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">quartiles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-      <span class="nx">q3</span> <span class="o">=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">quartiles</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
-      <span class="nx">iqr</span> <span class="o">=</span> <span class="p">(</span><span class="nx">q3</span> <span class="o">-</span> <span class="nx">q1</span><span class="p">)</span> <span class="o">*</span> <span class="nx">k</span><span class="p">,</span>
-      <span class="nx">i</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-      <span class="nx">j</span> <span class="o">=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
-    <span class="k">while </span><span class="p">(</span><span class="nx">d</span><span class="p">[</span><span class="o">++</span><span class="nx">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nx">q1</span> <span class="o">-</span> <span class="nx">iqr</span><span class="p">);</span>
-    <span class="k">while </span><span class="p">(</span><span class="nx">d</span><span class="p">[</span><span class="o">--</span><span class="nx">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="nx">q3</span> <span class="o">+</span> <span class="nx">iqr</span><span class="p">);</span>
-    <span class="k">return</span> <span class="p">[</span><span class="nx">i</span><span class="p">,</span> <span class="nx">j</span><span class="p">];</span>
-  <span class="p">&#125;;</span>
-<span class="p">&#125;</span>
-</code></pre>
+// Returns a function to compute the interquartile range.
+function iqr(k) {
+  return function (d, i) {
+    var q1 = d.quartiles[0],
+      q3 = d.quartiles[2],
+      iqr = (q3 - q1) * k,
+      i = -1,
+      j = d.length;
+    while (d[++i] < q1 - iqr);
+    while (d[--j] > q3 + iqr);
+    return [i, j];
+  };
+}
+```
+
 <p data-import-note="">this demo preserves the compiled output and may depend on external libraries or services that are no longer available.</p>
-<p><a href="https://jsfiddle.net/edwardsharp/tfuj5bcp/21/">original jsfiddle post</a></p>
+
+[original jsfiddle post](https://jsfiddle.net/edwardsharp/tfuj5bcp/21/)

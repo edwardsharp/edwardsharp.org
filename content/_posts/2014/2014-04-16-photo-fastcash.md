@@ -12,4 +12,4 @@ preview_alt: "#fastcash"
 
 ![#fastcash](/content/media/2014/2014-04-16-photo-17842869121060015-1.jpg)
 
-<p>#fastcash</p>
+#fastcash

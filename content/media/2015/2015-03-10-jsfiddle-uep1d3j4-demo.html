@@ -1,18 +1,18 @@
 <!doctype html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="https://fiddle.jshell.net/edwardsharp/uep1d3j4/listing_embed/?disableModals=true&amp;version=5"><title>simple angular json request</title>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="//fiddle.jshell.net/edwardsharp/uep1d3j4/listing_embed/?disableModals=true&amp;version=5"><title>simple angular json request</title>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.js"></script>
-<script type="text/javascript" src="https://momentjs.com/downloads/moment.js"></script>
+<script type="text/javascript" src="//momentjs.com/downloads/moment.js"></script>
 <style id="compiled-css" type="text/css">
       
 
       /* EOS */
-    </style></head><body><script src="http://momentjs.com/downloads/moment.js"></script>
+    </style></head><body><script src="//momentjs.com/downloads/moment.js"></script>
 <div ng-app="">
   <div ng-controller="FetchCtrl">
     <button ng-click="updateModel('GET', 'http-hello.html')">Sample GET</button>
     <button ng-click="updateModel('GET', googleCalUrl())">GoogleCal</button>
-    <button ng-click="updateModel('JSONP', 'http://angularjs.org/greet.php?callback=JSON_CALLBACK&name=Super%20Hero')">Sample JSONP</button>
-    <button ng-click="updateModel('JSONP', 'http://angularjs.org/doesntexist&callback=JSON_CALLBACK')">Invalid JSONP</button>
+    <button ng-click="updateModel('JSONP', '//angularjs.org/greet.php?callback=JSON_CALLBACK&name=Super%20Hero')">Sample JSONP</button>
+    <button ng-click="updateModel('JSONP', '//angularjs.org/doesntexist&callback=JSON_CALLBACK')">Invalid JSONP</button>
       <br />
     <select ng-model="method"> 
       <option>GET</option>
@@ -37,7 +37,7 @@
 
 function FetchCtrl($scope, $http, $templateCache) {
   $scope.method = 'JSONP';
-  $scope.url = 'http://ec2-54-225-22-193.compute-1.amazonaws.com/api/search';
+  $scope.url = '//ec2-54-225-22-193.compute-1.amazonaws.com/api/search';
 
   $scope.fetch = function() {
     $scope.code = null;

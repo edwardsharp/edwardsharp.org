@@ -13,4 +13,4 @@ redirect_from:
 ---
 ![andtheworldzgreatestdadzyeah](/content/media/2013/2013-11-15-andtheworldzgreatestdadzyeah.jpg)
 
-\#andtheworldzgreatestdadzyeah
+#andtheworldzgreatestdadzyeah

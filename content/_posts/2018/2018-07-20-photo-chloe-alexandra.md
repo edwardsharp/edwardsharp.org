@@ -20,4 +20,17 @@ preview_alt: "Chloe Alexandra"
 
 ![Chloe Alexandra (5 of 5)](/content/media/2018/2018-07-20-photo-17845297873303842-5.jpg)
 
-<p>Chloe Alexandra <br>https://soundcloud.com/chloealxandra/<br><br>Axine M <br>https://axine.bandcamp.com/<br><br>Anastasia Clarke <br>https://anastasiaclarke.info/ <br>Lorene Bouboushian <br>https://lorenebouboushian.org/<br><br>id m theft able &amp; Ben Bennett<br>http://kraag.org/<br>http://www.benbennett.website</p>
+Chloe Alexandra  
+https://soundcloud.com/chloealxandra/
+
+Axine M  
+https://axine.bandcamp.com/
+
+Anastasia Clarke  
+https://anastasiaclarke.info/  
+Lorene Bouboushian  
+https://lorenebouboushian.org/
+
+id m theft able & Ben Bennett  
+http://kraag.org/  
+http://www.benbennett.website

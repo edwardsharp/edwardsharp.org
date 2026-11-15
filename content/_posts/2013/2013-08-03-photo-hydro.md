@@ -12,4 +12,4 @@ preview_alt: "#HYDRO"
 
 ![#HYDRO](/content/media/2013/2013-08-03-photo-17842703743060015-1.jpg)
 
-<p>#HYDRO</p>
+#HYDRO

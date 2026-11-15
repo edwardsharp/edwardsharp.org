@@ -16,4 +16,4 @@ preview_alt: "ok, #serious; FIRST STEPS TRANS, INC. -or- DIRTY GURL, LLC.?? plea
 
 ![ok, #serious; FIRST STEPS TRANS, INC. -or- DIRTY GURL, LLC.?? please comment. #stolenandcontaminated (3 of 3)](/content/media/2017/2017-08-01-photo-17876860867091353-3.jpg)
 
-<p>ok, #serious; FIRST STEPS TRANS, INC. -or- DIRTY GURL, LLC.?? please comment. #stolenandcontaminated</p>
+ok, #serious; FIRST STEPS TRANS, INC. -or- DIRTY GURL, LLC.?? please comment. #stolenandcontaminated

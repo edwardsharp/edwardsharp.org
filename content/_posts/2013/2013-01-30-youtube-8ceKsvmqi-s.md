@@ -10,6 +10,9 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=8ceKsvmqi-s"
 preview_image: "/content/media/2013/2013-01-30-youtube-8ceKsvmqi-s-564594eeae.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/8ceKsvmqi-s" title="chn_slp" loading="lazy" allowfullscreen></iframe></div>
-<p>prsncrp + ghstrdr_666_mxx</p>
-<p><a href="https://www.youtube.com/watch?v=8ceKsvmqi-s">original youtube post</a></p>
+
+prsncrp + ghstrdr_666_mxx
+
+[original youtube post](https://www.youtube.com/watch?v=8ceKsvmqi-s)

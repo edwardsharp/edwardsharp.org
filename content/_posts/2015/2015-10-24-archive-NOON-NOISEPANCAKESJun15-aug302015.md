@@ -10,7 +10,9 @@ source_platform: "archive"
 source_url: "https://archive.org/details/NOON-NOISEPANCAKESJun15-aug302015"
 preview_image: "/content/media/2015/2015-10-24-archive-NOON-NOISEPANCAKESJun15-aug302015-9e0b3023d0.jpg"
 ---
-<iframe title="NOON-NOISE&amp;PANCAKES jun15-aug30 2015" width="100%" height="400" loading="lazy" src="https://archive.org/embed/NOON-NOISEPANCAKESJun15-aug302015?playlist=1"></iframe>
-audio recording from live&#160;NOON-NOISE&amp;PANCAKEZ&#160;performancez happening at noon on sundayz throughout june, july, and august 2015. pancakez were served. noise happened. curated by 3dwardsharp.&#160;<br>http://lacuna.club&#160;
 
-<p><a href="https://archive.org/details/NOON-NOISEPANCAKESJun15-aug302015">original archive post</a></p>
+<iframe title="NOON-NOISE&amp;PANCAKES jun15-aug30 2015" width="100%" height="400" loading="lazy" src="https://archive.org/embed/NOON-NOISEPANCAKESJun15-aug302015?playlist=1"></iframe>
+audio recording from live&#160;NOON-NOISE&PANCAKEZ&#160;performancez happening at noon on sundayz throughout june, july, and august 2015. pancakez were served. noise happened. curated by 3dwardsharp.&#160;  
+http://lacuna.club&#160;
+
+[original archive post](https://archive.org/details/NOON-NOISEPANCAKESJun15-aug302015)

@@ -12,4 +12,4 @@ preview_alt: "#noise"
 
 ![#noise](/content/media/2016/2016-05-03-photo-17847136972113109-1.jpg)
 
-<p>#noise</p>
+#noise

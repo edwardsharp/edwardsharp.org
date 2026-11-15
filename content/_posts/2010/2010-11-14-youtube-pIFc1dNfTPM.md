@@ -10,6 +10,9 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=pIFc1dNfTPM"
 preview_image: "/content/media/2010/2010-11-14-youtube-pIFc1dNfTPM-1f7aea7cce.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/pIFc1dNfTPM" title="SPACE SPACE SPACE SPACE SPACE" loading="lazy" allowfullscreen></iframe></div>
-<p>yeah, some seattie space scpae</p>
-<p><a href="https://www.youtube.com/watch?v=pIFc1dNfTPM">original youtube post</a></p>
+
+yeah, some seattie space scpae
+
+[original youtube post](https://www.youtube.com/watch?v=pIFc1dNfTPM)

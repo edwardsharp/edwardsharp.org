@@ -12,4 +12,4 @@ preview_alt: "#feature$"
 
 ![#feature$](/content/media/2013/2013-10-19-photo-17842742332060015-1.jpg)
 
-<p>#feature$</p>
+#feature$

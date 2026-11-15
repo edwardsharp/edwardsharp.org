@@ -10,8 +10,11 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=pMOhpf1I4jE"
 preview_image: "/content/media/2014/2014-02-03-youtube-pMOhpf1I4jE-9473a52fa2.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/pMOhpf1I4jE" title="BELTSTRAP" loading="lazy" allowfullscreen></iframe></div>
-<p>feburary 2014 OPEN SPACE at PANOPLY LAB<br>
-<br>
-camera - samuel burhoe</p>
-<p><a href="https://www.youtube.com/watch?v=pMOhpf1I4jE">original youtube post</a></p>
+
+feburary 2014 OPEN SPACE at PANOPLY LAB
+
+camera - samuel burhoe
+
+[original youtube post](https://www.youtube.com/watch?v=pMOhpf1I4jE)

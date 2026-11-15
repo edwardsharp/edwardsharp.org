@@ -138,6 +138,21 @@ export function postTags(post: SocialPost): string[] {
   });
 }
 
+export function protocolRelativeResources(source: string): string {
+  return source.replace(
+    /(@namespace\b[^;]*;|\bxmlns(?::[\w.-]+)?\s*=\s*["'][^"']*["'])|((?:\b(?:src|href|poster|url|proxy|icon)\s*[:=]\s*["']?|\burl\(\s*["']?|@import\s*["']|\b(?:fetch|importScripts|import|Worker|Audio|open)\(\s*["']|\b(?:from|import)\s+["']))https?:\/\//gi,
+    (
+      match: string,
+      namespace: string | undefined,
+      prefix: string | undefined,
+    ) => {
+      if (namespace !== undefined) return match;
+      if (prefix === undefined) throw new Error("invalid resource URL match");
+      return `${prefix}//`;
+    },
+  );
+}
+
 export async function formatSnippets(html: string): Promise<{
   html: string;
   warnings: string[];
@@ -156,7 +171,7 @@ export async function formatSnippets(html: string): Promise<{
     const language = code.className.replace("language-", "");
     const parser = parsers[language];
     if (!parser) throw new Error(`unsupported snippet language: ${language}`);
-    let source = code.textContent;
+    let source = protocolRelativeResources(code.textContent);
     try {
       source = await format(source, { parser });
     } catch (error) {
@@ -652,7 +667,10 @@ export async function importPosts(
       let demoPath: string | undefined;
       if (post.demo) {
         const path = `/content/media/${year}/${stem}-demo.html`;
-        await preserveOrCreate(join(root, path.slice(1)), post.demo);
+        await preserveOrCreate(
+          join(root, path.slice(1)),
+          protocolRelativeResources(post.demo),
+        );
         demoPath = path;
       }
       const output = postMarkdown(

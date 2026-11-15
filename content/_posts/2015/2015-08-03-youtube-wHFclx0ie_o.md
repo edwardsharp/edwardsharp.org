@@ -10,9 +10,12 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=wHFclx0ie_o"
 preview_image: "/content/media/2015/2015-08-03-youtube-wHFclx0ie_o-827a89f533.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/wHFclx0ie_o" title="NOON-NOISE&amp;PANCAKES: AUG2 [Carlson-Goodwin-Potter]" loading="lazy" allowfullscreen></iframe></div>
-<p>Carlson-Goodwin-Potter<br>
-<br>
-NOON, SUNDAY, AUGUST 2<br>
-http://lacuna.club</p>
-<p><a href="https://www.youtube.com/watch?v=wHFclx0ie_o">original youtube post</a></p>
+
+Carlson-Goodwin-Potter
+
+NOON, SUNDAY, AUGUST 2  
+http://lacuna.club
+
+[original youtube post](https://www.youtube.com/watch?v=wHFclx0ie_o)

@@ -12,4 +12,4 @@ preview_alt: "#foodcorpfoodcorpfoodcorp"
 
 ![#foodcorpfoodcorpfoodcorp](/content/media/2013/2013-11-30-photo-17842761115060015-1.jpg)
 
-<p>#foodcorpfoodcorpfoodcorp</p>
+#foodcorpfoodcorpfoodcorp

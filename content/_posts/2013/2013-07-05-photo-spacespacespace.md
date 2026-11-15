@@ -12,4 +12,4 @@ preview_alt: "#spacespacespace"
 
 ![#spacespacespace](/content/media/2013/2013-07-05-photo-17842690366060015-1.jpg)
 
-<p>#spacespacespace</p>
+#spacespacespace

@@ -12,4 +12,4 @@ preview_alt: "#mtnhood"
 
 ![#mtnhood](/content/media/2013/2013-05-21-photo-17842668091060015-1.jpg)
 
-<p>#mtnhood</p>
+#mtnhood

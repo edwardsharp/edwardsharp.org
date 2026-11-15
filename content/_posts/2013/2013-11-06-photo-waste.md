@@ -12,4 +12,4 @@ preview_alt: "#WASTE"
 
 ![#WASTE](/content/media/2013/2013-11-06-photo-17842750669060015-1.jpg)
 
-<p>#WASTE</p>
+#WASTE

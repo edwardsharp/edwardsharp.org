@@ -10,6 +10,9 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=-j8gekpPaI4"
 preview_image: "/content/media/2008/2008-09-20-youtube--j8gekpPaI4-5cd29c75cd.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/-j8gekpPaI4" title="toast and video" loading="lazy" allowfullscreen></iframe></div>
-<p>oh</p>
-<p><a href="https://www.youtube.com/watch?v=-j8gekpPaI4">original youtube post</a></p>
+
+oh
+
+[original youtube post](https://www.youtube.com/watch?v=-j8gekpPaI4)

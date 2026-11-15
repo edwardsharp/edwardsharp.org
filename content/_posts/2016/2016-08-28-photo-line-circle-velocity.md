@@ -12,4 +12,4 @@ preview_alt: "line/circle/velocity"
 
 ![line/circle/velocity](/content/media/2016/2016-08-28-photo-17861749855004434-1.jpg)
 
-<p>line/circle/velocity</p>
+line/circle/velocity

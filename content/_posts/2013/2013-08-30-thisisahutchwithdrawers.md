@@ -13,4 +13,4 @@ redirect_from:
 ---
 ![thisisahutchwithdrawers](/content/media/2013/2013-08-30-thisisahutchwithdrawers.jpg)
 
-\#thisisahutchwithdrawers
+#thisisahutchwithdrawers

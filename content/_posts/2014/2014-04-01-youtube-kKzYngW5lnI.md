@@ -10,6 +10,7 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=kKzYngW5lnI"
 preview_image: "/content/media/2014/2014-04-01-youtube-kKzYngW5lnI-a943afa0b5.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/kKzYngW5lnI" title="SPARK" loading="lazy" allowfullscreen></iframe></div>
 
-<p><a href="https://www.youtube.com/watch?v=kKzYngW5lnI">original youtube post</a></p>
+[original youtube post](https://www.youtube.com/watch?v=kKzYngW5lnI)

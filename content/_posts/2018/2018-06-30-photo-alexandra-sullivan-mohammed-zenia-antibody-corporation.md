@@ -16,4 +16,4 @@ preview_alt: "Alexandra Sullivan; Mohammed zenia; Antibody Corporation"
 
 ![Alexandra Sullivan; Mohammed zenia; Antibody Corporation (3 of 3)](/content/media/2018/2018-06-30-photo-17897690377207168-3.jpg)
 
-<p>Alexandra Sullivan; Mohammed zenia; Antibody Corporation</p>
+Alexandra Sullivan; Mohammed zenia; Antibody Corporation

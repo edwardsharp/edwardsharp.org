@@ -14,5 +14,6 @@ preview_image: "/content/media/2017/2017-06-14-ello-hyemgmnutvgltmhxoztnag-ee74f
 
 ![Screen Shot 2017-06-11 9.15.51  - 3dwardsharp \| ello](/content/media/2017/2017-06-14-ello-hyemgmnutvgltmhxoztnag-ee74f8cb03.jpg)
 
-<p>Screen Shot 2017-06-11 at 9.15.51 PM</p>
-<p><a href="https://ello.co/3dwardsharp/post/hyemgmnutvgltmhxoztnag">original ello post</a> · <a href="https://web.archive.org/web/20210614012230id_/https://ello.co/3dwardsharp">archived post</a></p>
+Screen Shot 2017-06-11 at 9.15.51 PM
+
+[original ello post](https://ello.co/3dwardsharp/post/hyemgmnutvgltmhxoztnag) · [archived post](https://web.archive.org/web/20210614012230id_/https://ello.co/3dwardsharp)

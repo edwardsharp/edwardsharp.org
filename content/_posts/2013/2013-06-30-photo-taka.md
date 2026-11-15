@@ -12,4 +12,4 @@ preview_alt: "#TAKA"
 
 ![#TAKA](/content/media/2013/2013-06-30-photo-17842687951060015-1.jpg)
 
-<p>#TAKA</p>
+#TAKA

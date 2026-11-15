@@ -12,4 +12,4 @@ preview_alt: "strap(head+foot)"
 
 ![strap(head+foot)](/content/media/2013/2013-07-21-photo-17842697929060015-1.jpg)
 
-<p>strap(head+foot)</p>
+strap(head+foot)

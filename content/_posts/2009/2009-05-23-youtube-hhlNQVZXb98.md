@@ -10,6 +10,9 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=hhlNQVZXb98"
 preview_image: "/content/media/2009/2009-05-23-youtube-hhlNQVZXb98-1f37207926.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/hhlNQVZXb98" title="library_study01" loading="lazy" allowfullscreen></iframe></div>
-<p>toe tappin' to the cellar doorz</p>
-<p><a href="https://www.youtube.com/watch?v=hhlNQVZXb98">original youtube post</a></p>
+
+toe tappin' to the cellar doorz
+
+[original youtube post](https://www.youtube.com/watch?v=hhlNQVZXb98)

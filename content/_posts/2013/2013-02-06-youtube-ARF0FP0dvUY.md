@@ -10,7 +10,10 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=ARF0FP0dvUY"
 preview_image: "/content/media/2013/2013-02-06-youtube-ARF0FP0dvUY-74f45631ae.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/ARF0FP0dvUY" title="pwnw04" loading="lazy" allowfullscreen></iframe></div>
-<p>collaborations with Jin Camou. <br>
-projections live from Brooklyn, NY.</p>
-<p><a href="https://www.youtube.com/watch?v=ARF0FP0dvUY">original youtube post</a></p>
+
+collaborations with Jin Camou.  
+projections live from Brooklyn, NY.
+
+[original youtube post](https://www.youtube.com/watch?v=ARF0FP0dvUY)

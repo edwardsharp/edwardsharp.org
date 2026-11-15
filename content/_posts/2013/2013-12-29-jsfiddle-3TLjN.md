@@ -11,13 +11,17 @@ source_platform: "jsfiddle"
 source_url: "https://jsfiddle.net/edwardsharp/3TLjN/"
 source_revision: 0
 ---
+
 <iframe class="code-demo" src="{{ '/content/media/2013/2013-12-29-jsfiddle-3TLjN-demo.html' | relative_url }}" title="lorumipsum glitch" width="100%" height="480" loading="lazy" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe>
-<h2>html</h2>
-<pre class="highlight"><code class="language-html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"example5"</span> <span class="na">class=</span><span class="s">"example"</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;h1&gt;</span>Glitch Transition (different size elements)<span class="nt">&lt;/h1&gt;</span>
-  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"source"</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;h2&gt;</span>Page 1<span class="nt">&lt;/h2&gt;</span>
-    <span class="nt">&lt;p&gt;</span>
+
+## html
+
+```html
+<div id="example5" class="example">
+  <h1>Glitch Transition (different size elements)</h1>
+  <div class="source">
+    <h2>Page 1</h2>
+    <p>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
       veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
@@ -25,223 +29,226 @@ source_revision: 0
       velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
       cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
       est laborum.
-    <span class="nt">&lt;/p&gt;</span>
-  <span class="nt">&lt;/div&gt;</span>
-  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"middle"</span><span class="nt">&gt;&lt;button</span> <span class="na">class=</span><span class="s">"btn"</span><span class="nt">&gt;</span>Glitch<span class="nt">&lt;/button&gt;&lt;/div&gt;</span>
-  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"target"</span><span class="nt">&gt;&lt;/div&gt;</span>
-<span class="nt">&lt;/div&gt;</span>
-</code></pre>
-<h2>javascript</h2>
-<pre class="highlight"><code class="language-javascript"><span class="cm">/**
-	@license glitch.js v0.1 &lt;http://www.github.com/sjhewitt/glitch.js&gt;
+    </p>
+  </div>
+  <div class="middle"><button class="btn">Glitch</button></div>
+  <div class="target"></div>
+</div>
+```
+
+## javascript
+
+```javascript
+/**
+	@license glitch.js v0.1 <http://www.github.com/sjhewitt/glitch.js>
 	Released under MIT License
 
 	Copyright (c) 2012 Simon Hewitt.
 	http://www.twitter.com/sjhewitt
-	*/</span>
-<span class="p">(</span><span class="nf">function </span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">&#123;</span>
-  <span class="cm">/*global html2canvas */</span>
+	*/
+(function ($) {
+  /*global html2canvas */
 
-  <span class="kd">var</span> <span class="nx">noop</span> <span class="o">=</span> <span class="nf">function </span><span class="p">()</span> <span class="p">&#123;&#125;,</span>
-    <span class="cm">/**
+  var noop = function () {},
+    /**
      * Set default properties on an object
-     * @param  &#123;Object&#125; obj      The target object
-     * @param  &#123;Object&#125; defaults The default properties
-     * @return &#123;Object&#125;          The target obj
-     */</span>
-    <span class="nx">defaults</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">defaults</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">for </span><span class="p">(</span><span class="kd">var</span> <span class="nx">prop</span> <span class="k">in</span> <span class="nx">defaults</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="k">if </span><span class="p">(</span><span class="nx">obj</span><span class="p">[</span><span class="nx">prop</span><span class="p">]</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="nx">obj</span><span class="p">[</span><span class="nx">prop</span><span class="p">]</span> <span class="o">=</span> <span class="nx">defaults</span><span class="p">[</span><span class="nx">prop</span><span class="p">];</span>
-      <span class="p">&#125;</span>
-      <span class="k">return</span> <span class="nx">obj</span><span class="p">;</span>
-    <span class="p">&#125;,</span>
-    <span class="cm">/**
+     * @param  {Object} obj      The target object
+     * @param  {Object} defaults The default properties
+     * @return {Object}          The target obj
+     */
+    defaults = function (obj, defaults) {
+      for (var prop in defaults) {
+        if (obj[prop] == null) obj[prop] = defaults[prop];
+      }
+      return obj;
+    },
+    /**
      * Generates an integer between min and max
      *
-     * @param  &#123;Number&#125; min The lower bound
-     * @param  &#123;Number&#125; max The upper bound
-     * @return &#123;Number&#125;     A random number
-     */</span>
-    <span class="nx">getRandInt</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">min</span><span class="p">,</span> <span class="nx">max</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nf">random</span><span class="p">()</span> <span class="o">*</span> <span class="p">(</span><span class="nx">max</span> <span class="o">-</span> <span class="nx">min</span><span class="p">)</span> <span class="o">+</span> <span class="nx">min</span><span class="p">);</span>
-    <span class="p">&#125;;</span>
+     * @param  {Number} min The lower bound
+     * @param  {Number} max The upper bound
+     * @return {Number}     A random number
+     */
+    getRandInt = function (min, max) {
+      return Math.floor(Math.random() * (max - min) + min);
+    };
 
-  <span class="cm">/**
+  /**
    * Apply the glitch effect to a canvas object
    *
-   * @param  &#123;HTMLCanvasElement&#125; canvas  The canvas (or HTMLImageElement) to apply the glitch to
-   * @param  &#123;number&#125;            amount  The amount to glitch the canvas (default: 6)
-   * @return &#123;HTMLCanvasElement&#125;         A canvas containing a glitched version
+   * @param  {HTMLCanvasElement} canvas  The canvas (or HTMLImageElement) to apply the glitch to
+   * @param  {number}            amount  The amount to glitch the canvas (default: 6)
+   * @return {HTMLCanvasElement}         A canvas containing a glitched version
    *                                     of the original canvas
-   */</span>
-  <span class="kd">var</span> <span class="nx">_glitch</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">canvas</span><span class="p">,</span> <span class="nx">amount</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="kd">var</span> <span class="c1">// cache the width and height of the canvas locally</span>
-      <span class="nx">x</span><span class="p">,</span>
-      <span class="nx">y</span><span class="p">,</span>
-      <span class="nx">w</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span>
-      <span class="nx">h</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span>
-      <span class="c1">// _len is an iterator limit, initially storing the number of slices</span>
-      <span class="c1">// to create</span>
-      <span class="nx">i</span><span class="p">,</span>
-      <span class="nx">_len</span> <span class="o">=</span> <span class="nx">amount</span> <span class="o">||</span> <span class="mi">6</span><span class="p">,</span>
-      <span class="c1">// pick a random amount to offset the color channel</span>
-      <span class="nx">channelOffset</span> <span class="o">=</span>
-        <span class="nf">getRandInt</span><span class="p">(</span><span class="o">-</span><span class="nx">_len</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">_len</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="nx">w</span> <span class="o">*</span> <span class="o">+</span><span class="nf">getRandInt</span><span class="p">(</span><span class="o">-</span><span class="nx">_len</span><span class="p">,</span> <span class="nx">_len</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span>
-      <span class="c1">// the maximum amount to offset a chunk of the image is a function of its width</span>
-      <span class="nx">maxOffset</span> <span class="o">=</span> <span class="p">((</span><span class="nx">_len</span> <span class="o">*</span> <span class="nx">_len</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span> <span class="o">*</span> <span class="nx">w</span><span class="p">,</span>
-      <span class="c1">// vars for the width and height of the chunk that gets offset</span>
-      <span class="nx">chunkWidth</span><span class="p">,</span>
-      <span class="nx">chunkHeight</span><span class="p">,</span>
-      <span class="c1">// create a temporary canvas to hold the image we're working on</span>
-      <span class="nx">tempCanvas</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">canvas</span><span class="dl">"</span><span class="p">),</span>
-      <span class="nx">tempCtx</span> <span class="o">=</span> <span class="nx">tempCanvas</span><span class="p">.</span><span class="nf">getContext</span><span class="p">(</span><span class="dl">"</span><span class="s2">2d</span><span class="dl">"</span><span class="p">),</span>
-      <span class="nx">srcData</span><span class="p">,</span>
-      <span class="nx">targetImageData</span><span class="p">,</span>
-      <span class="nx">data</span><span class="p">;</span>
+   */
+  var _glitch = function (canvas, amount) {
+    var // cache the width and height of the canvas locally
+      x,
+      y,
+      w = canvas.width,
+      h = canvas.height,
+      // _len is an iterator limit, initially storing the number of slices
+      // to create
+      i,
+      _len = amount || 6,
+      // pick a random amount to offset the color channel
+      channelOffset =
+        getRandInt(-_len * 2, _len * 2) * w * +getRandInt(-_len, _len) * 4,
+      // the maximum amount to offset a chunk of the image is a function of its width
+      maxOffset = ((_len * _len) / 100) * w,
+      // vars for the width and height of the chunk that gets offset
+      chunkWidth,
+      chunkHeight,
+      // create a temporary canvas to hold the image we're working on
+      tempCanvas = document.createElement("canvas"),
+      tempCtx = tempCanvas.getContext("2d"),
+      srcData,
+      targetImageData,
+      data;
 
-    <span class="c1">// set the dimensions of the working canvas</span>
-    <span class="nx">tempCanvas</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">w</span><span class="p">;</span>
-    <span class="nx">tempCanvas</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nx">h</span><span class="p">;</span>
+    // set the dimensions of the working canvas
+    tempCanvas.width = w;
+    tempCanvas.height = h;
 
-    <span class="c1">// draw the initial image onto the working canvas</span>
-    <span class="nx">tempCtx</span><span class="p">.</span><span class="nf">drawImage</span><span class="p">(</span><span class="nx">canvas</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">w</span><span class="p">,</span> <span class="nx">h</span><span class="p">);</span>
+    // draw the initial image onto the working canvas
+    tempCtx.drawImage(canvas, 0, 0, w, h);
 
-    <span class="c1">// store the data of the original image for use when offsetting a channel</span>
-    <span class="nx">srcData</span> <span class="o">=</span> <span class="nx">tempCtx</span><span class="p">.</span><span class="nf">getImageData</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">w</span><span class="p">,</span> <span class="nx">h</span><span class="p">).</span><span class="nx">data</span><span class="p">;</span>
+    // store the data of the original image for use when offsetting a channel
+    srcData = tempCtx.getImageData(0, 0, w, h).data;
 
-    <span class="c1">// randomly offset slices horizontally</span>
-    <span class="k">for </span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">_len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="c1">// pick a random y coordinate to slice at</span>
-      <span class="nx">y</span> <span class="o">=</span> <span class="nf">getRandInt</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">h</span><span class="p">);</span>
+    // randomly offset slices horizontally
+    for (i = 0; i < _len; i++) {
+      // pick a random y coordinate to slice at
+      y = getRandInt(0, h);
 
-      <span class="c1">// pick a random height of the slice</span>
-      <span class="nx">chunkHeight</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">min</span><span class="p">(</span><span class="nf">getRandInt</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nx">h</span> <span class="o">/</span> <span class="mi">4</span><span class="p">),</span> <span class="nx">h</span> <span class="o">-</span> <span class="nx">y</span><span class="p">);</span>
+      // pick a random height of the slice
+      chunkHeight = Math.min(getRandInt(1, h / 4), h - y);
 
-      <span class="c1">// pick a random horizontal distance to offset the slice</span>
-      <span class="nx">x</span> <span class="o">=</span> <span class="nf">getRandInt</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nx">maxOffset</span><span class="p">);</span>
-      <span class="nx">chunkWidth</span> <span class="o">=</span> <span class="nx">w</span> <span class="o">-</span> <span class="nx">x</span><span class="p">;</span>
+      // pick a random horizontal distance to offset the slice
+      x = getRandInt(1, maxOffset);
+      chunkWidth = w - x;
 
-      <span class="c1">// draw the first chunk</span>
-      <span class="nx">tempCtx</span><span class="p">.</span><span class="nf">drawImage</span><span class="p">(</span>
-        <span class="nx">canvas</span><span class="p">,</span>
-        <span class="mi">0</span><span class="p">,</span>
-        <span class="nx">y</span><span class="p">,</span>
-        <span class="nx">chunkWidth</span><span class="p">,</span>
-        <span class="nx">chunkHeight</span><span class="p">,</span>
-        <span class="nx">x</span><span class="p">,</span>
-        <span class="nx">y</span><span class="p">,</span>
-        <span class="nx">chunkWidth</span><span class="p">,</span>
-        <span class="nx">chunkHeight</span><span class="p">,</span>
-      <span class="p">);</span>
+      // draw the first chunk
+      tempCtx.drawImage(
+        canvas,
+        0,
+        y,
+        chunkWidth,
+        chunkHeight,
+        x,
+        y,
+        chunkWidth,
+        chunkHeight,
+      );
 
-      <span class="c1">// draw the rest</span>
-      <span class="nx">tempCtx</span><span class="p">.</span><span class="nf">drawImage</span><span class="p">(</span>
-        <span class="nx">canvas</span><span class="p">,</span>
-        <span class="nx">chunkWidth</span><span class="p">,</span>
-        <span class="nx">y</span><span class="p">,</span>
-        <span class="nx">x</span><span class="p">,</span>
-        <span class="nx">chunkHeight</span><span class="p">,</span>
-        <span class="mi">0</span><span class="p">,</span>
-        <span class="nx">y</span><span class="p">,</span>
-        <span class="nx">x</span><span class="p">,</span>
-        <span class="nx">chunkHeight</span><span class="p">,</span>
-      <span class="p">);</span>
-    <span class="p">&#125;</span>
+      // draw the rest
+      tempCtx.drawImage(
+        canvas,
+        chunkWidth,
+        y,
+        x,
+        chunkHeight,
+        0,
+        y,
+        x,
+        chunkHeight,
+      );
+    }
 
-    <span class="c1">// get hold of the ImageData for the working image</span>
-    <span class="nx">targetImageData</span> <span class="o">=</span> <span class="nx">tempCtx</span><span class="p">.</span><span class="nf">getImageData</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">w</span><span class="p">,</span> <span class="nx">h</span><span class="p">);</span>
+    // get hold of the ImageData for the working image
+    targetImageData = tempCtx.getImageData(0, 0, w, h);
 
-    <span class="c1">// and get a local reference to the rgba data array</span>
-    <span class="nx">data</span> <span class="o">=</span> <span class="nx">targetImageData</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+    // and get a local reference to the rgba data array
+    data = targetImageData.data;
 
-    <span class="c1">// Copy a random color channel from the original image into</span>
-    <span class="c1">// the working canvas, offsetting it by a random amount</span>
-    <span class="c1">//</span>
-    <span class="c1">// ImageData arrays are a single dimension array that contains</span>
-    <span class="c1">// 4 values for each pixel.</span>
-    <span class="c1">// so, by initializing `i` to a random number between 0 and 2,</span>
-    <span class="c1">// and incrementing by 4 on each iteration, we can replace only</span>
-    <span class="c1">// a single channel in the image</span>
-    <span class="k">for </span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="nf">getRandInt</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="nx">_len</span> <span class="o">=</span> <span class="nx">srcData</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">_len</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">4</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="nx">data</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="nx">channelOffset</span><span class="p">]</span> <span class="o">=</span> <span class="nx">srcData</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
-    <span class="p">&#125;</span>
+    // Copy a random color channel from the original image into
+    // the working canvas, offsetting it by a random amount
+    //
+    // ImageData arrays are a single dimension array that contains
+    // 4 values for each pixel.
+    // so, by initializing `i` to a random number between 0 and 2,
+    // and incrementing by 4 on each iteration, we can replace only
+    // a single channel in the image
+    for (i = getRandInt(0, 3), _len = srcData.length; i < _len; i += 4) {
+      data[i + channelOffset] = srcData[i];
+    }
 
-    <span class="c1">// Make the image brighter by doubling the rgb values</span>
-    <span class="k">for </span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">_len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">2</span><span class="p">;</span>
-      <span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">2</span><span class="p">;</span>
-      <span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">2</span><span class="p">;</span>
-    <span class="p">&#125;</span>
+    // Make the image brighter by doubling the rgb values
+    for (i = 0; i < _len; i++) {
+      data[i++] *= 2;
+      data[i++] *= 2;
+      data[i++] *= 2;
+    }
 
-    <span class="c1">// TODO: The above loops are the most costly in this function, iterating</span>
-    <span class="c1">// over all the pixels in the image twice.</span>
-    <span class="c1">// It maybe possible to optimize this by combining both loops into one,</span>
-    <span class="c1">// and only processing every other line, as alternate lines are replaced</span>
-    <span class="c1">// with black in the 'scan lines' block belop</span>
+    // TODO: The above loops are the most costly in this function, iterating
+    // over all the pixels in the image twice.
+    // It maybe possible to optimize this by combining both loops into one,
+    // and only processing every other line, as alternate lines are replaced
+    // with black in the 'scan lines' block belop
 
-    <span class="c1">// copy the tweaked ImageData back into the context</span>
-    <span class="nx">tempCtx</span><span class="p">.</span><span class="nf">putImageData</span><span class="p">(</span><span class="nx">targetImageData</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    // copy the tweaked ImageData back into the context
+    tempCtx.putImageData(targetImageData, 0, 0);
 
-    <span class="c1">// add scan lines</span>
-    <span class="nx">tempCtx</span><span class="p">.</span><span class="nx">fillStyle</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">rgb(0,0,0)</span><span class="dl">"</span><span class="p">;</span>
-    <span class="k">for </span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">h</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="nx">tempCtx</span><span class="p">.</span><span class="nf">fillRect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">w</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-    <span class="p">&#125;</span>
+    // add scan lines
+    tempCtx.fillStyle = "rgb(0,0,0)";
+    for (i = 0; i < h; i += 2) {
+      tempCtx.fillRect(0, i, w, 1);
+    }
 
-    <span class="k">return</span> <span class="nx">tempCanvas</span><span class="p">;</span>
-  <span class="p">&#125;;</span>
+    return tempCanvas;
+  };
 
-  <span class="cm">/**
+  /**
    * Creates a canvas containing a glitched version of the element
-   * @param  &#123;DOMElement&#125; el     The element to glitch
-   * @param  &#123;Object&#125;   options  An object containing the complete callback,
+   * @param  {DOMElement} el     The element to glitch
+   * @param  {Object}   options  An object containing the complete callback,
    *                             the amount to glitch the image, and any
    *                             html2canvas options
-   */</span>
-  <span class="kd">var</span> <span class="nx">glitch</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="nx">options</span> <span class="o">=</span> <span class="nf">defaults</span><span class="p">(</span><span class="nx">options</span> <span class="o">||</span> <span class="p">&#123;&#125;,</span> <span class="p">&#123;</span>
-      <span class="c1">// the amount to glitch the image</span>
-      <span class="na">amount</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
-      <span class="c1">// a callback that takes the glitched canvas as its only argument</span>
-      <span class="na">complete</span><span class="p">:</span> <span class="nx">noop</span><span class="p">,</span>
-    <span class="p">&#125;);</span>
+   */
+  var glitch = function (el, options) {
+    options = defaults(options || {}, {
+      // the amount to glitch the image
+      amount: 6,
+      // a callback that takes the glitched canvas as its only argument
+      complete: noop,
+    });
 
-    <span class="c1">// callback for when the element has been rendered</span>
-    <span class="nx">options</span><span class="p">.</span><span class="nx">onrendered</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">canvas</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="nx">options</span><span class="p">.</span><span class="nf">complete</span><span class="p">(</span><span class="nf">_glitch</span><span class="p">(</span><span class="nx">canvas</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">amount</span><span class="p">));</span>
-    <span class="p">&#125;;</span>
+    // callback for when the element has been rendered
+    options.onrendered = function (canvas) {
+      options.complete(_glitch(canvas, options.amount));
+    };
 
-    <span class="c1">// render the element onto a canvas</span>
-    <span class="nf">html2canvas</span><span class="p">(</span><span class="nx">el</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">?</span> <span class="nx">el</span> <span class="p">:</span> <span class="p">[</span><span class="nx">el</span><span class="p">],</span> <span class="nx">options</span><span class="p">);</span>
-  <span class="p">&#125;;</span>
+    // render the element onto a canvas
+    html2canvas(el[0] ? el : [el], options);
+  };
 
-  <span class="cm">/**
+  /**
    * Replace el with a glitched version of it
-   * @param  &#123;DOMElement&#125; el  The element to glitch
-   * @param  &#123;Object&#125; options An object containing the options for glitch
-   */</span>
-  <span class="nx">glitch</span><span class="p">.</span><span class="nx">replace</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="nx">options</span> <span class="o">=</span> <span class="nx">options</span> <span class="o">||</span> <span class="p">&#123;&#125;;</span>
-    <span class="c1">// store a reference to the complete callback so we can use the same</span>
-    <span class="c1">// options for the glitch function call</span>
-    <span class="kd">var</span> <span class="nx">_complete</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">complete</span><span class="p">;</span>
-    <span class="nx">options</span><span class="p">.</span><span class="nx">complete</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">canvas</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">if </span><span class="p">(</span><span class="nx">$</span> <span class="o">&amp;&amp;</span> <span class="nx">el</span> <span class="k">instanceof</span> <span class="nx">$</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nx">el</span><span class="p">.</span><span class="nf">after</span><span class="p">(</span><span class="nx">canvas</span><span class="p">).</span><span class="nf">detach</span><span class="p">();</span>
-      <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-        <span class="c1">// no jQuery...</span>
-        <span class="nx">el</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nf">insertBefore</span><span class="p">(</span><span class="nx">canvas</span><span class="p">,</span> <span class="nx">el</span><span class="p">);</span>
-        <span class="nx">el</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nf">removeChild</span><span class="p">(</span><span class="nx">el</span><span class="p">);</span>
-      <span class="p">&#125;</span>
-      <span class="k">if </span><span class="p">(</span><span class="nx">_complete</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nf">_complete</span><span class="p">();</span>
-      <span class="p">&#125;</span>
-    <span class="p">&#125;;</span>
+   * @param  {DOMElement} el  The element to glitch
+   * @param  {Object} options An object containing the options for glitch
+   */
+  glitch.replace = function (el, options) {
+    options = options || {};
+    // store a reference to the complete callback so we can use the same
+    // options for the glitch function call
+    var _complete = options.complete;
+    options.complete = function (canvas) {
+      if ($ && el instanceof $) {
+        el.after(canvas).detach();
+      } else {
+        // no jQuery...
+        el.parentNode.insertBefore(canvas, el);
+        el.parentNode.removeChild(el);
+      }
+      if (_complete) {
+        _complete();
+      }
+    };
 
-    <span class="nf">glitch</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
-  <span class="p">&#125;;</span>
+    glitch(el, options);
+  };
 
-  <span class="cm">/**
+  /**
    * Replace `el` with `newEl` by overlaying a glitched version of `el`, then
    * animating it out to reveal `newEl`
    *
@@ -249,156 +256,156 @@ source_revision: 0
    * the container to reveal it, however it looks best if the elements to be
    * transitioned between are of similar sizes
    *
-   * @param  &#123;jQuery&#125; el     The original element that will be glitched
-   * @param  &#123;jQuery&#125; newEl  The element to show
-   * @param  &#123;Object&#125; options An object containing the options for the animation
+   * @param  {jQuery} el     The original element that will be glitched
+   * @param  {jQuery} newEl  The element to show
+   * @param  {Object} options An object containing the options for the animation
    *                          and any options for html2canvas
-   */</span>
-  <span class="nx">glitch</span><span class="p">.</span><span class="nx">transition</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">newEl</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="c1">// set the default options</span>
-    <span class="nx">options</span> <span class="o">=</span> <span class="nf">defaults</span><span class="p">(</span><span class="nx">options</span> <span class="o">||</span> <span class="p">&#123;&#125;,</span> <span class="p">&#123;</span>
-      <span class="c1">// the amount to glitch the image</span>
-      <span class="na">amount</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
-      <span class="c1">// A callback when the animation is complete</span>
-      <span class="na">complete</span><span class="p">:</span> <span class="nx">noop</span><span class="p">,</span>
-      <span class="c1">// The delay after rendering the glitched element until starting the transition</span>
-      <span class="na">delay</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
-      <span class="c1">// The duration of the transition effect</span>
-      <span class="na">duration</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
-      <span class="c1">// The z-index to apply to the overlay. You might need to tweak this if</span>
-      <span class="c1">// you have things that appear above the element, or are using high</span>
-      <span class="c1">// z-indexes in your page</span>
-      <span class="na">zIndex</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
-      <span class="c1">// the transition effect to use. This may be "fade" or "slide"</span>
-      <span class="na">effect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">fade</span><span class="dl">"</span><span class="p">,</span>
-      <span class="c1">// The size of the top border. Set to 0 to disable, only used in slide mode</span>
-      <span class="na">borderSize</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-      <span class="c1">// The color of the top border, only used in slide mode</span>
-      <span class="na">borderColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">green</span><span class="dl">"</span><span class="p">,</span>
-    <span class="p">&#125;);</span>
+   */
+  glitch.transition = function (el, newEl, options) {
+    // set the default options
+    options = defaults(options || {}, {
+      // the amount to glitch the image
+      amount: 6,
+      // A callback when the animation is complete
+      complete: noop,
+      // The delay after rendering the glitched element until starting the transition
+      delay: 300,
+      // The duration of the transition effect
+      duration: 500,
+      // The z-index to apply to the overlay. You might need to tweak this if
+      // you have things that appear above the element, or are using high
+      // z-indexes in your page
+      zIndex: 1000,
+      // the transition effect to use. This may be "fade" or "slide"
+      effect: "fade",
+      // The size of the top border. Set to 0 to disable, only used in slide mode
+      borderSize: 2,
+      // The color of the top border, only used in slide mode
+      borderColor: "green",
+    });
 
-    <span class="c1">// add the new element to the dom so we can properly calculate its dimensions</span>
-    <span class="nx">newEl</span><span class="p">.</span><span class="nf">insertAfter</span><span class="p">(</span><span class="nx">el</span><span class="p">);</span>
+    // add the new element to the dom so we can properly calculate its dimensions
+    newEl.insertAfter(el);
 
-    <span class="c1">// store a reference to the complete callback so we can use the same</span>
-    <span class="c1">// options for the glitch function call</span>
-    <span class="kd">var</span> <span class="nx">_complete</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">complete</span><span class="p">,</span>
-      <span class="c1">// get the dimensions of the elements so we can resize the targetContainer</span>
-      <span class="c1">// to reveal all the content after the glitch transition</span>
-      <span class="nx">origHeight</span> <span class="o">=</span> <span class="nx">el</span><span class="p">.</span><span class="nf">outerHeight</span><span class="p">(</span><span class="kc">true</span><span class="p">),</span>
-      <span class="nx">origWidth</span> <span class="o">=</span> <span class="nx">el</span><span class="p">.</span><span class="nf">outerWidth</span><span class="p">(</span><span class="kc">true</span><span class="p">),</span>
-      <span class="nx">targetHeight</span> <span class="o">=</span> <span class="nx">newEl</span><span class="p">.</span><span class="nf">outerHeight</span><span class="p">(</span><span class="kc">true</span><span class="p">),</span>
-      <span class="nx">targetWidth</span> <span class="o">=</span> <span class="nx">newEl</span><span class="p">.</span><span class="nf">outerWidth</span><span class="p">(</span><span class="kc">true</span><span class="p">),</span>
-      <span class="nx">origOverflow</span> <span class="o">=</span> <span class="nx">newEl</span><span class="p">.</span><span class="nf">css</span><span class="p">(</span><span class="dl">"</span><span class="s2">overflow</span><span class="dl">"</span><span class="p">);</span>
+    // store a reference to the complete callback so we can use the same
+    // options for the glitch function call
+    var _complete = options.complete,
+      // get the dimensions of the elements so we can resize the targetContainer
+      // to reveal all the content after the glitch transition
+      origHeight = el.outerHeight(true),
+      origWidth = el.outerWidth(true),
+      targetHeight = newEl.outerHeight(true),
+      targetWidth = newEl.outerWidth(true),
+      origOverflow = newEl.css("overflow");
 
-    <span class="c1">// take the new element out of the dom again</span>
-    <span class="nx">newEl</span><span class="p">.</span><span class="nf">detach</span><span class="p">();</span>
+    // take the new element out of the dom again
+    newEl.detach();
 
-    <span class="c1">// create a callback that will</span>
-    <span class="nx">options</span><span class="p">.</span><span class="nx">complete</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">canvas</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="c1">// position the canvas absolutely within the container</span>
-      <span class="kd">var</span> <span class="nx">$canvas</span> <span class="o">=</span> <span class="nf">$</span><span class="p">(</span><span class="nx">canvas</span><span class="p">).</span><span class="nf">css</span><span class="p">(</span><span class="dl">"</span><span class="s2">position</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">absolute</span><span class="dl">"</span><span class="p">),</span>
-        <span class="nx">offset</span> <span class="o">=</span> <span class="nx">el</span><span class="p">.</span><span class="nf">offset</span><span class="p">(),</span>
-        <span class="c1">// create a container element that contains the canvas and position it</span>
-        <span class="c1">// over the element we're replacing</span>
-        <span class="nx">container</span> <span class="o">=</span> <span class="nf">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">&lt;div&gt;</span><span class="dl">"</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">css</span><span class="p">(&#123;</span>
-            <span class="dl">"</span><span class="s2">border-top</span><span class="dl">"</span><span class="p">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">borderSize</span>
-              <span class="p">?</span> <span class="nx">options</span><span class="p">.</span><span class="nx">borderSize</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">px solid </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">options</span><span class="p">.</span><span class="nx">borderColor</span>
-              <span class="p">:</span> <span class="dl">"</span><span class="s2">none</span><span class="dl">"</span><span class="p">,</span>
-            <span class="na">position</span><span class="p">:</span> <span class="dl">"</span><span class="s2">absolute</span><span class="dl">"</span><span class="p">,</span>
-            <span class="na">left</span><span class="p">:</span> <span class="nx">offset</span><span class="p">.</span><span class="nx">left</span><span class="p">,</span>
-            <span class="na">top</span><span class="p">:</span> <span class="nx">offset</span><span class="p">.</span><span class="nx">top</span> <span class="o">-</span> <span class="nx">options</span><span class="p">.</span><span class="nx">borderSize</span><span class="p">,</span>
-            <span class="na">width</span><span class="p">:</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span>
-            <span class="na">height</span><span class="p">:</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span>
-            <span class="na">overflow</span><span class="p">:</span> <span class="dl">"</span><span class="s2">hidden</span><span class="dl">"</span><span class="p">,</span>
-            <span class="dl">"</span><span class="s2">z-index</span><span class="dl">"</span><span class="p">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">zIndex</span><span class="p">,</span>
-          <span class="p">&#125;)</span>
-          <span class="c1">// add the canvas as a child to the container</span>
-          <span class="p">.</span><span class="nf">html</span><span class="p">(</span><span class="nx">canvas</span><span class="p">)</span>
-          <span class="c1">// add the container to the dom</span>
-          <span class="p">.</span><span class="nf">appendTo</span><span class="p">(</span><span class="dl">"</span><span class="s2">body</span><span class="dl">"</span><span class="p">)</span>
-          <span class="c1">// delay the animation a bit</span>
-          <span class="p">.</span><span class="nf">delay</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">delay</span><span class="p">),</span>
-        <span class="nx">targetContainer</span> <span class="o">=</span> <span class="nf">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">&lt;div&gt;</span><span class="dl">"</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">css</span><span class="p">(&#123;</span>
-            <span class="na">width</span><span class="p">:</span> <span class="nx">origWidth</span><span class="p">,</span>
-            <span class="na">height</span><span class="p">:</span> <span class="nx">origHeight</span><span class="p">,</span>
-            <span class="na">overflow</span><span class="p">:</span> <span class="dl">"</span><span class="s2">hidden</span><span class="dl">"</span><span class="p">,</span>
-            <span class="na">border</span><span class="p">:</span> <span class="dl">"</span><span class="s2">none</span><span class="dl">"</span><span class="p">,</span>
-            <span class="dl">"</span><span class="s2">box-sizing</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">border-box</span><span class="dl">"</span><span class="p">,</span>
-          <span class="p">&#125;)</span>
-          <span class="p">.</span><span class="nf">html</span><span class="p">(</span><span class="nx">newEl</span><span class="p">),</span>
-        <span class="c1">// the default transition effect is to fade out</span>
-        <span class="nx">animation</span> <span class="o">=</span> <span class="p">&#123;</span>
-          <span class="na">opacity</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="p">&#125;,</span>
-        <span class="nx">animateOptions</span> <span class="o">=</span> <span class="p">&#123;</span>
-          <span class="na">duration</span><span class="p">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">duration</span><span class="p">,</span>
-          <span class="na">complete</span><span class="p">:</span> <span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-            <span class="c1">// when the animation is done:</span>
-            <span class="c1">// remove the container from the dom</span>
-            <span class="nx">container</span><span class="p">.</span><span class="nf">remove</span><span class="p">();</span>
+    // create a callback that will
+    options.complete = function (canvas) {
+      // position the canvas absolutely within the container
+      var $canvas = $(canvas).css("position", "absolute"),
+        offset = el.offset(),
+        // create a container element that contains the canvas and position it
+        // over the element we're replacing
+        container = $("<div>")
+          .css({
+            "border-top": options.borderSize
+              ? options.borderSize + "px solid " + options.borderColor
+              : "none",
+            position: "absolute",
+            left: offset.left,
+            top: offset.top - options.borderSize,
+            width: canvas.width,
+            height: canvas.height,
+            overflow: "hidden",
+            "z-index": options.zIndex,
+          })
+          // add the canvas as a child to the container
+          .html(canvas)
+          // add the container to the dom
+          .appendTo("body")
+          // delay the animation a bit
+          .delay(options.delay),
+        targetContainer = $("<div>")
+          .css({
+            width: origWidth,
+            height: origHeight,
+            overflow: "hidden",
+            border: "none",
+            "box-sizing": "border-box",
+          })
+          .html(newEl),
+        // the default transition effect is to fade out
+        animation = {
+          opacity: 0,
+        },
+        animateOptions = {
+          duration: options.duration,
+          complete: function () {
+            // when the animation is done:
+            // remove the container from the dom
+            container.remove();
 
-            <span class="c1">// then animate the height of the new element back to its measured</span>
-            <span class="c1">// height and width</span>
-            <span class="nx">targetContainer</span><span class="p">.</span><span class="nf">animate</span><span class="p">(</span>
-              <span class="p">&#123;</span>
-                <span class="na">height</span><span class="p">:</span> <span class="nx">targetHeight</span><span class="p">,</span>
-                <span class="na">width</span><span class="p">:</span> <span class="nx">targetWidth</span><span class="p">,</span>
-              <span class="p">&#125;,</span>
-              <span class="p">&#123;</span>
-                <span class="na">duration</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
-                <span class="na">complete</span><span class="p">:</span> <span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-                  <span class="c1">// take the targetContainer element out of the dom</span>
-                  <span class="nx">newEl</span><span class="p">.</span><span class="nf">detach</span><span class="p">().</span><span class="nf">insertAfter</span><span class="p">(</span><span class="nx">targetContainer</span><span class="p">);</span>
-                  <span class="nx">targetContainer</span><span class="p">.</span><span class="nf">remove</span><span class="p">();</span>
+            // then animate the height of the new element back to its measured
+            // height and width
+            targetContainer.animate(
+              {
+                height: targetHeight,
+                width: targetWidth,
+              },
+              {
+                duration: 100,
+                complete: function () {
+                  // take the targetContainer element out of the dom
+                  newEl.detach().insertAfter(targetContainer);
+                  targetContainer.remove();
 
-                  <span class="c1">// call the complete callback</span>
-                  <span class="nf">_complete</span><span class="p">();</span>
+                  // call the complete callback
+                  _complete();
 
-                  <span class="c1">// and clear all references</span>
-                  <span class="nx">options</span> <span class="o">=</span> <span class="nx">$canvas</span> <span class="o">=</span> <span class="nx">container</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-                <span class="p">&#125;,</span>
-              <span class="p">&#125;,</span>
-            <span class="p">);</span>
-          <span class="p">&#125;,</span>
-        <span class="p">&#125;;</span>
+                  // and clear all references
+                  options = $canvas = container = null;
+                },
+              },
+            );
+          },
+        };
 
-      <span class="k">if </span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">effect</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">slide</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="c1">// for the slide effect, we move move the container down</span>
-        <span class="nx">animation</span> <span class="o">=</span> <span class="p">&#123;</span>
-          <span class="na">top</span><span class="p">:</span> <span class="nx">offset</span><span class="p">.</span><span class="nx">top</span> <span class="o">+</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span>
-          <span class="na">height</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="p">&#125;;</span>
+      if (options.effect === "slide") {
+        // for the slide effect, we move move the container down
+        animation = {
+          top: offset.top + canvas.height,
+          height: 0,
+        };
 
-        <span class="c1">// and on each step of the animation, we need to offset the top so it</span>
-        <span class="c1">// remains in the same place on the screen</span>
-        <span class="nx">animateOptions</span><span class="p">.</span><span class="nx">step</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">now</span><span class="p">,</span> <span class="nx">fx</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="k">if </span><span class="p">(</span><span class="nx">fx</span><span class="p">.</span><span class="nx">prop</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">top</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="nx">$canvas</span><span class="p">.</span><span class="nf">css</span><span class="p">(</span><span class="dl">"</span><span class="s2">top</span><span class="dl">"</span><span class="p">,</span> <span class="nx">fx</span><span class="p">.</span><span class="nx">start</span> <span class="o">-</span> <span class="nx">now</span><span class="p">);</span>
-          <span class="p">&#125;</span>
-        <span class="p">&#125;;</span>
-      <span class="p">&#125;</span>
+        // and on each step of the animation, we need to offset the top so it
+        // remains in the same place on the screen
+        animateOptions.step = function (now, fx) {
+          if (fx.prop === "top") {
+            $canvas.css("top", fx.start - now);
+          }
+        };
+      }
 
-      <span class="c1">// apply the animation</span>
-      <span class="nx">container</span><span class="p">.</span><span class="nf">animate</span><span class="p">(</span><span class="nx">animation</span><span class="p">,</span> <span class="nx">animateOptions</span><span class="p">);</span>
+      // apply the animation
+      container.animate(animation, animateOptions);
 
-      <span class="c1">// replace the original element with the new one</span>
-      <span class="c1">// we use detatch so that the event handlers on the old</span>
-      <span class="c1">// element are retained.</span>
-      <span class="nx">targetContainer</span><span class="p">.</span><span class="nf">insertAfter</span><span class="p">(</span><span class="nx">el</span><span class="p">);</span>
-      <span class="nx">el</span><span class="p">.</span><span class="nf">detach</span><span class="p">();</span>
-    <span class="p">&#125;;</span>
+      // replace the original element with the new one
+      // we use detatch so that the event handlers on the old
+      // element are retained.
+      targetContainer.insertAfter(el);
+      el.detach();
+    };
 
-    <span class="c1">// create a glitched version of the start element</span>
-    <span class="nf">glitch</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
-  <span class="p">&#125;;</span>
+    // create a glitched version of the start element
+    glitch(el, options);
+  };
 
-  <span class="nb">window</span><span class="p">.</span><span class="nx">glitch</span> <span class="o">=</span> <span class="nx">glitch</span><span class="p">;</span>
+  window.glitch = glitch;
 
-  <span class="k">if </span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="cm">/**
+  if ($) {
+    /**
      * jQuery glitch.js plugin
      *
      * This can be called in the following ways:
@@ -407,1404 +414,1404 @@ source_revision: 0
      *     $("#el").glitch()
      *
      * Create a glitched canvas and pass it to a callback function
-     *     $("#el").glitch(function(canvas)&#123;&#125;)
+     *     $("#el").glitch(function(canvas){})
      *
      * Transition effect
-     *     $("#el").glitch('transition', $("#newEl"), &#123;&#125;)
-     */</span>
-    <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">glitch</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">method</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="kd">var</span> <span class="nx">args</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">splice</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-      <span class="nx">method</span> <span class="o">=</span> <span class="nx">method</span> <span class="o">||</span> <span class="dl">"</span><span class="s2">replace</span><span class="dl">"</span><span class="p">;</span>
-      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nf">each</span><span class="p">(</span><span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-        <span class="k">if </span><span class="p">(</span><span class="nx">method</span> <span class="k">instanceof</span> <span class="nx">$</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="nx">glitch</span><span class="p">.</span><span class="nf">transition</span><span class="p">(</span><span class="nf">$</span><span class="p">(</span><span class="k">this</span><span class="p">),</span> <span class="nx">method</span><span class="p">,</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-        <span class="p">&#125;</span> <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="k">typeof</span> <span class="nx">method</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">function</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="c1">// just a callback passed in</span>
-          <span class="nf">glitch</span><span class="p">(</span><span class="nf">$</span><span class="p">(</span><span class="k">this</span><span class="p">),</span> <span class="p">&#123;</span>
-            <span class="na">complete</span><span class="p">:</span> <span class="nx">method</span><span class="p">,</span>
-          <span class="p">&#125;);</span>
-        <span class="p">&#125;</span> <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="k">typeof</span> <span class="nx">method</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">object</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="c1">// an options object passed in</span>
-          <span class="nf">glitch</span><span class="p">(</span><span class="nf">$</span><span class="p">(</span><span class="k">this</span><span class="p">),</span> <span class="nx">method</span><span class="p">);</span>
-        <span class="p">&#125;</span> <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="nx">glitch</span><span class="p">.</span><span class="nf">hasOwnProperty</span><span class="p">(</span><span class="nx">method</span><span class="p">))</span> <span class="p">&#123;</span>
-          <span class="c1">// explicitly call a method</span>
-          <span class="nx">glitch</span><span class="p">[</span><span class="nx">method</span><span class="p">].</span><span class="nf">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">[</span><span class="nf">$</span><span class="p">(</span><span class="k">this</span><span class="p">)].</span><span class="nf">concat</span><span class="p">(</span><span class="nx">args</span><span class="p">));</span>
-        <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-          <span class="nx">$</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">Method </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">method</span> <span class="o">+</span> <span class="dl">"</span><span class="s2"> does not exist on jQuery.glitch</span><span class="dl">"</span><span class="p">);</span>
-        <span class="p">&#125;</span>
-      <span class="p">&#125;);</span>
-    <span class="p">&#125;;</span>
-  <span class="p">&#125;</span>
-<span class="p">&#125;)(</span><span class="nb">window</span><span class="p">.</span><span class="nx">jQuery</span><span class="p">);</span>
+     *     $("#el").glitch('transition', $("#newEl"), {})
+     */
+    $.fn.glitch = function (method) {
+      var args = Array.prototype.splice.call(arguments, 1);
+      method = method || "replace";
+      return this.each(function () {
+        if (method instanceof $) {
+          glitch.transition($(this), method, args[0]);
+        } else if (typeof method == "function") {
+          // just a callback passed in
+          glitch($(this), {
+            complete: method,
+          });
+        } else if (typeof method == "object") {
+          // an options object passed in
+          glitch($(this), method);
+        } else if (glitch.hasOwnProperty(method)) {
+          // explicitly call a method
+          glitch[method].apply(null, [$(this)].concat(args));
+        } else {
+          $.error("Method " + method + " does not exist on jQuery.glitch");
+        }
+      });
+    };
+  }
+})(window.jQuery);
 
-<span class="cm">/*
+/*
  * END glich.js
- */</span>
+ */
 
-<span class="cm">/*
+/*
  * START html2canvas.js
- */</span>
+ */
 
-<span class="cm">/**
-  @license html2canvas v0.34 &lt;http://html2canvas.hertzen.com&gt;
+/**
+  @license html2canvas v0.34 <http://html2canvas.hertzen.com>
   Copyright (c) 2011 Niklas von Hertzen. All rights reserved.
   http://www.twitter.com/niklasvh
 
   Released under MIT License
- */</span>
-<span class="p">(</span><span class="nf">function </span><span class="p">(</span><span class="nb">window</span><span class="p">,</span> <span class="nb">document</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">&#123;</span>
-  <span class="cm">/*
-  html2canvas v0.34 &lt;http://html2canvas.hertzen.com&gt;
+ */
+(function (window, document, undefined) {
+  /*
+  html2canvas v0.34 <http://html2canvas.hertzen.com>
   Copyright (c) 2011 Niklas von Hertzen. All rights reserved.
   http://www.twitter.com/niklasvh
 
   Released under MIT License
- */</span>
-  <span class="dl">"</span><span class="s2">use strict</span><span class="dl">"</span><span class="p">;</span>
+ */
+  "use strict";
 
-  <span class="kd">var</span> <span class="nx">_html2canvas</span> <span class="o">=</span> <span class="p">&#123;&#125;,</span>
-    <span class="nx">previousElement</span><span class="p">,</span>
-    <span class="nx">computedCSS</span><span class="p">,</span>
-    <span class="nx">html2canvas</span><span class="p">;</span>
+  var _html2canvas = {},
+    previousElement,
+    computedCSS,
+    html2canvas;
 
-  <span class="kd">function</span> <span class="nf">h2clog</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="k">if </span><span class="p">(</span><span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">logging</span> <span class="o">&amp;&amp;</span> <span class="nb">window</span><span class="p">.</span><span class="nx">console</span> <span class="o">&amp;&amp;</span> <span class="nb">window</span><span class="p">.</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="nb">window</span><span class="p">.</span><span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
-    <span class="p">&#125;</span>
-  <span class="p">&#125;</span>
+  function h2clog(a) {
+    if (_html2canvas.logging && window.console && window.console.log) {
+      window.console.log(a);
+    }
+  }
 
-  <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Util</span> <span class="o">=</span> <span class="p">&#123;&#125;;</span>
+  _html2canvas.Util = {};
 
-  <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">backgroundImage</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">src</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="k">if </span><span class="p">(</span>
-      <span class="sr">/data:image</span><span class="se">\/</span><span class="sr">.*;base64,/i</span><span class="p">.</span><span class="nf">test</span><span class="p">(</span><span class="nx">src</span><span class="p">)</span> <span class="o">||</span>
-      <span class="sr">/^</span><span class="se">(</span><span class="sr">-webkit|-moz|linear-gradient|-o-</span><span class="se">)</span><span class="sr">/</span><span class="p">.</span><span class="nf">test</span><span class="p">(</span><span class="nx">src</span><span class="p">)</span>
-    <span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="nx">src</span><span class="p">;</span>
-    <span class="p">&#125;</span>
+  _html2canvas.Util.backgroundImage = function (src) {
+    if (
+      /data:image\/.*;base64,/i.test(src) ||
+      /^(-webkit|-moz|linear-gradient|-o-)/.test(src)
+    ) {
+      return src;
+    }
 
-    <span class="k">if </span><span class="p">(</span><span class="nx">src</span><span class="p">.</span><span class="nf">toLowerCase</span><span class="p">().</span><span class="nf">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">url("</span><span class="dl">'</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="nx">src</span> <span class="o">=</span> <span class="nx">src</span><span class="p">.</span><span class="nf">substr</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
-      <span class="nx">src</span> <span class="o">=</span> <span class="nx">src</span><span class="p">.</span><span class="nf">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">src</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">2</span><span class="p">);</span>
-    <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-      <span class="nx">src</span> <span class="o">=</span> <span class="nx">src</span><span class="p">.</span><span class="nf">substr</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
-      <span class="nx">src</span> <span class="o">=</span> <span class="nx">src</span><span class="p">.</span><span class="nf">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">src</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
-    <span class="p">&#125;</span>
+    if (src.toLowerCase().substr(0, 5) === 'url("') {
+      src = src.substr(5);
+      src = src.substr(0, src.length - 2);
+    } else {
+      src = src.substr(4);
+      src = src.substr(0, src.length - 1);
+    }
 
-    <span class="k">return</span> <span class="nx">src</span><span class="p">;</span>
-  <span class="p">&#125;;</span>
+    return src;
+  };
 
-  <span class="kd">function</span> <span class="nf">adjustBounds</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">box</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="kd">var</span> <span class="nx">win</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">defaultView</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="nx">doc</span> <span class="o">=</span> <span class="nx">el</span><span class="p">.</span><span class="nx">ownerDocument</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="nx">body</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">body</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="nx">docElem</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="nx">clientTop</span> <span class="o">=</span> <span class="nx">docElem</span><span class="p">.</span><span class="nx">clientTop</span> <span class="o">||</span> <span class="nx">body</span><span class="p">.</span><span class="nx">clientTop</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="nx">clientLeft</span> <span class="o">=</span> <span class="nx">docElem</span><span class="p">.</span><span class="nx">clientLeft</span> <span class="o">||</span> <span class="nx">body</span><span class="p">.</span><span class="nx">clientLeft</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="nx">scrollTop</span> <span class="o">=</span> <span class="nx">win</span><span class="p">.</span><span class="nx">pageYOffset</span> <span class="o">||</span> <span class="nx">docElem</span><span class="p">.</span><span class="nx">scrollTop</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="nx">scrollLeft</span> <span class="o">=</span> <span class="nx">win</span><span class="p">.</span><span class="nx">pageXOffset</span> <span class="o">||</span> <span class="nx">docElem</span><span class="p">.</span><span class="nx">scrollLeft</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="nx">top</span> <span class="o">=</span> <span class="nx">box</span><span class="p">.</span><span class="nx">top</span> <span class="o">+</span> <span class="nx">scrollTop</span> <span class="o">-</span> <span class="nx">clientTop</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="nx">left</span> <span class="o">=</span> <span class="nx">box</span><span class="p">.</span><span class="nx">left</span> <span class="o">+</span> <span class="nx">scrollLeft</span> <span class="o">-</span> <span class="nx">clientLeft</span><span class="p">;</span>
+  function adjustBounds(el, box) {
+    var win = document.defaultView;
+    var doc = el.ownerDocument;
+    var body = doc.body;
+    var docElem = doc.documentElement;
+    var clientTop = docElem.clientTop || body.clientTop || 0;
+    var clientLeft = docElem.clientLeft || body.clientLeft || 0;
+    var scrollTop = win.pageYOffset || docElem.scrollTop;
+    var scrollLeft = win.pageXOffset || docElem.scrollLeft;
+    var top = box.top + scrollTop - clientTop;
+    var left = box.left + scrollLeft - clientLeft;
 
-    <span class="k">return</span> <span class="p">&#123;</span>
-      <span class="na">top</span><span class="p">:</span> <span class="nx">top</span><span class="p">,</span>
-      <span class="na">left</span><span class="p">:</span> <span class="nx">left</span><span class="p">,</span>
-      <span class="na">bottom</span><span class="p">:</span> <span class="nx">top</span> <span class="o">+</span> <span class="nx">box</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span>
-      <span class="na">height</span><span class="p">:</span> <span class="nx">box</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span>
-      <span class="na">width</span><span class="p">:</span> <span class="nx">box</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span>
-    <span class="p">&#125;;</span>
-  <span class="p">&#125;</span>
+    return {
+      top: top,
+      left: left,
+      bottom: top + box.height,
+      height: box.height,
+      width: box.width,
+    };
+  }
 
-  <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">Bounds</span> <span class="o">=</span> <span class="kd">function</span> <span class="nf">getBounds</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="kd">var</span> <span class="nx">clientRect</span><span class="p">,</span>
-      <span class="nx">bounds</span> <span class="o">=</span> <span class="p">&#123;&#125;;</span>
+  _html2canvas.Util.Bounds = function getBounds(el) {
+    var clientRect,
+      bounds = {};
 
-    <span class="k">if </span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="nf">adjustBounds</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">el</span><span class="p">.</span><span class="nf">getBoundingClientRect</span><span class="p">());</span>
-    <span class="p">&#125;</span>
-  <span class="p">&#125;;</span>
+    if (el.getBoundingClientRect) {
+      return adjustBounds(el, el.getBoundingClientRect());
+    }
+  };
 
-  <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">getCSS</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">attribute</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="c1">// return $(el).css(attribute);</span>
+  _html2canvas.Util.getCSS = function (el, attribute) {
+    // return $(el).css(attribute);
 
-    <span class="kd">var</span> <span class="nx">val</span><span class="p">;</span>
+    var val;
 
-    <span class="kd">function</span> <span class="nf">toPX</span><span class="p">(</span><span class="nx">attribute</span><span class="p">,</span> <span class="nx">val</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="kd">var</span> <span class="nx">rsLeft</span> <span class="o">=</span> <span class="nx">el</span><span class="p">.</span><span class="nx">runtimeStyle</span> <span class="o">&amp;&amp;</span> <span class="nx">el</span><span class="p">.</span><span class="nx">runtimeStyle</span><span class="p">[</span><span class="nx">attribute</span><span class="p">],</span>
-        <span class="nx">left</span><span class="p">,</span>
-        <span class="nx">style</span> <span class="o">=</span> <span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">;</span>
+    function toPX(attribute, val) {
+      var rsLeft = el.runtimeStyle && el.runtimeStyle[attribute],
+        left,
+        style = el.style;
 
-      <span class="c1">// Check if we are not dealing with pixels, (Opera has issues with this)</span>
-      <span class="c1">// Ported from jQuery css.js</span>
-      <span class="c1">// From the awesome hack by Dean Edwards</span>
-      <span class="c1">// http://erik.eae.net/archives/2007/07/27/18.54.15/#comment-102291</span>
+      // Check if we are not dealing with pixels, (Opera has issues with this)
+      // Ported from jQuery css.js
+      // From the awesome hack by Dean Edwards
+      // http://erik.eae.net/archives/2007/07/27/18.54.15/#comment-102291
 
-      <span class="c1">// If we're not dealing with a regular pixel number</span>
-      <span class="c1">// but a number that has a weird ending, we need to convert it to pixels</span>
+      // If we're not dealing with a regular pixel number
+      // but a number that has a weird ending, we need to convert it to pixels
 
-      <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="sr">/^-</span><span class="se">?[</span><span class="sr">0-9</span><span class="se">]</span><span class="sr">+</span><span class="se">\.?[</span><span class="sr">0-9</span><span class="se">]</span><span class="sr">*</span><span class="se">(?:</span><span class="sr">px</span><span class="se">)?</span><span class="sr">$/i</span><span class="p">.</span><span class="nf">test</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="sr">/^-</span><span class="se">?\d</span><span class="sr">/</span><span class="p">.</span><span class="nf">test</span><span class="p">(</span><span class="nx">val</span><span class="p">))</span> <span class="p">&#123;</span>
-        <span class="c1">// Remember the original values</span>
-        <span class="nx">left</span> <span class="o">=</span> <span class="nx">style</span><span class="p">.</span><span class="nx">left</span><span class="p">;</span>
+      if (!/^-?[0-9]+\.?[0-9]*(?:px)?$/i.test(val) && /^-?\d/.test(val)) {
+        // Remember the original values
+        left = style.left;
 
-        <span class="c1">// Put in the new values to get a computed value out</span>
-        <span class="k">if </span><span class="p">(</span><span class="nx">rsLeft</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="nx">el</span><span class="p">.</span><span class="nx">runtimeStyle</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">el</span><span class="p">.</span><span class="nx">currentStyle</span><span class="p">.</span><span class="nx">left</span><span class="p">;</span>
-        <span class="p">&#125;</span>
-        <span class="nx">style</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">attribute</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">fontSize</span><span class="dl">"</span> <span class="p">?</span> <span class="dl">"</span><span class="s2">1em</span><span class="dl">"</span> <span class="p">:</span> <span class="nx">val</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="nx">val</span> <span class="o">=</span> <span class="nx">style</span><span class="p">.</span><span class="nx">pixelLeft</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">px</span><span class="dl">"</span><span class="p">;</span>
+        // Put in the new values to get a computed value out
+        if (rsLeft) {
+          el.runtimeStyle.left = el.currentStyle.left;
+        }
+        style.left = attribute === "fontSize" ? "1em" : val || 0;
+        val = style.pixelLeft + "px";
 
-        <span class="c1">// Revert the changed values</span>
-        <span class="nx">style</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">left</span><span class="p">;</span>
-        <span class="k">if </span><span class="p">(</span><span class="nx">rsLeft</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="nx">el</span><span class="p">.</span><span class="nx">runtimeStyle</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">rsLeft</span><span class="p">;</span>
-        <span class="p">&#125;</span>
-      <span class="p">&#125;</span>
+        // Revert the changed values
+        style.left = left;
+        if (rsLeft) {
+          el.runtimeStyle.left = rsLeft;
+        }
+      }
 
-      <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="sr">/^</span><span class="se">(</span><span class="sr">thin|medium|thick</span><span class="se">)</span><span class="sr">$/i</span><span class="p">.</span><span class="nf">test</span><span class="p">(</span><span class="nx">val</span><span class="p">))</span> <span class="p">&#123;</span>
-        <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">round</span><span class="p">(</span><span class="nf">parseFloat</span><span class="p">(</span><span class="nx">val</span><span class="p">))</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">px</span><span class="dl">"</span><span class="p">;</span>
-      <span class="p">&#125;</span>
+      if (!/^(thin|medium|thick)$/i.test(val)) {
+        return Math.round(parseFloat(val)) + "px";
+      }
 
-      <span class="k">return</span> <span class="nx">val</span><span class="p">;</span>
-    <span class="p">&#125;</span>
+      return val;
+    }
 
-    <span class="k">if </span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">getComputedStyle</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">if </span><span class="p">(</span><span class="nx">previousElement</span> <span class="o">!==</span> <span class="nx">el</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nx">computedCSS</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">defaultView</span><span class="p">.</span><span class="nf">getComputedStyle</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="kc">null</span><span class="p">);</span>
-      <span class="p">&#125;</span>
-      <span class="nx">val</span> <span class="o">=</span> <span class="nx">computedCSS</span><span class="p">[</span><span class="nx">attribute</span><span class="p">];</span>
+    if (window.getComputedStyle) {
+      if (previousElement !== el) {
+        computedCSS = document.defaultView.getComputedStyle(el, null);
+      }
+      val = computedCSS[attribute];
 
-      <span class="k">if </span><span class="p">(</span><span class="nx">attribute</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">backgroundPosition</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nx">val</span> <span class="o">=</span> <span class="p">(</span><span class="nx">val</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="dl">"</span><span class="s2">,</span><span class="dl">"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">||</span> <span class="dl">"</span><span class="s2">0 0</span><span class="dl">"</span><span class="p">).</span><span class="nf">split</span><span class="p">(</span><span class="dl">"</span><span class="s2"> </span><span class="dl">"</span><span class="p">);</span>
+      if (attribute === "backgroundPosition") {
+        val = (val.split(",")[0] || "0 0").split(" ");
 
-        <span class="nx">val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span>
-          <span class="nx">val</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">indexOf</span><span class="p">(</span><span class="dl">"</span><span class="s2">%</span><span class="dl">"</span><span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="p">?</span> <span class="nf">toPX</span><span class="p">(</span><span class="nx">attribute</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">X</span><span class="dl">"</span><span class="p">,</span> <span class="nx">val</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">:</span> <span class="nx">val</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-        <span class="nx">val</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">val</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">===</span> <span class="kc">undefined</span> <span class="p">?</span> <span class="nx">val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">:</span> <span class="nx">val</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="c1">// IE 9 doesn't return double digit always</span>
-        <span class="nx">val</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span>
-          <span class="nx">val</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nf">indexOf</span><span class="p">(</span><span class="dl">"</span><span class="s2">%</span><span class="dl">"</span><span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="p">?</span> <span class="nf">toPX</span><span class="p">(</span><span class="nx">attribute</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">Y</span><span class="dl">"</span><span class="p">,</span> <span class="nx">val</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="p">:</span> <span class="nx">val</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-      <span class="p">&#125;</span>
-    <span class="p">&#125;</span> <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">currentStyle</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="c1">// IE 9&gt;</span>
-      <span class="k">if </span><span class="p">(</span><span class="nx">attribute</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">backgroundPosition</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="c1">// Older IE uses -x and -y</span>
-        <span class="nx">val</span> <span class="o">=</span> <span class="p">[</span>
-          <span class="nf">toPX</span><span class="p">(</span><span class="nx">attribute</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">X</span><span class="dl">"</span><span class="p">,</span> <span class="nx">el</span><span class="p">.</span><span class="nx">currentStyle</span><span class="p">[</span><span class="nx">attribute</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">X</span><span class="dl">"</span><span class="p">]),</span>
-          <span class="nf">toPX</span><span class="p">(</span><span class="nx">attribute</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">Y</span><span class="dl">"</span><span class="p">,</span> <span class="nx">el</span><span class="p">.</span><span class="nx">currentStyle</span><span class="p">[</span><span class="nx">attribute</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">Y</span><span class="dl">"</span><span class="p">]),</span>
-        <span class="p">];</span>
-      <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-        <span class="nx">val</span> <span class="o">=</span> <span class="nf">toPX</span><span class="p">(</span><span class="nx">attribute</span><span class="p">,</span> <span class="nx">el</span><span class="p">.</span><span class="nx">currentStyle</span><span class="p">[</span><span class="nx">attribute</span><span class="p">]);</span>
+        val[0] =
+          val[0].indexOf("%") === -1 ? toPX(attribute + "X", val[0]) : val[0];
+        val[1] = val[1] === undefined ? val[0] : val[1]; // IE 9 doesn't return double digit always
+        val[1] =
+          val[1].indexOf("%") === -1 ? toPX(attribute + "Y", val[1]) : val[1];
+      }
+    } else if (el.currentStyle) {
+      // IE 9>
+      if (attribute === "backgroundPosition") {
+        // Older IE uses -x and -y
+        val = [
+          toPX(attribute + "X", el.currentStyle[attribute + "X"]),
+          toPX(attribute + "Y", el.currentStyle[attribute + "Y"]),
+        ];
+      } else {
+        val = toPX(attribute, el.currentStyle[attribute]);
 
-        <span class="k">if </span><span class="p">(</span>
-          <span class="sr">/^</span><span class="se">(</span><span class="sr">border</span><span class="se">)</span><span class="sr">/i</span><span class="p">.</span><span class="nf">test</span><span class="p">(</span><span class="nx">attribute</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
-          <span class="sr">/^</span><span class="se">(</span><span class="sr">medium|thin|thick</span><span class="se">)</span><span class="sr">$/i</span><span class="p">.</span><span class="nf">test</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span>
-        <span class="p">)</span> <span class="p">&#123;</span>
-          <span class="k">switch </span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">case</span> <span class="dl">"</span><span class="s2">thin</span><span class="dl">"</span><span class="p">:</span>
-              <span class="nx">val</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">1px</span><span class="dl">"</span><span class="p">;</span>
-              <span class="k">break</span><span class="p">;</span>
-            <span class="k">case</span> <span class="dl">"</span><span class="s2">medium</span><span class="dl">"</span><span class="p">:</span>
-              <span class="nx">val</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">0px</span><span class="dl">"</span><span class="p">;</span> <span class="c1">// this is wrong, it should be 3px but IE uses medium for no border as well.. TODO find a work around</span>
-              <span class="k">break</span><span class="p">;</span>
-            <span class="k">case</span> <span class="dl">"</span><span class="s2">thick</span><span class="dl">"</span><span class="p">:</span>
-              <span class="nx">val</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">5px</span><span class="dl">"</span><span class="p">;</span>
-              <span class="k">break</span><span class="p">;</span>
-          <span class="p">&#125;</span>
-        <span class="p">&#125;</span>
-      <span class="p">&#125;</span>
-    <span class="p">&#125;</span>
+        if (
+          /^(border)/i.test(attribute) &&
+          /^(medium|thin|thick)$/i.test(val)
+        ) {
+          switch (val) {
+            case "thin":
+              val = "1px";
+              break;
+            case "medium":
+              val = "0px"; // this is wrong, it should be 3px but IE uses medium for no border as well.. TODO find a work around
+              break;
+            case "thick":
+              val = "5px";
+              break;
+          }
+        }
+      }
+    }
 
-    <span class="k">return</span> <span class="nx">val</span><span class="p">;</span>
+    return val;
 
-    <span class="c1">//return $(el).css(attribute);</span>
-  <span class="p">&#125;;</span>
+    //return $(el).css(attribute);
+  };
 
-  <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">BackgroundPosition</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">bounds</span><span class="p">,</span> <span class="nx">image</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="c1">// TODO add support for multi image backgrounds</span>
+  _html2canvas.Util.BackgroundPosition = function (el, bounds, image) {
+    // TODO add support for multi image backgrounds
 
-    <span class="kd">var</span> <span class="nx">bgposition</span> <span class="o">=</span> <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nf">getCSS</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">backgroundPosition</span><span class="dl">"</span><span class="p">),</span>
-      <span class="nx">topPos</span><span class="p">,</span>
-      <span class="nx">left</span><span class="p">,</span>
-      <span class="nx">percentage</span><span class="p">,</span>
-      <span class="nx">val</span><span class="p">;</span>
+    var bgposition = _html2canvas.Util.getCSS(el, "backgroundPosition"),
+      topPos,
+      left,
+      percentage,
+      val;
 
-    <span class="k">if </span><span class="p">(</span><span class="nx">bgposition</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="nx">val</span> <span class="o">=</span> <span class="nx">bgposition</span><span class="p">;</span>
+    if (bgposition.length === 1) {
+      val = bgposition;
 
-      <span class="nx">bgposition</span> <span class="o">=</span> <span class="p">[];</span>
+      bgposition = [];
 
-      <span class="nx">bgposition</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nx">val</span><span class="p">;</span>
-      <span class="nx">bgposition</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">val</span><span class="p">;</span>
-    <span class="p">&#125;</span>
+      bgposition[0] = val;
+      bgposition[1] = val;
+    }
 
-    <span class="k">if </span><span class="p">(</span><span class="nx">bgposition</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">toString</span><span class="p">().</span><span class="nf">indexOf</span><span class="p">(</span><span class="dl">"</span><span class="s2">%</span><span class="dl">"</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="nx">percentage</span> <span class="o">=</span> <span class="nf">parseFloat</span><span class="p">(</span><span class="nx">bgposition</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">100</span><span class="p">;</span>
-      <span class="nx">left</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span> <span class="o">*</span> <span class="nx">percentage</span> <span class="o">-</span> <span class="nx">image</span><span class="p">.</span><span class="nx">width</span> <span class="o">*</span> <span class="nx">percentage</span><span class="p">;</span>
-    <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-      <span class="nx">left</span> <span class="o">=</span> <span class="nf">parseInt</span><span class="p">(</span><span class="nx">bgposition</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">10</span><span class="p">);</span>
-    <span class="p">&#125;</span>
+    if (bgposition[0].toString().indexOf("%") !== -1) {
+      percentage = parseFloat(bgposition[0]) / 100;
+      left = bounds.width * percentage - image.width * percentage;
+    } else {
+      left = parseInt(bgposition[0], 10);
+    }
 
-    <span class="k">if </span><span class="p">(</span><span class="nx">bgposition</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nf">toString</span><span class="p">().</span><span class="nf">indexOf</span><span class="p">(</span><span class="dl">"</span><span class="s2">%</span><span class="dl">"</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="nx">percentage</span> <span class="o">=</span> <span class="nf">parseFloat</span><span class="p">(</span><span class="nx">bgposition</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">100</span><span class="p">;</span>
-      <span class="nx">topPos</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span> <span class="o">*</span> <span class="nx">percentage</span> <span class="o">-</span> <span class="nx">image</span><span class="p">.</span><span class="nx">height</span> <span class="o">*</span> <span class="nx">percentage</span><span class="p">;</span>
-    <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-      <span class="nx">topPos</span> <span class="o">=</span> <span class="nf">parseInt</span><span class="p">(</span><span class="nx">bgposition</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">10</span><span class="p">);</span>
-    <span class="p">&#125;</span>
+    if (bgposition[1].toString().indexOf("%") !== -1) {
+      percentage = parseFloat(bgposition[1]) / 100;
+      topPos = bounds.height * percentage - image.height * percentage;
+    } else {
+      topPos = parseInt(bgposition[1], 10);
+    }
 
-    <span class="k">return</span> <span class="p">&#123;</span>
-      <span class="na">top</span><span class="p">:</span> <span class="nx">topPos</span><span class="p">,</span>
-      <span class="na">left</span><span class="p">:</span> <span class="nx">left</span><span class="p">,</span>
-    <span class="p">&#125;;</span>
-  <span class="p">&#125;;</span>
+    return {
+      top: topPos,
+      left: left,
+    };
+  };
 
-  <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">Extend</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">options</span><span class="p">,</span> <span class="nx">defaults</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="k">for </span><span class="p">(</span><span class="kd">var</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">options</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">if </span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nf">hasOwnProperty</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span> <span class="p">&#123;</span>
-        <span class="nx">defaults</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">options</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
-      <span class="p">&#125;</span>
-    <span class="p">&#125;</span>
-    <span class="k">return</span> <span class="nx">defaults</span><span class="p">;</span>
-  <span class="p">&#125;;</span>
+  _html2canvas.Util.Extend = function (options, defaults) {
+    for (var key in options) {
+      if (options.hasOwnProperty(key)) {
+        defaults[key] = options[key];
+      }
+    }
+    return defaults;
+  };
 
-  <span class="cm">/*
+  /*
    * Derived from jQuery.contents()
    * Copyright 2010, John Resig
    * Dual licensed under the MIT or GPL Version 2 licenses.
    * http://jquery.org/license
-   */</span>
-  <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">Children</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">elem</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="kd">var</span> <span class="nx">children</span><span class="p">;</span>
-    <span class="k">try</span> <span class="p">&#123;</span>
-      <span class="nx">children</span> <span class="o">=</span>
-        <span class="nx">elem</span><span class="p">.</span><span class="nx">nodeName</span> <span class="o">&amp;&amp;</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">nodeName</span><span class="p">.</span><span class="nf">toUpperCase</span><span class="p">()</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">IFRAME</span><span class="dl">"</span>
-          <span class="p">?</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">contentDocument</span> <span class="o">||</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">contentWindow</span><span class="p">.</span><span class="nb">document</span>
-          <span class="p">:</span> <span class="p">(</span><span class="nf">function </span><span class="p">(</span><span class="nx">array</span><span class="p">)</span> <span class="p">&#123;</span>
-              <span class="kd">var</span> <span class="nx">ret</span> <span class="o">=</span> <span class="p">[];</span>
+   */
+  _html2canvas.Util.Children = function (elem) {
+    var children;
+    try {
+      children =
+        elem.nodeName && elem.nodeName.toUpperCase() === "IFRAME"
+          ? elem.contentDocument || elem.contentWindow.document
+          : (function (array) {
+              var ret = [];
 
-              <span class="k">if </span><span class="p">(</span><span class="nx">array</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">&#123;</span>
-                <span class="p">(</span><span class="nf">function </span><span class="p">(</span><span class="nx">first</span><span class="p">,</span> <span class="nx">second</span><span class="p">)</span> <span class="p">&#123;</span>
-                  <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">first</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span>
-                    <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+              if (array !== null) {
+                (function (first, second) {
+                  var i = first.length,
+                    j = 0;
 
-                  <span class="k">if </span><span class="p">(</span><span class="k">typeof</span> <span class="nx">second</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">number</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-                    <span class="k">for </span><span class="p">(</span><span class="kd">var</span> <span class="nx">l</span> <span class="o">=</span> <span class="nx">second</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">l</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">&#123;</span>
-                      <span class="nx">first</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="nx">second</span><span class="p">[</span><span class="nx">j</span><span class="p">];</span>
-                    <span class="p">&#125;</span>
-                  <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-                    <span class="k">while </span><span class="p">(</span><span class="nx">second</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">&#123;</span>
-                      <span class="nx">first</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="nx">second</span><span class="p">[</span><span class="nx">j</span><span class="o">++</span><span class="p">];</span>
-                    <span class="p">&#125;</span>
-                  <span class="p">&#125;</span>
+                  if (typeof second.length === "number") {
+                    for (var l = second.length; j < l; j++) {
+                      first[i++] = second[j];
+                    }
+                  } else {
+                    while (second[j] !== undefined) {
+                      first[i++] = second[j++];
+                    }
+                  }
 
-                  <span class="nx">first</span><span class="p">.</span><span class="nx">length</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span>
+                  first.length = i;
 
-                  <span class="k">return</span> <span class="nx">first</span><span class="p">;</span>
-                <span class="p">&#125;)(</span><span class="nx">ret</span><span class="p">,</span> <span class="nx">array</span><span class="p">);</span>
-              <span class="p">&#125;</span>
+                  return first;
+                })(ret, array);
+              }
 
-              <span class="k">return</span> <span class="nx">ret</span><span class="p">;</span>
-            <span class="p">&#125;)(</span><span class="nx">elem</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">);</span>
-    <span class="p">&#125;</span> <span class="k">catch </span><span class="p">(</span><span class="nx">ex</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="nf">h2clog</span><span class="p">(</span><span class="dl">"</span><span class="s2">html2canvas.Util.Children failed with exception: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">ex</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
-      <span class="nx">children</span> <span class="o">=</span> <span class="p">[];</span>
-    <span class="p">&#125;</span>
-    <span class="k">return</span> <span class="nx">children</span><span class="p">;</span>
-  <span class="p">&#125;;</span>
+              return ret;
+            })(elem.childNodes);
+    } catch (ex) {
+      h2clog("html2canvas.Util.Children failed with exception: " + ex.message);
+      children = [];
+    }
+    return children;
+  };
 
-  <span class="cm">/*
-  html2canvas v0.34 &lt;http://html2canvas.hertzen.com&gt;
+  /*
+  html2canvas v0.34 <http://html2canvas.hertzen.com>
   Copyright (c) 2011 Niklas von Hertzen. All rights reserved.
   http://www.twitter.com/niklasvh
 
   Contributor(s):
-      Niklas von Hertzen &lt;http://www.twitter.com/niklasvh&gt;
-      AndrÃ© Fiedler      &lt;http://www.twitter.com/sonnenkiste&gt;
+      Niklas von Hertzen <http://www.twitter.com/niklasvh>
+      AndrÃ© Fiedler      <http://www.twitter.com/sonnenkiste>
 
   Released under MIT License
- */</span>
+ */
 
-  <span class="p">(</span><span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-    <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Generate</span> <span class="o">=</span> <span class="p">&#123;&#125;;</span>
+  (function () {
+    _html2canvas.Generate = {};
 
-    <span class="kd">var</span> <span class="nx">reGradients</span> <span class="o">=</span> <span class="p">[</span>
-      <span class="sr">/^</span><span class="se">(</span><span class="sr">-webkit-linear-gradient</span><span class="se">)\(([</span><span class="sr">a-z</span><span class="se">\s]</span><span class="sr">+</span><span class="se">)([\w\d\.\s</span><span class="sr">,%</span><span class="se">\(\)]</span><span class="sr">+</span><span class="se">)\)</span><span class="sr">$/</span><span class="p">,</span>
-      <span class="sr">/^</span><span class="se">(</span><span class="sr">-o-linear-gradient</span><span class="se">)\(([</span><span class="sr">a-z</span><span class="se">\s]</span><span class="sr">+</span><span class="se">)([\w\d\.\s</span><span class="sr">,%</span><span class="se">\(\)]</span><span class="sr">+</span><span class="se">)\)</span><span class="sr">$/</span><span class="p">,</span>
-      <span class="sr">/^</span><span class="se">(</span><span class="sr">-webkit-gradient</span><span class="se">)\((</span><span class="sr">linear|radial</span><span class="se">)</span><span class="sr">,</span><span class="se">\s((?:\d&#123;1,3&#125;</span><span class="sr">%</span><span class="se">?)\s(?:\d&#123;1,3&#125;</span><span class="sr">%</span><span class="se">?)</span><span class="sr">,</span><span class="se">\s(?:\d&#123;1,3&#125;</span><span class="sr">%</span><span class="se">?)\s(?:\d&#123;1,3&#125;</span><span class="sr">%</span><span class="se">?))([\w\d\.\s</span><span class="sr">,%</span><span class="se">\(\)</span><span class="sr">-</span><span class="se">]</span><span class="sr">+</span><span class="se">)\)</span><span class="sr">$/</span><span class="p">,</span>
-      <span class="sr">/^</span><span class="se">(</span><span class="sr">-moz-linear-gradient</span><span class="se">)\(((?:\d&#123;1,3&#125;</span><span class="sr">%</span><span class="se">?)\s(?:\d&#123;1,3&#125;</span><span class="sr">%</span><span class="se">?))([\w\d\.\s</span><span class="sr">,%</span><span class="se">\(\)]</span><span class="sr">+</span><span class="se">)\)</span><span class="sr">$/</span><span class="p">,</span>
-      <span class="sr">/^</span><span class="se">(</span><span class="sr">-webkit-radial-gradient</span><span class="se">)\(((?:\d&#123;1,3&#125;</span><span class="sr">%</span><span class="se">?)\s(?:\d&#123;1,3&#125;</span><span class="sr">%</span><span class="se">?))</span><span class="sr">,</span><span class="se">\s(\w</span><span class="sr">+</span><span class="se">)\s([</span><span class="sr">a-z-</span><span class="se">]</span><span class="sr">+</span><span class="se">)([\w\d\.\s</span><span class="sr">,%</span><span class="se">\(\)]</span><span class="sr">+</span><span class="se">)\)</span><span class="sr">$/</span><span class="p">,</span>
-      <span class="sr">/^</span><span class="se">(</span><span class="sr">-moz-radial-gradient</span><span class="se">)\(((?:\d&#123;1,3&#125;</span><span class="sr">%</span><span class="se">?)\s(?:\d&#123;1,3&#125;</span><span class="sr">%</span><span class="se">?))</span><span class="sr">,</span><span class="se">\s(\w</span><span class="sr">+</span><span class="se">)\s?([</span><span class="sr">a-z-</span><span class="se">]</span><span class="sr">*</span><span class="se">)([\w\d\.\s</span><span class="sr">,%</span><span class="se">\(\)]</span><span class="sr">+</span><span class="se">)\)</span><span class="sr">$/</span><span class="p">,</span>
-      <span class="sr">/^</span><span class="se">(</span><span class="sr">-o-radial-gradient</span><span class="se">)\(((?:\d&#123;1,3&#125;</span><span class="sr">%</span><span class="se">?)\s(?:\d&#123;1,3&#125;</span><span class="sr">%</span><span class="se">?))</span><span class="sr">,</span><span class="se">\s(\w</span><span class="sr">+</span><span class="se">)\s([</span><span class="sr">a-z-</span><span class="se">]</span><span class="sr">+</span><span class="se">)([\w\d\.\s</span><span class="sr">,%</span><span class="se">\(\)]</span><span class="sr">+</span><span class="se">)\)</span><span class="sr">$/</span><span class="p">,</span>
-    <span class="p">];</span>
+    var reGradients = [
+      /^(-webkit-linear-gradient)\(([a-z\s]+)([\w\d\.\s,%\(\)]+)\)$/,
+      /^(-o-linear-gradient)\(([a-z\s]+)([\w\d\.\s,%\(\)]+)\)$/,
+      /^(-webkit-gradient)\((linear|radial),\s((?:\d{1,3}%?)\s(?:\d{1,3}%?),\s(?:\d{1,3}%?)\s(?:\d{1,3}%?))([\w\d\.\s,%\(\)-]+)\)$/,
+      /^(-moz-linear-gradient)\(((?:\d{1,3}%?)\s(?:\d{1,3}%?))([\w\d\.\s,%\(\)]+)\)$/,
+      /^(-webkit-radial-gradient)\(((?:\d{1,3}%?)\s(?:\d{1,3}%?)),\s(\w+)\s([a-z-]+)([\w\d\.\s,%\(\)]+)\)$/,
+      /^(-moz-radial-gradient)\(((?:\d{1,3}%?)\s(?:\d{1,3}%?)),\s(\w+)\s?([a-z-]*)([\w\d\.\s,%\(\)]+)\)$/,
+      /^(-o-radial-gradient)\(((?:\d{1,3}%?)\s(?:\d{1,3}%?)),\s(\w+)\s([a-z-]+)([\w\d\.\s,%\(\)]+)\)$/,
+    ];
 
-    <span class="cm">/*
+    /*
      * TODO: Add IE10 vendor prefix (-ms) support
      * TODO: Add W3C gradient (linear-gradient) support
      * TODO: Add old Webkit -webkit-gradient(radial, ...) support
      * TODO: Maybe some RegExp optimizations are possible ;o)
-     */</span>
-    <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Generate</span><span class="p">.</span><span class="nx">parseGradient</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">css</span><span class="p">,</span> <span class="nx">bounds</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="kd">var</span> <span class="nx">gradient</span><span class="p">,</span>
-        <span class="nx">i</span><span class="p">,</span>
-        <span class="nx">len</span> <span class="o">=</span> <span class="nx">reGradients</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span>
-        <span class="nx">m1</span><span class="p">,</span>
-        <span class="nx">stop</span><span class="p">,</span>
-        <span class="nx">m2</span><span class="p">,</span>
-        <span class="nx">m2Len</span><span class="p">,</span>
-        <span class="nx">step</span><span class="p">,</span>
-        <span class="nx">m3</span><span class="p">;</span>
+     */
+    _html2canvas.Generate.parseGradient = function (css, bounds) {
+      var gradient,
+        i,
+        len = reGradients.length,
+        m1,
+        stop,
+        m2,
+        m2Len,
+        step,
+        m3;
 
-      <span class="k">for </span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nx">m1</span> <span class="o">=</span> <span class="nx">css</span><span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="nx">reGradients</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
-        <span class="k">if </span><span class="p">(</span><span class="nx">m1</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
-      <span class="p">&#125;</span>
+      for (i = 0; i < len; i += 1) {
+        m1 = css.match(reGradients[i]);
+        if (m1) break;
+      }
 
-      <span class="k">if </span><span class="p">(</span><span class="nx">m1</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="k">switch </span><span class="p">(</span><span class="nx">m1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="p">&#123;</span>
-          <span class="k">case</span> <span class="dl">"</span><span class="s2">-webkit-linear-gradient</span><span class="dl">"</span><span class="p">:</span>
-          <span class="k">case</span> <span class="dl">"</span><span class="s2">-o-linear-gradient</span><span class="dl">"</span><span class="p">:</span>
-            <span class="nx">gradient</span> <span class="o">=</span> <span class="p">&#123;</span>
-              <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">linear</span><span class="dl">"</span><span class="p">,</span>
-              <span class="na">x0</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-              <span class="na">y0</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-              <span class="na">x1</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-              <span class="na">y1</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-              <span class="na">colorStops</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="p">&#125;;</span>
+      if (m1) {
+        switch (m1[1]) {
+          case "-webkit-linear-gradient":
+          case "-o-linear-gradient":
+            gradient = {
+              type: "linear",
+              x0: null,
+              y0: null,
+              x1: null,
+              y1: null,
+              colorStops: [],
+            };
 
-            <span class="c1">// get coordinates</span>
-            <span class="nx">m2</span> <span class="o">=</span> <span class="nx">m1</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="nf">match</span><span class="p">(</span><span class="sr">/</span><span class="se">\w</span><span class="sr">+/g</span><span class="p">);</span>
-            <span class="k">if </span><span class="p">(</span><span class="nx">m2</span><span class="p">)</span> <span class="p">&#123;</span>
-              <span class="nx">m2Len</span> <span class="o">=</span> <span class="nx">m2</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
-              <span class="k">for </span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">m2Len</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-                <span class="k">switch </span><span class="p">(</span><span class="nx">m2</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="p">&#123;</span>
-                  <span class="k">case</span> <span class="dl">"</span><span class="s2">top</span><span class="dl">"</span><span class="p">:</span>
-                    <span class="nx">gradient</span><span class="p">.</span><span class="nx">y0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-                    <span class="nx">gradient</span><span class="p">.</span><span class="nx">y1</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span><span class="p">;</span>
-                    <span class="k">break</span><span class="p">;</span>
+            // get coordinates
+            m2 = m1[2].match(/\w+/g);
+            if (m2) {
+              m2Len = m2.length;
+              for (i = 0; i < m2Len; i += 1) {
+                switch (m2[i]) {
+                  case "top":
+                    gradient.y0 = 0;
+                    gradient.y1 = bounds.height;
+                    break;
 
-                  <span class="k">case</span> <span class="dl">"</span><span class="s2">right</span><span class="dl">"</span><span class="p">:</span>
-                    <span class="nx">gradient</span><span class="p">.</span><span class="nx">x0</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span><span class="p">;</span>
-                    <span class="nx">gradient</span><span class="p">.</span><span class="nx">x1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-                    <span class="k">break</span><span class="p">;</span>
+                  case "right":
+                    gradient.x0 = bounds.width;
+                    gradient.x1 = 0;
+                    break;
 
-                  <span class="k">case</span> <span class="dl">"</span><span class="s2">bottom</span><span class="dl">"</span><span class="p">:</span>
-                    <span class="nx">gradient</span><span class="p">.</span><span class="nx">y0</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span><span class="p">;</span>
-                    <span class="nx">gradient</span><span class="p">.</span><span class="nx">y1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-                    <span class="k">break</span><span class="p">;</span>
+                  case "bottom":
+                    gradient.y0 = bounds.height;
+                    gradient.y1 = 0;
+                    break;
 
-                  <span class="k">case</span> <span class="dl">"</span><span class="s2">left</span><span class="dl">"</span><span class="p">:</span>
-                    <span class="nx">gradient</span><span class="p">.</span><span class="nx">x0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-                    <span class="nx">gradient</span><span class="p">.</span><span class="nx">x1</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span><span class="p">;</span>
-                    <span class="k">break</span><span class="p">;</span>
-                <span class="p">&#125;</span>
-              <span class="p">&#125;</span>
-            <span class="p">&#125;</span>
-            <span class="k">if </span><span class="p">(</span><span class="nx">gradient</span><span class="p">.</span><span class="nx">x0</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">x1</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">&#123;</span>
-              <span class="c1">// center</span>
-              <span class="nx">gradient</span><span class="p">.</span><span class="nx">x0</span> <span class="o">=</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">x1</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
-            <span class="p">&#125;</span>
-            <span class="k">if </span><span class="p">(</span><span class="nx">gradient</span><span class="p">.</span><span class="nx">y0</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">y1</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">&#123;</span>
-              <span class="c1">// center</span>
-              <span class="nx">gradient</span><span class="p">.</span><span class="nx">y0</span> <span class="o">=</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">y1</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
-            <span class="p">&#125;</span>
+                  case "left":
+                    gradient.x0 = 0;
+                    gradient.x1 = bounds.width;
+                    break;
+                }
+              }
+            }
+            if (gradient.x0 === null && gradient.x1 === null) {
+              // center
+              gradient.x0 = gradient.x1 = bounds.width / 2;
+            }
+            if (gradient.y0 === null && gradient.y1 === null) {
+              // center
+              gradient.y0 = gradient.y1 = bounds.height / 2;
+            }
 
-            <span class="c1">// get colors and stops</span>
-            <span class="nx">m2</span> <span class="o">=</span> <span class="nx">m1</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="nf">match</span><span class="p">(</span>
-              <span class="sr">/</span><span class="se">((?:</span><span class="sr">rgb|rgba</span><span class="se">)\(\d&#123;1,3&#125;</span><span class="sr">,</span><span class="se">\s\d&#123;1,3&#125;</span><span class="sr">,</span><span class="se">\s\d&#123;1,3&#125;(?:</span><span class="sr">,</span><span class="se">\s[</span><span class="sr">0-9</span><span class="se">\.]</span><span class="sr">+</span><span class="se">)?\)(?:\s\d&#123;1,3&#125;(?:</span><span class="sr">%|px</span><span class="se">))?)</span><span class="sr">+/g</span><span class="p">,</span>
-            <span class="p">);</span>
-            <span class="k">if </span><span class="p">(</span><span class="nx">m2</span><span class="p">)</span> <span class="p">&#123;</span>
-              <span class="nx">m2Len</span> <span class="o">=</span> <span class="nx">m2</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
-              <span class="nx">step</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">max</span><span class="p">(</span><span class="nx">m2Len</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-              <span class="k">for </span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">m2Len</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-                <span class="nx">m3</span> <span class="o">=</span> <span class="nx">m2</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nf">match</span><span class="p">(</span>
-                  <span class="sr">/</span><span class="se">((?:</span><span class="sr">rgb|rgba</span><span class="se">)\(\d&#123;1,3&#125;</span><span class="sr">,</span><span class="se">\s\d&#123;1,3&#125;</span><span class="sr">,</span><span class="se">\s\d&#123;1,3&#125;(?:</span><span class="sr">,</span><span class="se">\s[</span><span class="sr">0-9</span><span class="se">\.]</span><span class="sr">+</span><span class="se">)?\))\s</span><span class="sr">*</span><span class="se">(\d&#123;1,3&#125;)?(</span><span class="sr">%|px</span><span class="se">)?</span><span class="sr">/</span><span class="p">,</span>
-                <span class="p">);</span>
-                <span class="k">if </span><span class="p">(</span><span class="nx">m3</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="p">&#123;</span>
-                  <span class="nx">stop</span> <span class="o">=</span> <span class="nf">parseFloat</span><span class="p">(</span><span class="nx">m3</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
-                  <span class="k">if </span><span class="p">(</span><span class="nx">m3</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">%</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-                    <span class="nx">stop</span> <span class="o">/=</span> <span class="mi">100</span><span class="p">;</span>
-                  <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-                    <span class="c1">// px - stupid opera</span>
-                    <span class="nx">stop</span> <span class="o">/=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span><span class="p">;</span>
-                  <span class="p">&#125;</span>
-                <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-                  <span class="nx">stop</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">*</span> <span class="nx">step</span><span class="p">;</span>
-                <span class="p">&#125;</span>
-                <span class="nx">gradient</span><span class="p">.</span><span class="nx">colorStops</span><span class="p">.</span><span class="nf">push</span><span class="p">(&#123;</span>
-                  <span class="na">color</span><span class="p">:</span> <span class="nx">m3</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                  <span class="na">stop</span><span class="p">:</span> <span class="nx">stop</span><span class="p">,</span>
-                <span class="p">&#125;);</span>
-              <span class="p">&#125;</span>
-            <span class="p">&#125;</span>
-            <span class="k">break</span><span class="p">;</span>
+            // get colors and stops
+            m2 = m1[3].match(
+              /((?:rgb|rgba)\(\d{1,3},\s\d{1,3},\s\d{1,3}(?:,\s[0-9\.]+)?\)(?:\s\d{1,3}(?:%|px))?)+/g,
+            );
+            if (m2) {
+              m2Len = m2.length;
+              step = 1 / Math.max(m2Len - 1, 1);
+              for (i = 0; i < m2Len; i += 1) {
+                m3 = m2[i].match(
+                  /((?:rgb|rgba)\(\d{1,3},\s\d{1,3},\s\d{1,3}(?:,\s[0-9\.]+)?\))\s*(\d{1,3})?(%|px)?/,
+                );
+                if (m3[2]) {
+                  stop = parseFloat(m3[2]);
+                  if (m3[3] === "%") {
+                    stop /= 100;
+                  } else {
+                    // px - stupid opera
+                    stop /= bounds.width;
+                  }
+                } else {
+                  stop = i * step;
+                }
+                gradient.colorStops.push({
+                  color: m3[1],
+                  stop: stop,
+                });
+              }
+            }
+            break;
 
-          <span class="k">case</span> <span class="dl">"</span><span class="s2">-webkit-gradient</span><span class="dl">"</span><span class="p">:</span>
-            <span class="nx">gradient</span> <span class="o">=</span> <span class="p">&#123;</span>
-              <span class="na">type</span><span class="p">:</span> <span class="nx">m1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">radial</span><span class="dl">"</span> <span class="p">?</span> <span class="dl">"</span><span class="s2">circle</span><span class="dl">"</span> <span class="p">:</span> <span class="nx">m1</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="c1">// TODO: Add radial gradient support for older mozilla definitions</span>
-              <span class="na">x0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-              <span class="na">y0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-              <span class="na">x1</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-              <span class="na">y1</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-              <span class="na">colorStops</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="p">&#125;;</span>
+          case "-webkit-gradient":
+            gradient = {
+              type: m1[2] === "radial" ? "circle" : m1[2], // TODO: Add radial gradient support for older mozilla definitions
+              x0: 0,
+              y0: 0,
+              x1: 0,
+              y1: 0,
+              colorStops: [],
+            };
 
-            <span class="c1">// get coordinates</span>
-            <span class="nx">m2</span> <span class="o">=</span> <span class="nx">m1</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="nf">match</span><span class="p">(</span>
-              <span class="sr">/</span><span class="se">(\d&#123;1,3&#125;)</span><span class="sr">%</span><span class="se">?\s(\d&#123;1,3&#125;)</span><span class="sr">%</span><span class="se">?</span><span class="sr">,</span><span class="se">\s(\d&#123;1,3&#125;)</span><span class="sr">%</span><span class="se">?\s(\d&#123;1,3&#125;)</span><span class="sr">%</span><span class="se">?</span><span class="sr">/</span><span class="p">,</span>
-            <span class="p">);</span>
-            <span class="k">if </span><span class="p">(</span><span class="nx">m2</span><span class="p">)</span> <span class="p">&#123;</span>
-              <span class="nx">gradient</span><span class="p">.</span><span class="nx">x0</span> <span class="o">=</span> <span class="p">(</span><span class="nx">m2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">;</span>
-              <span class="nx">gradient</span><span class="p">.</span><span class="nx">y0</span> <span class="o">=</span> <span class="p">(</span><span class="nx">m2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">;</span>
-              <span class="nx">gradient</span><span class="p">.</span><span class="nx">x1</span> <span class="o">=</span> <span class="p">(</span><span class="nx">m2</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">;</span>
-              <span class="nx">gradient</span><span class="p">.</span><span class="nx">y1</span> <span class="o">=</span> <span class="p">(</span><span class="nx">m2</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">*</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">;</span>
-            <span class="p">&#125;</span>
+            // get coordinates
+            m2 = m1[3].match(
+              /(\d{1,3})%?\s(\d{1,3})%?,\s(\d{1,3})%?\s(\d{1,3})%?/,
+            );
+            if (m2) {
+              gradient.x0 = (m2[1] * bounds.width) / 100;
+              gradient.y0 = (m2[2] * bounds.height) / 100;
+              gradient.x1 = (m2[3] * bounds.width) / 100;
+              gradient.y1 = (m2[4] * bounds.height) / 100;
+            }
 
-            <span class="c1">// get colors and stops</span>
-            <span class="nx">m2</span> <span class="o">=</span> <span class="nx">m1</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="nf">match</span><span class="p">(</span>
-              <span class="sr">/</span><span class="se">((?:</span><span class="sr">from|to|color-stop</span><span class="se">)\((?:[</span><span class="sr">0-9</span><span class="se">\.]</span><span class="sr">+,</span><span class="se">\s)?(?:</span><span class="sr">rgb|rgba</span><span class="se">)\(\d&#123;1,3&#125;</span><span class="sr">,</span><span class="se">\s\d&#123;1,3&#125;</span><span class="sr">,</span><span class="se">\s\d&#123;1,3&#125;(?:</span><span class="sr">,</span><span class="se">\s[</span><span class="sr">0-9</span><span class="se">\.]</span><span class="sr">+</span><span class="se">)?\)\))</span><span class="sr">+/g</span><span class="p">,</span>
-            <span class="p">);</span>
-            <span class="k">if </span><span class="p">(</span><span class="nx">m2</span><span class="p">)</span> <span class="p">&#123;</span>
-              <span class="nx">m2Len</span> <span class="o">=</span> <span class="nx">m2</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
-              <span class="k">for </span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">m2Len</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-                <span class="nx">m3</span> <span class="o">=</span> <span class="nx">m2</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nf">match</span><span class="p">(</span>
-                  <span class="sr">/</span><span class="se">(</span><span class="sr">from|to|color-stop</span><span class="se">)\(([</span><span class="sr">0-9</span><span class="se">\.]</span><span class="sr">+</span><span class="se">)?(?:</span><span class="sr">,</span><span class="se">\s)?((?:</span><span class="sr">rgb|rgba</span><span class="se">)\(\d&#123;1,3&#125;</span><span class="sr">,</span><span class="se">\s\d&#123;1,3&#125;</span><span class="sr">,</span><span class="se">\s\d&#123;1,3&#125;(?:</span><span class="sr">,</span><span class="se">\s[</span><span class="sr">0-9</span><span class="se">\.]</span><span class="sr">+</span><span class="se">)?\))\)</span><span class="sr">/</span><span class="p">,</span>
-                <span class="p">);</span>
-                <span class="nx">stop</span> <span class="o">=</span> <span class="nf">parseFloat</span><span class="p">(</span><span class="nx">m3</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
-                <span class="k">if </span><span class="p">(</span><span class="nx">m3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">from</span><span class="dl">"</span><span class="p">)</span> <span class="nx">stop</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
-                <span class="k">if </span><span class="p">(</span><span class="nx">m3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">to</span><span class="dl">"</span><span class="p">)</span> <span class="nx">stop</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span>
-                <span class="nx">gradient</span><span class="p">.</span><span class="nx">colorStops</span><span class="p">.</span><span class="nf">push</span><span class="p">(&#123;</span>
-                  <span class="na">color</span><span class="p">:</span> <span class="nx">m3</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
-                  <span class="na">stop</span><span class="p">:</span> <span class="nx">stop</span><span class="p">,</span>
-                <span class="p">&#125;);</span>
-              <span class="p">&#125;</span>
-            <span class="p">&#125;</span>
-            <span class="k">break</span><span class="p">;</span>
+            // get colors and stops
+            m2 = m1[4].match(
+              /((?:from|to|color-stop)\((?:[0-9\.]+,\s)?(?:rgb|rgba)\(\d{1,3},\s\d{1,3},\s\d{1,3}(?:,\s[0-9\.]+)?\)\))+/g,
+            );
+            if (m2) {
+              m2Len = m2.length;
+              for (i = 0; i < m2Len; i += 1) {
+                m3 = m2[i].match(
+                  /(from|to|color-stop)\(([0-9\.]+)?(?:,\s)?((?:rgb|rgba)\(\d{1,3},\s\d{1,3},\s\d{1,3}(?:,\s[0-9\.]+)?\))\)/,
+                );
+                stop = parseFloat(m3[2]);
+                if (m3[1] === "from") stop = 0.0;
+                if (m3[1] === "to") stop = 1.0;
+                gradient.colorStops.push({
+                  color: m3[3],
+                  stop: stop,
+                });
+              }
+            }
+            break;
 
-          <span class="k">case</span> <span class="dl">"</span><span class="s2">-moz-linear-gradient</span><span class="dl">"</span><span class="p">:</span>
-            <span class="nx">gradient</span> <span class="o">=</span> <span class="p">&#123;</span>
-              <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">linear</span><span class="dl">"</span><span class="p">,</span>
-              <span class="na">x0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-              <span class="na">y0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-              <span class="na">x1</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-              <span class="na">y1</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-              <span class="na">colorStops</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="p">&#125;;</span>
+          case "-moz-linear-gradient":
+            gradient = {
+              type: "linear",
+              x0: 0,
+              y0: 0,
+              x1: 0,
+              y1: 0,
+              colorStops: [],
+            };
 
-            <span class="c1">// get coordinates</span>
-            <span class="nx">m2</span> <span class="o">=</span> <span class="nx">m1</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="nf">match</span><span class="p">(</span><span class="sr">/</span><span class="se">(\d&#123;1,3&#125;)</span><span class="sr">%</span><span class="se">?\s(\d&#123;1,3&#125;)</span><span class="sr">%</span><span class="se">?</span><span class="sr">/</span><span class="p">);</span>
+            // get coordinates
+            m2 = m1[2].match(/(\d{1,3})%?\s(\d{1,3})%?/);
 
-            <span class="c1">// m2[1] == 0%   -&gt; left</span>
-            <span class="c1">// m2[1] == 50%  -&gt; center</span>
-            <span class="c1">// m2[1] == 100% -&gt; right</span>
+            // m2[1] == 0%   -> left
+            // m2[1] == 50%  -> center
+            // m2[1] == 100% -> right
 
-            <span class="c1">// m2[2] == 0%   -&gt; top</span>
-            <span class="c1">// m2[2] == 50%  -&gt; center</span>
-            <span class="c1">// m2[2] == 100% -&gt; bottom</span>
+            // m2[2] == 0%   -> top
+            // m2[2] == 50%  -> center
+            // m2[2] == 100% -> bottom
 
-            <span class="k">if </span><span class="p">(</span><span class="nx">m2</span><span class="p">)</span> <span class="p">&#123;</span>
-              <span class="nx">gradient</span><span class="p">.</span><span class="nx">x0</span> <span class="o">=</span> <span class="p">(</span><span class="nx">m2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">;</span>
-              <span class="nx">gradient</span><span class="p">.</span><span class="nx">y0</span> <span class="o">=</span> <span class="p">(</span><span class="nx">m2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">;</span>
-              <span class="nx">gradient</span><span class="p">.</span><span class="nx">x1</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span> <span class="o">-</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">x0</span><span class="p">;</span>
-              <span class="nx">gradient</span><span class="p">.</span><span class="nx">y1</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span> <span class="o">-</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">y0</span><span class="p">;</span>
-            <span class="p">&#125;</span>
+            if (m2) {
+              gradient.x0 = (m2[1] * bounds.width) / 100;
+              gradient.y0 = (m2[2] * bounds.height) / 100;
+              gradient.x1 = bounds.width - gradient.x0;
+              gradient.y1 = bounds.height - gradient.y0;
+            }
 
-            <span class="c1">// get colors and stops</span>
-            <span class="nx">m2</span> <span class="o">=</span> <span class="nx">m1</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="nf">match</span><span class="p">(</span>
-              <span class="sr">/</span><span class="se">((?:</span><span class="sr">rgb|rgba</span><span class="se">)\(\d&#123;1,3&#125;</span><span class="sr">,</span><span class="se">\s\d&#123;1,3&#125;</span><span class="sr">,</span><span class="se">\s\d&#123;1,3&#125;(?:</span><span class="sr">,</span><span class="se">\s[</span><span class="sr">0-9</span><span class="se">\.]</span><span class="sr">+</span><span class="se">)?\)(?:\s\d&#123;1,3&#125;</span><span class="sr">%</span><span class="se">)?)</span><span class="sr">+/g</span><span class="p">,</span>
-            <span class="p">);</span>
-            <span class="k">if </span><span class="p">(</span><span class="nx">m2</span><span class="p">)</span> <span class="p">&#123;</span>
-              <span class="nx">m2Len</span> <span class="o">=</span> <span class="nx">m2</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
-              <span class="nx">step</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">max</span><span class="p">(</span><span class="nx">m2Len</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-              <span class="k">for </span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">m2Len</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-                <span class="nx">m3</span> <span class="o">=</span> <span class="nx">m2</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nf">match</span><span class="p">(</span>
-                  <span class="sr">/</span><span class="se">((?:</span><span class="sr">rgb|rgba</span><span class="se">)\(\d&#123;1,3&#125;</span><span class="sr">,</span><span class="se">\s\d&#123;1,3&#125;</span><span class="sr">,</span><span class="se">\s\d&#123;1,3&#125;(?:</span><span class="sr">,</span><span class="se">\s[</span><span class="sr">0-9</span><span class="se">\.]</span><span class="sr">+</span><span class="se">)?\))\s</span><span class="sr">*</span><span class="se">(\d&#123;1,3&#125;)?(</span><span class="sr">%</span><span class="se">)?</span><span class="sr">/</span><span class="p">,</span>
-                <span class="p">);</span>
-                <span class="k">if </span><span class="p">(</span><span class="nx">m3</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="p">&#123;</span>
-                  <span class="nx">stop</span> <span class="o">=</span> <span class="nf">parseFloat</span><span class="p">(</span><span class="nx">m3</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
-                  <span class="k">if </span><span class="p">(</span><span class="nx">m3</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="p">&#123;</span>
-                    <span class="c1">// percentage</span>
-                    <span class="nx">stop</span> <span class="o">/=</span> <span class="mi">100</span><span class="p">;</span>
-                  <span class="p">&#125;</span>
-                <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-                  <span class="nx">stop</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">*</span> <span class="nx">step</span><span class="p">;</span>
-                <span class="p">&#125;</span>
-                <span class="nx">gradient</span><span class="p">.</span><span class="nx">colorStops</span><span class="p">.</span><span class="nf">push</span><span class="p">(&#123;</span>
-                  <span class="na">color</span><span class="p">:</span> <span class="nx">m3</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                  <span class="na">stop</span><span class="p">:</span> <span class="nx">stop</span><span class="p">,</span>
-                <span class="p">&#125;);</span>
-              <span class="p">&#125;</span>
-            <span class="p">&#125;</span>
-            <span class="k">break</span><span class="p">;</span>
+            // get colors and stops
+            m2 = m1[3].match(
+              /((?:rgb|rgba)\(\d{1,3},\s\d{1,3},\s\d{1,3}(?:,\s[0-9\.]+)?\)(?:\s\d{1,3}%)?)+/g,
+            );
+            if (m2) {
+              m2Len = m2.length;
+              step = 1 / Math.max(m2Len - 1, 1);
+              for (i = 0; i < m2Len; i += 1) {
+                m3 = m2[i].match(
+                  /((?:rgb|rgba)\(\d{1,3},\s\d{1,3},\s\d{1,3}(?:,\s[0-9\.]+)?\))\s*(\d{1,3})?(%)?/,
+                );
+                if (m3[2]) {
+                  stop = parseFloat(m3[2]);
+                  if (m3[3]) {
+                    // percentage
+                    stop /= 100;
+                  }
+                } else {
+                  stop = i * step;
+                }
+                gradient.colorStops.push({
+                  color: m3[1],
+                  stop: stop,
+                });
+              }
+            }
+            break;
 
-          <span class="k">case</span> <span class="dl">"</span><span class="s2">-webkit-radial-gradient</span><span class="dl">"</span><span class="p">:</span>
-          <span class="k">case</span> <span class="dl">"</span><span class="s2">-moz-radial-gradient</span><span class="dl">"</span><span class="p">:</span>
-          <span class="k">case</span> <span class="dl">"</span><span class="s2">-o-radial-gradient</span><span class="dl">"</span><span class="p">:</span>
-            <span class="nx">gradient</span> <span class="o">=</span> <span class="p">&#123;</span>
-              <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">circle</span><span class="dl">"</span><span class="p">,</span>
-              <span class="na">x0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-              <span class="na">y0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-              <span class="na">x1</span><span class="p">:</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span>
-              <span class="na">y1</span><span class="p">:</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span>
-              <span class="na">cx</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-              <span class="na">cy</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-              <span class="na">rx</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-              <span class="na">ry</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-              <span class="na">colorStops</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="p">&#125;;</span>
+          case "-webkit-radial-gradient":
+          case "-moz-radial-gradient":
+          case "-o-radial-gradient":
+            gradient = {
+              type: "circle",
+              x0: 0,
+              y0: 0,
+              x1: bounds.width,
+              y1: bounds.height,
+              cx: 0,
+              cy: 0,
+              rx: 0,
+              ry: 0,
+              colorStops: [],
+            };
 
-            <span class="c1">// center</span>
-            <span class="nx">m2</span> <span class="o">=</span> <span class="nx">m1</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="nf">match</span><span class="p">(</span><span class="sr">/</span><span class="se">(\d&#123;1,3&#125;)</span><span class="sr">%</span><span class="se">?\s(\d&#123;1,3&#125;)</span><span class="sr">%</span><span class="se">?</span><span class="sr">/</span><span class="p">);</span>
-            <span class="k">if </span><span class="p">(</span><span class="nx">m2</span><span class="p">)</span> <span class="p">&#123;</span>
-              <span class="nx">gradient</span><span class="p">.</span><span class="nx">cx</span> <span class="o">=</span> <span class="p">(</span><span class="nx">m2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">;</span>
-              <span class="nx">gradient</span><span class="p">.</span><span class="nx">cy</span> <span class="o">=</span> <span class="p">(</span><span class="nx">m2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">;</span>
-            <span class="p">&#125;</span>
+            // center
+            m2 = m1[2].match(/(\d{1,3})%?\s(\d{1,3})%?/);
+            if (m2) {
+              gradient.cx = (m2[1] * bounds.width) / 100;
+              gradient.cy = (m2[2] * bounds.height) / 100;
+            }
 
-            <span class="c1">// size</span>
-            <span class="nx">m2</span> <span class="o">=</span> <span class="nx">m1</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="nf">match</span><span class="p">(</span><span class="sr">/</span><span class="se">\w</span><span class="sr">+/</span><span class="p">);</span>
-            <span class="nx">m3</span> <span class="o">=</span> <span class="nx">m1</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="nf">match</span><span class="p">(</span><span class="sr">/</span><span class="se">[</span><span class="sr">a-z-</span><span class="se">]</span><span class="sr">*/</span><span class="p">);</span>
-            <span class="k">if </span><span class="p">(</span><span class="nx">m2</span> <span class="o">&amp;&amp;</span> <span class="nx">m3</span><span class="p">)</span> <span class="p">&#123;</span>
-              <span class="k">switch </span><span class="p">(</span><span class="nx">m3</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">&#123;</span>
-                <span class="k">case</span> <span class="dl">"</span><span class="s2">farthest-corner</span><span class="dl">"</span><span class="p">:</span>
-                <span class="k">case</span> <span class="dl">"</span><span class="s2">cover</span><span class="dl">"</span><span class="p">:</span> <span class="c1">// is equivalent to farthest-corner</span>
-                <span class="k">case</span> <span class="dl">""</span><span class="p">:</span> <span class="c1">// mozilla removes "cover" from definition :(</span>
-                  <span class="kd">var</span> <span class="nx">tl</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span>
-                    <span class="nb">Math</span><span class="p">.</span><span class="nf">pow</span><span class="p">(</span><span class="nx">gradient</span><span class="p">.</span><span class="nx">cx</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">pow</span><span class="p">(</span><span class="nx">gradient</span><span class="p">.</span><span class="nx">cy</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
-                  <span class="p">);</span>
-                  <span class="kd">var</span> <span class="nx">tr</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span>
-                    <span class="nb">Math</span><span class="p">.</span><span class="nf">pow</span><span class="p">(</span><span class="nx">gradient</span><span class="p">.</span><span class="nx">cx</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span>
-                      <span class="nb">Math</span><span class="p">.</span><span class="nf">pow</span><span class="p">(</span><span class="nx">gradient</span><span class="p">.</span><span class="nx">y1</span> <span class="o">-</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">cy</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
-                  <span class="p">);</span>
-                  <span class="kd">var</span> <span class="nx">br</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span>
-                    <span class="nb">Math</span><span class="p">.</span><span class="nf">pow</span><span class="p">(</span><span class="nx">gradient</span><span class="p">.</span><span class="nx">x1</span> <span class="o">-</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">cx</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span>
-                      <span class="nb">Math</span><span class="p">.</span><span class="nf">pow</span><span class="p">(</span><span class="nx">gradient</span><span class="p">.</span><span class="nx">y1</span> <span class="o">-</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">cy</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
-                  <span class="p">);</span>
-                  <span class="kd">var</span> <span class="nx">bl</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span>
-                    <span class="nb">Math</span><span class="p">.</span><span class="nf">pow</span><span class="p">(</span><span class="nx">gradient</span><span class="p">.</span><span class="nx">x1</span> <span class="o">-</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">cx</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span>
-                      <span class="nb">Math</span><span class="p">.</span><span class="nf">pow</span><span class="p">(</span><span class="nx">gradient</span><span class="p">.</span><span class="nx">cy</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
-                  <span class="p">);</span>
-                  <span class="nx">gradient</span><span class="p">.</span><span class="nx">rx</span> <span class="o">=</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">ry</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">max</span><span class="p">(</span><span class="nx">tl</span><span class="p">,</span> <span class="nx">tr</span><span class="p">,</span> <span class="nx">br</span><span class="p">,</span> <span class="nx">bl</span><span class="p">);</span>
-                  <span class="k">break</span><span class="p">;</span>
-                <span class="k">case</span> <span class="dl">"</span><span class="s2">closest-corner</span><span class="dl">"</span><span class="p">:</span>
-                  <span class="kd">var</span> <span class="nx">tl</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span>
-                    <span class="nb">Math</span><span class="p">.</span><span class="nf">pow</span><span class="p">(</span><span class="nx">gradient</span><span class="p">.</span><span class="nx">cx</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">pow</span><span class="p">(</span><span class="nx">gradient</span><span class="p">.</span><span class="nx">cy</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
-                  <span class="p">);</span>
-                  <span class="kd">var</span> <span class="nx">tr</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span>
-                    <span class="nb">Math</span><span class="p">.</span><span class="nf">pow</span><span class="p">(</span><span class="nx">gradient</span><span class="p">.</span><span class="nx">cx</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span>
-                      <span class="nb">Math</span><span class="p">.</span><span class="nf">pow</span><span class="p">(</span><span class="nx">gradient</span><span class="p">.</span><span class="nx">y1</span> <span class="o">-</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">cy</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
-                  <span class="p">);</span>
-                  <span class="kd">var</span> <span class="nx">br</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span>
-                    <span class="nb">Math</span><span class="p">.</span><span class="nf">pow</span><span class="p">(</span><span class="nx">gradient</span><span class="p">.</span><span class="nx">x1</span> <span class="o">-</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">cx</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span>
-                      <span class="nb">Math</span><span class="p">.</span><span class="nf">pow</span><span class="p">(</span><span class="nx">gradient</span><span class="p">.</span><span class="nx">y1</span> <span class="o">-</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">cy</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
-                  <span class="p">);</span>
-                  <span class="kd">var</span> <span class="nx">bl</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span>
-                    <span class="nb">Math</span><span class="p">.</span><span class="nf">pow</span><span class="p">(</span><span class="nx">gradient</span><span class="p">.</span><span class="nx">x1</span> <span class="o">-</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">cx</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span>
-                      <span class="nb">Math</span><span class="p">.</span><span class="nf">pow</span><span class="p">(</span><span class="nx">gradient</span><span class="p">.</span><span class="nx">cy</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
-                  <span class="p">);</span>
-                  <span class="nx">gradient</span><span class="p">.</span><span class="nx">rx</span> <span class="o">=</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">ry</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">min</span><span class="p">(</span><span class="nx">tl</span><span class="p">,</span> <span class="nx">tr</span><span class="p">,</span> <span class="nx">br</span><span class="p">,</span> <span class="nx">bl</span><span class="p">);</span>
-                  <span class="k">break</span><span class="p">;</span>
-                <span class="k">case</span> <span class="dl">"</span><span class="s2">farthest-side</span><span class="dl">"</span><span class="p">:</span>
-                  <span class="k">if </span><span class="p">(</span><span class="nx">m2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">circle</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-                    <span class="nx">gradient</span><span class="p">.</span><span class="nx">rx</span> <span class="o">=</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">ry</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">max</span><span class="p">(</span>
-                      <span class="nx">gradient</span><span class="p">.</span><span class="nx">cx</span><span class="p">,</span>
-                      <span class="nx">gradient</span><span class="p">.</span><span class="nx">cy</span><span class="p">,</span>
-                      <span class="nx">gradient</span><span class="p">.</span><span class="nx">x1</span> <span class="o">-</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">cx</span><span class="p">,</span>
-                      <span class="nx">gradient</span><span class="p">.</span><span class="nx">y1</span> <span class="o">-</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">cy</span><span class="p">,</span>
-                    <span class="p">);</span>
-                  <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-                    <span class="c1">// ellipse</span>
+            // size
+            m2 = m1[3].match(/\w+/);
+            m3 = m1[4].match(/[a-z-]*/);
+            if (m2 && m3) {
+              switch (m3[0]) {
+                case "farthest-corner":
+                case "cover": // is equivalent to farthest-corner
+                case "": // mozilla removes "cover" from definition :(
+                  var tl = Math.sqrt(
+                    Math.pow(gradient.cx, 2) + Math.pow(gradient.cy, 2),
+                  );
+                  var tr = Math.sqrt(
+                    Math.pow(gradient.cx, 2) +
+                      Math.pow(gradient.y1 - gradient.cy, 2),
+                  );
+                  var br = Math.sqrt(
+                    Math.pow(gradient.x1 - gradient.cx, 2) +
+                      Math.pow(gradient.y1 - gradient.cy, 2),
+                  );
+                  var bl = Math.sqrt(
+                    Math.pow(gradient.x1 - gradient.cx, 2) +
+                      Math.pow(gradient.cy, 2),
+                  );
+                  gradient.rx = gradient.ry = Math.max(tl, tr, br, bl);
+                  break;
+                case "closest-corner":
+                  var tl = Math.sqrt(
+                    Math.pow(gradient.cx, 2) + Math.pow(gradient.cy, 2),
+                  );
+                  var tr = Math.sqrt(
+                    Math.pow(gradient.cx, 2) +
+                      Math.pow(gradient.y1 - gradient.cy, 2),
+                  );
+                  var br = Math.sqrt(
+                    Math.pow(gradient.x1 - gradient.cx, 2) +
+                      Math.pow(gradient.y1 - gradient.cy, 2),
+                  );
+                  var bl = Math.sqrt(
+                    Math.pow(gradient.x1 - gradient.cx, 2) +
+                      Math.pow(gradient.cy, 2),
+                  );
+                  gradient.rx = gradient.ry = Math.min(tl, tr, br, bl);
+                  break;
+                case "farthest-side":
+                  if (m2[0] === "circle") {
+                    gradient.rx = gradient.ry = Math.max(
+                      gradient.cx,
+                      gradient.cy,
+                      gradient.x1 - gradient.cx,
+                      gradient.y1 - gradient.cy,
+                    );
+                  } else {
+                    // ellipse
 
-                    <span class="nx">gradient</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="nx">m2</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+                    gradient.type = m2[0];
 
-                    <span class="nx">gradient</span><span class="p">.</span><span class="nx">rx</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">max</span><span class="p">(</span>
-                      <span class="nx">gradient</span><span class="p">.</span><span class="nx">cx</span><span class="p">,</span>
-                      <span class="nx">gradient</span><span class="p">.</span><span class="nx">x1</span> <span class="o">-</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">cx</span><span class="p">,</span>
-                    <span class="p">);</span>
-                    <span class="nx">gradient</span><span class="p">.</span><span class="nx">ry</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">max</span><span class="p">(</span>
-                      <span class="nx">gradient</span><span class="p">.</span><span class="nx">cy</span><span class="p">,</span>
-                      <span class="nx">gradient</span><span class="p">.</span><span class="nx">y1</span> <span class="o">-</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">cy</span><span class="p">,</span>
-                    <span class="p">);</span>
-                  <span class="p">&#125;</span>
-                  <span class="k">break</span><span class="p">;</span>
-                <span class="k">case</span> <span class="dl">"</span><span class="s2">closest-side</span><span class="dl">"</span><span class="p">:</span>
-                <span class="k">case</span> <span class="dl">"</span><span class="s2">contain</span><span class="dl">"</span><span class="p">:</span> <span class="c1">// is equivalent to closest-side</span>
-                  <span class="k">if </span><span class="p">(</span><span class="nx">m2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">circle</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-                    <span class="nx">gradient</span><span class="p">.</span><span class="nx">rx</span> <span class="o">=</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">ry</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">min</span><span class="p">(</span>
-                      <span class="nx">gradient</span><span class="p">.</span><span class="nx">cx</span><span class="p">,</span>
-                      <span class="nx">gradient</span><span class="p">.</span><span class="nx">cy</span><span class="p">,</span>
-                      <span class="nx">gradient</span><span class="p">.</span><span class="nx">x1</span> <span class="o">-</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">cx</span><span class="p">,</span>
-                      <span class="nx">gradient</span><span class="p">.</span><span class="nx">y1</span> <span class="o">-</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">cy</span><span class="p">,</span>
-                    <span class="p">);</span>
-                  <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-                    <span class="c1">// ellipse</span>
+                    gradient.rx = Math.max(
+                      gradient.cx,
+                      gradient.x1 - gradient.cx,
+                    );
+                    gradient.ry = Math.max(
+                      gradient.cy,
+                      gradient.y1 - gradient.cy,
+                    );
+                  }
+                  break;
+                case "closest-side":
+                case "contain": // is equivalent to closest-side
+                  if (m2[0] === "circle") {
+                    gradient.rx = gradient.ry = Math.min(
+                      gradient.cx,
+                      gradient.cy,
+                      gradient.x1 - gradient.cx,
+                      gradient.y1 - gradient.cy,
+                    );
+                  } else {
+                    // ellipse
 
-                    <span class="nx">gradient</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="nx">m2</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+                    gradient.type = m2[0];
 
-                    <span class="nx">gradient</span><span class="p">.</span><span class="nx">rx</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">min</span><span class="p">(</span>
-                      <span class="nx">gradient</span><span class="p">.</span><span class="nx">cx</span><span class="p">,</span>
-                      <span class="nx">gradient</span><span class="p">.</span><span class="nx">x1</span> <span class="o">-</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">cx</span><span class="p">,</span>
-                    <span class="p">);</span>
-                    <span class="nx">gradient</span><span class="p">.</span><span class="nx">ry</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">min</span><span class="p">(</span>
-                      <span class="nx">gradient</span><span class="p">.</span><span class="nx">cy</span><span class="p">,</span>
-                      <span class="nx">gradient</span><span class="p">.</span><span class="nx">y1</span> <span class="o">-</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">cy</span><span class="p">,</span>
-                    <span class="p">);</span>
-                  <span class="p">&#125;</span>
-                  <span class="k">break</span><span class="p">;</span>
+                    gradient.rx = Math.min(
+                      gradient.cx,
+                      gradient.x1 - gradient.cx,
+                    );
+                    gradient.ry = Math.min(
+                      gradient.cy,
+                      gradient.y1 - gradient.cy,
+                    );
+                  }
+                  break;
 
-                <span class="c1">// TODO: add support for "30px 40px" sizes (webkit only)</span>
-              <span class="p">&#125;</span>
-            <span class="p">&#125;</span>
+                // TODO: add support for "30px 40px" sizes (webkit only)
+              }
+            }
 
-            <span class="c1">// color stops</span>
-            <span class="nx">m2</span> <span class="o">=</span> <span class="nx">m1</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="nf">match</span><span class="p">(</span>
-              <span class="sr">/</span><span class="se">((?:</span><span class="sr">rgb|rgba</span><span class="se">)\(\d&#123;1,3&#125;</span><span class="sr">,</span><span class="se">\s\d&#123;1,3&#125;</span><span class="sr">,</span><span class="se">\s\d&#123;1,3&#125;(?:</span><span class="sr">,</span><span class="se">\s[</span><span class="sr">0-9</span><span class="se">\.]</span><span class="sr">+</span><span class="se">)?\)(?:\s\d&#123;1,3&#125;(?:</span><span class="sr">%|px</span><span class="se">))?)</span><span class="sr">+/g</span><span class="p">,</span>
-            <span class="p">);</span>
-            <span class="k">if </span><span class="p">(</span><span class="nx">m2</span><span class="p">)</span> <span class="p">&#123;</span>
-              <span class="nx">m2Len</span> <span class="o">=</span> <span class="nx">m2</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
-              <span class="nx">step</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">max</span><span class="p">(</span><span class="nx">m2Len</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-              <span class="k">for </span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">m2Len</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-                <span class="nx">m3</span> <span class="o">=</span> <span class="nx">m2</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nf">match</span><span class="p">(</span>
-                  <span class="sr">/</span><span class="se">((?:</span><span class="sr">rgb|rgba</span><span class="se">)\(\d&#123;1,3&#125;</span><span class="sr">,</span><span class="se">\s\d&#123;1,3&#125;</span><span class="sr">,</span><span class="se">\s\d&#123;1,3&#125;(?:</span><span class="sr">,</span><span class="se">\s[</span><span class="sr">0-9</span><span class="se">\.]</span><span class="sr">+</span><span class="se">)?\))\s</span><span class="sr">*</span><span class="se">(\d&#123;1,3&#125;)?(</span><span class="sr">%|px</span><span class="se">)?</span><span class="sr">/</span><span class="p">,</span>
-                <span class="p">);</span>
-                <span class="k">if </span><span class="p">(</span><span class="nx">m3</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="p">&#123;</span>
-                  <span class="nx">stop</span> <span class="o">=</span> <span class="nf">parseFloat</span><span class="p">(</span><span class="nx">m3</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
-                  <span class="k">if </span><span class="p">(</span><span class="nx">m3</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">%</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-                    <span class="nx">stop</span> <span class="o">/=</span> <span class="mi">100</span><span class="p">;</span>
-                  <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-                    <span class="c1">// px - stupid opera</span>
-                    <span class="nx">stop</span> <span class="o">/=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span><span class="p">;</span>
-                  <span class="p">&#125;</span>
-                <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-                  <span class="nx">stop</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">*</span> <span class="nx">step</span><span class="p">;</span>
-                <span class="p">&#125;</span>
-                <span class="nx">gradient</span><span class="p">.</span><span class="nx">colorStops</span><span class="p">.</span><span class="nf">push</span><span class="p">(&#123;</span>
-                  <span class="na">color</span><span class="p">:</span> <span class="nx">m3</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                  <span class="na">stop</span><span class="p">:</span> <span class="nx">stop</span><span class="p">,</span>
-                <span class="p">&#125;);</span>
-              <span class="p">&#125;</span>
-            <span class="p">&#125;</span>
-            <span class="k">break</span><span class="p">;</span>
-        <span class="p">&#125;</span>
-      <span class="p">&#125;</span>
+            // color stops
+            m2 = m1[5].match(
+              /((?:rgb|rgba)\(\d{1,3},\s\d{1,3},\s\d{1,3}(?:,\s[0-9\.]+)?\)(?:\s\d{1,3}(?:%|px))?)+/g,
+            );
+            if (m2) {
+              m2Len = m2.length;
+              step = 1 / Math.max(m2Len - 1, 1);
+              for (i = 0; i < m2Len; i += 1) {
+                m3 = m2[i].match(
+                  /((?:rgb|rgba)\(\d{1,3},\s\d{1,3},\s\d{1,3}(?:,\s[0-9\.]+)?\))\s*(\d{1,3})?(%|px)?/,
+                );
+                if (m3[2]) {
+                  stop = parseFloat(m3[2]);
+                  if (m3[3] === "%") {
+                    stop /= 100;
+                  } else {
+                    // px - stupid opera
+                    stop /= bounds.width;
+                  }
+                } else {
+                  stop = i * step;
+                }
+                gradient.colorStops.push({
+                  color: m3[1],
+                  stop: stop,
+                });
+              }
+            }
+            break;
+        }
+      }
 
-      <span class="k">return</span> <span class="nx">gradient</span><span class="p">;</span>
-    <span class="p">&#125;;</span>
+      return gradient;
+    };
 
-    <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Generate</span><span class="p">.</span><span class="nx">Gradient</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">src</span><span class="p">,</span> <span class="nx">bounds</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="kd">var</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">canvas</span><span class="dl">"</span><span class="p">),</span>
-        <span class="nx">ctx</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nf">getContext</span><span class="p">(</span><span class="dl">"</span><span class="s2">2d</span><span class="dl">"</span><span class="p">),</span>
-        <span class="nx">gradient</span><span class="p">,</span>
-        <span class="nx">grad</span><span class="p">,</span>
-        <span class="nx">i</span><span class="p">,</span>
-        <span class="nx">len</span><span class="p">,</span>
-        <span class="nx">img</span><span class="p">;</span>
+    _html2canvas.Generate.Gradient = function (src, bounds) {
+      var canvas = document.createElement("canvas"),
+        ctx = canvas.getContext("2d"),
+        gradient,
+        grad,
+        i,
+        len,
+        img;
 
-      <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span><span class="p">;</span>
-      <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span><span class="p">;</span>
+      canvas.width = bounds.width;
+      canvas.height = bounds.height;
 
-      <span class="c1">// TODO: add support for multi defined background gradients (like radial gradient example in background.html)</span>
-      <span class="nx">gradient</span> <span class="o">=</span> <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Generate</span><span class="p">.</span><span class="nf">parseGradient</span><span class="p">(</span><span class="nx">src</span><span class="p">,</span> <span class="nx">bounds</span><span class="p">);</span>
+      // TODO: add support for multi defined background gradients (like radial gradient example in background.html)
+      gradient = _html2canvas.Generate.parseGradient(src, bounds);
 
-      <span class="nx">img</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Image</span><span class="p">();</span>
+      img = new Image();
 
-      <span class="k">if </span><span class="p">(</span><span class="nx">gradient</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="k">if </span><span class="p">(</span><span class="nx">gradient</span><span class="p">.</span><span class="nx">type</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">linear</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="nx">grad</span> <span class="o">=</span> <span class="nx">ctx</span><span class="p">.</span><span class="nf">createLinearGradient</span><span class="p">(</span>
-            <span class="nx">gradient</span><span class="p">.</span><span class="nx">x0</span><span class="p">,</span>
-            <span class="nx">gradient</span><span class="p">.</span><span class="nx">y0</span><span class="p">,</span>
-            <span class="nx">gradient</span><span class="p">.</span><span class="nx">x1</span><span class="p">,</span>
-            <span class="nx">gradient</span><span class="p">.</span><span class="nx">y1</span><span class="p">,</span>
-          <span class="p">);</span>
+      if (gradient) {
+        if (gradient.type === "linear") {
+          grad = ctx.createLinearGradient(
+            gradient.x0,
+            gradient.y0,
+            gradient.x1,
+            gradient.y1,
+          );
 
-          <span class="k">for </span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">colorStops</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">try</span> <span class="p">&#123;</span>
-              <span class="nx">grad</span><span class="p">.</span><span class="nf">addColorStop</span><span class="p">(</span>
-                <span class="nx">gradient</span><span class="p">.</span><span class="nx">colorStops</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">stop</span><span class="p">,</span>
-                <span class="nx">gradient</span><span class="p">.</span><span class="nx">colorStops</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">color</span><span class="p">,</span>
-              <span class="p">);</span>
-            <span class="p">&#125;</span> <span class="k">catch </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">&#123;</span>
-              <span class="nf">h2clog</span><span class="p">([</span>
-                <span class="dl">"</span><span class="s2">failed to add color stop: </span><span class="dl">"</span><span class="p">,</span>
-                <span class="nx">e</span><span class="p">,</span>
-                <span class="dl">"</span><span class="s2">; tried to add: </span><span class="dl">"</span><span class="p">,</span>
-                <span class="nx">gradient</span><span class="p">.</span><span class="nx">colorStops</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span>
-                <span class="dl">"</span><span class="s2">; stop: </span><span class="dl">"</span><span class="p">,</span>
-                <span class="nx">i</span><span class="p">,</span>
-                <span class="dl">"</span><span class="s2">; in: </span><span class="dl">"</span><span class="p">,</span>
-                <span class="nx">src</span><span class="p">,</span>
-              <span class="p">]);</span>
-            <span class="p">&#125;</span>
-          <span class="p">&#125;</span>
+          for (i = 0, len = gradient.colorStops.length; i < len; i += 1) {
+            try {
+              grad.addColorStop(
+                gradient.colorStops[i].stop,
+                gradient.colorStops[i].color,
+              );
+            } catch (e) {
+              h2clog([
+                "failed to add color stop: ",
+                e,
+                "; tried to add: ",
+                gradient.colorStops[i],
+                "; stop: ",
+                i,
+                "; in: ",
+                src,
+              ]);
+            }
+          }
 
-          <span class="nx">ctx</span><span class="p">.</span><span class="nx">fillStyle</span> <span class="o">=</span> <span class="nx">grad</span><span class="p">;</span>
-          <span class="nx">ctx</span><span class="p">.</span><span class="nf">fillRect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span>
+          ctx.fillStyle = grad;
+          ctx.fillRect(0, 0, bounds.width, bounds.height);
 
-          <span class="nx">img</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nf">toDataURL</span><span class="p">();</span>
-        <span class="p">&#125;</span> <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="nx">gradient</span><span class="p">.</span><span class="nx">type</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">circle</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="nx">grad</span> <span class="o">=</span> <span class="nx">ctx</span><span class="p">.</span><span class="nf">createRadialGradient</span><span class="p">(</span>
-            <span class="nx">gradient</span><span class="p">.</span><span class="nx">cx</span><span class="p">,</span>
-            <span class="nx">gradient</span><span class="p">.</span><span class="nx">cy</span><span class="p">,</span>
-            <span class="mi">0</span><span class="p">,</span>
-            <span class="nx">gradient</span><span class="p">.</span><span class="nx">cx</span><span class="p">,</span>
-            <span class="nx">gradient</span><span class="p">.</span><span class="nx">cy</span><span class="p">,</span>
-            <span class="nx">gradient</span><span class="p">.</span><span class="nx">rx</span><span class="p">,</span>
-          <span class="p">);</span>
+          img.src = canvas.toDataURL();
+        } else if (gradient.type === "circle") {
+          grad = ctx.createRadialGradient(
+            gradient.cx,
+            gradient.cy,
+            0,
+            gradient.cx,
+            gradient.cy,
+            gradient.rx,
+          );
 
-          <span class="k">for </span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">colorStops</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">try</span> <span class="p">&#123;</span>
-              <span class="nx">grad</span><span class="p">.</span><span class="nf">addColorStop</span><span class="p">(</span>
-                <span class="nx">gradient</span><span class="p">.</span><span class="nx">colorStops</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">stop</span><span class="p">,</span>
-                <span class="nx">gradient</span><span class="p">.</span><span class="nx">colorStops</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">color</span><span class="p">,</span>
-              <span class="p">);</span>
-            <span class="p">&#125;</span> <span class="k">catch </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">&#123;</span>
-              <span class="nf">h2clog</span><span class="p">([</span>
-                <span class="dl">"</span><span class="s2">failed to add color stop: </span><span class="dl">"</span><span class="p">,</span>
-                <span class="nx">e</span><span class="p">,</span>
-                <span class="dl">"</span><span class="s2">; tried to add: </span><span class="dl">"</span><span class="p">,</span>
-                <span class="nx">gradient</span><span class="p">.</span><span class="nx">colorStops</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span>
-                <span class="dl">"</span><span class="s2">; stop: </span><span class="dl">"</span><span class="p">,</span>
-                <span class="nx">i</span><span class="p">,</span>
-                <span class="dl">"</span><span class="s2">; in: </span><span class="dl">"</span><span class="p">,</span>
-                <span class="nx">src</span><span class="p">,</span>
-              <span class="p">]);</span>
-            <span class="p">&#125;</span>
-          <span class="p">&#125;</span>
+          for (i = 0, len = gradient.colorStops.length; i < len; i += 1) {
+            try {
+              grad.addColorStop(
+                gradient.colorStops[i].stop,
+                gradient.colorStops[i].color,
+              );
+            } catch (e) {
+              h2clog([
+                "failed to add color stop: ",
+                e,
+                "; tried to add: ",
+                gradient.colorStops[i],
+                "; stop: ",
+                i,
+                "; in: ",
+                src,
+              ]);
+            }
+          }
 
-          <span class="nx">ctx</span><span class="p">.</span><span class="nx">fillStyle</span> <span class="o">=</span> <span class="nx">grad</span><span class="p">;</span>
-          <span class="nx">ctx</span><span class="p">.</span><span class="nf">fillRect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span>
+          ctx.fillStyle = grad;
+          ctx.fillRect(0, 0, bounds.width, bounds.height);
 
-          <span class="nx">img</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nf">toDataURL</span><span class="p">();</span>
-        <span class="p">&#125;</span> <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="nx">gradient</span><span class="p">.</span><span class="nx">type</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">ellipse</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="c1">// draw circle</span>
-          <span class="kd">var</span> <span class="nx">canvasRadial</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">canvas</span><span class="dl">"</span><span class="p">),</span>
-            <span class="nx">ctxRadial</span> <span class="o">=</span> <span class="nx">canvasRadial</span><span class="p">.</span><span class="nf">getContext</span><span class="p">(</span><span class="dl">"</span><span class="s2">2d</span><span class="dl">"</span><span class="p">),</span>
-            <span class="nx">ri</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">max</span><span class="p">(</span><span class="nx">gradient</span><span class="p">.</span><span class="nx">rx</span><span class="p">,</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">ry</span><span class="p">),</span>
-            <span class="nx">di</span> <span class="o">=</span> <span class="nx">ri</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span>
-            <span class="nx">imgRadial</span><span class="p">;</span>
+          img.src = canvas.toDataURL();
+        } else if (gradient.type === "ellipse") {
+          // draw circle
+          var canvasRadial = document.createElement("canvas"),
+            ctxRadial = canvasRadial.getContext("2d"),
+            ri = Math.max(gradient.rx, gradient.ry),
+            di = ri * 2,
+            imgRadial;
 
-          <span class="nx">canvasRadial</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">canvasRadial</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nx">di</span><span class="p">;</span>
+          canvasRadial.width = canvasRadial.height = di;
 
-          <span class="nx">grad</span> <span class="o">=</span> <span class="nx">ctxRadial</span><span class="p">.</span><span class="nf">createRadialGradient</span><span class="p">(</span>
-            <span class="nx">gradient</span><span class="p">.</span><span class="nx">rx</span><span class="p">,</span>
-            <span class="nx">gradient</span><span class="p">.</span><span class="nx">ry</span><span class="p">,</span>
-            <span class="mi">0</span><span class="p">,</span>
-            <span class="nx">gradient</span><span class="p">.</span><span class="nx">rx</span><span class="p">,</span>
-            <span class="nx">gradient</span><span class="p">.</span><span class="nx">ry</span><span class="p">,</span>
-            <span class="nx">ri</span><span class="p">,</span>
-          <span class="p">);</span>
+          grad = ctxRadial.createRadialGradient(
+            gradient.rx,
+            gradient.ry,
+            0,
+            gradient.rx,
+            gradient.ry,
+            ri,
+          );
 
-          <span class="k">for </span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">colorStops</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">try</span> <span class="p">&#123;</span>
-              <span class="nx">grad</span><span class="p">.</span><span class="nf">addColorStop</span><span class="p">(</span>
-                <span class="nx">gradient</span><span class="p">.</span><span class="nx">colorStops</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">stop</span><span class="p">,</span>
-                <span class="nx">gradient</span><span class="p">.</span><span class="nx">colorStops</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">color</span><span class="p">,</span>
-              <span class="p">);</span>
-            <span class="p">&#125;</span> <span class="k">catch </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">&#123;</span>
-              <span class="nf">h2clog</span><span class="p">([</span>
-                <span class="dl">"</span><span class="s2">failed to add color stop: </span><span class="dl">"</span><span class="p">,</span>
-                <span class="nx">e</span><span class="p">,</span>
-                <span class="dl">"</span><span class="s2">; tried to add: </span><span class="dl">"</span><span class="p">,</span>
-                <span class="nx">gradient</span><span class="p">.</span><span class="nx">colorStops</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span>
-                <span class="dl">"</span><span class="s2">; stop: </span><span class="dl">"</span><span class="p">,</span>
-                <span class="nx">i</span><span class="p">,</span>
-                <span class="dl">"</span><span class="s2">; in: </span><span class="dl">"</span><span class="p">,</span>
-                <span class="nx">src</span><span class="p">,</span>
-              <span class="p">]);</span>
-            <span class="p">&#125;</span>
-          <span class="p">&#125;</span>
+          for (i = 0, len = gradient.colorStops.length; i < len; i += 1) {
+            try {
+              grad.addColorStop(
+                gradient.colorStops[i].stop,
+                gradient.colorStops[i].color,
+              );
+            } catch (e) {
+              h2clog([
+                "failed to add color stop: ",
+                e,
+                "; tried to add: ",
+                gradient.colorStops[i],
+                "; stop: ",
+                i,
+                "; in: ",
+                src,
+              ]);
+            }
+          }
 
-          <span class="nx">ctxRadial</span><span class="p">.</span><span class="nx">fillStyle</span> <span class="o">=</span> <span class="nx">grad</span><span class="p">;</span>
-          <span class="nx">ctxRadial</span><span class="p">.</span><span class="nf">fillRect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">di</span><span class="p">,</span> <span class="nx">di</span><span class="p">);</span>
+          ctxRadial.fillStyle = grad;
+          ctxRadial.fillRect(0, 0, di, di);
 
-          <span class="nx">ctx</span><span class="p">.</span><span class="nx">fillStyle</span> <span class="o">=</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">colorStops</span><span class="p">[</span><span class="nx">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">].</span><span class="nx">color</span><span class="p">;</span>
-          <span class="nx">ctx</span><span class="p">.</span><span class="nf">fillRect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span>
+          ctx.fillStyle = gradient.colorStops[i - 1].color;
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-          <span class="nx">imgRadial</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Image</span><span class="p">();</span>
-          <span class="nx">imgRadial</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-            <span class="c1">// wait until the image is filled</span>
+          imgRadial = new Image();
+          imgRadial.onload = function () {
+            // wait until the image is filled
 
-            <span class="c1">// transform circle to ellipse</span>
-            <span class="nx">ctx</span><span class="p">.</span><span class="nf">drawImage</span><span class="p">(</span>
-              <span class="nx">imgRadial</span><span class="p">,</span>
-              <span class="nx">gradient</span><span class="p">.</span><span class="nx">cx</span> <span class="o">-</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">rx</span><span class="p">,</span>
-              <span class="nx">gradient</span><span class="p">.</span><span class="nx">cy</span> <span class="o">-</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">ry</span><span class="p">,</span>
-              <span class="mi">2</span> <span class="o">*</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">rx</span><span class="p">,</span>
-              <span class="mi">2</span> <span class="o">*</span> <span class="nx">gradient</span><span class="p">.</span><span class="nx">ry</span><span class="p">,</span>
-            <span class="p">);</span>
+            // transform circle to ellipse
+            ctx.drawImage(
+              imgRadial,
+              gradient.cx - gradient.rx,
+              gradient.cy - gradient.ry,
+              2 * gradient.rx,
+              2 * gradient.ry,
+            );
 
-            <span class="nx">img</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nf">toDataURL</span><span class="p">();</span>
-          <span class="p">&#125;;</span>
-          <span class="nx">imgRadial</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">canvasRadial</span><span class="p">.</span><span class="nf">toDataURL</span><span class="p">();</span>
-        <span class="p">&#125;</span>
-      <span class="p">&#125;</span>
+            img.src = canvas.toDataURL();
+          };
+          imgRadial.src = canvasRadial.toDataURL();
+        }
+      }
 
-      <span class="k">return</span> <span class="nx">img</span><span class="p">;</span>
-    <span class="p">&#125;;</span>
+      return img;
+    };
 
-    <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Generate</span><span class="p">.</span><span class="nx">ListAlpha</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">number</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="kd">var</span> <span class="nx">tmp</span> <span class="o">=</span> <span class="dl">""</span><span class="p">,</span>
-        <span class="nx">modulus</span><span class="p">;</span>
+    _html2canvas.Generate.ListAlpha = function (number) {
+      var tmp = "",
+        modulus;
 
-      <span class="k">do</span> <span class="p">&#123;</span>
-        <span class="nx">modulus</span> <span class="o">=</span> <span class="nx">number</span> <span class="o">%</span> <span class="mi">26</span><span class="p">;</span>
-        <span class="nx">tmp</span> <span class="o">=</span> <span class="nb">String</span><span class="p">.</span><span class="nf">fromCharCode</span><span class="p">(</span><span class="nx">modulus</span> <span class="o">+</span> <span class="mi">64</span><span class="p">)</span> <span class="o">+</span> <span class="nx">tmp</span><span class="p">;</span>
-        <span class="nx">number</span> <span class="o">=</span> <span class="nx">number</span> <span class="o">/</span> <span class="mi">26</span><span class="p">;</span>
-      <span class="p">&#125;</span> <span class="k">while </span><span class="p">(</span><span class="nx">number</span> <span class="o">*</span> <span class="mi">26</span> <span class="o">&gt;</span> <span class="mi">26</span><span class="p">);</span>
+      do {
+        modulus = number % 26;
+        tmp = String.fromCharCode(modulus + 64) + tmp;
+        number = number / 26;
+      } while (number * 26 > 26);
 
-      <span class="k">return</span> <span class="nx">tmp</span><span class="p">;</span>
-    <span class="p">&#125;;</span>
+      return tmp;
+    };
 
-    <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Generate</span><span class="p">.</span><span class="nx">ListRoman</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">number</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="kd">var</span> <span class="nx">romanArray</span> <span class="o">=</span> <span class="p">[</span>
-          <span class="dl">"</span><span class="s2">M</span><span class="dl">"</span><span class="p">,</span>
-          <span class="dl">"</span><span class="s2">CM</span><span class="dl">"</span><span class="p">,</span>
-          <span class="dl">"</span><span class="s2">D</span><span class="dl">"</span><span class="p">,</span>
-          <span class="dl">"</span><span class="s2">CD</span><span class="dl">"</span><span class="p">,</span>
-          <span class="dl">"</span><span class="s2">C</span><span class="dl">"</span><span class="p">,</span>
-          <span class="dl">"</span><span class="s2">XC</span><span class="dl">"</span><span class="p">,</span>
-          <span class="dl">"</span><span class="s2">L</span><span class="dl">"</span><span class="p">,</span>
-          <span class="dl">"</span><span class="s2">XL</span><span class="dl">"</span><span class="p">,</span>
-          <span class="dl">"</span><span class="s2">X</span><span class="dl">"</span><span class="p">,</span>
-          <span class="dl">"</span><span class="s2">IX</span><span class="dl">"</span><span class="p">,</span>
-          <span class="dl">"</span><span class="s2">V</span><span class="dl">"</span><span class="p">,</span>
-          <span class="dl">"</span><span class="s2">IV</span><span class="dl">"</span><span class="p">,</span>
-          <span class="dl">"</span><span class="s2">I</span><span class="dl">"</span><span class="p">,</span>
-        <span class="p">],</span>
-        <span class="nx">decimal</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">900</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-        <span class="nx">roman</span> <span class="o">=</span> <span class="dl">""</span><span class="p">,</span>
-        <span class="nx">v</span><span class="p">,</span>
-        <span class="nx">len</span> <span class="o">=</span> <span class="nx">romanArray</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+    _html2canvas.Generate.ListRoman = function (number) {
+      var romanArray = [
+          "M",
+          "CM",
+          "D",
+          "CD",
+          "C",
+          "XC",
+          "L",
+          "XL",
+          "X",
+          "IX",
+          "V",
+          "IV",
+          "I",
+        ],
+        decimal = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1],
+        roman = "",
+        v,
+        len = romanArray.length;
 
-      <span class="k">if </span><span class="p">(</span><span class="nx">number</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">number</span> <span class="o">&gt;=</span> <span class="mi">4000</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="k">return</span> <span class="nx">number</span><span class="p">;</span>
-      <span class="p">&#125;</span>
+      if (number <= 0 || number >= 4000) {
+        return number;
+      }
 
-      <span class="k">for </span><span class="p">(</span><span class="nx">v</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">v</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">v</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="k">while </span><span class="p">(</span><span class="nx">number</span> <span class="o">&gt;=</span> <span class="nx">decimal</span><span class="p">[</span><span class="nx">v</span><span class="p">])</span> <span class="p">&#123;</span>
-          <span class="nx">number</span> <span class="o">-=</span> <span class="nx">decimal</span><span class="p">[</span><span class="nx">v</span><span class="p">];</span>
-          <span class="nx">roman</span> <span class="o">+=</span> <span class="nx">romanArray</span><span class="p">[</span><span class="nx">v</span><span class="p">];</span>
-        <span class="p">&#125;</span>
-      <span class="p">&#125;</span>
+      for (v = 0; v < len; v += 1) {
+        while (number >= decimal[v]) {
+          number -= decimal[v];
+          roman += romanArray[v];
+        }
+      }
 
-      <span class="k">return</span> <span class="nx">roman</span><span class="p">;</span>
-    <span class="p">&#125;;</span>
-  <span class="p">&#125;)();</span>
-  <span class="cm">/*
-  html2canvas v0.34 &lt;http://html2canvas.hertzen.com&gt;
+      return roman;
+    };
+  })();
+  /*
+  html2canvas v0.34 <http://html2canvas.hertzen.com>
   Copyright (c) 2011 Niklas von Hertzen. All rights reserved.
   http://www.twitter.com/niklasvh
 
   Released under MIT License
-*/</span>
+*/
 
-  <span class="cm">/*
+  /*
    *  New function for traversing elements
-   */</span>
+   */
 
-  <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Parse</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">images</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="kd">var</span> <span class="nx">support</span> <span class="o">=</span> <span class="p">&#123;</span>
-        <span class="na">rangeBounds</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="na">svgRendering</span><span class="p">:</span>
-          <span class="nx">options</span><span class="p">.</span><span class="nx">svgRendering</span> <span class="o">&amp;&amp;</span>
-          <span class="p">(</span><span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-            <span class="kd">var</span> <span class="nx">img</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Image</span><span class="p">(),</span>
-              <span class="nx">canvas</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">canvas</span><span class="dl">"</span><span class="p">),</span>
-              <span class="nx">ctx</span> <span class="o">=</span>
-                <span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span> <span class="o">===</span> <span class="kc">undefined</span>
-                  <span class="p">?</span> <span class="kc">false</span>
-                  <span class="p">:</span> <span class="nx">canvas</span><span class="p">.</span><span class="nf">getContext</span><span class="p">(</span><span class="dl">"</span><span class="s2">2d</span><span class="dl">"</span><span class="p">);</span>
-            <span class="k">if </span><span class="p">(</span><span class="nx">ctx</span> <span class="o">===</span> <span class="kc">false</span><span class="p">)</span> <span class="p">&#123;</span>
-              <span class="c1">// browser doesn't support canvas, good luck supporting SVG on canvas</span>
-              <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-            <span class="p">&#125;</span>
-            <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-            <span class="nx">img</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="p">[</span>
-              <span class="dl">"</span><span class="s2">data:image/svg+xml,</span><span class="dl">"</span><span class="p">,</span>
-              <span class="dl">"</span><span class="s2">&lt;svg xmlns='http://www.w3.org/2000/svg' width='10' height='10'&gt;</span><span class="dl">"</span><span class="p">,</span>
-              <span class="dl">"</span><span class="s2">&lt;foreignObject width='10' height='10'&gt;</span><span class="dl">"</span><span class="p">,</span>
-              <span class="dl">"</span><span class="s2">&lt;div xmlns='http://www.w3.org/1999/xhtml' style='width:10;height:10;'&gt;</span><span class="dl">"</span><span class="p">,</span>
-              <span class="dl">"</span><span class="s2">sup</span><span class="dl">"</span><span class="p">,</span>
-              <span class="dl">"</span><span class="s2">&lt;/div&gt;</span><span class="dl">"</span><span class="p">,</span>
-              <span class="dl">"</span><span class="s2">&lt;/foreignObject&gt;</span><span class="dl">"</span><span class="p">,</span>
-              <span class="dl">"</span><span class="s2">&lt;/svg&gt;</span><span class="dl">"</span><span class="p">,</span>
-            <span class="p">].</span><span class="nf">join</span><span class="p">(</span><span class="dl">""</span><span class="p">);</span>
-            <span class="k">try</span> <span class="p">&#123;</span>
-              <span class="nx">ctx</span><span class="p">.</span><span class="nf">drawImage</span><span class="p">(</span><span class="nx">img</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-              <span class="nx">canvas</span><span class="p">.</span><span class="nf">toDataURL</span><span class="p">();</span>
-            <span class="p">&#125;</span> <span class="k">catch </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">&#123;</span>
-              <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-            <span class="p">&#125;</span>
-            <span class="nf">h2clog</span><span class="p">(</span><span class="dl">"</span><span class="s2">html2canvas: Parse: SVG powered rendering available</span><span class="dl">"</span><span class="p">);</span>
-            <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
-          <span class="p">&#125;)(),</span>
-      <span class="p">&#125;,</span>
-      <span class="nx">element</span> <span class="o">=</span>
-        <span class="nx">options</span><span class="p">.</span><span class="nx">elements</span> <span class="o">===</span> <span class="kc">undefined</span> <span class="p">?</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span> <span class="p">:</span> <span class="nx">options</span><span class="p">.</span><span class="nx">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="c1">// select body by default</span>
-      <span class="nx">needReorder</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="nx">numDraws</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="nx">fontData</span> <span class="o">=</span> <span class="p">&#123;&#125;,</span>
-      <span class="nx">doc</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">ownerDocument</span><span class="p">,</span>
-      <span class="nx">ignoreElementsRegExp</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">RegExp</span><span class="p">(</span><span class="dl">"</span><span class="s2">(</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">options</span><span class="p">.</span><span class="nx">ignoreElements</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">)</span><span class="dl">"</span><span class="p">),</span>
-      <span class="nx">body</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">body</span><span class="p">,</span>
-      <span class="nx">r</span><span class="p">,</span>
-      <span class="nx">testElement</span><span class="p">,</span>
-      <span class="nx">rangeBounds</span><span class="p">,</span>
-      <span class="nx">rangeHeight</span><span class="p">,</span>
-      <span class="nx">stack</span><span class="p">,</span>
-      <span class="nx">ctx</span><span class="p">,</span>
-      <span class="nx">docDim</span><span class="p">,</span>
-      <span class="nx">i</span><span class="p">,</span>
-      <span class="nx">children</span><span class="p">,</span>
-      <span class="nx">childrenLen</span><span class="p">;</span>
+  _html2canvas.Parse = function (images, options) {
+    var support = {
+        rangeBounds: false,
+        svgRendering:
+          options.svgRendering &&
+          (function () {
+            var img = new Image(),
+              canvas = document.createElement("canvas"),
+              ctx =
+                canvas.getContext === undefined
+                  ? false
+                  : canvas.getContext("2d");
+            if (ctx === false) {
+              // browser doesn't support canvas, good luck supporting SVG on canvas
+              return false;
+            }
+            canvas.width = canvas.height = 10;
+            img.src = [
+              "data:image/svg+xml,",
+              "<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10'>",
+              "<foreignObject width='10' height='10'>",
+              "<div xmlns='http://www.w3.org/1999/xhtml' style='width:10;height:10;'>",
+              "sup",
+              "</div>",
+              "</foreignObject>",
+              "</svg>",
+            ].join("");
+            try {
+              ctx.drawImage(img, 0, 0);
+              canvas.toDataURL();
+            } catch (e) {
+              return false;
+            }
+            h2clog("html2canvas: Parse: SVG powered rendering available");
+            return true;
+          })(),
+      },
+      element =
+        options.elements === undefined ? document.body : options.elements[0], // select body by default
+      needReorder = false,
+      numDraws = 0,
+      fontData = {},
+      doc = element.ownerDocument,
+      ignoreElementsRegExp = new RegExp("(" + options.ignoreElements + ")"),
+      body = doc.body,
+      r,
+      testElement,
+      rangeBounds,
+      rangeHeight,
+      stack,
+      ctx,
+      docDim,
+      i,
+      children,
+      childrenLen;
 
-    <span class="kd">function</span> <span class="nf">docSize</span><span class="p">()</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="p">&#123;</span>
-        <span class="na">width</span><span class="p">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">max</span><span class="p">(</span>
-          <span class="nb">Math</span><span class="p">.</span><span class="nf">max</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">scrollWidth</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">scrollWidth</span><span class="p">),</span>
-          <span class="nb">Math</span><span class="p">.</span><span class="nf">max</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">offsetWidth</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">offsetWidth</span><span class="p">),</span>
-          <span class="nb">Math</span><span class="p">.</span><span class="nf">max</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">clientWidth</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">clientWidth</span><span class="p">),</span>
-        <span class="p">),</span>
-        <span class="na">height</span><span class="p">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">max</span><span class="p">(</span>
-          <span class="nb">Math</span><span class="p">.</span><span class="nf">max</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">scrollHeight</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">scrollHeight</span><span class="p">),</span>
-          <span class="nb">Math</span><span class="p">.</span><span class="nf">max</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">offsetHeight</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">offsetHeight</span><span class="p">),</span>
-          <span class="nb">Math</span><span class="p">.</span><span class="nf">max</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">clientHeight</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">clientHeight</span><span class="p">),</span>
-        <span class="p">),</span>
-      <span class="p">&#125;;</span>
-    <span class="p">&#125;</span>
+    function docSize() {
+      return {
+        width: Math.max(
+          Math.max(doc.body.scrollWidth, doc.documentElement.scrollWidth),
+          Math.max(doc.body.offsetWidth, doc.documentElement.offsetWidth),
+          Math.max(doc.body.clientWidth, doc.documentElement.clientWidth),
+        ),
+        height: Math.max(
+          Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight),
+          Math.max(doc.body.offsetHeight, doc.documentElement.offsetHeight),
+          Math.max(doc.body.clientHeight, doc.documentElement.clientHeight),
+        ),
+      };
+    }
 
-    <span class="nx">images</span> <span class="o">=</span> <span class="nx">images</span> <span class="o">||</span> <span class="p">&#123;&#125;;</span>
+    images = images || {};
 
-    <span class="c1">// Test whether we can use ranges to measure bounding boxes</span>
-    <span class="c1">// Opera doesn't provide valid bounds.height/bottom even though it supports the method.</span>
+    // Test whether we can use ranges to measure bounding boxes
+    // Opera doesn't provide valid bounds.height/bottom even though it supports the method.
 
-    <span class="k">if </span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">createRange</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="nx">r</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nf">createRange</span><span class="p">();</span>
-      <span class="c1">//this.support.rangeBounds = new Boolean(r.getBoundingClientRect);</span>
-      <span class="k">if </span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nx">testElement</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">boundtest</span><span class="dl">"</span><span class="p">);</span>
-        <span class="nx">testElement</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">123px</span><span class="dl">"</span><span class="p">;</span>
-        <span class="nx">testElement</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">block</span><span class="dl">"</span><span class="p">;</span>
-        <span class="nx">body</span><span class="p">.</span><span class="nf">appendChild</span><span class="p">(</span><span class="nx">testElement</span><span class="p">);</span>
+    if (doc.createRange) {
+      r = doc.createRange();
+      //this.support.rangeBounds = new Boolean(r.getBoundingClientRect);
+      if (r.getBoundingClientRect) {
+        testElement = doc.createElement("boundtest");
+        testElement.style.height = "123px";
+        testElement.style.display = "block";
+        body.appendChild(testElement);
 
-        <span class="nx">r</span><span class="p">.</span><span class="nf">selectNode</span><span class="p">(</span><span class="nx">testElement</span><span class="p">);</span>
-        <span class="nx">rangeBounds</span> <span class="o">=</span> <span class="nx">r</span><span class="p">.</span><span class="nf">getBoundingClientRect</span><span class="p">();</span>
-        <span class="nx">rangeHeight</span> <span class="o">=</span> <span class="nx">rangeBounds</span><span class="p">.</span><span class="nx">height</span><span class="p">;</span>
+        r.selectNode(testElement);
+        rangeBounds = r.getBoundingClientRect();
+        rangeHeight = rangeBounds.height;
 
-        <span class="k">if </span><span class="p">(</span><span class="nx">rangeHeight</span> <span class="o">===</span> <span class="mi">123</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="nx">support</span><span class="p">.</span><span class="nx">rangeBounds</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-        <span class="p">&#125;</span>
-        <span class="nx">body</span><span class="p">.</span><span class="nf">removeChild</span><span class="p">(</span><span class="nx">testElement</span><span class="p">);</span>
-      <span class="p">&#125;</span>
-    <span class="p">&#125;</span>
+        if (rangeHeight === 123) {
+          support.rangeBounds = true;
+        }
+        body.removeChild(testElement);
+      }
+    }
 
-    <span class="cm">/*
+    /*
     var rootStack = new this.storageContext($(document).width(),$(document).height());
     rootStack.opacity = this.getCSS(this.element,"opacity");
     var stack = this.newElement(this.element,rootStack);
 
 
     this.parseElement(this.element,stack);
-     */</span>
+     */
 
-    <span class="kd">var</span> <span class="nx">getCSS</span> <span class="o">=</span> <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nx">getCSS</span><span class="p">;</span>
-    <span class="kd">function</span> <span class="nf">getCSSInt</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">attribute</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="kd">var</span> <span class="nx">val</span> <span class="o">=</span> <span class="nf">parseInt</span><span class="p">(</span><span class="nf">getCSS</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">attribute</span><span class="p">),</span> <span class="mi">10</span><span class="p">);</span>
-      <span class="k">return</span> <span class="nf">isNaN</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">?</span> <span class="mi">0</span> <span class="p">:</span> <span class="nx">val</span><span class="p">;</span> <span class="c1">// borders in old IE are throwing 'medium' for demo.html</span>
-    <span class="p">&#125;</span>
+    var getCSS = _html2canvas.Util.getCSS;
+    function getCSSInt(element, attribute) {
+      var val = parseInt(getCSS(element, attribute), 10);
+      return isNaN(val) ? 0 : val; // borders in old IE are throwing 'medium' for demo.html
+    }
 
-    <span class="c1">// Drawing a rectangle</span>
-    <span class="kd">function</span> <span class="nf">renderRect</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">w</span><span class="p">,</span> <span class="nx">h</span><span class="p">,</span> <span class="nx">bgcolor</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">if </span><span class="p">(</span><span class="nx">bgcolor</span> <span class="o">!==</span> <span class="dl">"</span><span class="s2">transparent</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nx">ctx</span><span class="p">.</span><span class="nf">setVariable</span><span class="p">(</span><span class="dl">"</span><span class="s2">fillStyle</span><span class="dl">"</span><span class="p">,</span> <span class="nx">bgcolor</span><span class="p">);</span>
-        <span class="nx">ctx</span><span class="p">.</span><span class="nf">fillRect</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">w</span><span class="p">,</span> <span class="nx">h</span><span class="p">);</span>
-        <span class="nx">numDraws</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-      <span class="p">&#125;</span>
-    <span class="p">&#125;</span>
+    // Drawing a rectangle
+    function renderRect(ctx, x, y, w, h, bgcolor) {
+      if (bgcolor !== "transparent") {
+        ctx.setVariable("fillStyle", bgcolor);
+        ctx.fillRect(x, y, w, h);
+        numDraws += 1;
+      }
+    }
 
-    <span class="kd">function</span> <span class="nf">textTransform</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span> <span class="nx">transform</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">switch </span><span class="p">(</span><span class="nx">transform</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="k">case</span> <span class="dl">"</span><span class="s2">lowercase</span><span class="dl">"</span><span class="p">:</span>
-          <span class="k">return</span> <span class="nx">text</span><span class="p">.</span><span class="nf">toLowerCase</span><span class="p">();</span>
+    function textTransform(text, transform) {
+      switch (transform) {
+        case "lowercase":
+          return text.toLowerCase();
 
-        <span class="k">case</span> <span class="dl">"</span><span class="s2">capitalize</span><span class="dl">"</span><span class="p">:</span>
-          <span class="k">return</span> <span class="nx">text</span><span class="p">.</span><span class="nf">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">(</span><span class="sr">^|</span><span class="se">\s</span><span class="sr">|:|-|</span><span class="se">\(</span><span class="sr">|</span><span class="se">\))([</span><span class="sr">a-z</span><span class="se">])</span><span class="sr">/g</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">m</span><span class="p">,</span> <span class="nx">p1</span><span class="p">,</span> <span class="nx">p2</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">if </span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">&#123;</span>
-              <span class="k">return</span> <span class="nx">p1</span> <span class="o">+</span> <span class="nx">p2</span><span class="p">.</span><span class="nf">toUpperCase</span><span class="p">();</span>
-            <span class="p">&#125;</span>
-          <span class="p">&#125;);</span>
+        case "capitalize":
+          return text.replace(/(^|\s|:|-|\(|\))([a-z])/g, function (m, p1, p2) {
+            if (m.length > 0) {
+              return p1 + p2.toUpperCase();
+            }
+          });
 
-        <span class="k">case</span> <span class="dl">"</span><span class="s2">uppercase</span><span class="dl">"</span><span class="p">:</span>
-          <span class="k">return</span> <span class="nx">text</span><span class="p">.</span><span class="nf">toUpperCase</span><span class="p">();</span>
+        case "uppercase":
+          return text.toUpperCase();
 
-        <span class="nl">default</span><span class="p">:</span>
-          <span class="k">return</span> <span class="nx">text</span><span class="p">;</span>
-      <span class="p">&#125;</span>
-    <span class="p">&#125;</span>
+        default:
+          return text;
+      }
+    }
 
-    <span class="kd">function</span> <span class="nf">trimText</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="nx">text</span><span class="p">.</span><span class="nf">replace</span><span class="p">(</span><span class="sr">/^</span><span class="se">\s</span><span class="sr">*/g</span><span class="p">,</span> <span class="dl">""</span><span class="p">).</span><span class="nf">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">\s</span><span class="sr">*$/g</span><span class="p">,</span> <span class="dl">""</span><span class="p">);</span>
-    <span class="p">&#125;</span>
+    function trimText(text) {
+      return text.replace(/^\s*/g, "").replace(/\s*$/g, "");
+    }
 
-    <span class="kd">function</span> <span class="nf">fontMetrics</span><span class="p">(</span><span class="nx">font</span><span class="p">,</span> <span class="nx">fontSize</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">if </span><span class="p">(</span><span class="nx">fontData</span><span class="p">[</span><span class="nx">font</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">-</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">fontSize</span><span class="p">]</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="k">return</span> <span class="nx">fontData</span><span class="p">[</span><span class="nx">font</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">-</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">fontSize</span><span class="p">];</span>
-      <span class="p">&#125;</span>
+    function fontMetrics(font, fontSize) {
+      if (fontData[font + "-" + fontSize] !== undefined) {
+        return fontData[font + "-" + fontSize];
+      }
 
-      <span class="kd">var</span> <span class="nx">container</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">div</span><span class="dl">"</span><span class="p">),</span>
-        <span class="nx">img</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">img</span><span class="dl">"</span><span class="p">),</span>
-        <span class="nx">span</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">span</span><span class="dl">"</span><span class="p">),</span>
-        <span class="nx">baseline</span><span class="p">,</span>
-        <span class="nx">middle</span><span class="p">,</span>
-        <span class="nx">metricsObj</span><span class="p">;</span>
+      var container = doc.createElement("div"),
+        img = doc.createElement("img"),
+        span = doc.createElement("span"),
+        baseline,
+        middle,
+        metricsObj;
 
-      <span class="nx">container</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">visibility</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">hidden</span><span class="dl">"</span><span class="p">;</span>
-      <span class="nx">container</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">fontFamily</span> <span class="o">=</span> <span class="nx">font</span><span class="p">;</span>
-      <span class="nx">container</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">fontSize</span> <span class="o">=</span> <span class="nx">fontSize</span><span class="p">;</span>
-      <span class="nx">container</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">margin</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-      <span class="nx">container</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">padding</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      container.style.visibility = "hidden";
+      container.style.fontFamily = font;
+      container.style.fontSize = fontSize;
+      container.style.margin = 0;
+      container.style.padding = 0;
 
-      <span class="nx">body</span><span class="p">.</span><span class="nf">appendChild</span><span class="p">(</span><span class="nx">container</span><span class="p">);</span>
+      body.appendChild(container);
 
-      <span class="c1">// http://probablyprogramming.com/2009/03/15/the-tiniest-gif-ever (handtinywhite.gif)</span>
-      <span class="nx">img</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span>
-        <span class="dl">"</span><span class="s2">data:image/gif;base64,R0lGODlhAQABAIABAP///wAAACwAAAAAAQABAAACAkQBADs=</span><span class="dl">"</span><span class="p">;</span>
-      <span class="nx">img</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-      <span class="nx">img</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+      // http://probablyprogramming.com/2009/03/15/the-tiniest-gif-ever (handtinywhite.gif)
+      img.src =
+        "data:image/gif;base64,R0lGODlhAQABAIABAP///wAAACwAAAAAAQABAAACAkQBADs=";
+      img.width = 1;
+      img.height = 1;
 
-      <span class="nx">img</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">margin</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-      <span class="nx">img</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">padding</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-      <span class="nx">img</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">verticalAlign</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">baseline</span><span class="dl">"</span><span class="p">;</span>
+      img.style.margin = 0;
+      img.style.padding = 0;
+      img.style.verticalAlign = "baseline";
 
-      <span class="nx">span</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">fontFamily</span> <span class="o">=</span> <span class="nx">font</span><span class="p">;</span>
-      <span class="nx">span</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">fontSize</span> <span class="o">=</span> <span class="nx">fontSize</span><span class="p">;</span>
-      <span class="nx">span</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">margin</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-      <span class="nx">span</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">padding</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      span.style.fontFamily = font;
+      span.style.fontSize = fontSize;
+      span.style.margin = 0;
+      span.style.padding = 0;
 
-      <span class="nx">span</span><span class="p">.</span><span class="nf">appendChild</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nf">createTextNode</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hidden Text</span><span class="dl">"</span><span class="p">));</span>
-      <span class="nx">container</span><span class="p">.</span><span class="nf">appendChild</span><span class="p">(</span><span class="nx">span</span><span class="p">);</span>
-      <span class="nx">container</span><span class="p">.</span><span class="nf">appendChild</span><span class="p">(</span><span class="nx">img</span><span class="p">);</span>
-      <span class="nx">baseline</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">offsetTop</span> <span class="o">-</span> <span class="nx">span</span><span class="p">.</span><span class="nx">offsetTop</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+      span.appendChild(doc.createTextNode("Hidden Text"));
+      container.appendChild(span);
+      container.appendChild(img);
+      baseline = img.offsetTop - span.offsetTop + 1;
 
-      <span class="nx">container</span><span class="p">.</span><span class="nf">removeChild</span><span class="p">(</span><span class="nx">span</span><span class="p">);</span>
-      <span class="nx">container</span><span class="p">.</span><span class="nf">appendChild</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nf">createTextNode</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hidden Text</span><span class="dl">"</span><span class="p">));</span>
+      container.removeChild(span);
+      container.appendChild(doc.createTextNode("Hidden Text"));
 
-      <span class="nx">container</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">lineHeight</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">normal</span><span class="dl">"</span><span class="p">;</span>
-      <span class="nx">img</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">verticalAlign</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">super</span><span class="dl">"</span><span class="p">;</span>
+      container.style.lineHeight = "normal";
+      img.style.verticalAlign = "super";
 
-      <span class="nx">middle</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">offsetTop</span> <span class="o">-</span> <span class="nx">container</span><span class="p">.</span><span class="nx">offsetTop</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-      <span class="nx">metricsObj</span> <span class="o">=</span> <span class="p">&#123;</span>
-        <span class="na">baseline</span><span class="p">:</span> <span class="nx">baseline</span><span class="p">,</span>
-        <span class="na">lineWidth</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="na">middle</span><span class="p">:</span> <span class="nx">middle</span><span class="p">,</span>
-      <span class="p">&#125;;</span>
+      middle = img.offsetTop - container.offsetTop + 1;
+      metricsObj = {
+        baseline: baseline,
+        lineWidth: 1,
+        middle: middle,
+      };
 
-      <span class="nx">fontData</span><span class="p">[</span><span class="nx">font</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">-</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">fontSize</span><span class="p">]</span> <span class="o">=</span> <span class="nx">metricsObj</span><span class="p">;</span>
+      fontData[font + "-" + fontSize] = metricsObj;
 
-      <span class="nx">body</span><span class="p">.</span><span class="nf">removeChild</span><span class="p">(</span><span class="nx">container</span><span class="p">);</span>
+      body.removeChild(container);
 
-      <span class="k">return</span> <span class="nx">metricsObj</span><span class="p">;</span>
-    <span class="p">&#125;</span>
+      return metricsObj;
+    }
 
-    <span class="kd">function</span> <span class="nf">drawText</span><span class="p">(</span><span class="nx">currentText</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">ctx</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">if </span><span class="p">(</span><span class="nf">trimText</span><span class="p">(</span><span class="nx">currentText</span><span class="p">).</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nx">ctx</span><span class="p">.</span><span class="nf">fillText</span><span class="p">(</span><span class="nx">currentText</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
-        <span class="nx">numDraws</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-      <span class="p">&#125;</span>
-    <span class="p">&#125;</span>
+    function drawText(currentText, x, y, ctx) {
+      if (trimText(currentText).length > 0) {
+        ctx.fillText(currentText, x, y);
+        numDraws += 1;
+      }
+    }
 
-    <span class="kd">function</span> <span class="nf">renderText</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">textNode</span><span class="p">,</span> <span class="nx">stack</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="kd">var</span> <span class="nx">ctx</span> <span class="o">=</span> <span class="nx">stack</span><span class="p">.</span><span class="nx">ctx</span><span class="p">,</span>
-        <span class="nx">family</span> <span class="o">=</span> <span class="nf">getCSS</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">fontFamily</span><span class="dl">"</span><span class="p">),</span>
-        <span class="nx">size</span> <span class="o">=</span> <span class="nf">getCSS</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">fontSize</span><span class="dl">"</span><span class="p">),</span>
-        <span class="nx">color</span> <span class="o">=</span> <span class="nf">getCSS</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">color</span><span class="dl">"</span><span class="p">),</span>
-        <span class="nx">text_decoration</span> <span class="o">=</span> <span class="nf">getCSS</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">textDecoration</span><span class="dl">"</span><span class="p">),</span>
-        <span class="nx">text_align</span> <span class="o">=</span> <span class="nf">getCSS</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">textAlign</span><span class="dl">"</span><span class="p">),</span>
-        <span class="nx">letter_spacing</span> <span class="o">=</span> <span class="nf">getCSS</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">letterSpacing</span><span class="dl">"</span><span class="p">),</span>
-        <span class="nx">bounds</span><span class="p">,</span>
-        <span class="nx">text</span><span class="p">,</span>
-        <span class="nx">metrics</span><span class="p">,</span>
-        <span class="nx">renderList</span><span class="p">,</span>
-        <span class="nx">listLen</span><span class="p">,</span>
-        <span class="nx">bold</span> <span class="o">=</span> <span class="nf">getCSS</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">fontWeight</span><span class="dl">"</span><span class="p">),</span>
-        <span class="nx">font_style</span> <span class="o">=</span> <span class="nf">getCSS</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">fontStyle</span><span class="dl">"</span><span class="p">),</span>
-        <span class="nx">font_variant</span> <span class="o">=</span> <span class="nf">getCSS</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">fontVariant</span><span class="dl">"</span><span class="p">),</span>
-        <span class="nx">align</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="nx">newTextNode</span><span class="p">,</span>
-        <span class="nx">textValue</span><span class="p">,</span>
-        <span class="nx">textOffset</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="nx">oldTextNode</span><span class="p">,</span>
-        <span class="nx">c</span><span class="p">,</span>
-        <span class="nx">range</span><span class="p">,</span>
-        <span class="nx">parent</span><span class="p">,</span>
-        <span class="nx">wrapElement</span><span class="p">,</span>
-        <span class="nx">backupText</span><span class="p">;</span>
+    function renderText(el, textNode, stack) {
+      var ctx = stack.ctx,
+        family = getCSS(el, "fontFamily"),
+        size = getCSS(el, "fontSize"),
+        color = getCSS(el, "color"),
+        text_decoration = getCSS(el, "textDecoration"),
+        text_align = getCSS(el, "textAlign"),
+        letter_spacing = getCSS(el, "letterSpacing"),
+        bounds,
+        text,
+        metrics,
+        renderList,
+        listLen,
+        bold = getCSS(el, "fontWeight"),
+        font_style = getCSS(el, "fontStyle"),
+        font_variant = getCSS(el, "fontVariant"),
+        align = false,
+        newTextNode,
+        textValue,
+        textOffset = 0,
+        oldTextNode,
+        c,
+        range,
+        parent,
+        wrapElement,
+        backupText;
 
-      <span class="c1">// apply text-transform:ation to the text</span>
+      // apply text-transform:ation to the text
 
-      <span class="nx">textNode</span><span class="p">.</span><span class="nx">nodeValue</span> <span class="o">=</span> <span class="nf">textTransform</span><span class="p">(</span>
-        <span class="nx">textNode</span><span class="p">.</span><span class="nx">nodeValue</span><span class="p">,</span>
-        <span class="nf">getCSS</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">textTransform</span><span class="dl">"</span><span class="p">),</span>
-      <span class="p">);</span>
-      <span class="nx">text</span> <span class="o">=</span> <span class="nf">trimText</span><span class="p">(</span><span class="nx">textNode</span><span class="p">.</span><span class="nx">nodeValue</span><span class="p">);</span>
+      textNode.nodeValue = textTransform(
+        textNode.nodeValue,
+        getCSS(el, "textTransform"),
+      );
+      text = trimText(textNode.nodeValue);
 
-      <span class="k">if </span><span class="p">(</span><span class="nx">text</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="k">if </span><span class="p">(</span><span class="nx">text_decoration</span> <span class="o">!==</span> <span class="dl">"</span><span class="s2">none</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="nx">metrics</span> <span class="o">=</span> <span class="nf">fontMetrics</span><span class="p">(</span><span class="nx">family</span><span class="p">,</span> <span class="nx">size</span><span class="p">);</span>
-        <span class="p">&#125;</span>
+      if (text.length > 0) {
+        if (text_decoration !== "none") {
+          metrics = fontMetrics(family, size);
+        }
 
-        <span class="nx">text_align</span> <span class="o">=</span> <span class="nx">text_align</span><span class="p">.</span><span class="nf">replace</span><span class="p">([</span><span class="dl">"</span><span class="s2">-webkit-auto</span><span class="dl">"</span><span class="p">],</span> <span class="p">[</span><span class="dl">"</span><span class="s2">auto</span><span class="dl">"</span><span class="p">]);</span>
+        text_align = text_align.replace(["-webkit-auto"], ["auto"]);
 
-        <span class="k">if </span><span class="p">(</span>
-          <span class="nx">options</span><span class="p">.</span><span class="nx">letterRendering</span> <span class="o">===</span> <span class="kc">false</span> <span class="o">&amp;&amp;</span>
-          <span class="sr">/^</span><span class="se">(</span><span class="sr">left|right|justify|auto</span><span class="se">)</span><span class="sr">$/</span><span class="p">.</span><span class="nf">test</span><span class="p">(</span><span class="nx">text_align</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
-          <span class="sr">/^</span><span class="se">(</span><span class="sr">normal|none</span><span class="se">)</span><span class="sr">$/</span><span class="p">.</span><span class="nf">test</span><span class="p">(</span><span class="nx">letter_spacing</span><span class="p">)</span>
-        <span class="p">)</span> <span class="p">&#123;</span>
-          <span class="c1">// this.setContextVariable(ctx,"textAlign",text_align);</span>
-          <span class="nx">renderList</span> <span class="o">=</span> <span class="nx">textNode</span><span class="p">.</span><span class="nx">nodeValue</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sr">/</span><span class="se">(\b</span><span class="sr">| </span><span class="se">)</span><span class="sr">/</span><span class="p">);</span>
-        <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-          <span class="c1">//  this.setContextVariable(ctx,"textAlign","left");</span>
-          <span class="nx">renderList</span> <span class="o">=</span> <span class="nx">textNode</span><span class="p">.</span><span class="nx">nodeValue</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="dl">""</span><span class="p">);</span>
-        <span class="p">&#125;</span>
+        if (
+          options.letterRendering === false &&
+          /^(left|right|justify|auto)$/.test(text_align) &&
+          /^(normal|none)$/.test(letter_spacing)
+        ) {
+          // this.setContextVariable(ctx,"textAlign",text_align);
+          renderList = textNode.nodeValue.split(/(\b| )/);
+        } else {
+          //  this.setContextVariable(ctx,"textAlign","left");
+          renderList = textNode.nodeValue.split("");
+        }
 
-        <span class="k">switch </span><span class="p">(</span><span class="nf">parseInt</span><span class="p">(</span><span class="nx">bold</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span> <span class="p">&#123;</span>
-          <span class="k">case</span> <span class="mi">401</span><span class="p">:</span>
-            <span class="nx">bold</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">bold</span><span class="dl">"</span><span class="p">;</span>
-            <span class="k">break</span><span class="p">;</span>
-          <span class="k">case</span> <span class="mi">400</span><span class="p">:</span>
-            <span class="nx">bold</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">normal</span><span class="dl">"</span><span class="p">;</span>
-            <span class="k">break</span><span class="p">;</span>
-        <span class="p">&#125;</span>
+        switch (parseInt(bold, 10)) {
+          case 401:
+            bold = "bold";
+            break;
+          case 400:
+            bold = "normal";
+            break;
+        }
 
-        <span class="nx">ctx</span><span class="p">.</span><span class="nf">setVariable</span><span class="p">(</span><span class="dl">"</span><span class="s2">fillStyle</span><span class="dl">"</span><span class="p">,</span> <span class="nx">color</span><span class="p">);</span>
+        ctx.setVariable("fillStyle", color);
 
-        <span class="cm">/*
+        /*
               need to be defined in the order as defined in http://www.w3.org/TR/CSS21/fonts.html#font-shorthand
               to properly work in Firefox
-            */</span>
-        <span class="nx">ctx</span><span class="p">.</span><span class="nf">setVariable</span><span class="p">(</span>
-          <span class="dl">"</span><span class="s2">font</span><span class="dl">"</span><span class="p">,</span>
-          <span class="nx">font_style</span> <span class="o">+</span>
-            <span class="dl">"</span><span class="s2"> </span><span class="dl">"</span> <span class="o">+</span>
-            <span class="nx">font_variant</span> <span class="o">+</span>
-            <span class="dl">"</span><span class="s2"> </span><span class="dl">"</span> <span class="o">+</span>
-            <span class="nx">bold</span> <span class="o">+</span>
-            <span class="dl">"</span><span class="s2"> </span><span class="dl">"</span> <span class="o">+</span>
-            <span class="nx">size</span> <span class="o">+</span>
-            <span class="dl">"</span><span class="s2"> </span><span class="dl">"</span> <span class="o">+</span>
-            <span class="nx">family</span><span class="p">,</span>
-        <span class="p">);</span>
+            */
+        ctx.setVariable(
+          "font",
+          font_style +
+            " " +
+            font_variant +
+            " " +
+            bold +
+            " " +
+            size +
+            " " +
+            family,
+        );
 
-        <span class="k">if </span><span class="p">(</span><span class="nx">align</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="nx">ctx</span><span class="p">.</span><span class="nf">setVariable</span><span class="p">(</span><span class="dl">"</span><span class="s2">textAlign</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">right</span><span class="dl">"</span><span class="p">);</span>
-        <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-          <span class="nx">ctx</span><span class="p">.</span><span class="nf">setVariable</span><span class="p">(</span><span class="dl">"</span><span class="s2">textAlign</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">left</span><span class="dl">"</span><span class="p">);</span>
-        <span class="p">&#125;</span>
+        if (align) {
+          ctx.setVariable("textAlign", "right");
+        } else {
+          ctx.setVariable("textAlign", "left");
+        }
 
-        <span class="cm">/*
-        if (stack.clip)&#123;
+        /*
+        if (stack.clip){
         ctx.rect (stack.clip.left, stack.clip.top, stack.clip.width, stack.clip.height);
         ctx.clip();
-        &#125;
-             */</span>
+        }
+             */
 
-        <span class="nx">oldTextNode</span> <span class="o">=</span> <span class="nx">textNode</span><span class="p">;</span>
+        oldTextNode = textNode;
 
-        <span class="k">for </span><span class="p">(</span><span class="nx">c</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">listLen</span> <span class="o">=</span> <span class="nx">renderList</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">c</span> <span class="o">&lt;</span> <span class="nx">listLen</span><span class="p">;</span> <span class="nx">c</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="nx">textValue</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        for (c = 0, listLen = renderList.length; c < listLen; c += 1) {
+          textValue = null;
 
-          <span class="k">if </span><span class="p">(</span><span class="nx">support</span><span class="p">.</span><span class="nx">rangeBounds</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="c1">// getBoundingClientRect is supported for ranges</span>
-            <span class="k">if </span><span class="p">(</span>
-              <span class="nx">text_decoration</span> <span class="o">!==</span> <span class="dl">"</span><span class="s2">none</span><span class="dl">"</span> <span class="o">||</span>
-              <span class="nf">trimText</span><span class="p">(</span><span class="nx">renderList</span><span class="p">[</span><span class="nx">c</span><span class="p">]).</span><span class="nx">length</span> <span class="o">!==</span> <span class="mi">0</span>
-            <span class="p">)</span> <span class="p">&#123;</span>
-              <span class="nx">textValue</span> <span class="o">=</span> <span class="nx">renderList</span><span class="p">[</span><span class="nx">c</span><span class="p">];</span>
-              <span class="k">if </span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">createRange</span><span class="p">)</span> <span class="p">&#123;</span>
-                <span class="nx">range</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nf">createRange</span><span class="p">();</span>
+          if (support.rangeBounds) {
+            // getBoundingClientRect is supported for ranges
+            if (
+              text_decoration !== "none" ||
+              trimText(renderList[c]).length !== 0
+            ) {
+              textValue = renderList[c];
+              if (doc.createRange) {
+                range = doc.createRange();
 
-                <span class="nx">range</span><span class="p">.</span><span class="nf">setStart</span><span class="p">(</span><span class="nx">textNode</span><span class="p">,</span> <span class="nx">textOffset</span><span class="p">);</span>
-                <span class="nx">range</span><span class="p">.</span><span class="nf">setEnd</span><span class="p">(</span><span class="nx">textNode</span><span class="p">,</span> <span class="nx">textOffset</span> <span class="o">+</span> <span class="nx">textValue</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
-              <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-                <span class="c1">// TODO add IE support</span>
-                <span class="nx">range</span> <span class="o">=</span> <span class="nx">body</span><span class="p">.</span><span class="nf">createTextRange</span><span class="p">();</span>
-              <span class="p">&#125;</span>
+                range.setStart(textNode, textOffset);
+                range.setEnd(textNode, textOffset + textValue.length);
+              } else {
+                // TODO add IE support
+                range = body.createTextRange();
+              }
 
-              <span class="nx">bounds</span> <span class="o">=</span> <span class="nf">adjustBounds</span><span class="p">(</span><span class="nx">textNode</span><span class="p">,</span> <span class="nx">range</span><span class="p">.</span><span class="nf">getBoundingClientRect</span><span class="p">());</span>
-            <span class="p">&#125;</span>
-          <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-            <span class="c1">// it isn't supported, so let's wrap it inside an element instead and get the bounds there</span>
+              bounds = adjustBounds(textNode, range.getBoundingClientRect());
+            }
+          } else {
+            // it isn't supported, so let's wrap it inside an element instead and get the bounds there
 
-            <span class="c1">// IE 9 bug</span>
-            <span class="k">if </span><span class="p">(</span><span class="k">typeof</span> <span class="nx">oldTextNode</span><span class="p">.</span><span class="nx">nodeValue</span> <span class="o">!==</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-              <span class="k">continue</span><span class="p">;</span>
-            <span class="p">&#125;</span>
+            // IE 9 bug
+            if (typeof oldTextNode.nodeValue !== "string") {
+              continue;
+            }
 
-            <span class="nx">newTextNode</span> <span class="o">=</span> <span class="nx">oldTextNode</span><span class="p">.</span><span class="nf">splitText</span><span class="p">(</span><span class="nx">renderList</span><span class="p">[</span><span class="nx">c</span><span class="p">].</span><span class="nx">length</span><span class="p">);</span>
+            newTextNode = oldTextNode.splitText(renderList[c].length);
 
-            <span class="nx">parent</span> <span class="o">=</span> <span class="nx">oldTextNode</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">;</span>
-            <span class="nx">wrapElement</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">wrapper</span><span class="dl">"</span><span class="p">);</span>
-            <span class="nx">backupText</span> <span class="o">=</span> <span class="nx">oldTextNode</span><span class="p">.</span><span class="nf">cloneNode</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+            parent = oldTextNode.parentNode;
+            wrapElement = doc.createElement("wrapper");
+            backupText = oldTextNode.cloneNode(true);
 
-            <span class="nx">wrapElement</span><span class="p">.</span><span class="nf">appendChild</span><span class="p">(</span><span class="nx">oldTextNode</span><span class="p">.</span><span class="nf">cloneNode</span><span class="p">(</span><span class="kc">true</span><span class="p">));</span>
-            <span class="nx">parent</span><span class="p">.</span><span class="nf">replaceChild</span><span class="p">(</span><span class="nx">wrapElement</span><span class="p">,</span> <span class="nx">oldTextNode</span><span class="p">);</span>
+            wrapElement.appendChild(oldTextNode.cloneNode(true));
+            parent.replaceChild(wrapElement, oldTextNode);
 
-            <span class="nx">bounds</span> <span class="o">=</span> <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nc">Bounds</span><span class="p">(</span><span class="nx">wrapElement</span><span class="p">);</span>
+            bounds = _html2canvas.Util.Bounds(wrapElement);
 
-            <span class="nx">textValue</span> <span class="o">=</span> <span class="nx">oldTextNode</span><span class="p">.</span><span class="nx">nodeValue</span><span class="p">;</span>
+            textValue = oldTextNode.nodeValue;
 
-            <span class="nx">oldTextNode</span> <span class="o">=</span> <span class="nx">newTextNode</span><span class="p">;</span>
-            <span class="nx">parent</span><span class="p">.</span><span class="nf">replaceChild</span><span class="p">(</span><span class="nx">backupText</span><span class="p">,</span> <span class="nx">wrapElement</span><span class="p">);</span>
-          <span class="p">&#125;</span>
+            oldTextNode = newTextNode;
+            parent.replaceChild(backupText, wrapElement);
+          }
 
-          <span class="k">if </span><span class="p">(</span><span class="nx">textValue</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="nf">drawText</span><span class="p">(</span><span class="nx">textValue</span><span class="p">,</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">left</span><span class="p">,</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">bottom</span><span class="p">,</span> <span class="nx">ctx</span><span class="p">);</span>
-          <span class="p">&#125;</span>
+          if (textValue !== null) {
+            drawText(textValue, bounds.left, bounds.bottom, ctx);
+          }
 
-          <span class="k">switch </span><span class="p">(</span><span class="nx">text_decoration</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">case</span> <span class="dl">"</span><span class="s2">underline</span><span class="dl">"</span><span class="p">:</span>
-              <span class="c1">// Draws a line at the baseline of the font</span>
-              <span class="c1">// TODO As some browsers display the line as more than 1px if the font-size is big, need to take that into account both in position and size</span>
-              <span class="nf">renderRect</span><span class="p">(</span>
-                <span class="nx">ctx</span><span class="p">,</span>
-                <span class="nx">bounds</span><span class="p">.</span><span class="nx">left</span><span class="p">,</span>
-                <span class="nb">Math</span><span class="p">.</span><span class="nf">round</span><span class="p">(</span><span class="nx">bounds</span><span class="p">.</span><span class="nx">top</span> <span class="o">+</span> <span class="nx">metrics</span><span class="p">.</span><span class="nx">baseline</span> <span class="o">+</span> <span class="nx">metrics</span><span class="p">.</span><span class="nx">lineWidth</span><span class="p">),</span>
-                <span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span>
-                <span class="mi">1</span><span class="p">,</span>
-                <span class="nx">color</span><span class="p">,</span>
-              <span class="p">);</span>
-              <span class="k">break</span><span class="p">;</span>
-            <span class="k">case</span> <span class="dl">"</span><span class="s2">overline</span><span class="dl">"</span><span class="p">:</span>
-              <span class="nf">renderRect</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">left</span><span class="p">,</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">top</span><span class="p">,</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">color</span><span class="p">);</span>
-              <span class="k">break</span><span class="p">;</span>
-            <span class="k">case</span> <span class="dl">"</span><span class="s2">line-through</span><span class="dl">"</span><span class="p">:</span>
-              <span class="c1">// TODO try and find exact position for line-through</span>
-              <span class="nf">renderRect</span><span class="p">(</span>
-                <span class="nx">ctx</span><span class="p">,</span>
-                <span class="nx">bounds</span><span class="p">.</span><span class="nx">left</span><span class="p">,</span>
-                <span class="nb">Math</span><span class="p">.</span><span class="nf">ceil</span><span class="p">(</span><span class="nx">bounds</span><span class="p">.</span><span class="nx">top</span> <span class="o">+</span> <span class="nx">metrics</span><span class="p">.</span><span class="nx">middle</span> <span class="o">+</span> <span class="nx">metrics</span><span class="p">.</span><span class="nx">lineWidth</span><span class="p">),</span>
-                <span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span>
-                <span class="mi">1</span><span class="p">,</span>
-                <span class="nx">color</span><span class="p">,</span>
-              <span class="p">);</span>
-              <span class="k">break</span><span class="p">;</span>
-          <span class="p">&#125;</span>
+          switch (text_decoration) {
+            case "underline":
+              // Draws a line at the baseline of the font
+              // TODO As some browsers display the line as more than 1px if the font-size is big, need to take that into account both in position and size
+              renderRect(
+                ctx,
+                bounds.left,
+                Math.round(bounds.top + metrics.baseline + metrics.lineWidth),
+                bounds.width,
+                1,
+                color,
+              );
+              break;
+            case "overline":
+              renderRect(ctx, bounds.left, bounds.top, bounds.width, 1, color);
+              break;
+            case "line-through":
+              // TODO try and find exact position for line-through
+              renderRect(
+                ctx,
+                bounds.left,
+                Math.ceil(bounds.top + metrics.middle + metrics.lineWidth),
+                bounds.width,
+                1,
+                color,
+              );
+              break;
+          }
 
-          <span class="nx">textOffset</span> <span class="o">+=</span> <span class="nx">renderList</span><span class="p">[</span><span class="nx">c</span><span class="p">].</span><span class="nx">length</span><span class="p">;</span>
-        <span class="p">&#125;</span>
-      <span class="p">&#125;</span>
-    <span class="p">&#125;</span>
+          textOffset += renderList[c].length;
+        }
+      }
+    }
 
-    <span class="kd">function</span> <span class="nf">listPosition</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">val</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="kd">var</span> <span class="nx">boundElement</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">boundelement</span><span class="dl">"</span><span class="p">),</span>
-        <span class="nx">type</span><span class="p">,</span>
-        <span class="nx">bounds</span><span class="p">;</span>
+    function listPosition(element, val) {
+      var boundElement = doc.createElement("boundelement"),
+        type,
+        bounds;
 
-      <span class="nx">boundElement</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">inline</span><span class="dl">"</span><span class="p">;</span>
-      <span class="c1">//boundElement.style.width = "1px";</span>
-      <span class="c1">//boundElement.style.height = "1px";</span>
+      boundElement.style.display = "inline";
+      //boundElement.style.width = "1px";
+      //boundElement.style.height = "1px";
 
-      <span class="nx">type</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">listStyleType</span><span class="p">;</span>
-      <span class="nx">element</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">listStyleType</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">none</span><span class="dl">"</span><span class="p">;</span>
+      type = element.style.listStyleType;
+      element.style.listStyleType = "none";
 
-      <span class="nx">boundElement</span><span class="p">.</span><span class="nf">appendChild</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nf">createTextNode</span><span class="p">(</span><span class="nx">val</span><span class="p">));</span>
+      boundElement.appendChild(doc.createTextNode(val));
 
-      <span class="nx">element</span><span class="p">.</span><span class="nf">insertBefore</span><span class="p">(</span><span class="nx">boundElement</span><span class="p">,</span> <span class="nx">element</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">);</span>
+      element.insertBefore(boundElement, element.firstChild);
 
-      <span class="nx">bounds</span> <span class="o">=</span> <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nc">Bounds</span><span class="p">(</span><span class="nx">boundElement</span><span class="p">);</span>
-      <span class="nx">element</span><span class="p">.</span><span class="nf">removeChild</span><span class="p">(</span><span class="nx">boundElement</span><span class="p">);</span>
-      <span class="nx">element</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">listStyleType</span> <span class="o">=</span> <span class="nx">type</span><span class="p">;</span>
-      <span class="k">return</span> <span class="nx">bounds</span><span class="p">;</span>
-    <span class="p">&#125;</span>
+      bounds = _html2canvas.Util.Bounds(boundElement);
+      element.removeChild(boundElement);
+      element.style.listStyleType = type;
+      return bounds;
+    }
 
-    <span class="kd">function</span> <span class="nf">elementIndex</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-        <span class="nx">count</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="nx">childs</span> <span class="o">=</span> <span class="nx">el</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">;</span>
+    function elementIndex(el) {
+      var i = -1,
+        count = 1,
+        childs = el.parentNode.childNodes;
 
-      <span class="k">if </span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="k">while </span><span class="p">(</span><span class="nx">childs</span><span class="p">[</span><span class="o">++</span><span class="nx">i</span><span class="p">]</span> <span class="o">!==</span> <span class="nx">el</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="k">if </span><span class="p">(</span><span class="nx">childs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">nodeType</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="nx">count</span><span class="o">++</span><span class="p">;</span>
-          <span class="p">&#125;</span>
-        <span class="p">&#125;</span>
-        <span class="k">return</span> <span class="nx">count</span><span class="p">;</span>
-      <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-      <span class="p">&#125;</span>
-    <span class="p">&#125;</span>
+      if (el.parentNode) {
+        while (childs[++i] !== el) {
+          if (childs[i].nodeType === 1) {
+            count++;
+          }
+        }
+        return count;
+      } else {
+        return -1;
+      }
+    }
 
-    <span class="kd">function</span> <span class="nf">renderListItem</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">stack</span><span class="p">,</span> <span class="nx">elBounds</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="kd">var</span> <span class="nx">position</span> <span class="o">=</span> <span class="nf">getCSS</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="dl">"</span><span class="s2">listStylePosition</span><span class="dl">"</span><span class="p">),</span>
-        <span class="nx">x</span><span class="p">,</span>
-        <span class="nx">y</span><span class="p">,</span>
-        <span class="nx">type</span> <span class="o">=</span> <span class="nf">getCSS</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="dl">"</span><span class="s2">listStyleType</span><span class="dl">"</span><span class="p">),</span>
-        <span class="nx">currentIndex</span><span class="p">,</span>
-        <span class="nx">text</span><span class="p">,</span>
-        <span class="nx">listBounds</span><span class="p">,</span>
-        <span class="nx">bold</span> <span class="o">=</span> <span class="nf">getCSS</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="dl">"</span><span class="s2">fontWeight</span><span class="dl">"</span><span class="p">);</span>
+    function renderListItem(element, stack, elBounds) {
+      var position = getCSS(element, "listStylePosition"),
+        x,
+        y,
+        type = getCSS(element, "listStyleType"),
+        currentIndex,
+        text,
+        listBounds,
+        bold = getCSS(element, "fontWeight");
 
-      <span class="k">if </span><span class="p">(</span>
-        <span class="sr">/^</span><span class="se">(</span><span class="sr">decimal|decimal-leading-zero|upper-alpha|upper-latin|upper-roman|lower-alpha|lower-greek|lower-latin|lower-roman</span><span class="se">)</span><span class="sr">$/i</span><span class="p">.</span><span class="nf">test</span><span class="p">(</span>
-          <span class="nx">type</span><span class="p">,</span>
-        <span class="p">)</span>
-      <span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nx">currentIndex</span> <span class="o">=</span> <span class="nf">elementIndex</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
+      if (
+        /^(decimal|decimal-leading-zero|upper-alpha|upper-latin|upper-roman|lower-alpha|lower-greek|lower-latin|lower-roman)$/i.test(
+          type,
+        )
+      ) {
+        currentIndex = elementIndex(element);
 
-        <span class="k">switch </span><span class="p">(</span><span class="nx">type</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="k">case</span> <span class="dl">"</span><span class="s2">decimal</span><span class="dl">"</span><span class="p">:</span>
-            <span class="nx">text</span> <span class="o">=</span> <span class="nx">currentIndex</span><span class="p">;</span>
-            <span class="k">break</span><span class="p">;</span>
-          <span class="k">case</span> <span class="dl">"</span><span class="s2">decimal-leading-zero</span><span class="dl">"</span><span class="p">:</span>
-            <span class="k">if </span><span class="p">(</span><span class="nx">currentIndex</span><span class="p">.</span><span class="nf">toString</span><span class="p">().</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-              <span class="nx">text</span> <span class="o">=</span> <span class="nx">currentIndex</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">0</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">currentIndex</span><span class="p">.</span><span class="nf">toString</span><span class="p">();</span>
-            <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-              <span class="nx">text</span> <span class="o">=</span> <span class="nx">currentIndex</span><span class="p">.</span><span class="nf">toString</span><span class="p">();</span>
-            <span class="p">&#125;</span>
-            <span class="k">break</span><span class="p">;</span>
-          <span class="k">case</span> <span class="dl">"</span><span class="s2">upper-roman</span><span class="dl">"</span><span class="p">:</span>
-            <span class="nx">text</span> <span class="o">=</span> <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Generate</span><span class="p">.</span><span class="nc">ListRoman</span><span class="p">(</span><span class="nx">currentIndex</span><span class="p">);</span>
-            <span class="k">break</span><span class="p">;</span>
-          <span class="k">case</span> <span class="dl">"</span><span class="s2">lower-roman</span><span class="dl">"</span><span class="p">:</span>
-            <span class="nx">text</span> <span class="o">=</span> <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Generate</span><span class="p">.</span><span class="nc">ListRoman</span><span class="p">(</span><span class="nx">currentIndex</span><span class="p">).</span><span class="nf">toLowerCase</span><span class="p">();</span>
-            <span class="k">break</span><span class="p">;</span>
-          <span class="k">case</span> <span class="dl">"</span><span class="s2">lower-alpha</span><span class="dl">"</span><span class="p">:</span>
-            <span class="nx">text</span> <span class="o">=</span> <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Generate</span><span class="p">.</span><span class="nc">ListAlpha</span><span class="p">(</span><span class="nx">currentIndex</span><span class="p">).</span><span class="nf">toLowerCase</span><span class="p">();</span>
-            <span class="k">break</span><span class="p">;</span>
-          <span class="k">case</span> <span class="dl">"</span><span class="s2">upper-alpha</span><span class="dl">"</span><span class="p">:</span>
-            <span class="nx">text</span> <span class="o">=</span> <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Generate</span><span class="p">.</span><span class="nc">ListAlpha</span><span class="p">(</span><span class="nx">currentIndex</span><span class="p">);</span>
-            <span class="k">break</span><span class="p">;</span>
-        <span class="p">&#125;</span>
+        switch (type) {
+          case "decimal":
+            text = currentIndex;
+            break;
+          case "decimal-leading-zero":
+            if (currentIndex.toString().length === 1) {
+              text = currentIndex = "0" + currentIndex.toString();
+            } else {
+              text = currentIndex.toString();
+            }
+            break;
+          case "upper-roman":
+            text = _html2canvas.Generate.ListRoman(currentIndex);
+            break;
+          case "lower-roman":
+            text = _html2canvas.Generate.ListRoman(currentIndex).toLowerCase();
+            break;
+          case "lower-alpha":
+            text = _html2canvas.Generate.ListAlpha(currentIndex).toLowerCase();
+            break;
+          case "upper-alpha":
+            text = _html2canvas.Generate.ListAlpha(currentIndex);
+            break;
+        }
 
-        <span class="nx">text</span> <span class="o">+=</span> <span class="dl">"</span><span class="s2">. </span><span class="dl">"</span><span class="p">;</span>
-        <span class="nx">listBounds</span> <span class="o">=</span> <span class="nf">listPosition</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">text</span><span class="p">);</span>
+        text += ". ";
+        listBounds = listPosition(element, text);
 
-        <span class="k">switch </span><span class="p">(</span><span class="nx">bold</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="k">case</span> <span class="mi">401</span><span class="p">:</span>
-            <span class="nx">bold</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">bold</span><span class="dl">"</span><span class="p">;</span>
-            <span class="k">break</span><span class="p">;</span>
-          <span class="k">case</span> <span class="mi">400</span><span class="p">:</span>
-            <span class="nx">bold</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">normal</span><span class="dl">"</span><span class="p">;</span>
-            <span class="k">break</span><span class="p">;</span>
-        <span class="p">&#125;</span>
+        switch (bold) {
+          case 401:
+            bold = "bold";
+            break;
+          case 400:
+            bold = "normal";
+            break;
+        }
 
-        <span class="nx">ctx</span><span class="p">.</span><span class="nf">setVariable</span><span class="p">(</span><span class="dl">"</span><span class="s2">fillStyle</span><span class="dl">"</span><span class="p">,</span> <span class="nf">getCSS</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="dl">"</span><span class="s2">color</span><span class="dl">"</span><span class="p">));</span>
-        <span class="nx">ctx</span><span class="p">.</span><span class="nf">setVariable</span><span class="p">(</span>
-          <span class="dl">"</span><span class="s2">font</span><span class="dl">"</span><span class="p">,</span>
-          <span class="nf">getCSS</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="dl">"</span><span class="s2">fontVariant</span><span class="dl">"</span><span class="p">)</span> <span class="o">+</span>
-            <span class="dl">"</span><span class="s2"> </span><span class="dl">"</span> <span class="o">+</span>
-            <span class="nx">bold</span> <span class="o">+</span>
-            <span class="dl">"</span><span class="s2"> </span><span class="dl">"</span> <span class="o">+</span>
-            <span class="nf">getCSS</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="dl">"</span><span class="s2">fontStyle</span><span class="dl">"</span><span class="p">)</span> <span class="o">+</span>
-            <span class="dl">"</span><span class="s2"> </span><span class="dl">"</span> <span class="o">+</span>
-            <span class="nf">getCSS</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="dl">"</span><span class="s2">fontSize</span><span class="dl">"</span><span class="p">)</span> <span class="o">+</span>
-            <span class="dl">"</span><span class="s2"> </span><span class="dl">"</span> <span class="o">+</span>
-            <span class="nf">getCSS</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="dl">"</span><span class="s2">fontFamily</span><span class="dl">"</span><span class="p">),</span>
-        <span class="p">);</span>
+        ctx.setVariable("fillStyle", getCSS(element, "color"));
+        ctx.setVariable(
+          "font",
+          getCSS(element, "fontVariant") +
+            " " +
+            bold +
+            " " +
+            getCSS(element, "fontStyle") +
+            " " +
+            getCSS(element, "fontSize") +
+            " " +
+            getCSS(element, "fontFamily"),
+        );
 
-        <span class="k">if </span><span class="p">(</span><span class="nx">position</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">inside</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="nx">ctx</span><span class="p">.</span><span class="nf">setVariable</span><span class="p">(</span><span class="dl">"</span><span class="s2">textAlign</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">left</span><span class="dl">"</span><span class="p">);</span>
-          <span class="c1">//   this.setFont(stack.ctx, element, false);</span>
-          <span class="nx">x</span> <span class="o">=</span> <span class="nx">elBounds</span><span class="p">.</span><span class="nx">left</span><span class="p">;</span>
-        <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-          <span class="k">return</span><span class="p">;</span>
-          <span class="cm">/*
+        if (position === "inside") {
+          ctx.setVariable("textAlign", "left");
+          //   this.setFont(stack.ctx, element, false);
+          x = elBounds.left;
+        } else {
+          return;
+          /*
                  TODO really need to figure out some more accurate way to try and find the position.
                  as defined in http://www.w3.org/TR/CSS21/generate.html#propdef-list-style-position, it does not even have a specified "correct" position, so each browser
                  may display it whatever way it feels like.
@@ -1813,370 +1820,370 @@ source_revision: 0
                 ctx.setVariable("textAlign", "right");
                 //  this.setFont(stack.ctx, element, true);
                 x = elBounds.left - 10;
-                 */</span>
-        <span class="p">&#125;</span>
+                 */
+        }
 
-        <span class="nx">y</span> <span class="o">=</span> <span class="nx">listBounds</span><span class="p">.</span><span class="nx">bottom</span><span class="p">;</span>
+        y = listBounds.bottom;
 
-        <span class="nf">drawText</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">ctx</span><span class="p">);</span>
-      <span class="p">&#125;</span>
-    <span class="p">&#125;</span>
+        drawText(text, x, y, ctx);
+      }
+    }
 
-    <span class="kd">function</span> <span class="nf">loadImage</span><span class="p">(</span><span class="nx">src</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="kd">var</span> <span class="nx">img</span> <span class="o">=</span> <span class="nx">images</span><span class="p">[</span><span class="nx">src</span><span class="p">];</span>
-      <span class="k">if </span><span class="p">(</span><span class="nx">img</span> <span class="o">&amp;&amp;</span> <span class="nx">img</span><span class="p">.</span><span class="nx">succeeded</span> <span class="o">===</span> <span class="kc">true</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="k">return</span> <span class="nx">img</span><span class="p">.</span><span class="nx">img</span><span class="p">;</span>
-      <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-      <span class="p">&#125;</span>
-    <span class="p">&#125;</span>
+    function loadImage(src) {
+      var img = images[src];
+      if (img && img.succeeded === true) {
+        return img.img;
+      } else {
+        return false;
+      }
+    }
 
-    <span class="kd">function</span> <span class="nf">clipBounds</span><span class="p">(</span><span class="nx">src</span><span class="p">,</span> <span class="nx">dst</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">max</span><span class="p">(</span><span class="nx">src</span><span class="p">.</span><span class="nx">left</span><span class="p">,</span> <span class="nx">dst</span><span class="p">.</span><span class="nx">left</span><span class="p">),</span>
-        <span class="nx">y</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">max</span><span class="p">(</span><span class="nx">src</span><span class="p">.</span><span class="nx">top</span><span class="p">,</span> <span class="nx">dst</span><span class="p">.</span><span class="nx">top</span><span class="p">),</span>
-        <span class="nx">x2</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">min</span><span class="p">(</span><span class="nx">src</span><span class="p">.</span><span class="nx">left</span> <span class="o">+</span> <span class="nx">src</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">dst</span><span class="p">.</span><span class="nx">left</span> <span class="o">+</span> <span class="nx">dst</span><span class="p">.</span><span class="nx">width</span><span class="p">),</span>
-        <span class="nx">y2</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">min</span><span class="p">(</span><span class="nx">src</span><span class="p">.</span><span class="nx">top</span> <span class="o">+</span> <span class="nx">src</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span> <span class="nx">dst</span><span class="p">.</span><span class="nx">top</span> <span class="o">+</span> <span class="nx">dst</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span>
+    function clipBounds(src, dst) {
+      var x = Math.max(src.left, dst.left),
+        y = Math.max(src.top, dst.top),
+        x2 = Math.min(src.left + src.width, dst.left + dst.width),
+        y2 = Math.min(src.top + src.height, dst.top + dst.height);
 
-      <span class="k">return</span> <span class="p">&#123;</span>
-        <span class="na">left</span><span class="p">:</span> <span class="nx">x</span><span class="p">,</span>
-        <span class="na">top</span><span class="p">:</span> <span class="nx">y</span><span class="p">,</span>
-        <span class="na">width</span><span class="p">:</span> <span class="nx">x2</span> <span class="o">-</span> <span class="nx">x</span><span class="p">,</span>
-        <span class="na">height</span><span class="p">:</span> <span class="nx">y2</span> <span class="o">-</span> <span class="nx">y</span><span class="p">,</span>
-      <span class="p">&#125;;</span>
-    <span class="p">&#125;</span>
+      return {
+        left: x,
+        top: y,
+        width: x2 - x,
+        height: y2 - y,
+      };
+    }
 
-    <span class="kd">function</span> <span class="nf">setZ</span><span class="p">(</span><span class="nx">zIndex</span><span class="p">,</span> <span class="nx">parentZ</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="c1">// TODO fix static elements overlapping relative/absolute elements under same stack, if they are defined after them</span>
-      <span class="kd">var</span> <span class="nx">newContext</span><span class="p">;</span>
-      <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">parentZ</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nx">newContext</span> <span class="o">=</span> <span class="nf">h2czContext</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-        <span class="k">return</span> <span class="nx">newContext</span><span class="p">;</span>
-      <span class="p">&#125;</span>
+    function setZ(zIndex, parentZ) {
+      // TODO fix static elements overlapping relative/absolute elements under same stack, if they are defined after them
+      var newContext;
+      if (!parentZ) {
+        newContext = h2czContext(0);
+        return newContext;
+      }
 
-      <span class="k">if </span><span class="p">(</span><span class="nx">zIndex</span> <span class="o">!==</span> <span class="dl">"</span><span class="s2">auto</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nx">needReorder</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-        <span class="nx">newContext</span> <span class="o">=</span> <span class="nf">h2czContext</span><span class="p">(</span><span class="nx">zIndex</span><span class="p">);</span>
-        <span class="nx">parentZ</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="nx">newContext</span><span class="p">);</span>
-        <span class="k">return</span> <span class="nx">newContext</span><span class="p">;</span>
-      <span class="p">&#125;</span>
+      if (zIndex !== "auto") {
+        needReorder = true;
+        newContext = h2czContext(zIndex);
+        parentZ.children.push(newContext);
+        return newContext;
+      }
 
-      <span class="k">return</span> <span class="nx">parentZ</span><span class="p">;</span>
-    <span class="p">&#125;</span>
+      return parentZ;
+    }
 
-    <span class="kd">function</span> <span class="nf">renderBorders</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">ctx</span><span class="p">,</span> <span class="nx">bounds</span><span class="p">,</span> <span class="nx">clip</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="cm">/*
+    function renderBorders(el, ctx, bounds, clip) {
+      /*
        *  TODO add support for different border-style's than solid
-       */</span>
+       */
 
-      <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">left</span><span class="p">,</span>
-        <span class="nx">y</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">top</span><span class="p">,</span>
-        <span class="nx">w</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span>
-        <span class="nx">h</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span>
-        <span class="nx">borderSide</span><span class="p">,</span>
-        <span class="nx">borderData</span><span class="p">,</span>
-        <span class="nx">bx</span><span class="p">,</span>
-        <span class="nx">by</span><span class="p">,</span>
-        <span class="nx">bw</span><span class="p">,</span>
-        <span class="nx">bh</span><span class="p">,</span>
-        <span class="nx">borderBounds</span><span class="p">,</span>
-        <span class="nx">borders</span> <span class="o">=</span> <span class="p">(</span><span class="nf">function </span><span class="p">(</span><span class="nx">el</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="kd">var</span> <span class="nx">borders</span> <span class="o">=</span> <span class="p">[],</span>
-            <span class="nx">sides</span> <span class="o">=</span> <span class="p">[</span><span class="dl">"</span><span class="s2">Top</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Right</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Bottom</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Left</span><span class="dl">"</span><span class="p">],</span>
-            <span class="nx">s</span><span class="p">;</span>
+      var x = bounds.left,
+        y = bounds.top,
+        w = bounds.width,
+        h = bounds.height,
+        borderSide,
+        borderData,
+        bx,
+        by,
+        bw,
+        bh,
+        borderBounds,
+        borders = (function (el) {
+          var borders = [],
+            sides = ["Top", "Right", "Bottom", "Left"],
+            s;
 
-          <span class="k">for </span><span class="p">(</span><span class="nx">s</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">s</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="nx">s</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="nx">borders</span><span class="p">.</span><span class="nf">push</span><span class="p">(&#123;</span>
-              <span class="na">width</span><span class="p">:</span> <span class="nf">getCSSInt</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">border</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">sides</span><span class="p">[</span><span class="nx">s</span><span class="p">]</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">Width</span><span class="dl">"</span><span class="p">),</span>
-              <span class="na">color</span><span class="p">:</span> <span class="nf">getCSS</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">border</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">sides</span><span class="p">[</span><span class="nx">s</span><span class="p">]</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">Color</span><span class="dl">"</span><span class="p">),</span>
-            <span class="p">&#125;);</span>
-          <span class="p">&#125;</span>
+          for (s = 0; s < 4; s += 1) {
+            borders.push({
+              width: getCSSInt(el, "border" + sides[s] + "Width"),
+              color: getCSS(el, "border" + sides[s] + "Color"),
+            });
+          }
 
-          <span class="k">return</span> <span class="nx">borders</span><span class="p">;</span>
-        <span class="p">&#125;)(</span><span class="nx">el</span><span class="p">);</span>
+          return borders;
+        })(el);
 
-      <span class="k">for </span><span class="p">(</span><span class="nx">borderSide</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">borderSide</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="nx">borderSide</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nx">borderData</span> <span class="o">=</span> <span class="nx">borders</span><span class="p">[</span><span class="nx">borderSide</span><span class="p">];</span>
+      for (borderSide = 0; borderSide < 4; borderSide += 1) {
+        borderData = borders[borderSide];
 
-        <span class="k">if </span><span class="p">(</span><span class="nx">borderData</span><span class="p">.</span><span class="nx">width</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="nx">bx</span> <span class="o">=</span> <span class="nx">x</span><span class="p">;</span>
-          <span class="nx">by</span> <span class="o">=</span> <span class="nx">y</span><span class="p">;</span>
-          <span class="nx">bw</span> <span class="o">=</span> <span class="nx">w</span><span class="p">;</span>
-          <span class="nx">bh</span> <span class="o">=</span> <span class="nx">h</span> <span class="o">-</span> <span class="nx">borders</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="nx">width</span><span class="p">;</span>
+        if (borderData.width > 0) {
+          bx = x;
+          by = y;
+          bw = w;
+          bh = h - borders[2].width;
 
-          <span class="k">switch </span><span class="p">(</span><span class="nx">borderSide</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">case</span> <span class="mi">0</span><span class="p">:</span>
-              <span class="c1">// top border</span>
-              <span class="nx">bh</span> <span class="o">=</span> <span class="nx">borders</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">width</span><span class="p">;</span>
-              <span class="k">break</span><span class="p">;</span>
-            <span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
-              <span class="c1">// right border</span>
-              <span class="nx">bx</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">w</span> <span class="o">-</span> <span class="nx">borders</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">width</span><span class="p">;</span>
-              <span class="nx">bw</span> <span class="o">=</span> <span class="nx">borders</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">width</span><span class="p">;</span>
-              <span class="k">break</span><span class="p">;</span>
-            <span class="k">case</span> <span class="mi">2</span><span class="p">:</span>
-              <span class="c1">// bottom border</span>
-              <span class="nx">by</span> <span class="o">=</span> <span class="nx">by</span> <span class="o">+</span> <span class="nx">h</span> <span class="o">-</span> <span class="nx">borders</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="nx">width</span><span class="p">;</span>
-              <span class="nx">bh</span> <span class="o">=</span> <span class="nx">borders</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="nx">width</span><span class="p">;</span>
-              <span class="k">break</span><span class="p">;</span>
-            <span class="k">case</span> <span class="mi">3</span><span class="p">:</span>
-              <span class="c1">// left border</span>
-              <span class="nx">bw</span> <span class="o">=</span> <span class="nx">borders</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="nx">width</span><span class="p">;</span>
-              <span class="k">break</span><span class="p">;</span>
-          <span class="p">&#125;</span>
+          switch (borderSide) {
+            case 0:
+              // top border
+              bh = borders[0].width;
+              break;
+            case 1:
+              // right border
+              bx = x + w - borders[1].width;
+              bw = borders[1].width;
+              break;
+            case 2:
+              // bottom border
+              by = by + h - borders[2].width;
+              bh = borders[2].width;
+              break;
+            case 3:
+              // left border
+              bw = borders[3].width;
+              break;
+          }
 
-          <span class="nx">borderBounds</span> <span class="o">=</span> <span class="p">&#123;</span>
-            <span class="na">left</span><span class="p">:</span> <span class="nx">bx</span><span class="p">,</span>
-            <span class="na">top</span><span class="p">:</span> <span class="nx">by</span><span class="p">,</span>
-            <span class="na">width</span><span class="p">:</span> <span class="nx">bw</span><span class="p">,</span>
-            <span class="na">height</span><span class="p">:</span> <span class="nx">bh</span><span class="p">,</span>
-          <span class="p">&#125;;</span>
+          borderBounds = {
+            left: bx,
+            top: by,
+            width: bw,
+            height: bh,
+          };
 
-          <span class="k">if </span><span class="p">(</span><span class="nx">clip</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="nx">borderBounds</span> <span class="o">=</span> <span class="nf">clipBounds</span><span class="p">(</span><span class="nx">borderBounds</span><span class="p">,</span> <span class="nx">clip</span><span class="p">);</span>
-          <span class="p">&#125;</span>
+          if (clip) {
+            borderBounds = clipBounds(borderBounds, clip);
+          }
 
-          <span class="k">if </span><span class="p">(</span><span class="nx">borderBounds</span><span class="p">.</span><span class="nx">width</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">borderBounds</span><span class="p">.</span><span class="nx">height</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="nf">renderRect</span><span class="p">(</span>
-              <span class="nx">ctx</span><span class="p">,</span>
-              <span class="nx">bx</span><span class="p">,</span>
-              <span class="nx">by</span><span class="p">,</span>
-              <span class="nx">borderBounds</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span>
-              <span class="nx">borderBounds</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span>
-              <span class="nx">borderData</span><span class="p">.</span><span class="nx">color</span><span class="p">,</span>
-            <span class="p">);</span>
-          <span class="p">&#125;</span>
-        <span class="p">&#125;</span>
-      <span class="p">&#125;</span>
+          if (borderBounds.width > 0 && borderBounds.height > 0) {
+            renderRect(
+              ctx,
+              bx,
+              by,
+              borderBounds.width,
+              borderBounds.height,
+              borderData.color,
+            );
+          }
+        }
+      }
 
-      <span class="k">return</span> <span class="nx">borders</span><span class="p">;</span>
-    <span class="p">&#125;</span>
+      return borders;
+    }
 
-    <span class="kd">function</span> <span class="nf">renderFormValue</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">bounds</span><span class="p">,</span> <span class="nx">stack</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="kd">var</span> <span class="nx">valueWrap</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">valuewrap</span><span class="dl">"</span><span class="p">),</span>
-        <span class="nx">cssArr</span> <span class="o">=</span> <span class="p">[</span>
-          <span class="dl">"</span><span class="s2">lineHeight</span><span class="dl">"</span><span class="p">,</span>
-          <span class="dl">"</span><span class="s2">textAlign</span><span class="dl">"</span><span class="p">,</span>
-          <span class="dl">"</span><span class="s2">fontFamily</span><span class="dl">"</span><span class="p">,</span>
-          <span class="dl">"</span><span class="s2">color</span><span class="dl">"</span><span class="p">,</span>
-          <span class="dl">"</span><span class="s2">fontSize</span><span class="dl">"</span><span class="p">,</span>
-          <span class="dl">"</span><span class="s2">paddingLeft</span><span class="dl">"</span><span class="p">,</span>
-          <span class="dl">"</span><span class="s2">paddingTop</span><span class="dl">"</span><span class="p">,</span>
-          <span class="dl">"</span><span class="s2">width</span><span class="dl">"</span><span class="p">,</span>
-          <span class="dl">"</span><span class="s2">height</span><span class="dl">"</span><span class="p">,</span>
-          <span class="dl">"</span><span class="s2">border</span><span class="dl">"</span><span class="p">,</span>
-          <span class="dl">"</span><span class="s2">borderLeftWidth</span><span class="dl">"</span><span class="p">,</span>
-          <span class="dl">"</span><span class="s2">borderTopWidth</span><span class="dl">"</span><span class="p">,</span>
-        <span class="p">],</span>
-        <span class="nx">i</span><span class="p">,</span>
-        <span class="nx">textValue</span><span class="p">,</span>
-        <span class="nx">textNode</span><span class="p">,</span>
-        <span class="nx">arrLen</span><span class="p">,</span>
-        <span class="nx">style</span><span class="p">;</span>
+    function renderFormValue(el, bounds, stack) {
+      var valueWrap = doc.createElement("valuewrap"),
+        cssArr = [
+          "lineHeight",
+          "textAlign",
+          "fontFamily",
+          "color",
+          "fontSize",
+          "paddingLeft",
+          "paddingTop",
+          "width",
+          "height",
+          "border",
+          "borderLeftWidth",
+          "borderTopWidth",
+        ],
+        i,
+        textValue,
+        textNode,
+        arrLen,
+        style;
 
-      <span class="k">for </span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">arrLen</span> <span class="o">=</span> <span class="nx">cssArr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arrLen</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nx">style</span> <span class="o">=</span> <span class="nx">cssArr</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+      for (i = 0, arrLen = cssArr.length; i < arrLen; i += 1) {
+        style = cssArr[i];
 
-        <span class="k">try</span> <span class="p">&#123;</span>
-          <span class="nx">valueWrap</span><span class="p">.</span><span class="nx">style</span><span class="p">[</span><span class="nx">style</span><span class="p">]</span> <span class="o">=</span> <span class="nf">getCSS</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">style</span><span class="p">);</span>
-        <span class="p">&#125;</span> <span class="k">catch </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="c1">// Older IE has issues with "border"</span>
-          <span class="nf">h2clog</span><span class="p">(</span>
-            <span class="dl">"</span><span class="s2">html2canvas: Parse: Exception caught in renderFormValue: </span><span class="dl">"</span> <span class="o">+</span>
-              <span class="nx">e</span><span class="p">.</span><span class="nx">message</span><span class="p">,</span>
-          <span class="p">);</span>
-        <span class="p">&#125;</span>
-      <span class="p">&#125;</span>
+        try {
+          valueWrap.style[style] = getCSS(el, style);
+        } catch (e) {
+          // Older IE has issues with "border"
+          h2clog(
+            "html2canvas: Parse: Exception caught in renderFormValue: " +
+              e.message,
+          );
+        }
+      }
 
-      <span class="nx">valueWrap</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">borderColor</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">black</span><span class="dl">"</span><span class="p">;</span>
-      <span class="nx">valueWrap</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">borderStyle</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">solid</span><span class="dl">"</span><span class="p">;</span>
-      <span class="nx">valueWrap</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">block</span><span class="dl">"</span><span class="p">;</span>
-      <span class="nx">valueWrap</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">position</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">absolute</span><span class="dl">"</span><span class="p">;</span>
-      <span class="k">if </span><span class="p">(</span>
-        <span class="sr">/^</span><span class="se">(</span><span class="sr">submit|reset|button|text|password</span><span class="se">)</span><span class="sr">$/</span><span class="p">.</span><span class="nf">test</span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">type</span><span class="p">)</span> <span class="o">||</span>
-        <span class="nx">el</span><span class="p">.</span><span class="nx">nodeName</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">SELECT</span><span class="dl">"</span>
-      <span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nx">valueWrap</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">lineHeight</span> <span class="o">=</span> <span class="nf">getCSS</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">height</span><span class="dl">"</span><span class="p">);</span>
-      <span class="p">&#125;</span>
+      valueWrap.style.borderColor = "black";
+      valueWrap.style.borderStyle = "solid";
+      valueWrap.style.display = "block";
+      valueWrap.style.position = "absolute";
+      if (
+        /^(submit|reset|button|text|password)$/.test(el.type) ||
+        el.nodeName === "SELECT"
+      ) {
+        valueWrap.style.lineHeight = getCSS(el, "height");
+      }
 
-      <span class="nx">valueWrap</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">top</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">top</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">px</span><span class="dl">"</span><span class="p">;</span>
-      <span class="nx">valueWrap</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">left</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">px</span><span class="dl">"</span><span class="p">;</span>
+      valueWrap.style.top = bounds.top + "px";
+      valueWrap.style.left = bounds.left + "px";
 
-      <span class="k">if </span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">nodeName</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">SELECT</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="c1">// TODO increase accuracy of text position</span>
-        <span class="nx">textValue</span> <span class="o">=</span> <span class="nx">el</span><span class="p">.</span><span class="nx">options</span><span class="p">[</span><span class="nx">el</span><span class="p">.</span><span class="nx">selectedIndex</span><span class="p">].</span><span class="nx">text</span><span class="p">;</span>
-      <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-        <span class="nx">textValue</span> <span class="o">=</span> <span class="nx">el</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
-      <span class="p">&#125;</span>
-      <span class="nx">textNode</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nf">createTextNode</span><span class="p">(</span><span class="nx">textValue</span><span class="p">);</span>
+      if (el.nodeName === "SELECT") {
+        // TODO increase accuracy of text position
+        textValue = el.options[el.selectedIndex].text;
+      } else {
+        textValue = el.value;
+      }
+      textNode = doc.createTextNode(textValue);
 
-      <span class="nx">valueWrap</span><span class="p">.</span><span class="nf">appendChild</span><span class="p">(</span><span class="nx">textNode</span><span class="p">);</span>
-      <span class="nx">body</span><span class="p">.</span><span class="nf">appendChild</span><span class="p">(</span><span class="nx">valueWrap</span><span class="p">);</span>
+      valueWrap.appendChild(textNode);
+      body.appendChild(valueWrap);
 
-      <span class="nf">renderText</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">textNode</span><span class="p">,</span> <span class="nx">stack</span><span class="p">);</span>
-      <span class="nx">body</span><span class="p">.</span><span class="nf">removeChild</span><span class="p">(</span><span class="nx">valueWrap</span><span class="p">);</span>
-    <span class="p">&#125;</span>
+      renderText(el, textNode, stack);
+      body.removeChild(valueWrap);
+    }
 
-    <span class="kd">function</span> <span class="nf">renderImage</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">image</span><span class="p">,</span> <span class="nx">sx</span><span class="p">,</span> <span class="nx">sy</span><span class="p">,</span> <span class="nx">sw</span><span class="p">,</span> <span class="nx">sh</span><span class="p">,</span> <span class="nx">dx</span><span class="p">,</span> <span class="nx">dy</span><span class="p">,</span> <span class="nx">dw</span><span class="p">,</span> <span class="nx">dh</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="nx">ctx</span><span class="p">.</span><span class="nf">drawImage</span><span class="p">(</span>
-        <span class="nx">image</span><span class="p">,</span>
-        <span class="nx">sx</span><span class="p">,</span> <span class="c1">//sx</span>
-        <span class="nx">sy</span><span class="p">,</span> <span class="c1">//sy</span>
-        <span class="nx">sw</span><span class="p">,</span> <span class="c1">//sw</span>
-        <span class="nx">sh</span><span class="p">,</span> <span class="c1">//sh</span>
-        <span class="nx">dx</span><span class="p">,</span> <span class="c1">//dx</span>
-        <span class="nx">dy</span><span class="p">,</span> <span class="c1">// dy</span>
-        <span class="nx">dw</span><span class="p">,</span> <span class="c1">//dw</span>
-        <span class="nx">dh</span><span class="p">,</span> <span class="c1">//dh</span>
-      <span class="p">);</span>
-      <span class="nx">numDraws</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="p">&#125;</span>
+    function renderImage(ctx, image, sx, sy, sw, sh, dx, dy, dw, dh) {
+      ctx.drawImage(
+        image,
+        sx, //sx
+        sy, //sy
+        sw, //sw
+        sh, //sh
+        dx, //dx
+        dy, // dy
+        dw, //dw
+        dh, //dh
+      );
+      numDraws += 1;
+    }
 
-    <span class="kd">function</span> <span class="nf">renderBackgroundRepeat</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">image</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">width</span><span class="p">,</span> <span class="nx">height</span><span class="p">,</span> <span class="nx">elx</span><span class="p">,</span> <span class="nx">ely</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="kd">var</span> <span class="nx">sourceX</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="nx">sourceY</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-      <span class="k">if </span><span class="p">(</span><span class="nx">elx</span> <span class="o">-</span> <span class="nx">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nx">sourceX</span> <span class="o">=</span> <span class="nx">elx</span> <span class="o">-</span> <span class="nx">x</span><span class="p">;</span>
-      <span class="p">&#125;</span>
+    function renderBackgroundRepeat(ctx, image, x, y, width, height, elx, ely) {
+      var sourceX = 0,
+        sourceY = 0;
+      if (elx - x > 0) {
+        sourceX = elx - x;
+      }
 
-      <span class="k">if </span><span class="p">(</span><span class="nx">ely</span> <span class="o">-</span> <span class="nx">y</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nx">sourceY</span> <span class="o">=</span> <span class="nx">ely</span> <span class="o">-</span> <span class="nx">y</span><span class="p">;</span>
-      <span class="p">&#125;</span>
+      if (ely - y > 0) {
+        sourceY = ely - y;
+      }
 
-      <span class="nf">renderImage</span><span class="p">(</span>
-        <span class="nx">ctx</span><span class="p">,</span>
-        <span class="nx">image</span><span class="p">,</span>
-        <span class="nx">sourceX</span><span class="p">,</span> <span class="c1">// source X</span>
-        <span class="nx">sourceY</span><span class="p">,</span> <span class="c1">// source Y</span>
-        <span class="nx">width</span> <span class="o">-</span> <span class="nx">sourceX</span><span class="p">,</span> <span class="c1">// source Width</span>
-        <span class="nx">height</span> <span class="o">-</span> <span class="nx">sourceY</span><span class="p">,</span> <span class="c1">// source Height</span>
-        <span class="nx">x</span> <span class="o">+</span> <span class="nx">sourceX</span><span class="p">,</span> <span class="c1">// destination X</span>
-        <span class="nx">y</span> <span class="o">+</span> <span class="nx">sourceY</span><span class="p">,</span> <span class="c1">// destination Y</span>
-        <span class="nx">width</span> <span class="o">-</span> <span class="nx">sourceX</span><span class="p">,</span> <span class="c1">// destination width</span>
-        <span class="nx">height</span> <span class="o">-</span> <span class="nx">sourceY</span><span class="p">,</span> <span class="c1">// destination height</span>
-      <span class="p">);</span>
-    <span class="p">&#125;</span>
+      renderImage(
+        ctx,
+        image,
+        sourceX, // source X
+        sourceY, // source Y
+        width - sourceX, // source Width
+        height - sourceY, // source Height
+        x + sourceX, // destination X
+        y + sourceY, // destination Y
+        width - sourceX, // destination width
+        height - sourceY, // destination height
+      );
+    }
 
-    <span class="kd">function</span> <span class="nf">renderBackgroundRepeatY</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">image</span><span class="p">,</span> <span class="nx">bgp</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">w</span><span class="p">,</span> <span class="nx">h</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="kd">var</span> <span class="nx">height</span><span class="p">,</span>
-        <span class="nx">width</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">min</span><span class="p">(</span><span class="nx">image</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">w</span><span class="p">),</span>
-        <span class="nx">bgy</span><span class="p">;</span>
+    function renderBackgroundRepeatY(ctx, image, bgp, x, y, w, h) {
+      var height,
+        width = Math.min(image.width, w),
+        bgy;
 
-      <span class="nx">bgp</span><span class="p">.</span><span class="nx">top</span> <span class="o">=</span> <span class="nx">bgp</span><span class="p">.</span><span class="nx">top</span> <span class="o">-</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">ceil</span><span class="p">(</span><span class="nx">bgp</span><span class="p">.</span><span class="nx">top</span> <span class="o">/</span> <span class="nx">image</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span> <span class="o">*</span> <span class="nx">image</span><span class="p">.</span><span class="nx">height</span><span class="p">;</span>
+      bgp.top = bgp.top - Math.ceil(bgp.top / image.height) * image.height;
 
-      <span class="k">for </span><span class="p">(</span><span class="nx">bgy</span> <span class="o">=</span> <span class="nx">y</span> <span class="o">+</span> <span class="nx">bgp</span><span class="p">.</span><span class="nx">top</span><span class="p">;</span> <span class="nx">bgy</span> <span class="o">&lt;</span> <span class="nx">h</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;)</span> <span class="p">&#123;</span>
-        <span class="k">if </span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nf">floor</span><span class="p">(</span><span class="nx">bgy</span> <span class="o">+</span> <span class="nx">image</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nx">h</span> <span class="o">+</span> <span class="nx">y</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="nx">height</span> <span class="o">=</span> <span class="nx">h</span> <span class="o">+</span> <span class="nx">y</span> <span class="o">-</span> <span class="nx">bgy</span><span class="p">;</span>
-        <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-          <span class="nx">height</span> <span class="o">=</span> <span class="nx">image</span><span class="p">.</span><span class="nx">height</span><span class="p">;</span>
-        <span class="p">&#125;</span>
-        <span class="nf">renderBackgroundRepeat</span><span class="p">(</span>
-          <span class="nx">ctx</span><span class="p">,</span>
-          <span class="nx">image</span><span class="p">,</span>
-          <span class="nx">x</span> <span class="o">+</span> <span class="nx">bgp</span><span class="p">.</span><span class="nx">left</span><span class="p">,</span>
-          <span class="nx">bgy</span><span class="p">,</span>
-          <span class="nx">width</span><span class="p">,</span>
-          <span class="nx">height</span><span class="p">,</span>
-          <span class="nx">x</span><span class="p">,</span>
-          <span class="nx">y</span><span class="p">,</span>
-        <span class="p">);</span>
+      for (bgy = y + bgp.top; bgy < h + y;) {
+        if (Math.floor(bgy + image.height) > h + y) {
+          height = h + y - bgy;
+        } else {
+          height = image.height;
+        }
+        renderBackgroundRepeat(
+          ctx,
+          image,
+          x + bgp.left,
+          bgy,
+          width,
+          height,
+          x,
+          y,
+        );
 
-        <span class="nx">bgy</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">floor</span><span class="p">(</span><span class="nx">bgy</span> <span class="o">+</span> <span class="nx">image</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span>
-      <span class="p">&#125;</span>
-    <span class="p">&#125;</span>
+        bgy = Math.floor(bgy + image.height);
+      }
+    }
 
-    <span class="kd">function</span> <span class="nf">renderBackgroundRepeatX</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">image</span><span class="p">,</span> <span class="nx">bgp</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">w</span><span class="p">,</span> <span class="nx">h</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="kd">var</span> <span class="nx">height</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">min</span><span class="p">(</span><span class="nx">image</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span> <span class="nx">h</span><span class="p">),</span>
-        <span class="nx">width</span><span class="p">,</span>
-        <span class="nx">bgx</span><span class="p">;</span>
+    function renderBackgroundRepeatX(ctx, image, bgp, x, y, w, h) {
+      var height = Math.min(image.height, h),
+        width,
+        bgx;
 
-      <span class="nx">bgp</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">bgp</span><span class="p">.</span><span class="nx">left</span> <span class="o">-</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">ceil</span><span class="p">(</span><span class="nx">bgp</span><span class="p">.</span><span class="nx">left</span> <span class="o">/</span> <span class="nx">image</span><span class="p">.</span><span class="nx">width</span><span class="p">)</span> <span class="o">*</span> <span class="nx">image</span><span class="p">.</span><span class="nx">width</span><span class="p">;</span>
+      bgp.left = bgp.left - Math.ceil(bgp.left / image.width) * image.width;
 
-      <span class="k">for </span><span class="p">(</span><span class="nx">bgx</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">bgp</span><span class="p">.</span><span class="nx">left</span><span class="p">;</span> <span class="nx">bgx</span> <span class="o">&lt;</span> <span class="nx">w</span> <span class="o">+</span> <span class="nx">x</span><span class="p">;)</span> <span class="p">&#123;</span>
-        <span class="k">if </span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nf">floor</span><span class="p">(</span><span class="nx">bgx</span> <span class="o">+</span> <span class="nx">image</span><span class="p">.</span><span class="nx">width</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nx">w</span> <span class="o">+</span> <span class="nx">x</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="nx">width</span> <span class="o">=</span> <span class="nx">w</span> <span class="o">+</span> <span class="nx">x</span> <span class="o">-</span> <span class="nx">bgx</span><span class="p">;</span>
-        <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-          <span class="nx">width</span> <span class="o">=</span> <span class="nx">image</span><span class="p">.</span><span class="nx">width</span><span class="p">;</span>
-        <span class="p">&#125;</span>
+      for (bgx = x + bgp.left; bgx < w + x;) {
+        if (Math.floor(bgx + image.width) > w + x) {
+          width = w + x - bgx;
+        } else {
+          width = image.width;
+        }
 
-        <span class="nf">renderBackgroundRepeat</span><span class="p">(</span>
-          <span class="nx">ctx</span><span class="p">,</span>
-          <span class="nx">image</span><span class="p">,</span>
-          <span class="nx">bgx</span><span class="p">,</span>
-          <span class="nx">y</span> <span class="o">+</span> <span class="nx">bgp</span><span class="p">.</span><span class="nx">top</span><span class="p">,</span>
-          <span class="nx">width</span><span class="p">,</span>
-          <span class="nx">height</span><span class="p">,</span>
-          <span class="nx">x</span><span class="p">,</span>
-          <span class="nx">y</span><span class="p">,</span>
-        <span class="p">);</span>
+        renderBackgroundRepeat(
+          ctx,
+          image,
+          bgx,
+          y + bgp.top,
+          width,
+          height,
+          x,
+          y,
+        );
 
-        <span class="nx">bgx</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">floor</span><span class="p">(</span><span class="nx">bgx</span> <span class="o">+</span> <span class="nx">image</span><span class="p">.</span><span class="nx">width</span><span class="p">);</span>
-      <span class="p">&#125;</span>
-    <span class="p">&#125;</span>
+        bgx = Math.floor(bgx + image.width);
+      }
+    }
 
-    <span class="kd">function</span> <span class="nf">renderBackground</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">bounds</span><span class="p">,</span> <span class="nx">ctx</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="c1">// TODO add support for multi background-images</span>
-      <span class="kd">var</span> <span class="nx">background_image</span> <span class="o">=</span> <span class="nf">getCSS</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">backgroundImage</span><span class="dl">"</span><span class="p">),</span>
-        <span class="nx">background_repeat</span> <span class="o">=</span> <span class="nf">getCSS</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">backgroundRepeat</span><span class="dl">"</span><span class="p">).</span><span class="nf">split</span><span class="p">(</span><span class="dl">"</span><span class="s2">,</span><span class="dl">"</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
-        <span class="nx">image</span><span class="p">,</span>
-        <span class="nx">bgp</span><span class="p">,</span>
-        <span class="nx">bgy</span><span class="p">,</span>
-        <span class="nx">bgw</span><span class="p">,</span>
-        <span class="nx">bgsx</span><span class="p">,</span>
-        <span class="nx">bgsy</span><span class="p">,</span>
-        <span class="nx">bgdx</span><span class="p">,</span>
-        <span class="nx">bgdy</span><span class="p">,</span>
-        <span class="nx">bgh</span><span class="p">,</span>
-        <span class="nx">h</span><span class="p">,</span>
-        <span class="nx">height</span><span class="p">,</span>
-        <span class="nx">add</span><span class="p">;</span>
+    function renderBackground(el, bounds, ctx) {
+      // TODO add support for multi background-images
+      var background_image = getCSS(el, "backgroundImage"),
+        background_repeat = getCSS(el, "backgroundRepeat").split(",")[0],
+        image,
+        bgp,
+        bgy,
+        bgw,
+        bgsx,
+        bgsy,
+        bgdx,
+        bgdy,
+        bgh,
+        h,
+        height,
+        add;
 
-      <span class="c1">//   if (typeof background_image !== "undefined" &amp;&amp; /^(1|none)$/.test(background_image) === false &amp;&amp; /^(-webkit|-moz|linear-gradient|-o-)/.test(background_image)===false)&#123;</span>
+      //   if (typeof background_image !== "undefined" && /^(1|none)$/.test(background_image) === false && /^(-webkit|-moz|linear-gradient|-o-)/.test(background_image)===false){
 
-      <span class="k">if </span><span class="p">(</span>
-        <span class="o">!</span><span class="sr">/data:image</span><span class="se">\/</span><span class="sr">.*;base64,/i</span><span class="p">.</span><span class="nf">test</span><span class="p">(</span><span class="nx">background_image</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
-        <span class="o">!</span><span class="sr">/^</span><span class="se">(</span><span class="sr">-webkit|-moz|linear-gradient|-o-</span><span class="se">)</span><span class="sr">/</span><span class="p">.</span><span class="nf">test</span><span class="p">(</span><span class="nx">background_image</span><span class="p">)</span>
-      <span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nx">background_image</span> <span class="o">=</span> <span class="nx">background_image</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="dl">"</span><span class="s2">,</span><span class="dl">"</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
-      <span class="p">&#125;</span>
+      if (
+        !/data:image\/.*;base64,/i.test(background_image) &&
+        !/^(-webkit|-moz|linear-gradient|-o-)/.test(background_image)
+      ) {
+        background_image = background_image.split(",")[0];
+      }
 
-      <span class="k">if </span><span class="p">(</span>
-        <span class="k">typeof</span> <span class="nx">background_image</span> <span class="o">!==</span> <span class="dl">"</span><span class="s2">undefined</span><span class="dl">"</span> <span class="o">&amp;&amp;</span>
-        <span class="sr">/^</span><span class="se">(</span><span class="sr">1|none</span><span class="se">)</span><span class="sr">$/</span><span class="p">.</span><span class="nf">test</span><span class="p">(</span><span class="nx">background_image</span><span class="p">)</span> <span class="o">===</span> <span class="kc">false</span>
-      <span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nx">background_image</span> <span class="o">=</span> <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nf">backgroundImage</span><span class="p">(</span><span class="nx">background_image</span><span class="p">);</span>
-        <span class="nx">image</span> <span class="o">=</span> <span class="nf">loadImage</span><span class="p">(</span><span class="nx">background_image</span><span class="p">);</span>
+      if (
+        typeof background_image !== "undefined" &&
+        /^(1|none)$/.test(background_image) === false
+      ) {
+        background_image = _html2canvas.Util.backgroundImage(background_image);
+        image = loadImage(background_image);
 
-        <span class="nx">bgp</span> <span class="o">=</span> <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nc">BackgroundPosition</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">bounds</span><span class="p">,</span> <span class="nx">image</span><span class="p">);</span>
+        bgp = _html2canvas.Util.BackgroundPosition(el, bounds, image);
 
-        <span class="c1">// TODO add support for background-origin</span>
-        <span class="k">if </span><span class="p">(</span><span class="nx">image</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="k">switch </span><span class="p">(</span><span class="nx">background_repeat</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">case</span> <span class="dl">"</span><span class="s2">repeat-x</span><span class="dl">"</span><span class="p">:</span>
-              <span class="nf">renderBackgroundRepeatX</span><span class="p">(</span>
-                <span class="nx">ctx</span><span class="p">,</span>
-                <span class="nx">image</span><span class="p">,</span>
-                <span class="nx">bgp</span><span class="p">,</span>
-                <span class="nx">bounds</span><span class="p">.</span><span class="nx">left</span><span class="p">,</span>
-                <span class="nx">bounds</span><span class="p">.</span><span class="nx">top</span><span class="p">,</span>
-                <span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span>
-                <span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span>
-              <span class="p">);</span>
-              <span class="k">break</span><span class="p">;</span>
+        // TODO add support for background-origin
+        if (image) {
+          switch (background_repeat) {
+            case "repeat-x":
+              renderBackgroundRepeatX(
+                ctx,
+                image,
+                bgp,
+                bounds.left,
+                bounds.top,
+                bounds.width,
+                bounds.height,
+              );
+              break;
 
-            <span class="k">case</span> <span class="dl">"</span><span class="s2">repeat-y</span><span class="dl">"</span><span class="p">:</span>
-              <span class="nf">renderBackgroundRepeatY</span><span class="p">(</span>
-                <span class="nx">ctx</span><span class="p">,</span>
-                <span class="nx">image</span><span class="p">,</span>
-                <span class="nx">bgp</span><span class="p">,</span>
-                <span class="nx">bounds</span><span class="p">.</span><span class="nx">left</span><span class="p">,</span>
-                <span class="nx">bounds</span><span class="p">.</span><span class="nx">top</span><span class="p">,</span>
-                <span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span>
-                <span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span>
-              <span class="p">);</span>
-              <span class="k">break</span><span class="p">;</span>
+            case "repeat-y":
+              renderBackgroundRepeatY(
+                ctx,
+                image,
+                bgp,
+                bounds.left,
+                bounds.top,
+                bounds.width,
+                bounds.height,
+              );
+              break;
 
-            <span class="k">case</span> <span class="dl">"</span><span class="s2">no-repeat</span><span class="dl">"</span><span class="p">:</span>
-              <span class="cm">/*
+            case "no-repeat":
+              /*
                     this.drawBackgroundRepeat(
                         ctx,
                         image,
@@ -2186,1316 +2193,1318 @@ source_revision: 0
                         Math.min(bounds.height,image.height),
                         bounds.left,
                         bounds.top
-                        );*/</span>
+                        );*/
 
-              <span class="nx">bgw</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span> <span class="o">-</span> <span class="nx">bgp</span><span class="p">.</span><span class="nx">left</span><span class="p">;</span>
-              <span class="nx">bgh</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span> <span class="o">-</span> <span class="nx">bgp</span><span class="p">.</span><span class="nx">top</span><span class="p">;</span>
-              <span class="nx">bgsx</span> <span class="o">=</span> <span class="nx">bgp</span><span class="p">.</span><span class="nx">left</span><span class="p">;</span>
-              <span class="nx">bgsy</span> <span class="o">=</span> <span class="nx">bgp</span><span class="p">.</span><span class="nx">top</span><span class="p">;</span>
-              <span class="nx">bgdx</span> <span class="o">=</span> <span class="nx">bgp</span><span class="p">.</span><span class="nx">left</span> <span class="o">+</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">left</span><span class="p">;</span>
-              <span class="nx">bgdy</span> <span class="o">=</span> <span class="nx">bgp</span><span class="p">.</span><span class="nx">top</span> <span class="o">+</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">top</span><span class="p">;</span>
+              bgw = bounds.width - bgp.left;
+              bgh = bounds.height - bgp.top;
+              bgsx = bgp.left;
+              bgsy = bgp.top;
+              bgdx = bgp.left + bounds.left;
+              bgdy = bgp.top + bounds.top;
 
-              <span class="c1">//</span>
-              <span class="c1">//     bgw = Math.min(bgw,image.width);</span>
-              <span class="c1">//  bgh = Math.min(bgh,image.height);</span>
+              //
+              //     bgw = Math.min(bgw,image.width);
+              //  bgh = Math.min(bgh,image.height);
 
-              <span class="k">if </span><span class="p">(</span><span class="nx">bgsx</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">&#123;</span>
-                <span class="nx">bgsx</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">abs</span><span class="p">(</span><span class="nx">bgsx</span><span class="p">);</span>
-                <span class="nx">bgdx</span> <span class="o">+=</span> <span class="nx">bgsx</span><span class="p">;</span>
-                <span class="nx">bgw</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">min</span><span class="p">(</span><span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">image</span><span class="p">.</span><span class="nx">width</span> <span class="o">-</span> <span class="nx">bgsx</span><span class="p">);</span>
-              <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-                <span class="nx">bgw</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">min</span><span class="p">(</span><span class="nx">bgw</span><span class="p">,</span> <span class="nx">image</span><span class="p">.</span><span class="nx">width</span><span class="p">);</span>
-                <span class="nx">bgsx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-              <span class="p">&#125;</span>
+              if (bgsx < 0) {
+                bgsx = Math.abs(bgsx);
+                bgdx += bgsx;
+                bgw = Math.min(bounds.width, image.width - bgsx);
+              } else {
+                bgw = Math.min(bgw, image.width);
+                bgsx = 0;
+              }
 
-              <span class="k">if </span><span class="p">(</span><span class="nx">bgsy</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">&#123;</span>
-                <span class="nx">bgsy</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">abs</span><span class="p">(</span><span class="nx">bgsy</span><span class="p">);</span>
-                <span class="nx">bgdy</span> <span class="o">+=</span> <span class="nx">bgsy</span><span class="p">;</span>
-                <span class="c1">// bgh = bgh-bgsy;</span>
-                <span class="nx">bgh</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">min</span><span class="p">(</span><span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span> <span class="nx">image</span><span class="p">.</span><span class="nx">height</span> <span class="o">-</span> <span class="nx">bgsy</span><span class="p">);</span>
-              <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-                <span class="nx">bgh</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">min</span><span class="p">(</span><span class="nx">bgh</span><span class="p">,</span> <span class="nx">image</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span>
-                <span class="nx">bgsy</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-              <span class="p">&#125;</span>
+              if (bgsy < 0) {
+                bgsy = Math.abs(bgsy);
+                bgdy += bgsy;
+                // bgh = bgh-bgsy;
+                bgh = Math.min(bounds.height, image.height - bgsy);
+              } else {
+                bgh = Math.min(bgh, image.height);
+                bgsy = 0;
+              }
 
-              <span class="k">if </span><span class="p">(</span><span class="nx">bgh</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">bgw</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">&#123;</span>
-                <span class="nf">renderImage</span><span class="p">(</span>
-                  <span class="nx">ctx</span><span class="p">,</span>
-                  <span class="nx">image</span><span class="p">,</span>
-                  <span class="nx">bgsx</span><span class="p">,</span> <span class="c1">// source X : 0</span>
-                  <span class="nx">bgsy</span><span class="p">,</span> <span class="c1">// source Y : 1695</span>
-                  <span class="nx">bgw</span><span class="p">,</span> <span class="c1">// source Width : 18</span>
-                  <span class="nx">bgh</span><span class="p">,</span> <span class="c1">// source Height : 1677</span>
-                  <span class="nx">bgdx</span><span class="p">,</span> <span class="c1">// destination X :906</span>
-                  <span class="nx">bgdy</span><span class="p">,</span> <span class="c1">// destination Y : 1020</span>
-                  <span class="nx">bgw</span><span class="p">,</span> <span class="c1">// destination width : 18</span>
-                  <span class="nx">bgh</span><span class="p">,</span> <span class="c1">// destination height : 1677</span>
-                <span class="p">);</span>
-              <span class="p">&#125;</span>
-              <span class="k">break</span><span class="p">;</span>
-            <span class="nl">default</span><span class="p">:</span>
-              <span class="nx">bgp</span><span class="p">.</span><span class="nx">top</span> <span class="o">=</span>
-                <span class="nx">bgp</span><span class="p">.</span><span class="nx">top</span> <span class="o">-</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">ceil</span><span class="p">(</span><span class="nx">bgp</span><span class="p">.</span><span class="nx">top</span> <span class="o">/</span> <span class="nx">image</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span> <span class="o">*</span> <span class="nx">image</span><span class="p">.</span><span class="nx">height</span><span class="p">;</span>
+              if (bgh > 0 && bgw > 0) {
+                renderImage(
+                  ctx,
+                  image,
+                  bgsx, // source X : 0
+                  bgsy, // source Y : 1695
+                  bgw, // source Width : 18
+                  bgh, // source Height : 1677
+                  bgdx, // destination X :906
+                  bgdy, // destination Y : 1020
+                  bgw, // destination width : 18
+                  bgh, // destination height : 1677
+                );
+              }
+              break;
+            default:
+              bgp.top =
+                bgp.top - Math.ceil(bgp.top / image.height) * image.height;
 
-              <span class="k">for </span><span class="p">(</span>
-                <span class="nx">bgy</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">top</span> <span class="o">+</span> <span class="nx">bgp</span><span class="p">.</span><span class="nx">top</span><span class="p">;</span>
-                <span class="nx">bgy</span> <span class="o">&lt;</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span> <span class="o">+</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">top</span><span class="p">;</span>
-              <span class="p">)</span> <span class="p">&#123;</span>
-                <span class="nx">h</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">min</span><span class="p">(</span><span class="nx">image</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span> <span class="o">+</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">top</span> <span class="o">-</span> <span class="nx">bgy</span><span class="p">);</span>
+              for (
+                bgy = bounds.top + bgp.top;
+                bgy < bounds.height + bounds.top;
+              ) {
+                h = Math.min(image.height, bounds.height + bounds.top - bgy);
 
-                <span class="k">if </span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nf">floor</span><span class="p">(</span><span class="nx">bgy</span> <span class="o">+</span> <span class="nx">image</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nx">h</span> <span class="o">+</span> <span class="nx">bgy</span><span class="p">)</span> <span class="p">&#123;</span>
-                  <span class="nx">height</span> <span class="o">=</span> <span class="nx">h</span> <span class="o">+</span> <span class="nx">bgy</span> <span class="o">-</span> <span class="nx">bgy</span><span class="p">;</span>
-                <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-                  <span class="nx">height</span> <span class="o">=</span> <span class="nx">image</span><span class="p">.</span><span class="nx">height</span><span class="p">;</span>
-                <span class="p">&#125;</span>
-                <span class="c1">// console.log(height);</span>
+                if (Math.floor(bgy + image.height) > h + bgy) {
+                  height = h + bgy - bgy;
+                } else {
+                  height = image.height;
+                }
+                // console.log(height);
 
-                <span class="k">if </span><span class="p">(</span><span class="nx">bgy</span> <span class="o">&lt;</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">top</span><span class="p">)</span> <span class="p">&#123;</span>
-                  <span class="nx">add</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">top</span> <span class="o">-</span> <span class="nx">bgy</span><span class="p">;</span>
-                  <span class="nx">bgy</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">top</span><span class="p">;</span>
-                <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-                  <span class="nx">add</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-                <span class="p">&#125;</span>
+                if (bgy < bounds.top) {
+                  add = bounds.top - bgy;
+                  bgy = bounds.top;
+                } else {
+                  add = 0;
+                }
 
-                <span class="nf">renderBackgroundRepeatX</span><span class="p">(</span>
-                  <span class="nx">ctx</span><span class="p">,</span>
-                  <span class="nx">image</span><span class="p">,</span>
-                  <span class="nx">bgp</span><span class="p">,</span>
-                  <span class="nx">bounds</span><span class="p">.</span><span class="nx">left</span><span class="p">,</span>
-                  <span class="nx">bgy</span><span class="p">,</span>
-                  <span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span>
-                  <span class="nx">height</span><span class="p">,</span>
-                <span class="p">);</span>
-                <span class="k">if </span><span class="p">(</span><span class="nx">add</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">&#123;</span>
-                  <span class="nx">bgp</span><span class="p">.</span><span class="nx">top</span> <span class="o">+=</span> <span class="nx">add</span><span class="p">;</span>
-                <span class="p">&#125;</span>
-                <span class="nx">bgy</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">floor</span><span class="p">(</span><span class="nx">bgy</span> <span class="o">+</span> <span class="nx">image</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span> <span class="o">-</span> <span class="nx">add</span><span class="p">;</span>
-              <span class="p">&#125;</span>
-              <span class="k">break</span><span class="p">;</span>
-          <span class="p">&#125;</span>
-        <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-          <span class="nf">h2clog</span><span class="p">(</span><span class="dl">"</span><span class="s2">html2canvas: Error loading background:</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">background_image</span><span class="p">);</span>
-          <span class="c1">//console.log(images);</span>
-        <span class="p">&#125;</span>
-      <span class="p">&#125;</span>
-    <span class="p">&#125;</span>
+                renderBackgroundRepeatX(
+                  ctx,
+                  image,
+                  bgp,
+                  bounds.left,
+                  bgy,
+                  bounds.width,
+                  height,
+                );
+                if (add > 0) {
+                  bgp.top += add;
+                }
+                bgy = Math.floor(bgy + image.height) - add;
+              }
+              break;
+          }
+        } else {
+          h2clog("html2canvas: Error loading background:" + background_image);
+          //console.log(images);
+        }
+      }
+    }
 
-    <span class="kd">function</span> <span class="nf">renderElement</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">parentStack</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="kd">var</span> <span class="nx">bounds</span> <span class="o">=</span> <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nc">Bounds</span><span class="p">(</span><span class="nx">el</span><span class="p">),</span>
-        <span class="nx">x</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">left</span><span class="p">,</span>
-        <span class="nx">y</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">top</span><span class="p">,</span>
-        <span class="nx">w</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span>
-        <span class="nx">h</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span>
-        <span class="nx">image</span><span class="p">,</span>
-        <span class="nx">bgcolor</span> <span class="o">=</span> <span class="nf">getCSS</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">backgroundColor</span><span class="dl">"</span><span class="p">),</span>
-        <span class="nx">cssPosition</span> <span class="o">=</span> <span class="nf">getCSS</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">position</span><span class="dl">"</span><span class="p">),</span>
-        <span class="nx">zindex</span><span class="p">,</span>
-        <span class="nx">opacity</span> <span class="o">=</span> <span class="nf">getCSS</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">opacity</span><span class="dl">"</span><span class="p">),</span>
-        <span class="nx">stack</span><span class="p">,</span>
-        <span class="nx">stackLength</span><span class="p">,</span>
-        <span class="nx">borders</span><span class="p">,</span>
-        <span class="nx">ctx</span><span class="p">,</span>
-        <span class="nx">bgbounds</span><span class="p">,</span>
-        <span class="nx">imgSrc</span><span class="p">,</span>
-        <span class="nx">paddingLeft</span><span class="p">,</span>
-        <span class="nx">paddingTop</span><span class="p">,</span>
-        <span class="nx">paddingRight</span><span class="p">,</span>
-        <span class="nx">paddingBottom</span><span class="p">;</span>
+    function renderElement(el, parentStack) {
+      var bounds = _html2canvas.Util.Bounds(el),
+        x = bounds.left,
+        y = bounds.top,
+        w = bounds.width,
+        h = bounds.height,
+        image,
+        bgcolor = getCSS(el, "backgroundColor"),
+        cssPosition = getCSS(el, "position"),
+        zindex,
+        opacity = getCSS(el, "opacity"),
+        stack,
+        stackLength,
+        borders,
+        ctx,
+        bgbounds,
+        imgSrc,
+        paddingLeft,
+        paddingTop,
+        paddingRight,
+        paddingBottom;
 
-      <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">parentStack</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nx">docDim</span> <span class="o">=</span> <span class="nf">docSize</span><span class="p">();</span>
-        <span class="nx">parentStack</span> <span class="o">=</span> <span class="p">&#123;</span>
-          <span class="na">opacity</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="p">&#125;;</span>
-      <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-        <span class="nx">docDim</span> <span class="o">=</span> <span class="p">&#123;&#125;;</span>
-      <span class="p">&#125;</span>
+      if (!parentStack) {
+        docDim = docSize();
+        parentStack = {
+          opacity: 1,
+        };
+      } else {
+        docDim = {};
+      }
 
-      <span class="c1">//var zindex = this.formatZ(this.getCSS(el,"zIndex"),cssPosition,parentStack.zIndex,el.parentNode);</span>
+      //var zindex = this.formatZ(this.getCSS(el,"zIndex"),cssPosition,parentStack.zIndex,el.parentNode);
 
-      <span class="nx">zindex</span> <span class="o">=</span> <span class="nf">setZ</span><span class="p">(</span><span class="nf">getCSS</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">zIndex</span><span class="dl">"</span><span class="p">),</span> <span class="nx">parentStack</span><span class="p">.</span><span class="nx">zIndex</span><span class="p">);</span>
+      zindex = setZ(getCSS(el, "zIndex"), parentStack.zIndex);
 
-      <span class="nx">stack</span> <span class="o">=</span> <span class="p">&#123;</span>
-        <span class="na">ctx</span><span class="p">:</span> <span class="nf">h2cRenderContext</span><span class="p">(</span><span class="nx">docDim</span><span class="p">.</span><span class="nx">width</span> <span class="o">||</span> <span class="nx">w</span><span class="p">,</span> <span class="nx">docDim</span><span class="p">.</span><span class="nx">height</span> <span class="o">||</span> <span class="nx">h</span><span class="p">),</span>
-        <span class="na">zIndex</span><span class="p">:</span> <span class="nx">zindex</span><span class="p">,</span>
-        <span class="na">opacity</span><span class="p">:</span> <span class="nx">opacity</span> <span class="o">*</span> <span class="nx">parentStack</span><span class="p">.</span><span class="nx">opacity</span><span class="p">,</span>
-        <span class="na">cssPosition</span><span class="p">:</span> <span class="nx">cssPosition</span><span class="p">,</span>
-      <span class="p">&#125;;</span>
+      stack = {
+        ctx: h2cRenderContext(docDim.width || w, docDim.height || h),
+        zIndex: zindex,
+        opacity: opacity * parentStack.opacity,
+        cssPosition: cssPosition,
+      };
 
-      <span class="c1">// TODO correct overflow for absolute content residing under a static position</span>
+      // TODO correct overflow for absolute content residing under a static position
 
-      <span class="k">if </span><span class="p">(</span><span class="nx">parentStack</span><span class="p">.</span><span class="nx">clip</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nx">stack</span><span class="p">.</span><span class="nx">clip</span> <span class="o">=</span> <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nc">Extend</span><span class="p">(&#123;&#125;,</span> <span class="nx">parentStack</span><span class="p">.</span><span class="nx">clip</span><span class="p">);</span>
-        <span class="c1">//stack.clip = parentStack.clip;</span>
-        <span class="c1">//   stack.clip.height = stack.clip.height - parentStack.borders[2].width;</span>
-      <span class="p">&#125;</span>
+      if (parentStack.clip) {
+        stack.clip = _html2canvas.Util.Extend({}, parentStack.clip);
+        //stack.clip = parentStack.clip;
+        //   stack.clip.height = stack.clip.height - parentStack.borders[2].width;
+      }
 
-      <span class="k">if </span><span class="p">(</span>
-        <span class="nx">options</span><span class="p">.</span><span class="nx">useOverflow</span> <span class="o">===</span> <span class="kc">true</span> <span class="o">&amp;&amp;</span>
-        <span class="sr">/</span><span class="se">(</span><span class="sr">hidden|scroll|auto</span><span class="se">)</span><span class="sr">/</span><span class="p">.</span><span class="nf">test</span><span class="p">(</span><span class="nf">getCSS</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">overflow</span><span class="dl">"</span><span class="p">))</span> <span class="o">===</span> <span class="kc">true</span> <span class="o">&amp;&amp;</span>
-        <span class="sr">/</span><span class="se">(</span><span class="sr">BODY</span><span class="se">)</span><span class="sr">/i</span><span class="p">.</span><span class="nf">test</span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">nodeName</span><span class="p">)</span> <span class="o">===</span> <span class="kc">false</span>
-      <span class="p">)</span> <span class="p">&#123;</span>
-        <span class="k">if </span><span class="p">(</span><span class="nx">stack</span><span class="p">.</span><span class="nx">clip</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="nx">stack</span><span class="p">.</span><span class="nx">clip</span> <span class="o">=</span> <span class="nf">clipBounds</span><span class="p">(</span><span class="nx">stack</span><span class="p">.</span><span class="nx">clip</span><span class="p">,</span> <span class="nx">bounds</span><span class="p">);</span>
-        <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-          <span class="nx">stack</span><span class="p">.</span><span class="nx">clip</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">;</span>
-        <span class="p">&#125;</span>
-      <span class="p">&#125;</span>
+      if (
+        options.useOverflow === true &&
+        /(hidden|scroll|auto)/.test(getCSS(el, "overflow")) === true &&
+        /(BODY)/i.test(el.nodeName) === false
+      ) {
+        if (stack.clip) {
+          stack.clip = clipBounds(stack.clip, bounds);
+        } else {
+          stack.clip = bounds;
+        }
+      }
 
-      <span class="nx">stackLength</span> <span class="o">=</span> <span class="nx">zindex</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="nx">stack</span><span class="p">);</span>
+      stackLength = zindex.children.push(stack);
 
-      <span class="nx">ctx</span> <span class="o">=</span> <span class="nx">zindex</span><span class="p">.</span><span class="nx">children</span><span class="p">[</span><span class="nx">stackLength</span> <span class="o">-</span> <span class="mi">1</span><span class="p">].</span><span class="nx">ctx</span><span class="p">;</span>
+      ctx = zindex.children[stackLength - 1].ctx;
 
-      <span class="nx">ctx</span><span class="p">.</span><span class="nf">setVariable</span><span class="p">(</span><span class="dl">"</span><span class="s2">globalAlpha</span><span class="dl">"</span><span class="p">,</span> <span class="nx">stack</span><span class="p">.</span><span class="nx">opacity</span><span class="p">);</span>
+      ctx.setVariable("globalAlpha", stack.opacity);
 
-      <span class="c1">// draw element borders</span>
-      <span class="nx">borders</span> <span class="o">=</span> <span class="nf">renderBorders</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">ctx</span><span class="p">,</span> <span class="nx">bounds</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
-      <span class="nx">stack</span><span class="p">.</span><span class="nx">borders</span> <span class="o">=</span> <span class="nx">borders</span><span class="p">;</span>
+      // draw element borders
+      borders = renderBorders(el, ctx, bounds, false);
+      stack.borders = borders;
 
-      <span class="c1">// let's modify clip area for child elements, so borders dont get overwritten</span>
+      // let's modify clip area for child elements, so borders dont get overwritten
 
-      <span class="cm">/*
-    if (stack.clip)&#123;
+      /*
+    if (stack.clip){
         stack.clip.width = stack.clip.width-(borders[1].width);
         stack.clip.height = stack.clip.height-(borders[2].width);
-    &#125;
-     */</span>
-      <span class="k">if </span><span class="p">(</span>
-        <span class="nx">ignoreElementsRegExp</span><span class="p">.</span><span class="nf">test</span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">nodeName</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
-        <span class="nx">options</span><span class="p">.</span><span class="nx">iframeDefault</span> <span class="o">!==</span> <span class="dl">"</span><span class="s2">transparent</span><span class="dl">"</span>
-      <span class="p">)</span> <span class="p">&#123;</span>
-        <span class="k">if </span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">iframeDefault</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">default</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="nx">bgcolor</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">#efefef</span><span class="dl">"</span><span class="p">;</span>
-        <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-          <span class="nx">bgcolor</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">iframeDefault</span><span class="p">;</span>
-        <span class="p">&#125;</span>
-      <span class="p">&#125;</span>
+    }
+     */
+      if (
+        ignoreElementsRegExp.test(el.nodeName) &&
+        options.iframeDefault !== "transparent"
+      ) {
+        if (options.iframeDefault === "default") {
+          bgcolor = "#efefef";
+        } else {
+          bgcolor = options.iframeDefault;
+        }
+      }
 
-      <span class="c1">// draw base element bgcolor</span>
+      // draw base element bgcolor
 
-      <span class="nx">bgbounds</span> <span class="o">=</span> <span class="p">&#123;</span>
-        <span class="na">left</span><span class="p">:</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">borders</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="nx">width</span><span class="p">,</span>
-        <span class="na">top</span><span class="p">:</span> <span class="nx">y</span> <span class="o">+</span> <span class="nx">borders</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">width</span><span class="p">,</span>
-        <span class="na">width</span><span class="p">:</span> <span class="nx">w</span> <span class="o">-</span> <span class="p">(</span><span class="nx">borders</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">width</span> <span class="o">+</span> <span class="nx">borders</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="nx">width</span><span class="p">),</span>
-        <span class="na">height</span><span class="p">:</span> <span class="nx">h</span> <span class="o">-</span> <span class="p">(</span><span class="nx">borders</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">width</span> <span class="o">+</span> <span class="nx">borders</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="nx">width</span><span class="p">),</span>
-      <span class="p">&#125;;</span>
+      bgbounds = {
+        left: x + borders[3].width,
+        top: y + borders[0].width,
+        width: w - (borders[1].width + borders[3].width),
+        height: h - (borders[0].width + borders[2].width),
+      };
 
-      <span class="c1">//if (this.withinBounds(stack.clip,bgbounds))&#123;</span>
+      //if (this.withinBounds(stack.clip,bgbounds)){
 
-      <span class="k">if </span><span class="p">(</span><span class="nx">stack</span><span class="p">.</span><span class="nx">clip</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nx">bgbounds</span> <span class="o">=</span> <span class="nf">clipBounds</span><span class="p">(</span><span class="nx">bgbounds</span><span class="p">,</span> <span class="nx">stack</span><span class="p">.</span><span class="nx">clip</span><span class="p">);</span>
+      if (stack.clip) {
+        bgbounds = clipBounds(bgbounds, stack.clip);
 
-        <span class="c1">//&#125;</span>
-      <span class="p">&#125;</span>
+        //}
+      }
 
-      <span class="k">if </span><span class="p">(</span><span class="nx">bgbounds</span><span class="p">.</span><span class="nx">height</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">bgbounds</span><span class="p">.</span><span class="nx">width</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nf">renderRect</span><span class="p">(</span>
-          <span class="nx">ctx</span><span class="p">,</span>
-          <span class="nx">bgbounds</span><span class="p">.</span><span class="nx">left</span><span class="p">,</span>
-          <span class="nx">bgbounds</span><span class="p">.</span><span class="nx">top</span><span class="p">,</span>
-          <span class="nx">bgbounds</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span>
-          <span class="nx">bgbounds</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span>
-          <span class="nx">bgcolor</span><span class="p">,</span>
-        <span class="p">);</span>
+      if (bgbounds.height > 0 && bgbounds.width > 0) {
+        renderRect(
+          ctx,
+          bgbounds.left,
+          bgbounds.top,
+          bgbounds.width,
+          bgbounds.height,
+          bgcolor,
+        );
 
-        <span class="nf">renderBackground</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">bgbounds</span><span class="p">,</span> <span class="nx">ctx</span><span class="p">);</span>
-      <span class="p">&#125;</span>
+        renderBackground(el, bgbounds, ctx);
+      }
 
-      <span class="k">switch </span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">nodeName</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="k">case</span> <span class="dl">"</span><span class="s2">IMG</span><span class="dl">"</span><span class="p">:</span>
-          <span class="nx">imgSrc</span> <span class="o">=</span> <span class="nx">el</span><span class="p">.</span><span class="nf">getAttribute</span><span class="p">(</span><span class="dl">"</span><span class="s2">src</span><span class="dl">"</span><span class="p">);</span>
-          <span class="nx">image</span> <span class="o">=</span> <span class="nf">loadImage</span><span class="p">(</span><span class="nx">imgSrc</span><span class="p">);</span>
-          <span class="k">if </span><span class="p">(</span><span class="nx">image</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="nx">paddingLeft</span> <span class="o">=</span> <span class="nf">getCSSInt</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">paddingLeft</span><span class="dl">"</span><span class="p">);</span>
-            <span class="nx">paddingTop</span> <span class="o">=</span> <span class="nf">getCSSInt</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">paddingTop</span><span class="dl">"</span><span class="p">);</span>
-            <span class="nx">paddingRight</span> <span class="o">=</span> <span class="nf">getCSSInt</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">paddingRight</span><span class="dl">"</span><span class="p">);</span>
-            <span class="nx">paddingBottom</span> <span class="o">=</span> <span class="nf">getCSSInt</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">paddingBottom</span><span class="dl">"</span><span class="p">);</span>
+      switch (el.nodeName) {
+        case "IMG":
+          imgSrc = el.getAttribute("src");
+          image = loadImage(imgSrc);
+          if (image) {
+            paddingLeft = getCSSInt(el, "paddingLeft");
+            paddingTop = getCSSInt(el, "paddingTop");
+            paddingRight = getCSSInt(el, "paddingRight");
+            paddingBottom = getCSSInt(el, "paddingBottom");
 
-            <span class="nf">renderImage</span><span class="p">(</span>
-              <span class="nx">ctx</span><span class="p">,</span>
-              <span class="nx">image</span><span class="p">,</span>
-              <span class="mi">0</span><span class="p">,</span> <span class="c1">//sx</span>
-              <span class="mi">0</span><span class="p">,</span> <span class="c1">//sy</span>
-              <span class="nx">image</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="c1">//sw</span>
-              <span class="nx">image</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span> <span class="c1">//sh</span>
-              <span class="nx">x</span> <span class="o">+</span> <span class="nx">paddingLeft</span> <span class="o">+</span> <span class="nx">borders</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="nx">width</span><span class="p">,</span> <span class="c1">//dx</span>
-              <span class="nx">y</span> <span class="o">+</span> <span class="nx">paddingTop</span> <span class="o">+</span> <span class="nx">borders</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">width</span><span class="p">,</span> <span class="c1">// dy</span>
-              <span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span> <span class="o">-</span>
-                <span class="p">(</span><span class="nx">borders</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">width</span> <span class="o">+</span>
-                  <span class="nx">borders</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="nx">width</span> <span class="o">+</span>
-                  <span class="nx">paddingLeft</span> <span class="o">+</span>
-                  <span class="nx">paddingRight</span><span class="p">),</span> <span class="c1">//dw</span>
-              <span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span> <span class="o">-</span>
-                <span class="p">(</span><span class="nx">borders</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">width</span> <span class="o">+</span>
-                  <span class="nx">borders</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="nx">width</span> <span class="o">+</span>
-                  <span class="nx">paddingTop</span> <span class="o">+</span>
-                  <span class="nx">paddingBottom</span><span class="p">),</span> <span class="c1">//dh</span>
-            <span class="p">);</span>
-          <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-            <span class="nf">h2clog</span><span class="p">(</span><span class="dl">"</span><span class="s2">html2canvas: Error loading &lt;img&gt;:</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">imgSrc</span><span class="p">);</span>
-          <span class="p">&#125;</span>
-          <span class="k">break</span><span class="p">;</span>
-        <span class="k">case</span> <span class="dl">"</span><span class="s2">INPUT</span><span class="dl">"</span><span class="p">:</span>
-          <span class="c1">// TODO add all relevant type's, i.e. HTML5 new stuff</span>
-          <span class="c1">// todo add support for placeholder attribute for browsers which support it</span>
-          <span class="k">if </span><span class="p">(</span>
-            <span class="sr">/^</span><span class="se">(</span><span class="sr">text|url|email|submit|button|reset</span><span class="se">)</span><span class="sr">$/</span><span class="p">.</span><span class="nf">test</span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">type</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
-            <span class="nx">el</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span>
-          <span class="p">)</span> <span class="p">&#123;</span>
-            <span class="nf">renderFormValue</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">bounds</span><span class="p">,</span> <span class="nx">stack</span><span class="p">);</span>
+            renderImage(
+              ctx,
+              image,
+              0, //sx
+              0, //sy
+              image.width, //sw
+              image.height, //sh
+              x + paddingLeft + borders[3].width, //dx
+              y + paddingTop + borders[0].width, // dy
+              bounds.width -
+                (borders[1].width +
+                  borders[3].width +
+                  paddingLeft +
+                  paddingRight), //dw
+              bounds.height -
+                (borders[0].width +
+                  borders[2].width +
+                  paddingTop +
+                  paddingBottom), //dh
+            );
+          } else {
+            h2clog("html2canvas: Error loading <img>:" + imgSrc);
+          }
+          break;
+        case "INPUT":
+          // TODO add all relevant type's, i.e. HTML5 new stuff
+          // todo add support for placeholder attribute for browsers which support it
+          if (
+            /^(text|url|email|submit|button|reset)$/.test(el.type) &&
+            el.value.length > 0
+          ) {
+            renderFormValue(el, bounds, stack);
 
-            <span class="cm">/*
+            /*
                  this just doesn't work well enough
 
-                this.newText(el,&#123;
+                this.newText(el,{
                     nodeValue:el.value,
-                    splitText: function()&#123;
+                    splitText: function(){
                         return this;
-                    &#125;,
+                    },
                     formValue:true
-                &#125;,stack);
-                 */</span>
-          <span class="p">&#125;</span>
-          <span class="k">break</span><span class="p">;</span>
-        <span class="k">case</span> <span class="dl">"</span><span class="s2">TEXTAREA</span><span class="dl">"</span><span class="p">:</span>
-          <span class="k">if </span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="nf">renderFormValue</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">bounds</span><span class="p">,</span> <span class="nx">stack</span><span class="p">);</span>
-          <span class="p">&#125;</span>
-          <span class="k">break</span><span class="p">;</span>
-        <span class="k">case</span> <span class="dl">"</span><span class="s2">SELECT</span><span class="dl">"</span><span class="p">:</span>
-          <span class="k">if </span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="nf">renderFormValue</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">bounds</span><span class="p">,</span> <span class="nx">stack</span><span class="p">);</span>
-          <span class="p">&#125;</span>
-          <span class="k">break</span><span class="p">;</span>
-        <span class="k">case</span> <span class="dl">"</span><span class="s2">LI</span><span class="dl">"</span><span class="p">:</span>
-          <span class="nf">renderListItem</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">stack</span><span class="p">,</span> <span class="nx">bgbounds</span><span class="p">);</span>
-          <span class="k">break</span><span class="p">;</span>
-        <span class="k">case</span> <span class="dl">"</span><span class="s2">CANVAS</span><span class="dl">"</span><span class="p">:</span>
-          <span class="nx">paddingLeft</span> <span class="o">=</span> <span class="nf">getCSSInt</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">paddingLeft</span><span class="dl">"</span><span class="p">);</span>
-          <span class="nx">paddingTop</span> <span class="o">=</span> <span class="nf">getCSSInt</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">paddingTop</span><span class="dl">"</span><span class="p">);</span>
-          <span class="nx">paddingRight</span> <span class="o">=</span> <span class="nf">getCSSInt</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">paddingRight</span><span class="dl">"</span><span class="p">);</span>
-          <span class="nx">paddingBottom</span> <span class="o">=</span> <span class="nf">getCSSInt</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">paddingBottom</span><span class="dl">"</span><span class="p">);</span>
-          <span class="nf">renderImage</span><span class="p">(</span>
-            <span class="nx">ctx</span><span class="p">,</span>
-            <span class="nx">el</span><span class="p">,</span>
-            <span class="mi">0</span><span class="p">,</span> <span class="c1">//sx</span>
-            <span class="mi">0</span><span class="p">,</span> <span class="c1">//sy</span>
-            <span class="nx">el</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="c1">//sw</span>
-            <span class="nx">el</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span> <span class="c1">//sh</span>
-            <span class="nx">x</span> <span class="o">+</span> <span class="nx">paddingLeft</span> <span class="o">+</span> <span class="nx">borders</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="nx">width</span><span class="p">,</span> <span class="c1">//dx</span>
-            <span class="nx">y</span> <span class="o">+</span> <span class="nx">paddingTop</span> <span class="o">+</span> <span class="nx">borders</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">width</span><span class="p">,</span> <span class="c1">// dy</span>
-            <span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span> <span class="o">-</span>
-              <span class="p">(</span><span class="nx">borders</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">width</span> <span class="o">+</span>
-                <span class="nx">borders</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="nx">width</span> <span class="o">+</span>
-                <span class="nx">paddingLeft</span> <span class="o">+</span>
-                <span class="nx">paddingRight</span><span class="p">),</span> <span class="c1">//dw</span>
-            <span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span> <span class="o">-</span>
-              <span class="p">(</span><span class="nx">borders</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">width</span> <span class="o">+</span>
-                <span class="nx">borders</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="nx">width</span> <span class="o">+</span>
-                <span class="nx">paddingTop</span> <span class="o">+</span>
-                <span class="nx">paddingBottom</span><span class="p">),</span> <span class="c1">//dh</span>
-          <span class="p">);</span>
-          <span class="k">break</span><span class="p">;</span>
-      <span class="p">&#125;</span>
+                },stack);
+                 */
+          }
+          break;
+        case "TEXTAREA":
+          if (el.value.length > 0) {
+            renderFormValue(el, bounds, stack);
+          }
+          break;
+        case "SELECT":
+          if (el.options.length > 0) {
+            renderFormValue(el, bounds, stack);
+          }
+          break;
+        case "LI":
+          renderListItem(el, stack, bgbounds);
+          break;
+        case "CANVAS":
+          paddingLeft = getCSSInt(el, "paddingLeft");
+          paddingTop = getCSSInt(el, "paddingTop");
+          paddingRight = getCSSInt(el, "paddingRight");
+          paddingBottom = getCSSInt(el, "paddingBottom");
+          renderImage(
+            ctx,
+            el,
+            0, //sx
+            0, //sy
+            el.width, //sw
+            el.height, //sh
+            x + paddingLeft + borders[3].width, //dx
+            y + paddingTop + borders[0].width, // dy
+            bounds.width -
+              (borders[1].width +
+                borders[3].width +
+                paddingLeft +
+                paddingRight), //dw
+            bounds.height -
+              (borders[0].width +
+                borders[2].width +
+                paddingTop +
+                paddingBottom), //dh
+          );
+          break;
+      }
 
-      <span class="k">return</span> <span class="nx">zindex</span><span class="p">.</span><span class="nx">children</span><span class="p">[</span><span class="nx">stackLength</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
-    <span class="p">&#125;</span>
+      return zindex.children[stackLength - 1];
+    }
 
-    <span class="kd">function</span> <span class="nf">parseElement</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">stack</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="c1">// skip hidden elements and their children</span>
-      <span class="k">if </span><span class="p">(</span>
-        <span class="nf">getCSS</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">display</span><span class="dl">"</span><span class="p">)</span> <span class="o">!==</span> <span class="dl">"</span><span class="s2">none</span><span class="dl">"</span> <span class="o">&amp;&amp;</span>
-        <span class="nf">getCSS</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">visibility</span><span class="dl">"</span><span class="p">)</span> <span class="o">!==</span> <span class="dl">"</span><span class="s2">hidden</span><span class="dl">"</span>
-      <span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nx">stack</span> <span class="o">=</span> <span class="nf">renderElement</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">stack</span><span class="p">)</span> <span class="o">||</span> <span class="nx">stack</span><span class="p">;</span>
+    function parseElement(el, stack) {
+      // skip hidden elements and their children
+      if (
+        getCSS(el, "display") !== "none" &&
+        getCSS(el, "visibility") !== "hidden"
+      ) {
+        stack = renderElement(el, stack) || stack;
 
-        <span class="nx">ctx</span> <span class="o">=</span> <span class="nx">stack</span><span class="p">.</span><span class="nx">ctx</span><span class="p">;</span>
+        ctx = stack.ctx;
 
-        <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">ignoreElementsRegExp</span><span class="p">.</span><span class="nf">test</span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">nodeName</span><span class="p">))</span> <span class="p">&#123;</span>
-          <span class="kd">var</span> <span class="nx">elementChildren</span> <span class="o">=</span> <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nc">Children</span><span class="p">(</span><span class="nx">el</span><span class="p">),</span>
-            <span class="nx">i</span><span class="p">,</span>
-            <span class="nx">node</span><span class="p">,</span>
-            <span class="nx">childrenLen</span><span class="p">;</span>
-          <span class="k">for </span><span class="p">(</span>
-            <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">childrenLen</span> <span class="o">=</span> <span class="nx">elementChildren</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
-            <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">childrenLen</span><span class="p">;</span>
-            <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span>
-          <span class="p">)</span> <span class="p">&#123;</span>
-            <span class="nx">node</span> <span class="o">=</span> <span class="nx">elementChildren</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+        if (!ignoreElementsRegExp.test(el.nodeName)) {
+          var elementChildren = _html2canvas.Util.Children(el),
+            i,
+            node,
+            childrenLen;
+          for (
+            i = 0, childrenLen = elementChildren.length;
+            i < childrenLen;
+            i += 1
+          ) {
+            node = elementChildren[i];
 
-            <span class="k">if </span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-              <span class="nf">parseElement</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="nx">stack</span><span class="p">);</span>
-            <span class="p">&#125;</span> <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">===</span> <span class="mi">3</span><span class="p">)</span> <span class="p">&#123;</span>
-              <span class="nf">renderText</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="nx">node</span><span class="p">,</span> <span class="nx">stack</span><span class="p">);</span>
-            <span class="p">&#125;</span>
-          <span class="p">&#125;</span>
-        <span class="p">&#125;</span>
-      <span class="p">&#125;</span>
-    <span class="p">&#125;</span>
+            if (node.nodeType === 1) {
+              parseElement(node, stack);
+            } else if (node.nodeType === 3) {
+              renderText(el, node, stack);
+            }
+          }
+        }
+      }
+    }
 
-    <span class="nx">stack</span> <span class="o">=</span> <span class="nf">renderElement</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="kc">null</span><span class="p">);</span>
+    stack = renderElement(element, null);
 
-    <span class="cm">/*
+    /*
     SVG powered HTML rendering, non-tainted canvas available from FF 11+ onwards
-    */</span>
+    */
 
-    <span class="k">if </span><span class="p">(</span><span class="nx">support</span><span class="p">.</span><span class="nx">svgRendering</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="p">(</span><span class="nf">function </span><span class="p">(</span><span class="nx">body</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="kd">var</span> <span class="nx">img</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Image</span><span class="p">(),</span>
-          <span class="nx">size</span> <span class="o">=</span> <span class="nf">docSize</span><span class="p">(),</span>
-          <span class="nx">html</span> <span class="o">=</span> <span class="dl">""</span><span class="p">;</span>
+    if (support.svgRendering) {
+      (function (body) {
+        var img = new Image(),
+          size = docSize(),
+          html = "";
 
-        <span class="kd">function</span> <span class="nf">parseDOM</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="kd">var</span> <span class="nx">children</span> <span class="o">=</span> <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nc">Children</span><span class="p">(</span><span class="nx">el</span><span class="p">),</span>
-            <span class="nx">len</span> <span class="o">=</span> <span class="nx">children</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span>
-            <span class="nx">attr</span><span class="p">,</span>
-            <span class="nx">a</span><span class="p">,</span>
-            <span class="nx">alen</span><span class="p">,</span>
-            <span class="nx">elm</span><span class="p">,</span>
-            <span class="nx">i</span><span class="p">;</span>
-          <span class="k">for </span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="nx">elm</span> <span class="o">=</span> <span class="nx">children</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
-            <span class="k">if </span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">===</span> <span class="mi">3</span><span class="p">)</span> <span class="p">&#123;</span>
-              <span class="c1">// Text node</span>
+        function parseDOM(el) {
+          var children = _html2canvas.Util.Children(el),
+            len = children.length,
+            attr,
+            a,
+            alen,
+            elm,
+            i;
+          for (i = 0; i < len; i += 1) {
+            elm = children[i];
+            if (elm.nodeType === 3) {
+              // Text node
 
-              <span class="nx">html</span> <span class="o">+=</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">nodeValue</span>
-                <span class="p">.</span><span class="nf">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">\&lt;</span><span class="sr">/g</span><span class="p">,</span> <span class="dl">"</span><span class="s2">&amp;lt;</span><span class="dl">"</span><span class="p">)</span>
-                <span class="p">.</span><span class="nf">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">\&gt;</span><span class="sr">/g</span><span class="p">,</span> <span class="dl">"</span><span class="s2">&amp;gt;</span><span class="dl">"</span><span class="p">);</span>
-            <span class="p">&#125;</span> <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-              <span class="c1">// Element</span>
-              <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="sr">/^</span><span class="se">(</span><span class="sr">script|meta|title</span><span class="se">)</span><span class="sr">$/</span><span class="p">.</span><span class="nf">test</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">nodeName</span><span class="p">.</span><span class="nf">toLowerCase</span><span class="p">()))</span> <span class="p">&#123;</span>
-                <span class="nx">html</span> <span class="o">+=</span> <span class="dl">"</span><span class="s2">&lt;</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">nodeName</span><span class="p">.</span><span class="nf">toLowerCase</span><span class="p">();</span>
+              html += elm.nodeValue
+                .replace(/\</g, "&lt;")
+                .replace(/\>/g, "&gt;");
+            } else if (elm.nodeType === 1) {
+              // Element
+              if (!/^(script|meta|title)$/.test(elm.nodeName.toLowerCase())) {
+                html += "<" + elm.nodeName.toLowerCase();
 
-                <span class="c1">// add attributes</span>
-                <span class="k">if </span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nf">hasAttributes</span><span class="p">())</span> <span class="p">&#123;</span>
-                  <span class="nx">attr</span> <span class="o">=</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">attributes</span><span class="p">;</span>
-                  <span class="nx">alen</span> <span class="o">=</span> <span class="nx">attr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
-                  <span class="k">for </span><span class="p">(</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">a</span> <span class="o">&lt;</span> <span class="nx">alen</span><span class="p">;</span> <span class="nx">a</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-                    <span class="nx">html</span> <span class="o">+=</span> <span class="dl">"</span><span class="s2"> </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">attr</span><span class="p">[</span><span class="nx">a</span><span class="p">].</span><span class="nx">name</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">="</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">attr</span><span class="p">[</span><span class="nx">a</span><span class="p">].</span><span class="nx">value</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">"</span><span class="dl">'</span><span class="p">;</span>
-                  <span class="p">&#125;</span>
-                <span class="p">&#125;</span>
+                // add attributes
+                if (elm.hasAttributes()) {
+                  attr = elm.attributes;
+                  alen = attr.length;
+                  for (a = 0; a < alen; a += 1) {
+                    html += " " + attr[a].name + '="' + attr[a].value + '"';
+                  }
+                }
 
-                <span class="nx">html</span> <span class="o">+=</span> <span class="dl">"</span><span class="s2">&gt;</span><span class="dl">"</span><span class="p">;</span>
+                html += ">";
 
-                <span class="nf">parseDOM</span><span class="p">(</span><span class="nx">elm</span><span class="p">);</span>
+                parseDOM(elm);
 
-                <span class="nx">html</span> <span class="o">+=</span> <span class="dl">"</span><span class="s2">&lt;/</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">nodeName</span><span class="p">.</span><span class="nf">toLowerCase</span><span class="p">()</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">&gt;</span><span class="dl">"</span><span class="p">;</span>
-              <span class="p">&#125;</span>
-            <span class="p">&#125;</span>
-          <span class="p">&#125;</span>
-        <span class="p">&#125;</span>
+                html += "</" + elm.nodeName.toLowerCase() + ">";
+              }
+            }
+          }
+        }
 
-        <span class="nf">parseDOM</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
-        <span class="nx">img</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="p">[</span>
-          <span class="dl">"</span><span class="s2">data:image/svg+xml,</span><span class="dl">"</span><span class="p">,</span>
-          <span class="dl">"</span><span class="s2">&lt;svg xmlns='http://www.w3.org/2000/svg' version='1.1' width='</span><span class="dl">"</span> <span class="o">+</span>
-            <span class="nx">size</span><span class="p">.</span><span class="nx">width</span> <span class="o">+</span>
-            <span class="dl">"</span><span class="s2">' height='</span><span class="dl">"</span> <span class="o">+</span>
-            <span class="nx">size</span><span class="p">.</span><span class="nx">height</span> <span class="o">+</span>
-            <span class="dl">"</span><span class="s2">'&gt;</span><span class="dl">"</span><span class="p">,</span>
-          <span class="dl">"</span><span class="s2">&lt;foreignObject width='</span><span class="dl">"</span> <span class="o">+</span>
-            <span class="nx">size</span><span class="p">.</span><span class="nx">width</span> <span class="o">+</span>
-            <span class="dl">"</span><span class="s2">' height='</span><span class="dl">"</span> <span class="o">+</span>
-            <span class="nx">size</span><span class="p">.</span><span class="nx">height</span> <span class="o">+</span>
-            <span class="dl">"</span><span class="s2">'&gt;</span><span class="dl">"</span><span class="p">,</span>
-          <span class="dl">"</span><span class="s2">&lt;html xmlns='http://www.w3.org/1999/xhtml' style='margin:0;'&gt;</span><span class="dl">"</span><span class="p">,</span>
-          <span class="nx">html</span><span class="p">.</span><span class="nf">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">\#</span><span class="sr">/g</span><span class="p">,</span> <span class="dl">"</span><span class="s2">%23</span><span class="dl">"</span><span class="p">),</span>
-          <span class="dl">"</span><span class="s2">&lt;/html&gt;</span><span class="dl">"</span><span class="p">,</span>
-          <span class="dl">"</span><span class="s2">&lt;/foreignObject&gt;</span><span class="dl">"</span><span class="p">,</span>
-          <span class="dl">"</span><span class="s2">&lt;/svg&gt;</span><span class="dl">"</span><span class="p">,</span>
-        <span class="p">].</span><span class="nf">join</span><span class="p">(</span><span class="dl">""</span><span class="p">);</span>
+        parseDOM(body);
+        img.src = [
+          "data:image/svg+xml,",
+          "<svg xmlns='http://www.w3.org/2000/svg' version='1.1' width='" +
+            size.width +
+            "' height='" +
+            size.height +
+            "'>",
+          "<foreignObject width='" +
+            size.width +
+            "' height='" +
+            size.height +
+            "'>",
+          "<html xmlns='http://www.w3.org/1999/xhtml' style='margin:0;'>",
+          html.replace(/\#/g, "%23"),
+          "</html>",
+          "</foreignObject>",
+          "</svg>",
+        ].join("");
 
-        <span class="nx">img</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-          <span class="nx">stack</span><span class="p">.</span><span class="nx">svgRender</span> <span class="o">=</span> <span class="nx">img</span><span class="p">;</span>
-        <span class="p">&#125;;</span>
-      <span class="p">&#125;)(</span><span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">);</span>
-    <span class="p">&#125;</span>
+        img.onload = function () {
+          stack.svgRender = img;
+        };
+      })(document.documentElement);
+    }
 
-    <span class="c1">// parse every child element</span>
-    <span class="k">for </span><span class="p">(</span>
-      <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">children</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">children</span><span class="p">,</span> <span class="nx">childrenLen</span> <span class="o">=</span> <span class="nx">children</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
-      <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">childrenLen</span><span class="p">;</span>
-      <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="p">)</span> <span class="p">&#123;</span>
-      <span class="nf">parseElement</span><span class="p">(</span><span class="nx">children</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">stack</span><span class="p">);</span>
-    <span class="p">&#125;</span>
+    // parse every child element
+    for (
+      i = 0, children = element.children, childrenLen = children.length;
+      i < childrenLen;
+      i += 1
+    ) {
+      parseElement(children[i], stack);
+    }
 
-    <span class="nx">stack</span><span class="p">.</span><span class="nx">backgroundColor</span> <span class="o">=</span> <span class="nf">getCSS</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">,</span> <span class="dl">"</span><span class="s2">backgroundColor</span><span class="dl">"</span><span class="p">);</span>
+    stack.backgroundColor = getCSS(document.documentElement, "backgroundColor");
 
-    <span class="k">return</span> <span class="nx">stack</span><span class="p">;</span>
-  <span class="p">&#125;;</span>
+    return stack;
+  };
 
-  <span class="kd">function</span> <span class="nf">h2czContext</span><span class="p">(</span><span class="nx">zindex</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="k">return</span> <span class="p">&#123;</span>
-      <span class="na">zindex</span><span class="p">:</span> <span class="nx">zindex</span><span class="p">,</span>
-      <span class="na">children</span><span class="p">:</span> <span class="p">[],</span>
-    <span class="p">&#125;;</span>
-  <span class="p">&#125;</span>
+  function h2czContext(zindex) {
+    return {
+      zindex: zindex,
+      children: [],
+    };
+  }
 
-  <span class="cm">/*
-  html2canvas v0.34 &lt;http://html2canvas.hertzen.com&gt;
+  /*
+  html2canvas v0.34 <http://html2canvas.hertzen.com>
   Copyright (c) 2011 Niklas von Hertzen. All rights reserved.
   http://www.twitter.com/niklasvh
 
   Released under MIT License
- */</span>
+ */
 
-  <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Preload</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="kd">var</span> <span class="nx">images</span> <span class="o">=</span> <span class="p">&#123;</span>
-        <span class="na">numLoaded</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="c1">// also failed are counted here</span>
-        <span class="na">numFailed</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="na">numTotal</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="na">cleanupDone</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="p">&#125;,</span>
-      <span class="nx">pageOrigin</span><span class="p">,</span>
-      <span class="nx">methods</span><span class="p">,</span>
-      <span class="nx">i</span><span class="p">,</span>
-      <span class="nx">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="nx">element</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">||</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">,</span>
-      <span class="nx">doc</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">ownerDocument</span><span class="p">,</span>
-      <span class="nx">domImages</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">images</span><span class="p">,</span> <span class="c1">// TODO probably should limit it to images present in the element only</span>
-      <span class="nx">imgLen</span> <span class="o">=</span> <span class="nx">domImages</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span>
-      <span class="nx">link</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">a</span><span class="dl">"</span><span class="p">),</span>
-      <span class="nx">supportCORS</span> <span class="o">=</span> <span class="p">(</span><span class="nf">function </span><span class="p">(</span><span class="nx">img</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="k">return</span> <span class="nx">img</span><span class="p">.</span><span class="nx">crossOrigin</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">;</span>
-      <span class="p">&#125;)(</span><span class="k">new</span> <span class="nc">Image</span><span class="p">()),</span>
-      <span class="nx">timeoutTimer</span><span class="p">;</span>
+  _html2canvas.Preload = function (options) {
+    var images = {
+        numLoaded: 0, // also failed are counted here
+        numFailed: 0,
+        numTotal: 0,
+        cleanupDone: false,
+      },
+      pageOrigin,
+      methods,
+      i,
+      count = 0,
+      element = options.elements[0] || document.body,
+      doc = element.ownerDocument,
+      domImages = doc.images, // TODO probably should limit it to images present in the element only
+      imgLen = domImages.length,
+      link = doc.createElement("a"),
+      supportCORS = (function (img) {
+        return img.crossOrigin !== undefined;
+      })(new Image()),
+      timeoutTimer;
 
-    <span class="nx">link</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="p">;</span>
-    <span class="nx">pageOrigin</span> <span class="o">=</span> <span class="nx">link</span><span class="p">.</span><span class="nx">protocol</span> <span class="o">+</span> <span class="nx">link</span><span class="p">.</span><span class="nx">host</span><span class="p">;</span>
+    link.href = window.location.href;
+    pageOrigin = link.protocol + link.host;
 
-    <span class="kd">function</span> <span class="nf">isSameOrigin</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="nx">link</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">url</span><span class="p">;</span>
-      <span class="nx">link</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">link</span><span class="p">.</span><span class="nx">href</span><span class="p">;</span> <span class="c1">// YES, BELIEVE IT OR NOT, that is required for IE9 - http://jsfiddle.net/niklasvh/2e48b/</span>
-      <span class="kd">var</span> <span class="nx">origin</span> <span class="o">=</span> <span class="nx">link</span><span class="p">.</span><span class="nx">protocol</span> <span class="o">+</span> <span class="nx">link</span><span class="p">.</span><span class="nx">host</span><span class="p">;</span>
-      <span class="k">return</span> <span class="nx">origin</span> <span class="o">===</span> <span class="nx">pageOrigin</span><span class="p">;</span>
-    <span class="p">&#125;</span>
+    function isSameOrigin(url) {
+      link.href = url;
+      link.href = link.href; // YES, BELIEVE IT OR NOT, that is required for IE9 - http://jsfiddle.net/niklasvh/2e48b/
+      var origin = link.protocol + link.host;
+      return origin === pageOrigin;
+    }
 
-    <span class="kd">function</span> <span class="nf">start</span><span class="p">()</span> <span class="p">&#123;</span>
-      <span class="nf">h2clog</span><span class="p">(</span>
-        <span class="dl">"</span><span class="s2">html2canvas: start: images: </span><span class="dl">"</span> <span class="o">+</span>
-          <span class="nx">images</span><span class="p">.</span><span class="nx">numLoaded</span> <span class="o">+</span>
-          <span class="dl">"</span><span class="s2"> / </span><span class="dl">"</span> <span class="o">+</span>
-          <span class="nx">images</span><span class="p">.</span><span class="nx">numTotal</span> <span class="o">+</span>
-          <span class="dl">"</span><span class="s2"> (failed: </span><span class="dl">"</span> <span class="o">+</span>
-          <span class="nx">images</span><span class="p">.</span><span class="nx">numFailed</span> <span class="o">+</span>
-          <span class="dl">"</span><span class="s2">)</span><span class="dl">"</span><span class="p">,</span>
-      <span class="p">);</span>
-      <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">images</span><span class="p">.</span><span class="nx">firstRun</span> <span class="o">&amp;&amp;</span> <span class="nx">images</span><span class="p">.</span><span class="nx">numLoaded</span> <span class="o">&gt;=</span> <span class="nx">images</span><span class="p">.</span><span class="nx">numTotal</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nf">h2clog</span><span class="p">(</span>
-          <span class="dl">"</span><span class="s2">Finished loading images: # </span><span class="dl">"</span> <span class="o">+</span>
-            <span class="nx">images</span><span class="p">.</span><span class="nx">numTotal</span> <span class="o">+</span>
-            <span class="dl">"</span><span class="s2"> (failed: </span><span class="dl">"</span> <span class="o">+</span>
-            <span class="nx">images</span><span class="p">.</span><span class="nx">numFailed</span> <span class="o">+</span>
-            <span class="dl">"</span><span class="s2">)</span><span class="dl">"</span><span class="p">,</span>
-        <span class="p">);</span>
+    function start() {
+      h2clog(
+        "html2canvas: start: images: " +
+          images.numLoaded +
+          " / " +
+          images.numTotal +
+          " (failed: " +
+          images.numFailed +
+          ")",
+      );
+      if (!images.firstRun && images.numLoaded >= images.numTotal) {
+        h2clog(
+          "Finished loading images: # " +
+            images.numTotal +
+            " (failed: " +
+            images.numFailed +
+            ")",
+        );
 
-        <span class="k">if </span><span class="p">(</span><span class="k">typeof</span> <span class="nx">options</span><span class="p">.</span><span class="nx">complete</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">function</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="nx">options</span><span class="p">.</span><span class="nf">complete</span><span class="p">(</span><span class="nx">images</span><span class="p">);</span>
-        <span class="p">&#125;</span>
-      <span class="p">&#125;</span>
-    <span class="p">&#125;</span>
+        if (typeof options.complete === "function") {
+          options.complete(images);
+        }
+      }
+    }
 
-    <span class="c1">// TODO modify proxy to serve images with CORS enabled, where available</span>
-    <span class="kd">function</span> <span class="nf">proxyGetImage</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">img</span><span class="p">,</span> <span class="nx">imageObj</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="kd">var</span> <span class="nx">callback_name</span><span class="p">,</span>
-        <span class="nx">scriptUrl</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">proxy</span><span class="p">,</span>
-        <span class="nx">script</span><span class="p">;</span>
+    // TODO modify proxy to serve images with CORS enabled, where available
+    function proxyGetImage(url, img, imageObj) {
+      var callback_name,
+        scriptUrl = options.proxy,
+        script;
 
-      <span class="nx">link</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">url</span><span class="p">;</span>
-      <span class="nx">url</span> <span class="o">=</span> <span class="nx">link</span><span class="p">.</span><span class="nx">href</span><span class="p">;</span> <span class="c1">// work around for pages with base href="" set - WARNING: this may change the url</span>
+      link.href = url;
+      url = link.href; // work around for pages with base href="" set - WARNING: this may change the url
 
-      <span class="nx">callback_name</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">html2canvas_</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">count</span><span class="o">++</span><span class="p">;</span>
-      <span class="nx">imageObj</span><span class="p">.</span><span class="nx">callbackname</span> <span class="o">=</span> <span class="nx">callback_name</span><span class="p">;</span>
+      callback_name = "html2canvas_" + count++;
+      imageObj.callbackname = callback_name;
 
-      <span class="k">if </span><span class="p">(</span><span class="nx">scriptUrl</span><span class="p">.</span><span class="nf">indexOf</span><span class="p">(</span><span class="dl">"</span><span class="s2">?</span><span class="dl">"</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nx">scriptUrl</span> <span class="o">+=</span> <span class="dl">"</span><span class="s2">&amp;</span><span class="dl">"</span><span class="p">;</span>
-      <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-        <span class="nx">scriptUrl</span> <span class="o">+=</span> <span class="dl">"</span><span class="s2">?</span><span class="dl">"</span><span class="p">;</span>
-      <span class="p">&#125;</span>
-      <span class="nx">scriptUrl</span> <span class="o">+=</span>
-        <span class="dl">"</span><span class="s2">url=</span><span class="dl">"</span> <span class="o">+</span> <span class="nf">encodeURIComponent</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">&amp;callback=</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">callback_name</span><span class="p">;</span>
-      <span class="nx">script</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">script</span><span class="dl">"</span><span class="p">);</span>
+      if (scriptUrl.indexOf("?") > -1) {
+        scriptUrl += "&";
+      } else {
+        scriptUrl += "?";
+      }
+      scriptUrl +=
+        "url=" + encodeURIComponent(url) + "&callback=" + callback_name;
+      script = doc.createElement("script");
 
-      <span class="nb">window</span><span class="p">[</span><span class="nx">callback_name</span><span class="p">]</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="k">if </span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nf">substring</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">error:</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="nx">imageObj</span><span class="p">.</span><span class="nx">succeeded</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-          <span class="nx">images</span><span class="p">.</span><span class="nx">numLoaded</span><span class="o">++</span><span class="p">;</span>
-          <span class="nx">images</span><span class="p">.</span><span class="nx">numFailed</span><span class="o">++</span><span class="p">;</span>
-          <span class="nf">start</span><span class="p">();</span>
-        <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-          <span class="nf">setImageLoadHandlers</span><span class="p">(</span><span class="nx">img</span><span class="p">,</span> <span class="nx">imageObj</span><span class="p">);</span>
-          <span class="nx">img</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">a</span><span class="p">;</span>
-        <span class="p">&#125;</span>
-        <span class="nb">window</span><span class="p">[</span><span class="nx">callback_name</span><span class="p">]</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span> <span class="c1">// to work with IE&lt;9  // NOTE: that the undefined callback property-name still exists on the window object (for IE&lt;9)</span>
-        <span class="k">try</span> <span class="p">&#123;</span>
-          <span class="k">delete</span> <span class="nb">window</span><span class="p">[</span><span class="nx">callback_name</span><span class="p">];</span> <span class="c1">// for all browser that support this</span>
-        <span class="p">&#125;</span> <span class="k">catch </span><span class="p">(</span><span class="nx">ex</span><span class="p">)</span> <span class="p">&#123;&#125;</span>
-        <span class="nx">script</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nf">removeChild</span><span class="p">(</span><span class="nx">script</span><span class="p">);</span>
-        <span class="nx">script</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-        <span class="k">delete</span> <span class="nx">imageObj</span><span class="p">.</span><span class="nx">script</span><span class="p">;</span>
-        <span class="k">delete</span> <span class="nx">imageObj</span><span class="p">.</span><span class="nx">callbackname</span><span class="p">;</span>
-      <span class="p">&#125;;</span>
+      window[callback_name] = function (a) {
+        if (a.substring(0, 6) === "error:") {
+          imageObj.succeeded = false;
+          images.numLoaded++;
+          images.numFailed++;
+          start();
+        } else {
+          setImageLoadHandlers(img, imageObj);
+          img.src = a;
+        }
+        window[callback_name] = undefined; // to work with IE<9  // NOTE: that the undefined callback property-name still exists on the window object (for IE<9)
+        try {
+          delete window[callback_name]; // for all browser that support this
+        } catch (ex) {}
+        script.parentNode.removeChild(script);
+        script = null;
+        delete imageObj.script;
+        delete imageObj.callbackname;
+      };
 
-      <span class="nx">script</span><span class="p">.</span><span class="nf">setAttribute</span><span class="p">(</span><span class="dl">"</span><span class="s2">type</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">text/javascript</span><span class="dl">"</span><span class="p">);</span>
-      <span class="nx">script</span><span class="p">.</span><span class="nf">setAttribute</span><span class="p">(</span><span class="dl">"</span><span class="s2">src</span><span class="dl">"</span><span class="p">,</span> <span class="nx">scriptUrl</span><span class="p">);</span>
-      <span class="nx">imageObj</span><span class="p">.</span><span class="nx">script</span> <span class="o">=</span> <span class="nx">script</span><span class="p">;</span>
-      <span class="nb">window</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nf">appendChild</span><span class="p">(</span><span class="nx">script</span><span class="p">);</span>
-    <span class="p">&#125;</span>
+      script.setAttribute("type", "text/javascript");
+      script.setAttribute("src", scriptUrl);
+      imageObj.script = script;
+      window.document.body.appendChild(script);
+    }
 
-    <span class="kd">function</span> <span class="nf">getImages</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="c1">// if (!this.ignoreRe.test(el.nodeName))&#123;</span>
-      <span class="c1">//</span>
+    function getImages(el) {
+      // if (!this.ignoreRe.test(el.nodeName)){
+      //
 
-      <span class="kd">var</span> <span class="nx">contents</span> <span class="o">=</span> <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nc">Children</span><span class="p">(</span><span class="nx">el</span><span class="p">),</span>
-        <span class="nx">i</span><span class="p">,</span>
-        <span class="nx">background_image</span><span class="p">,</span>
-        <span class="nx">src</span><span class="p">,</span>
-        <span class="nx">img</span><span class="p">,</span>
-        <span class="nx">elNodeType</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+      var contents = _html2canvas.Util.Children(el),
+        i,
+        background_image,
+        src,
+        img,
+        elNodeType = false;
 
-      <span class="c1">// Firefox fails with permission denied on pages with iframes</span>
-      <span class="k">try</span> <span class="p">&#123;</span>
-        <span class="kd">var</span> <span class="nx">contentsLen</span> <span class="o">=</span> <span class="nx">contents</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
-        <span class="k">for </span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">contentsLen</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="c1">// var ignRe = new RegExp("("+this.ignoreElements+")");</span>
-          <span class="c1">// if (!ignRe.test(element.nodeName))&#123;</span>
-          <span class="nf">getImages</span><span class="p">(</span><span class="nx">contents</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
-          <span class="c1">// &#125;</span>
-        <span class="p">&#125;</span>
-      <span class="p">&#125;</span> <span class="k">catch </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">&#123;&#125;</span>
+      // Firefox fails with permission denied on pages with iframes
+      try {
+        var contentsLen = contents.length;
+        for (i = 0; i < contentsLen; i += 1) {
+          // var ignRe = new RegExp("("+this.ignoreElements+")");
+          // if (!ignRe.test(element.nodeName)){
+          getImages(contents[i]);
+          // }
+        }
+      } catch (e) {}
 
-      <span class="c1">// &#125;</span>
-      <span class="k">try</span> <span class="p">&#123;</span>
-        <span class="nx">elNodeType</span> <span class="o">=</span> <span class="nx">el</span><span class="p">.</span><span class="nx">nodeType</span><span class="p">;</span>
-      <span class="p">&#125;</span> <span class="k">catch </span><span class="p">(</span><span class="nx">ex</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nx">elNodeType</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-        <span class="nf">h2clog</span><span class="p">(</span>
-          <span class="dl">"</span><span class="s2">html2canvas: failed to access some element's nodeType - Exception: </span><span class="dl">"</span> <span class="o">+</span>
-            <span class="nx">ex</span><span class="p">.</span><span class="nx">message</span><span class="p">,</span>
-        <span class="p">);</span>
-      <span class="p">&#125;</span>
+      // }
+      try {
+        elNodeType = el.nodeType;
+      } catch (ex) {
+        elNodeType = false;
+        h2clog(
+          "html2canvas: failed to access some element's nodeType - Exception: " +
+            ex.message,
+        );
+      }
 
-      <span class="k">if </span><span class="p">(</span><span class="nx">elNodeType</span> <span class="o">===</span> <span class="mi">1</span> <span class="o">||</span> <span class="nx">elNodeType</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="c1">// opera throws exception on external-content.html</span>
-        <span class="k">try</span> <span class="p">&#123;</span>
-          <span class="nx">background_image</span> <span class="o">=</span> <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nf">getCSS</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span> <span class="dl">"</span><span class="s2">backgroundImage</span><span class="dl">"</span><span class="p">);</span>
-        <span class="p">&#125;</span> <span class="k">catch </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="nf">h2clog</span><span class="p">(</span>
-            <span class="dl">"</span><span class="s2">html2canvas: failed to get background-image - Exception: </span><span class="dl">"</span> <span class="o">+</span>
-              <span class="nx">e</span><span class="p">.</span><span class="nx">message</span><span class="p">,</span>
-          <span class="p">);</span>
-        <span class="p">&#125;</span>
-        <span class="k">if </span><span class="p">(</span>
-          <span class="nx">background_image</span> <span class="o">&amp;&amp;</span>
-          <span class="nx">background_image</span> <span class="o">!==</span> <span class="dl">"</span><span class="s2">1</span><span class="dl">"</span> <span class="o">&amp;&amp;</span>
-          <span class="nx">background_image</span> <span class="o">!==</span> <span class="dl">"</span><span class="s2">none</span><span class="dl">"</span>
-        <span class="p">)</span> <span class="p">&#123;</span>
-          <span class="c1">// TODO add multi image background support</span>
+      if (elNodeType === 1 || elNodeType === undefined) {
+        // opera throws exception on external-content.html
+        try {
+          background_image = _html2canvas.Util.getCSS(el, "backgroundImage");
+        } catch (e) {
+          h2clog(
+            "html2canvas: failed to get background-image - Exception: " +
+              e.message,
+          );
+        }
+        if (
+          background_image &&
+          background_image !== "1" &&
+          background_image !== "none"
+        ) {
+          // TODO add multi image background support
 
-          <span class="k">if </span><span class="p">(</span><span class="sr">/^</span><span class="se">(</span><span class="sr">-webkit|-o|-moz|-ms|linear</span><span class="se">)</span><span class="sr">-/</span><span class="p">.</span><span class="nf">test</span><span class="p">(</span><span class="nx">background_image</span><span class="p">))</span> <span class="p">&#123;</span>
-            <span class="nx">img</span> <span class="o">=</span> <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Generate</span><span class="p">.</span><span class="nc">Gradient</span><span class="p">(</span>
-              <span class="nx">background_image</span><span class="p">,</span>
-              <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nc">Bounds</span><span class="p">(</span><span class="nx">el</span><span class="p">),</span>
-            <span class="p">);</span>
+          if (/^(-webkit|-o|-moz|-ms|linear)-/.test(background_image)) {
+            img = _html2canvas.Generate.Gradient(
+              background_image,
+              _html2canvas.Util.Bounds(el),
+            );
 
-            <span class="k">if </span><span class="p">(</span><span class="nx">img</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">&#123;</span>
-              <span class="nx">images</span><span class="p">[</span><span class="nx">background_image</span><span class="p">]</span> <span class="o">=</span> <span class="p">&#123;</span>
-                <span class="na">img</span><span class="p">:</span> <span class="nx">img</span><span class="p">,</span>
-                <span class="na">succeeded</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-              <span class="p">&#125;;</span>
-              <span class="nx">images</span><span class="p">.</span><span class="nx">numTotal</span><span class="o">++</span><span class="p">;</span>
-              <span class="nx">images</span><span class="p">.</span><span class="nx">numLoaded</span><span class="o">++</span><span class="p">;</span>
-              <span class="nf">start</span><span class="p">();</span>
-            <span class="p">&#125;</span>
-          <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-            <span class="nx">src</span> <span class="o">=</span> <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nf">backgroundImage</span><span class="p">(</span>
-              <span class="nx">background_image</span><span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="sr">/data:image</span><span class="se">\/</span><span class="sr">.*;base64,/i</span><span class="p">)</span>
-                <span class="p">?</span> <span class="nx">background_image</span>
-                <span class="p">:</span> <span class="nx">background_image</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="dl">"</span><span class="s2">,</span><span class="dl">"</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
-            <span class="p">);</span>
-            <span class="nx">methods</span><span class="p">.</span><span class="nf">loadImage</span><span class="p">(</span><span class="nx">src</span><span class="p">);</span>
-          <span class="p">&#125;</span>
+            if (img !== undefined) {
+              images[background_image] = {
+                img: img,
+                succeeded: true,
+              };
+              images.numTotal++;
+              images.numLoaded++;
+              start();
+            }
+          } else {
+            src = _html2canvas.Util.backgroundImage(
+              background_image.match(/data:image\/.*;base64,/i)
+                ? background_image
+                : background_image.split(",")[0],
+            );
+            methods.loadImage(src);
+          }
 
-          <span class="cm">/*
-            if (background_image &amp;&amp; background_image !== "1" &amp;&amp; background_image !== "none" &amp;&amp; background_image.substring(0,7) !== "-webkit" &amp;&amp; background_image.substring(0,3)!== "-o-" &amp;&amp; background_image.substring(0,4) !== "-moz")&#123;
+          /*
+            if (background_image && background_image !== "1" && background_image !== "none" && background_image.substring(0,7) !== "-webkit" && background_image.substring(0,3)!== "-o-" && background_image.substring(0,4) !== "-moz"){
                 // TODO add multi image background support
                 src = _html2canvas.Util.backgroundImage(background_image.split(",")[0]);
-                methods.loadImage(src);            */</span>
-        <span class="p">&#125;</span>
-      <span class="p">&#125;</span>
-    <span class="p">&#125;</span>
+                methods.loadImage(src);            */
+        }
+      }
+    }
 
-    <span class="kd">function</span> <span class="nf">setImageLoadHandlers</span><span class="p">(</span><span class="nx">img</span><span class="p">,</span> <span class="nx">imageObj</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="nx">img</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-        <span class="k">if </span><span class="p">(</span><span class="nx">imageObj</span><span class="p">.</span><span class="nx">timer</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="c1">// CORS succeeded</span>
-          <span class="nb">window</span><span class="p">.</span><span class="nf">clearTimeout</span><span class="p">(</span><span class="nx">imageObj</span><span class="p">.</span><span class="nx">timer</span><span class="p">);</span>
-        <span class="p">&#125;</span>
+    function setImageLoadHandlers(img, imageObj) {
+      img.onload = function () {
+        if (imageObj.timer !== undefined) {
+          // CORS succeeded
+          window.clearTimeout(imageObj.timer);
+        }
 
-        <span class="nx">images</span><span class="p">.</span><span class="nx">numLoaded</span><span class="o">++</span><span class="p">;</span>
-        <span class="nx">imageObj</span><span class="p">.</span><span class="nx">succeeded</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-        <span class="nx">img</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-        <span class="nf">start</span><span class="p">();</span>
-      <span class="p">&#125;;</span>
-      <span class="nx">img</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-        <span class="k">if </span><span class="p">(</span><span class="nx">img</span><span class="p">.</span><span class="nx">crossOrigin</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">anonymous</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="c1">// CORS failed</span>
-          <span class="nb">window</span><span class="p">.</span><span class="nf">clearTimeout</span><span class="p">(</span><span class="nx">imageObj</span><span class="p">.</span><span class="nx">timer</span><span class="p">);</span>
+        images.numLoaded++;
+        imageObj.succeeded = true;
+        img.onerror = img.onload = null;
+        start();
+      };
+      img.onerror = function () {
+        if (img.crossOrigin === "anonymous") {
+          // CORS failed
+          window.clearTimeout(imageObj.timer);
 
-          <span class="c1">// let's try with proxy instead</span>
-          <span class="k">if </span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">proxy</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="kd">var</span> <span class="nx">src</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">src</span><span class="p">;</span>
-            <span class="nx">img</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Image</span><span class="p">();</span>
-            <span class="nx">imageObj</span><span class="p">.</span><span class="nx">img</span> <span class="o">=</span> <span class="nx">img</span><span class="p">;</span>
-            <span class="nx">img</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">src</span><span class="p">;</span>
+          // let's try with proxy instead
+          if (options.proxy) {
+            var src = img.src;
+            img = new Image();
+            imageObj.img = img;
+            img.src = src;
 
-            <span class="nf">proxyGetImage</span><span class="p">(</span><span class="nx">img</span><span class="p">.</span><span class="nx">src</span><span class="p">,</span> <span class="nx">img</span><span class="p">,</span> <span class="nx">imageObj</span><span class="p">);</span>
-            <span class="k">return</span><span class="p">;</span>
-          <span class="p">&#125;</span>
-        <span class="p">&#125;</span>
+            proxyGetImage(img.src, img, imageObj);
+            return;
+          }
+        }
 
-        <span class="nx">images</span><span class="p">.</span><span class="nx">numLoaded</span><span class="o">++</span><span class="p">;</span>
-        <span class="nx">images</span><span class="p">.</span><span class="nx">numFailed</span><span class="o">++</span><span class="p">;</span>
-        <span class="nx">imageObj</span><span class="p">.</span><span class="nx">succeeded</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-        <span class="nx">img</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-        <span class="nf">start</span><span class="p">();</span>
-      <span class="p">&#125;;</span>
+        images.numLoaded++;
+        images.numFailed++;
+        imageObj.succeeded = false;
+        img.onerror = img.onload = null;
+        start();
+      };
 
-      <span class="c1">// TODO Opera has no load/error event for SVG images</span>
+      // TODO Opera has no load/error event for SVG images
 
-      <span class="c1">// Opera ninja onload's cached images</span>
-      <span class="cm">/*
-        window.setTimeout(function()&#123;
-            if ( img.width !== 0 &amp;&amp; imageObj.succeeded === undefined ) &#123;
+      // Opera ninja onload's cached images
+      /*
+        window.setTimeout(function(){
+            if ( img.width !== 0 && imageObj.succeeded === undefined ) {
                 img.onload();
-            &#125;
-        &#125;, 100); // needs a reflow for base64 encoded images? interestingly timeout of 0 doesn't work but 1 does.
-         */</span>
-    <span class="p">&#125;</span>
+            }
+        }, 100); // needs a reflow for base64 encoded images? interestingly timeout of 0 doesn't work but 1 does.
+         */
+    }
 
-    <span class="nx">methods</span> <span class="o">=</span> <span class="p">&#123;</span>
-      <span class="na">loadImage</span><span class="p">:</span> <span class="nf">function </span><span class="p">(</span><span class="nx">src</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="kd">var</span> <span class="nx">img</span><span class="p">,</span> <span class="nx">imageObj</span><span class="p">;</span>
-        <span class="k">if </span><span class="p">(</span><span class="nx">src</span> <span class="o">&amp;&amp;</span> <span class="nx">images</span><span class="p">[</span><span class="nx">src</span><span class="p">]</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="nx">img</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Image</span><span class="p">();</span>
-          <span class="k">if </span><span class="p">(</span><span class="nx">src</span><span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="sr">/data:image</span><span class="se">\/</span><span class="sr">.*;base64,/i</span><span class="p">))</span> <span class="p">&#123;</span>
-            <span class="nx">img</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">src</span><span class="p">.</span><span class="nf">replace</span><span class="p">(</span><span class="sr">/url</span><span class="se">\([</span><span class="sr">'"</span><span class="se">]&#123;0,&#125;</span><span class="sr">|</span><span class="se">[</span><span class="sr">'"</span><span class="se">]&#123;0,&#125;\)</span><span class="sr">$/gi</span><span class="p">,</span> <span class="dl">""</span><span class="p">);</span>
-            <span class="nx">imageObj</span> <span class="o">=</span> <span class="nx">images</span><span class="p">[</span><span class="nx">src</span><span class="p">]</span> <span class="o">=</span> <span class="p">&#123;</span>
-              <span class="na">img</span><span class="p">:</span> <span class="nx">img</span><span class="p">,</span>
-            <span class="p">&#125;;</span>
-            <span class="nx">images</span><span class="p">.</span><span class="nx">numTotal</span><span class="o">++</span><span class="p">;</span>
-            <span class="nf">setImageLoadHandlers</span><span class="p">(</span><span class="nx">img</span><span class="p">,</span> <span class="nx">imageObj</span><span class="p">);</span>
-          <span class="p">&#125;</span> <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="nf">isSameOrigin</span><span class="p">(</span><span class="nx">src</span><span class="p">)</span> <span class="o">||</span> <span class="nx">options</span><span class="p">.</span><span class="nx">allowTaint</span> <span class="o">===</span> <span class="kc">true</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="nx">imageObj</span> <span class="o">=</span> <span class="nx">images</span><span class="p">[</span><span class="nx">src</span><span class="p">]</span> <span class="o">=</span> <span class="p">&#123;</span>
-              <span class="na">img</span><span class="p">:</span> <span class="nx">img</span><span class="p">,</span>
-            <span class="p">&#125;;</span>
-            <span class="nx">images</span><span class="p">.</span><span class="nx">numTotal</span><span class="o">++</span><span class="p">;</span>
-            <span class="nf">setImageLoadHandlers</span><span class="p">(</span><span class="nx">img</span><span class="p">,</span> <span class="nx">imageObj</span><span class="p">);</span>
-            <span class="nx">img</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">src</span><span class="p">;</span>
-          <span class="p">&#125;</span> <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="nx">supportCORS</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">options</span><span class="p">.</span><span class="nx">allowTaint</span> <span class="o">&amp;&amp;</span> <span class="nx">options</span><span class="p">.</span><span class="nx">useCORS</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="c1">// attempt to load with CORS</span>
+    methods = {
+      loadImage: function (src) {
+        var img, imageObj;
+        if (src && images[src] === undefined) {
+          img = new Image();
+          if (src.match(/data:image\/.*;base64,/i)) {
+            img.src = src.replace(/url\(['"]{0,}|['"]{0,}\)$/gi, "");
+            imageObj = images[src] = {
+              img: img,
+            };
+            images.numTotal++;
+            setImageLoadHandlers(img, imageObj);
+          } else if (isSameOrigin(src) || options.allowTaint === true) {
+            imageObj = images[src] = {
+              img: img,
+            };
+            images.numTotal++;
+            setImageLoadHandlers(img, imageObj);
+            img.src = src;
+          } else if (supportCORS && !options.allowTaint && options.useCORS) {
+            // attempt to load with CORS
 
-            <span class="nx">img</span><span class="p">.</span><span class="nx">crossOrigin</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">anonymous</span><span class="dl">"</span><span class="p">;</span>
-            <span class="nx">imageObj</span> <span class="o">=</span> <span class="nx">images</span><span class="p">[</span><span class="nx">src</span><span class="p">]</span> <span class="o">=</span> <span class="p">&#123;</span>
-              <span class="na">img</span><span class="p">:</span> <span class="nx">img</span><span class="p">,</span>
-            <span class="p">&#125;;</span>
-            <span class="nx">images</span><span class="p">.</span><span class="nx">numTotal</span><span class="o">++</span><span class="p">;</span>
-            <span class="nf">setImageLoadHandlers</span><span class="p">(</span><span class="nx">img</span><span class="p">,</span> <span class="nx">imageObj</span><span class="p">);</span>
-            <span class="nx">img</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">src</span><span class="p">;</span>
+            img.crossOrigin = "anonymous";
+            imageObj = images[src] = {
+              img: img,
+            };
+            images.numTotal++;
+            setImageLoadHandlers(img, imageObj);
+            img.src = src;
 
-            <span class="c1">// work around for https://bugs.webkit.org/show_bug.cgi?id=80028</span>
-            <span class="nx">img</span><span class="p">.</span><span class="nx">customComplete</span> <span class="o">=</span> <span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-              <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">img</span><span class="p">.</span><span class="nx">complete</span><span class="p">)</span> <span class="p">&#123;</span>
-                <span class="k">this</span><span class="p">.</span><span class="nx">timer</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nf">setTimeout</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">img</span><span class="p">.</span><span class="nx">customComplete</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
-              <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-                <span class="k">this</span><span class="p">.</span><span class="nx">img</span><span class="p">.</span><span class="nf">onerror</span><span class="p">();</span>
-              <span class="p">&#125;</span>
-            <span class="p">&#125;.</span><span class="nf">bind</span><span class="p">(</span><span class="nx">imageObj</span><span class="p">);</span>
-            <span class="nx">img</span><span class="p">.</span><span class="nf">customComplete</span><span class="p">();</span>
-          <span class="p">&#125;</span> <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">proxy</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="nx">imageObj</span> <span class="o">=</span> <span class="nx">images</span><span class="p">[</span><span class="nx">src</span><span class="p">]</span> <span class="o">=</span> <span class="p">&#123;</span>
-              <span class="na">img</span><span class="p">:</span> <span class="nx">img</span><span class="p">,</span>
-            <span class="p">&#125;;</span>
-            <span class="nx">images</span><span class="p">.</span><span class="nx">numTotal</span><span class="o">++</span><span class="p">;</span>
-            <span class="nf">proxyGetImage</span><span class="p">(</span><span class="nx">src</span><span class="p">,</span> <span class="nx">img</span><span class="p">,</span> <span class="nx">imageObj</span><span class="p">);</span>
-          <span class="p">&#125;</span>
-        <span class="p">&#125;</span>
-      <span class="p">&#125;,</span>
-      <span class="na">cleanupDOM</span><span class="p">:</span> <span class="nf">function </span><span class="p">(</span><span class="nx">cause</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="kd">var</span> <span class="nx">img</span><span class="p">,</span> <span class="nx">src</span><span class="p">;</span>
-        <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">images</span><span class="p">.</span><span class="nx">cleanupDone</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="k">if </span><span class="p">(</span><span class="nx">cause</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">cause</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="nf">h2clog</span><span class="p">(</span><span class="dl">"</span><span class="s2">html2canvas: Cleanup because: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">cause</span><span class="p">);</span>
-          <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-            <span class="nf">h2clog</span><span class="p">(</span>
-              <span class="dl">"</span><span class="s2">html2canvas: Cleanup after timeout: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">options</span><span class="p">.</span><span class="nx">timeout</span> <span class="o">+</span> <span class="dl">"</span><span class="s2"> ms.</span><span class="dl">"</span><span class="p">,</span>
-            <span class="p">);</span>
-          <span class="p">&#125;</span>
+            // work around for https://bugs.webkit.org/show_bug.cgi?id=80028
+            img.customComplete = function () {
+              if (!this.img.complete) {
+                this.timer = window.setTimeout(this.img.customComplete, 100);
+              } else {
+                this.img.onerror();
+              }
+            }.bind(imageObj);
+            img.customComplete();
+          } else if (options.proxy) {
+            imageObj = images[src] = {
+              img: img,
+            };
+            images.numTotal++;
+            proxyGetImage(src, img, imageObj);
+          }
+        }
+      },
+      cleanupDOM: function (cause) {
+        var img, src;
+        if (!images.cleanupDone) {
+          if (cause && typeof cause === "string") {
+            h2clog("html2canvas: Cleanup because: " + cause);
+          } else {
+            h2clog(
+              "html2canvas: Cleanup after timeout: " + options.timeout + " ms.",
+            );
+          }
 
-          <span class="k">for </span><span class="p">(</span><span class="nx">src</span> <span class="k">in</span> <span class="nx">images</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">if </span><span class="p">(</span><span class="nx">images</span><span class="p">.</span><span class="nf">hasOwnProperty</span><span class="p">(</span><span class="nx">src</span><span class="p">))</span> <span class="p">&#123;</span>
-              <span class="nx">img</span> <span class="o">=</span> <span class="nx">images</span><span class="p">[</span><span class="nx">src</span><span class="p">];</span>
-              <span class="k">if </span><span class="p">(</span>
-                <span class="k">typeof</span> <span class="nx">img</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">object</span><span class="dl">"</span> <span class="o">&amp;&amp;</span>
-                <span class="nx">img</span><span class="p">.</span><span class="nx">callbackname</span> <span class="o">&amp;&amp;</span>
-                <span class="nx">img</span><span class="p">.</span><span class="nx">succeeded</span> <span class="o">===</span> <span class="kc">undefined</span>
-              <span class="p">)</span> <span class="p">&#123;</span>
-                <span class="c1">// cancel proxy image request</span>
-                <span class="nb">window</span><span class="p">[</span><span class="nx">img</span><span class="p">.</span><span class="nx">callbackname</span><span class="p">]</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span> <span class="c1">// to work with IE&lt;9  // NOTE: that the undefined callback property-name still exists on the window object (for IE&lt;9)</span>
-                <span class="k">try</span> <span class="p">&#123;</span>
-                  <span class="k">delete</span> <span class="nb">window</span><span class="p">[</span><span class="nx">img</span><span class="p">.</span><span class="nx">callbackname</span><span class="p">];</span> <span class="c1">// for all browser that support this</span>
-                <span class="p">&#125;</span> <span class="k">catch </span><span class="p">(</span><span class="nx">ex</span><span class="p">)</span> <span class="p">&#123;&#125;</span>
-                <span class="k">if </span><span class="p">(</span><span class="nx">img</span><span class="p">.</span><span class="nx">script</span> <span class="o">&amp;&amp;</span> <span class="nx">img</span><span class="p">.</span><span class="nx">script</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">)</span> <span class="p">&#123;</span>
-                  <span class="nx">img</span><span class="p">.</span><span class="nx">script</span><span class="p">.</span><span class="nf">setAttribute</span><span class="p">(</span><span class="dl">"</span><span class="s2">src</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">about:blank</span><span class="dl">"</span><span class="p">);</span> <span class="c1">// try to cancel running request</span>
-                  <span class="nx">img</span><span class="p">.</span><span class="nx">script</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nf">removeChild</span><span class="p">(</span><span class="nx">img</span><span class="p">.</span><span class="nx">script</span><span class="p">);</span>
-                <span class="p">&#125;</span>
-                <span class="nx">images</span><span class="p">.</span><span class="nx">numLoaded</span><span class="o">++</span><span class="p">;</span>
-                <span class="nx">images</span><span class="p">.</span><span class="nx">numFailed</span><span class="o">++</span><span class="p">;</span>
-                <span class="nf">h2clog</span><span class="p">(</span>
-                  <span class="dl">"</span><span class="s2">html2canvas: Cleaned up failed img: '</span><span class="dl">"</span> <span class="o">+</span>
-                    <span class="nx">src</span> <span class="o">+</span>
-                    <span class="dl">"</span><span class="s2">' Steps: </span><span class="dl">"</span> <span class="o">+</span>
-                    <span class="nx">images</span><span class="p">.</span><span class="nx">numLoaded</span> <span class="o">+</span>
-                    <span class="dl">"</span><span class="s2"> / </span><span class="dl">"</span> <span class="o">+</span>
-                    <span class="nx">images</span><span class="p">.</span><span class="nx">numTotal</span><span class="p">,</span>
-                <span class="p">);</span>
-              <span class="p">&#125;</span>
-            <span class="p">&#125;</span>
-          <span class="p">&#125;</span>
+          for (src in images) {
+            if (images.hasOwnProperty(src)) {
+              img = images[src];
+              if (
+                typeof img === "object" &&
+                img.callbackname &&
+                img.succeeded === undefined
+              ) {
+                // cancel proxy image request
+                window[img.callbackname] = undefined; // to work with IE<9  // NOTE: that the undefined callback property-name still exists on the window object (for IE<9)
+                try {
+                  delete window[img.callbackname]; // for all browser that support this
+                } catch (ex) {}
+                if (img.script && img.script.parentNode) {
+                  img.script.setAttribute("src", "about:blank"); // try to cancel running request
+                  img.script.parentNode.removeChild(img.script);
+                }
+                images.numLoaded++;
+                images.numFailed++;
+                h2clog(
+                  "html2canvas: Cleaned up failed img: '" +
+                    src +
+                    "' Steps: " +
+                    images.numLoaded +
+                    " / " +
+                    images.numTotal,
+                );
+              }
+            }
+          }
 
-          <span class="c1">// cancel any pending requests</span>
-          <span class="k">if </span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">stop</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="nb">window</span><span class="p">.</span><span class="nf">stop</span><span class="p">();</span>
-          <span class="p">&#125;</span> <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">execCommand</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="nb">document</span><span class="p">.</span><span class="nf">execCommand</span><span class="p">(</span><span class="dl">"</span><span class="s2">Stop</span><span class="dl">"</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
-          <span class="p">&#125;</span>
-          <span class="k">if </span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">close</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="nb">document</span><span class="p">.</span><span class="nf">close</span><span class="p">();</span>
-          <span class="p">&#125;</span>
-          <span class="nx">images</span><span class="p">.</span><span class="nx">cleanupDone</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-          <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">cause</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">cause</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span><span class="p">))</span> <span class="p">&#123;</span>
-            <span class="nf">start</span><span class="p">();</span>
-          <span class="p">&#125;</span>
-        <span class="p">&#125;</span>
-      <span class="p">&#125;,</span>
-      <span class="na">renderingDone</span><span class="p">:</span> <span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-        <span class="k">if </span><span class="p">(</span><span class="nx">timeoutTimer</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="nb">window</span><span class="p">.</span><span class="nf">clearTimeout</span><span class="p">(</span><span class="nx">timeoutTimer</span><span class="p">);</span>
-        <span class="p">&#125;</span>
-      <span class="p">&#125;,</span>
-    <span class="p">&#125;;</span>
+          // cancel any pending requests
+          if (window.stop !== undefined) {
+            window.stop();
+          } else if (document.execCommand !== undefined) {
+            document.execCommand("Stop", false);
+          }
+          if (document.close !== undefined) {
+            document.close();
+          }
+          images.cleanupDone = true;
+          if (!(cause && typeof cause === "string")) {
+            start();
+          }
+        }
+      },
+      renderingDone: function () {
+        if (timeoutTimer) {
+          window.clearTimeout(timeoutTimer);
+        }
+      },
+    };
 
-    <span class="k">if </span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">timeout</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="nx">timeoutTimer</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nf">setTimeout</span><span class="p">(</span><span class="nx">methods</span><span class="p">.</span><span class="nx">cleanupDOM</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">timeout</span><span class="p">);</span>
-    <span class="p">&#125;</span>
-    <span class="nf">h2clog</span><span class="p">(</span><span class="dl">"</span><span class="s2">html2canvas: Preload starts: finding background-images</span><span class="dl">"</span><span class="p">);</span>
-    <span class="nx">images</span><span class="p">.</span><span class="nx">firstRun</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    if (options.timeout > 0) {
+      timeoutTimer = window.setTimeout(methods.cleanupDOM, options.timeout);
+    }
+    h2clog("html2canvas: Preload starts: finding background-images");
+    images.firstRun = true;
 
-    <span class="nf">getImages</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
+    getImages(element);
 
-    <span class="nf">h2clog</span><span class="p">(</span><span class="dl">"</span><span class="s2">html2canvas: Preload: Finding images</span><span class="dl">"</span><span class="p">);</span>
-    <span class="c1">// load &lt;img&gt; images</span>
-    <span class="k">for </span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">imgLen</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="nx">methods</span><span class="p">.</span><span class="nf">loadImage</span><span class="p">(</span><span class="nx">domImages</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nf">getAttribute</span><span class="p">(</span><span class="dl">"</span><span class="s2">src</span><span class="dl">"</span><span class="p">));</span>
-    <span class="p">&#125;</span>
+    h2clog("html2canvas: Preload: Finding images");
+    // load <img> images
+    for (i = 0; i < imgLen; i += 1) {
+      methods.loadImage(domImages[i].getAttribute("src"));
+    }
 
-    <span class="nx">images</span><span class="p">.</span><span class="nx">firstRun</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-    <span class="nf">h2clog</span><span class="p">(</span><span class="dl">"</span><span class="s2">html2canvas: Preload: Done.</span><span class="dl">"</span><span class="p">);</span>
-    <span class="k">if </span><span class="p">(</span><span class="nx">images</span><span class="p">.</span><span class="nx">numTotal</span> <span class="o">===</span> <span class="nx">images</span><span class="p">.</span><span class="nx">numLoaded</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="nf">start</span><span class="p">();</span>
-    <span class="p">&#125;</span>
+    images.firstRun = false;
+    h2clog("html2canvas: Preload: Done.");
+    if (images.numTotal === images.numLoaded) {
+      start();
+    }
 
-    <span class="k">return</span> <span class="nx">methods</span><span class="p">;</span>
-  <span class="p">&#125;;</span>
+    return methods;
+  };
 
-  <span class="cm">/*
-  html2canvas v0.34 &lt;http://html2canvas.hertzen.com&gt;
+  /*
+  html2canvas v0.34 <http://html2canvas.hertzen.com>
   Copyright (c) 2011 Niklas von Hertzen. All rights reserved.
   http://www.twitter.com/niklasvh
 
   Released under MIT License
-*/</span>
-  <span class="kd">function</span> <span class="nf">h2cRenderContext</span><span class="p">(</span><span class="nx">width</span><span class="p">,</span> <span class="nx">height</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="kd">var</span> <span class="nx">storage</span> <span class="o">=</span> <span class="p">[];</span>
-    <span class="k">return</span> <span class="p">&#123;</span>
-      <span class="na">storage</span><span class="p">:</span> <span class="nx">storage</span><span class="p">,</span>
-      <span class="na">width</span><span class="p">:</span> <span class="nx">width</span><span class="p">,</span>
-      <span class="na">height</span><span class="p">:</span> <span class="nx">height</span><span class="p">,</span>
-      <span class="na">fillRect</span><span class="p">:</span> <span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-        <span class="nx">storage</span><span class="p">.</span><span class="nf">push</span><span class="p">(&#123;</span>
-          <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">function</span><span class="dl">"</span><span class="p">,</span>
-          <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">fillRect</span><span class="dl">"</span><span class="p">,</span>
-          <span class="na">arguments</span><span class="p">:</span> <span class="nx">arguments</span><span class="p">,</span>
-        <span class="p">&#125;);</span>
-      <span class="p">&#125;,</span>
-      <span class="na">drawImage</span><span class="p">:</span> <span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-        <span class="nx">storage</span><span class="p">.</span><span class="nf">push</span><span class="p">(&#123;</span>
-          <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">function</span><span class="dl">"</span><span class="p">,</span>
-          <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">drawImage</span><span class="dl">"</span><span class="p">,</span>
-          <span class="na">arguments</span><span class="p">:</span> <span class="nx">arguments</span><span class="p">,</span>
-        <span class="p">&#125;);</span>
-      <span class="p">&#125;,</span>
-      <span class="na">fillText</span><span class="p">:</span> <span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-        <span class="nx">storage</span><span class="p">.</span><span class="nf">push</span><span class="p">(&#123;</span>
-          <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">function</span><span class="dl">"</span><span class="p">,</span>
-          <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">fillText</span><span class="dl">"</span><span class="p">,</span>
-          <span class="na">arguments</span><span class="p">:</span> <span class="nx">arguments</span><span class="p">,</span>
-        <span class="p">&#125;);</span>
-      <span class="p">&#125;,</span>
-      <span class="na">setVariable</span><span class="p">:</span> <span class="nf">function </span><span class="p">(</span><span class="nx">variable</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nx">storage</span><span class="p">.</span><span class="nf">push</span><span class="p">(&#123;</span>
-          <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">variable</span><span class="dl">"</span><span class="p">,</span>
-          <span class="na">name</span><span class="p">:</span> <span class="nx">variable</span><span class="p">,</span>
-          <span class="na">arguments</span><span class="p">:</span> <span class="nx">value</span><span class="p">,</span>
-        <span class="p">&#125;);</span>
-      <span class="p">&#125;,</span>
-    <span class="p">&#125;;</span>
-  <span class="p">&#125;</span>
+*/
+  function h2cRenderContext(width, height) {
+    var storage = [];
+    return {
+      storage: storage,
+      width: width,
+      height: height,
+      fillRect: function () {
+        storage.push({
+          type: "function",
+          name: "fillRect",
+          arguments: arguments,
+        });
+      },
+      drawImage: function () {
+        storage.push({
+          type: "function",
+          name: "drawImage",
+          arguments: arguments,
+        });
+      },
+      fillText: function () {
+        storage.push({
+          type: "function",
+          name: "fillText",
+          arguments: arguments,
+        });
+      },
+      setVariable: function (variable, value) {
+        storage.push({
+          type: "variable",
+          name: variable,
+          arguments: value,
+        });
+      },
+    };
+  }
 
-  <span class="cm">/*
-  html2canvas v0.34 &lt;http://html2canvas.hertzen.com&gt;
+  /*
+  html2canvas v0.34 <http://html2canvas.hertzen.com>
   Copyright (c) 2011 Niklas von Hertzen. All rights reserved.
   http://www.twitter.com/niklasvh
 
   Released under MIT License
-*/</span>
-  <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Renderer</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">parseQueue</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="kd">var</span> <span class="nx">queue</span> <span class="o">=</span> <span class="p">[];</span>
+*/
+  _html2canvas.Renderer = function (parseQueue, options) {
+    var queue = [];
 
-    <span class="kd">function</span> <span class="nf">sortZ</span><span class="p">(</span><span class="nx">zStack</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="kd">var</span> <span class="nx">subStacks</span> <span class="o">=</span> <span class="p">[],</span>
-        <span class="nx">stackValues</span> <span class="o">=</span> <span class="p">[],</span>
-        <span class="nx">zStackChildren</span> <span class="o">=</span> <span class="nx">zStack</span><span class="p">.</span><span class="nx">children</span><span class="p">,</span>
-        <span class="nx">s</span><span class="p">,</span>
-        <span class="nx">i</span><span class="p">,</span>
-        <span class="nx">stackLen</span><span class="p">,</span>
-        <span class="nx">zValue</span><span class="p">,</span>
-        <span class="nx">zLen</span><span class="p">,</span>
-        <span class="nx">stackChild</span><span class="p">,</span>
-        <span class="nx">b</span><span class="p">,</span>
-        <span class="nx">subStackLen</span><span class="p">;</span>
+    function sortZ(zStack) {
+      var subStacks = [],
+        stackValues = [],
+        zStackChildren = zStack.children,
+        s,
+        i,
+        stackLen,
+        zValue,
+        zLen,
+        stackChild,
+        b,
+        subStackLen;
 
-      <span class="k">for </span><span class="p">(</span><span class="nx">s</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">zLen</span> <span class="o">=</span> <span class="nx">zStackChildren</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">s</span> <span class="o">&lt;</span> <span class="nx">zLen</span><span class="p">;</span> <span class="nx">s</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nx">stackChild</span> <span class="o">=</span> <span class="nx">zStackChildren</span><span class="p">[</span><span class="nx">s</span><span class="p">];</span>
+      for (s = 0, zLen = zStackChildren.length; s < zLen; s += 1) {
+        stackChild = zStackChildren[s];
 
-        <span class="k">if </span><span class="p">(</span><span class="nx">stackChild</span><span class="p">.</span><span class="nx">children</span> <span class="o">&amp;&amp;</span> <span class="nx">stackChild</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="nx">subStacks</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="nx">stackChild</span><span class="p">);</span>
-          <span class="nx">stackValues</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="nx">stackChild</span><span class="p">.</span><span class="nx">zindex</span><span class="p">);</span>
-        <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-          <span class="nx">queue</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="nx">stackChild</span><span class="p">);</span>
-        <span class="p">&#125;</span>
-      <span class="p">&#125;</span>
+        if (stackChild.children && stackChild.children.length > 0) {
+          subStacks.push(stackChild);
+          stackValues.push(stackChild.zindex);
+        } else {
+          queue.push(stackChild);
+        }
+      }
 
-      <span class="nx">stackValues</span><span class="p">.</span><span class="nf">sort</span><span class="p">(</span><span class="nf">function </span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="k">return</span> <span class="nx">a</span> <span class="o">-</span> <span class="nx">b</span><span class="p">;</span>
-      <span class="p">&#125;);</span>
+      stackValues.sort(function (a, b) {
+        return a - b;
+      });
 
-      <span class="k">for </span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">stackLen</span> <span class="o">=</span> <span class="nx">stackValues</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">stackLen</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nx">zValue</span> <span class="o">=</span> <span class="nx">stackValues</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
-        <span class="k">for </span><span class="p">(</span><span class="nx">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">subStackLen</span> <span class="o">=</span> <span class="nx">subStacks</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">b</span> <span class="o">&lt;=</span> <span class="nx">subStackLen</span><span class="p">;</span> <span class="nx">b</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="k">if </span><span class="p">(</span><span class="nx">subStacks</span><span class="p">[</span><span class="nx">b</span><span class="p">].</span><span class="nx">zindex</span> <span class="o">===</span> <span class="nx">zValue</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="nx">stackChild</span> <span class="o">=</span> <span class="nx">subStacks</span><span class="p">.</span><span class="nf">splice</span><span class="p">(</span><span class="nx">b</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-            <span class="nf">sortZ</span><span class="p">(</span><span class="nx">stackChild</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-            <span class="k">break</span><span class="p">;</span>
-          <span class="p">&#125;</span>
-        <span class="p">&#125;</span>
-      <span class="p">&#125;</span>
-    <span class="p">&#125;</span>
+      for (i = 0, stackLen = stackValues.length; i < stackLen; i += 1) {
+        zValue = stackValues[i];
+        for (b = 0, subStackLen = subStacks.length; b <= subStackLen; b += 1) {
+          if (subStacks[b].zindex === zValue) {
+            stackChild = subStacks.splice(b, 1);
+            sortZ(stackChild[0]);
+            break;
+          }
+        }
+      }
+    }
 
-    <span class="nf">sortZ</span><span class="p">(</span><span class="nx">parseQueue</span><span class="p">.</span><span class="nx">zIndex</span><span class="p">);</span>
-    <span class="k">if </span><span class="p">(</span><span class="k">typeof</span> <span class="nx">options</span><span class="p">.</span><span class="nx">_renderer</span><span class="p">.</span><span class="nx">_create</span> <span class="o">!==</span> <span class="dl">"</span><span class="s2">function</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">throw</span> <span class="k">new</span> <span class="nc">Error</span><span class="p">(</span><span class="dl">"</span><span class="s2">Invalid renderer defined</span><span class="dl">"</span><span class="p">);</span>
-    <span class="p">&#125;</span>
-    <span class="k">return</span> <span class="nx">options</span><span class="p">.</span><span class="nx">_renderer</span><span class="p">.</span><span class="nf">_create</span><span class="p">(</span>
-      <span class="nx">parseQueue</span><span class="p">,</span>
-      <span class="nx">options</span><span class="p">,</span>
-      <span class="nb">document</span><span class="p">,</span>
-      <span class="nx">queue</span><span class="p">,</span>
-      <span class="nx">_html2canvas</span><span class="p">,</span>
-    <span class="p">);</span>
-  <span class="p">&#125;;</span>
+    sortZ(parseQueue.zIndex);
+    if (typeof options._renderer._create !== "function") {
+      throw new Error("Invalid renderer defined");
+    }
+    return options._renderer._create(
+      parseQueue,
+      options,
+      document,
+      queue,
+      _html2canvas,
+    );
+  };
 
-  <span class="cm">/*
-  html2canvas v0.34 &lt;http://html2canvas.hertzen.com&gt;
+  /*
+  html2canvas v0.34 <http://html2canvas.hertzen.com>
   Copyright (c) 2011 Niklas von Hertzen. All rights reserved.
   http://www.twitter.com/niklasvh
 
   Released under MIT License
-*/</span>
+*/
 
-  <span class="nx">html2canvas</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">elements</span><span class="p">,</span> <span class="nx">opts</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="kd">var</span> <span class="nx">queue</span><span class="p">,</span>
-      <span class="nx">canvas</span><span class="p">,</span>
-      <span class="nx">options</span> <span class="o">=</span> <span class="p">&#123;</span>
-        <span class="c1">// general</span>
-        <span class="na">logging</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="na">elements</span><span class="p">:</span> <span class="nx">elements</span><span class="p">,</span>
+  html2canvas = function (elements, opts) {
+    var queue,
+      canvas,
+      options = {
+        // general
+        logging: false,
+        elements: elements,
 
-        <span class="c1">// preload options</span>
-        <span class="na">proxy</span><span class="p">:</span> <span class="dl">"</span><span class="s2">http://html2canvas.appspot.com/</span><span class="dl">"</span><span class="p">,</span>
-        <span class="na">timeout</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="c1">// no timeout</span>
-        <span class="na">useCORS</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="c1">// try to load images as CORS (where available), before falling back to proxy</span>
-        <span class="na">allowTaint</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="c1">// whether to allow images to taint the canvas, won't need proxy if set to true</span>
+        // preload options
+        proxy: "//html2canvas.appspot.com/",
+        timeout: 0, // no timeout
+        useCORS: false, // try to load images as CORS (where available), before falling back to proxy
+        allowTaint: false, // whether to allow images to taint the canvas, won't need proxy if set to true
 
-        <span class="c1">// parse options</span>
-        <span class="na">svgRendering</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="c1">// use svg powered rendering where available (FF11+)</span>
-        <span class="na">iframeDefault</span><span class="p">:</span> <span class="dl">"</span><span class="s2">default</span><span class="dl">"</span><span class="p">,</span>
-        <span class="na">ignoreElements</span><span class="p">:</span> <span class="dl">"</span><span class="s2">IFRAME|OBJECT|PARAM</span><span class="dl">"</span><span class="p">,</span>
-        <span class="na">useOverflow</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="na">letterRendering</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        // parse options
+        svgRendering: false, // use svg powered rendering where available (FF11+)
+        iframeDefault: "default",
+        ignoreElements: "IFRAME|OBJECT|PARAM",
+        useOverflow: true,
+        letterRendering: false,
 
-        <span class="c1">// render options</span>
+        // render options
 
-        <span class="na">flashcanvas</span><span class="p">:</span> <span class="kc">undefined</span><span class="p">,</span> <span class="c1">// path to flashcanvas</span>
-        <span class="na">width</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="na">height</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="na">taintTest</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="c1">// do a taint test with all images before applying to canvas</span>
-        <span class="na">renderer</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Canvas</span><span class="dl">"</span><span class="p">,</span>
-      <span class="p">&#125;,</span>
-      <span class="nx">renderer</span><span class="p">;</span>
+        flashcanvas: undefined, // path to flashcanvas
+        width: null,
+        height: null,
+        taintTest: true, // do a taint test with all images before applying to canvas
+        renderer: "Canvas",
+      },
+      renderer;
 
-    <span class="nx">options</span> <span class="o">=</span> <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nc">Extend</span><span class="p">(</span><span class="nx">opts</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+    options = _html2canvas.Util.Extend(opts, options);
 
-    <span class="k">if </span><span class="p">(</span>
-      <span class="k">typeof</span> <span class="nx">options</span><span class="p">.</span><span class="nx">renderer</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span> <span class="o">&amp;&amp;</span>
-      <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Renderer</span><span class="p">[</span><span class="nx">options</span><span class="p">.</span><span class="nx">renderer</span><span class="p">]</span> <span class="o">!==</span> <span class="kc">undefined</span>
-    <span class="p">)</span> <span class="p">&#123;</span>
-      <span class="nx">options</span><span class="p">.</span><span class="nx">_renderer</span> <span class="o">=</span> <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Renderer</span><span class="p">[</span><span class="nx">options</span><span class="p">.</span><span class="nx">renderer</span><span class="p">](</span><span class="nx">options</span><span class="p">);</span>
-    <span class="p">&#125;</span> <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="k">typeof</span> <span class="nx">options</span><span class="p">.</span><span class="nx">renderer</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">function</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="nx">options</span><span class="p">.</span><span class="nx">_renderer</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nf">renderer</span><span class="p">(</span><span class="nx">options</span><span class="p">);</span>
-    <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-      <span class="k">throw</span> <span class="dl">"</span><span class="s2">Unknown renderer</span><span class="dl">"</span><span class="p">;</span>
-    <span class="p">&#125;</span>
+    if (
+      typeof options.renderer === "string" &&
+      _html2canvas.Renderer[options.renderer] !== undefined
+    ) {
+      options._renderer = _html2canvas.Renderer[options.renderer](options);
+    } else if (typeof options.renderer === "function") {
+      options._renderer = options.renderer(options);
+    } else {
+      throw "Unknown renderer";
+    }
 
-    <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">logging</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">logging</span><span class="p">;</span>
-    <span class="nx">options</span><span class="p">.</span><span class="nx">complete</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">images</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">if </span><span class="p">(</span><span class="k">typeof</span> <span class="nx">options</span><span class="p">.</span><span class="nx">onpreloaded</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">function</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="k">if </span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nf">onpreloaded</span><span class="p">(</span><span class="nx">images</span><span class="p">)</span> <span class="o">===</span> <span class="kc">false</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="k">return</span><span class="p">;</span>
-        <span class="p">&#125;</span>
-      <span class="p">&#125;</span>
-      <span class="nx">queue</span> <span class="o">=</span> <span class="nx">_html2canvas</span><span class="p">.</span><span class="nc">Parse</span><span class="p">(</span><span class="nx">images</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+    _html2canvas.logging = options.logging;
+    options.complete = function (images) {
+      if (typeof options.onpreloaded === "function") {
+        if (options.onpreloaded(images) === false) {
+          return;
+        }
+      }
+      queue = _html2canvas.Parse(images, options);
 
-      <span class="k">if </span><span class="p">(</span><span class="k">typeof</span> <span class="nx">options</span><span class="p">.</span><span class="nx">onparsed</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">function</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="k">if </span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nf">onparsed</span><span class="p">(</span><span class="nx">queue</span><span class="p">)</span> <span class="o">===</span> <span class="kc">false</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="k">return</span><span class="p">;</span>
-        <span class="p">&#125;</span>
-      <span class="p">&#125;</span>
+      if (typeof options.onparsed === "function") {
+        if (options.onparsed(queue) === false) {
+          return;
+        }
+      }
 
-      <span class="nx">canvas</span> <span class="o">=</span> <span class="nx">_html2canvas</span><span class="p">.</span><span class="nc">Renderer</span><span class="p">(</span><span class="nx">queue</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+      canvas = _html2canvas.Renderer(queue, options);
 
-      <span class="k">if </span><span class="p">(</span><span class="k">typeof</span> <span class="nx">options</span><span class="p">.</span><span class="nx">onrendered</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">function</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="nx">options</span><span class="p">.</span><span class="nf">onrendered</span><span class="p">(</span><span class="nx">canvas</span><span class="p">);</span>
-      <span class="p">&#125;</span>
-    <span class="p">&#125;;</span>
+      if (typeof options.onrendered === "function") {
+        options.onrendered(canvas);
+      }
+    };
 
-    <span class="c1">// for pages without images, we still want this to be async, i.e. return methods before executing</span>
-    <span class="nb">window</span><span class="p">.</span><span class="nf">setTimeout</span><span class="p">(</span><span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-      <span class="nx">_html2canvas</span><span class="p">.</span><span class="nc">Preload</span><span class="p">(</span><span class="nx">options</span><span class="p">);</span>
-    <span class="p">&#125;,</span> <span class="mi">0</span><span class="p">);</span>
+    // for pages without images, we still want this to be async, i.e. return methods before executing
+    window.setTimeout(function () {
+      _html2canvas.Preload(options);
+    }, 0);
 
-    <span class="k">return</span> <span class="p">&#123;</span>
-      <span class="na">render</span><span class="p">:</span> <span class="nf">function </span><span class="p">(</span><span class="nx">queue</span><span class="p">,</span> <span class="nx">opts</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="k">return</span> <span class="nx">_html2canvas</span><span class="p">.</span><span class="nc">Renderer</span><span class="p">(</span>
-          <span class="nx">queue</span><span class="p">,</span>
-          <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nc">Extend</span><span class="p">(</span><span class="nx">opts</span><span class="p">,</span> <span class="nx">options</span><span class="p">),</span>
-        <span class="p">);</span>
-      <span class="p">&#125;,</span>
-      <span class="na">parse</span><span class="p">:</span> <span class="nf">function </span><span class="p">(</span><span class="nx">images</span><span class="p">,</span> <span class="nx">opts</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="k">return</span> <span class="nx">_html2canvas</span><span class="p">.</span><span class="nc">Parse</span><span class="p">(</span>
-          <span class="nx">images</span><span class="p">,</span>
-          <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nc">Extend</span><span class="p">(</span><span class="nx">opts</span><span class="p">,</span> <span class="nx">options</span><span class="p">),</span>
-        <span class="p">);</span>
-      <span class="p">&#125;,</span>
-      <span class="na">preload</span><span class="p">:</span> <span class="nf">function </span><span class="p">(</span><span class="nx">opts</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="k">return</span> <span class="nx">_html2canvas</span><span class="p">.</span><span class="nc">Preload</span><span class="p">(</span><span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nc">Extend</span><span class="p">(</span><span class="nx">opts</span><span class="p">,</span> <span class="nx">options</span><span class="p">));</span>
-      <span class="p">&#125;,</span>
-      <span class="na">log</span><span class="p">:</span> <span class="nx">h2clog</span><span class="p">,</span>
-    <span class="p">&#125;;</span>
-  <span class="p">&#125;;</span>
+    return {
+      render: function (queue, opts) {
+        return _html2canvas.Renderer(
+          queue,
+          _html2canvas.Util.Extend(opts, options),
+        );
+      },
+      parse: function (images, opts) {
+        return _html2canvas.Parse(
+          images,
+          _html2canvas.Util.Extend(opts, options),
+        );
+      },
+      preload: function (opts) {
+        return _html2canvas.Preload(_html2canvas.Util.Extend(opts, options));
+      },
+      log: h2clog,
+    };
+  };
 
-  <span class="nx">html2canvas</span><span class="p">.</span><span class="nx">log</span> <span class="o">=</span> <span class="nx">h2clog</span><span class="p">;</span> <span class="c1">// for renderers</span>
-  <span class="nx">html2canvas</span><span class="p">.</span><span class="nx">Renderer</span> <span class="o">=</span> <span class="p">&#123;</span>
-    <span class="na">Canvas</span><span class="p">:</span> <span class="kc">undefined</span><span class="p">,</span> <span class="c1">// We are assuming this will be used</span>
-  <span class="p">&#125;;</span>
+  html2canvas.log = h2clog; // for renderers
+  html2canvas.Renderer = {
+    Canvas: undefined, // We are assuming this will be used
+  };
 
-  <span class="cm">/*
-  html2canvas v0.34 &lt;http://html2canvas.hertzen.com&gt;
+  /*
+  html2canvas v0.34 <http://html2canvas.hertzen.com>
   Copyright (c) 2011 Niklas von Hertzen. All rights reserved.
   http://www.twitter.com/niklasvh
 
   Released under MIT License
-*/</span>
+*/
 
-  <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Renderer</span><span class="p">.</span><span class="nx">Canvas</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="nx">options</span> <span class="o">=</span> <span class="nx">options</span> <span class="o">||</span> <span class="p">&#123;&#125;;</span>
+  _html2canvas.Renderer.Canvas = function (options) {
+    options = options || {};
 
-    <span class="kd">var</span> <span class="nx">doc</span> <span class="o">=</span> <span class="nb">document</span><span class="p">,</span>
-      <span class="nx">canvas</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">canvas</span> <span class="o">||</span> <span class="nx">doc</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">canvas</span><span class="dl">"</span><span class="p">),</span>
-      <span class="nx">usingFlashcanvas</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="nx">_createCalled</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="nx">canvasReadyToDraw</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="nx">methods</span><span class="p">,</span>
-      <span class="nx">flashMaxSize</span> <span class="o">=</span> <span class="mi">2880</span><span class="p">;</span> <span class="c1">// flash bitmap limited to 2880x2880px // http://stackoverflow.com/questions/2033792/argumenterror-error-2015-invalid-bitmapdata</span>
+    var doc = document,
+      canvas = options.canvas || doc.createElement("canvas"),
+      usingFlashcanvas = false,
+      _createCalled = false,
+      canvasReadyToDraw = false,
+      methods,
+      flashMaxSize = 2880; // flash bitmap limited to 2880x2880px // http://stackoverflow.com/questions/2033792/argumenterror-error-2015-invalid-bitmapdata
 
-    <span class="k">if </span><span class="p">(</span><span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="nf">h2clog</span><span class="p">(</span><span class="dl">"</span><span class="s2">html2canvas: Renderer: using canvas renderer</span><span class="dl">"</span><span class="p">);</span>
-      <span class="nx">canvasReadyToDraw</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-    <span class="p">&#125;</span> <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">flashcanvas</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="nx">usingFlashcanvas</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-      <span class="nf">h2clog</span><span class="p">(</span><span class="dl">"</span><span class="s2">html2canvas: Renderer: canvas not available, using flashcanvas</span><span class="dl">"</span><span class="p">);</span>
-      <span class="kd">var</span> <span class="nx">script</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">script</span><span class="dl">"</span><span class="p">);</span>
-      <span class="nx">script</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">flashcanvas</span><span class="p">;</span>
+    if (canvas.getContext) {
+      h2clog("html2canvas: Renderer: using canvas renderer");
+      canvasReadyToDraw = true;
+    } else if (options.flashcanvas !== undefined) {
+      usingFlashcanvas = true;
+      h2clog("html2canvas: Renderer: canvas not available, using flashcanvas");
+      var script = doc.createElement("script");
+      script.src = options.flashcanvas;
 
-      <span class="nx">script</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="p">(</span><span class="nf">function </span><span class="p">(</span><span class="nx">script</span><span class="p">,</span> <span class="nx">func</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="kd">var</span> <span class="nx">intervalFunc</span><span class="p">;</span>
+      script.onload = (function (script, func) {
+        var intervalFunc;
 
-        <span class="k">if </span><span class="p">(</span><span class="nx">script</span><span class="p">.</span><span class="nx">onload</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="c1">// IE lack of support for script onload</span>
+        if (script.onload === undefined) {
+          // IE lack of support for script onload
 
-          <span class="k">if </span><span class="p">(</span><span class="nx">script</span><span class="p">.</span><span class="nx">onreadystatechange</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="nx">intervalFunc</span> <span class="o">=</span> <span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-              <span class="k">if </span><span class="p">(</span>
-                <span class="nx">script</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">!==</span> <span class="dl">"</span><span class="s2">loaded</span><span class="dl">"</span> <span class="o">&amp;&amp;</span>
-                <span class="nx">script</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">!==</span> <span class="dl">"</span><span class="s2">complete</span><span class="dl">"</span>
-              <span class="p">)</span> <span class="p">&#123;</span>
-                <span class="nb">window</span><span class="p">.</span><span class="nf">setTimeout</span><span class="p">(</span><span class="nx">intervalFunc</span><span class="p">,</span> <span class="mi">250</span><span class="p">);</span>
-              <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-                <span class="c1">// it is loaded</span>
-                <span class="nf">func</span><span class="p">();</span>
-              <span class="p">&#125;</span>
-            <span class="p">&#125;;</span>
+          if (script.onreadystatechange !== undefined) {
+            intervalFunc = function () {
+              if (
+                script.readyState !== "loaded" &&
+                script.readyState !== "complete"
+              ) {
+                window.setTimeout(intervalFunc, 250);
+              } else {
+                // it is loaded
+                func();
+              }
+            };
 
-            <span class="nb">window</span><span class="p">.</span><span class="nf">setTimeout</span><span class="p">(</span><span class="nx">intervalFunc</span><span class="p">,</span> <span class="mi">250</span><span class="p">);</span>
-          <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-            <span class="nf">h2clog</span><span class="p">(</span>
-              <span class="dl">"</span><span class="s2">html2canvas: Renderer: Can't track when flashcanvas is loaded</span><span class="dl">"</span><span class="p">,</span>
-            <span class="p">);</span>
-          <span class="p">&#125;</span>
-        <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-          <span class="k">return</span> <span class="nx">func</span><span class="p">;</span>
-        <span class="p">&#125;</span>
-      <span class="p">&#125;)(</span><span class="nx">script</span><span class="p">,</span> <span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-        <span class="k">if </span><span class="p">(</span><span class="k">typeof</span> <span class="nb">window</span><span class="p">.</span><span class="nx">FlashCanvas</span> <span class="o">!==</span> <span class="dl">"</span><span class="s2">undefined</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="nf">h2clog</span><span class="p">(</span><span class="dl">"</span><span class="s2">html2canvas: Renderer: Flashcanvas initialized</span><span class="dl">"</span><span class="p">);</span>
-          <span class="nb">window</span><span class="p">.</span><span class="nx">FlashCanvas</span><span class="p">.</span><span class="nf">initElement</span><span class="p">(</span><span class="nx">canvas</span><span class="p">);</span>
+            window.setTimeout(intervalFunc, 250);
+          } else {
+            h2clog(
+              "html2canvas: Renderer: Can't track when flashcanvas is loaded",
+            );
+          }
+        } else {
+          return func;
+        }
+      })(script, function () {
+        if (typeof window.FlashCanvas !== "undefined") {
+          h2clog("html2canvas: Renderer: Flashcanvas initialized");
+          window.FlashCanvas.initElement(canvas);
 
-          <span class="nx">canvasReadyToDraw</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-          <span class="k">if </span><span class="p">(</span><span class="nx">_createCalled</span> <span class="o">!==</span> <span class="kc">false</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="nx">methods</span><span class="p">.</span><span class="nx">_create</span><span class="p">.</span><span class="nf">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">_createCalled</span><span class="p">);</span>
-          <span class="p">&#125;</span>
-        <span class="p">&#125;</span>
-      <span class="p">&#125;);</span>
+          canvasReadyToDraw = true;
+          if (_createCalled !== false) {
+            methods._create.apply(null, _createCalled);
+          }
+        }
+      });
 
-      <span class="nx">doc</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nf">appendChild</span><span class="p">(</span><span class="nx">script</span><span class="p">);</span>
-    <span class="p">&#125;</span>
+      doc.body.appendChild(script);
+    }
 
-    <span class="nx">methods</span> <span class="o">=</span> <span class="p">&#123;</span>
-      <span class="na">_create</span><span class="p">:</span> <span class="nf">function </span><span class="p">(</span><span class="nx">zStack</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">doc</span><span class="p">,</span> <span class="nx">queue</span><span class="p">,</span> <span class="nx">_html2canvas</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">canvasReadyToDraw</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="nx">_createCalled</span> <span class="o">=</span> <span class="nx">arguments</span><span class="p">;</span>
-          <span class="k">return</span> <span class="nx">canvas</span><span class="p">;</span>
-        <span class="p">&#125;</span>
+    methods = {
+      _create: function (zStack, options, doc, queue, _html2canvas) {
+        if (!canvasReadyToDraw) {
+          _createCalled = arguments;
+          return canvas;
+        }
 
-        <span class="kd">var</span> <span class="nx">ctx</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nf">getContext</span><span class="p">(</span><span class="dl">"</span><span class="s2">2d</span><span class="dl">"</span><span class="p">),</span>
-          <span class="nx">storageContext</span><span class="p">,</span>
-          <span class="nx">i</span><span class="p">,</span>
-          <span class="nx">queueLen</span><span class="p">,</span>
-          <span class="nx">a</span><span class="p">,</span>
-          <span class="nx">newCanvas</span><span class="p">,</span>
-          <span class="nx">bounds</span><span class="p">,</span>
-          <span class="nx">testCanvas</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">canvas</span><span class="dl">"</span><span class="p">),</span>
-          <span class="nx">hasCTX</span> <span class="o">=</span> <span class="nx">testCanvas</span><span class="p">.</span><span class="nx">getContext</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">,</span>
-          <span class="nx">storageLen</span><span class="p">,</span>
-          <span class="nx">renderItem</span><span class="p">,</span>
-          <span class="nx">testctx</span> <span class="o">=</span> <span class="nx">hasCTX</span> <span class="p">?</span> <span class="nx">testCanvas</span><span class="p">.</span><span class="nf">getContext</span><span class="p">(</span><span class="dl">"</span><span class="s2">2d</span><span class="dl">"</span><span class="p">)</span> <span class="p">:</span> <span class="p">&#123;&#125;,</span>
-          <span class="nx">safeImages</span> <span class="o">=</span> <span class="p">[],</span>
-          <span class="nx">fstyle</span><span class="p">;</span>
+        var ctx = canvas.getContext("2d"),
+          storageContext,
+          i,
+          queueLen,
+          a,
+          newCanvas,
+          bounds,
+          testCanvas = document.createElement("canvas"),
+          hasCTX = testCanvas.getContext !== undefined,
+          storageLen,
+          renderItem,
+          testctx = hasCTX ? testCanvas.getContext("2d") : {},
+          safeImages = [],
+          fstyle;
 
-        <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="o">!</span><span class="nx">usingFlashcanvas</span>
-          <span class="p">?</span> <span class="nx">options</span><span class="p">.</span><span class="nx">width</span> <span class="o">||</span> <span class="nx">zStack</span><span class="p">.</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">width</span>
-          <span class="p">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">min</span><span class="p">(</span><span class="nx">flashMaxSize</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">width</span> <span class="o">||</span> <span class="nx">zStack</span><span class="p">.</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">width</span><span class="p">);</span>
-        <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="o">!</span><span class="nx">usingFlashcanvas</span>
-          <span class="p">?</span> <span class="nx">options</span><span class="p">.</span><span class="nx">height</span> <span class="o">||</span> <span class="nx">zStack</span><span class="p">.</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">height</span>
-          <span class="p">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">min</span><span class="p">(</span><span class="nx">flashMaxSize</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">height</span> <span class="o">||</span> <span class="nx">zStack</span><span class="p">.</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span>
+        canvas.width = canvas.style.width = !usingFlashcanvas
+          ? options.width || zStack.ctx.width
+          : Math.min(flashMaxSize, options.width || zStack.ctx.width);
+        canvas.height = canvas.style.height = !usingFlashcanvas
+          ? options.height || zStack.ctx.height
+          : Math.min(flashMaxSize, options.height || zStack.ctx.height);
 
-        <span class="nx">fstyle</span> <span class="o">=</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">fillStyle</span><span class="p">;</span>
-        <span class="nx">ctx</span><span class="p">.</span><span class="nx">fillStyle</span> <span class="o">=</span> <span class="nx">zStack</span><span class="p">.</span><span class="nx">backgroundColor</span><span class="p">;</span>
-        <span class="nx">ctx</span><span class="p">.</span><span class="nf">fillRect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span>
-        <span class="nx">ctx</span><span class="p">.</span><span class="nx">fillStyle</span> <span class="o">=</span> <span class="nx">fstyle</span><span class="p">;</span>
+        fstyle = ctx.fillStyle;
+        ctx.fillStyle = zStack.backgroundColor;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = fstyle;
 
-        <span class="k">if </span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">svgRendering</span> <span class="o">&amp;&amp;</span> <span class="nx">zStack</span><span class="p">.</span><span class="nx">svgRender</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="c1">// TODO: enable async rendering to support this</span>
-          <span class="nx">ctx</span><span class="p">.</span><span class="nf">drawImage</span><span class="p">(</span><span class="nx">zStack</span><span class="p">.</span><span class="nx">svgRender</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-        <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-          <span class="k">for </span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">queueLen</span> <span class="o">=</span> <span class="nx">queue</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">queueLen</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="nx">storageContext</span> <span class="o">=</span> <span class="nx">queue</span><span class="p">.</span><span class="nf">splice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
-            <span class="nx">storageContext</span><span class="p">.</span><span class="nx">canvasPosition</span> <span class="o">=</span> <span class="nx">storageContext</span><span class="p">.</span><span class="nx">canvasPosition</span> <span class="o">||</span> <span class="p">&#123;&#125;;</span>
+        if (options.svgRendering && zStack.svgRender !== undefined) {
+          // TODO: enable async rendering to support this
+          ctx.drawImage(zStack.svgRender, 0, 0);
+        } else {
+          for (i = 0, queueLen = queue.length; i < queueLen; i += 1) {
+            storageContext = queue.splice(0, 1)[0];
+            storageContext.canvasPosition = storageContext.canvasPosition || {};
 
-            <span class="c1">//this.canvasRenderContext(storageContext,parentctx);</span>
+            //this.canvasRenderContext(storageContext,parentctx);
 
-            <span class="c1">// set common settings for canvas</span>
-            <span class="nx">ctx</span><span class="p">.</span><span class="nx">textBaseline</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">bottom</span><span class="dl">"</span><span class="p">;</span>
+            // set common settings for canvas
+            ctx.textBaseline = "bottom";
 
-            <span class="k">if </span><span class="p">(</span><span class="nx">storageContext</span><span class="p">.</span><span class="nx">clip</span><span class="p">)</span> <span class="p">&#123;</span>
-              <span class="nx">ctx</span><span class="p">.</span><span class="nf">save</span><span class="p">();</span>
-              <span class="nx">ctx</span><span class="p">.</span><span class="nf">beginPath</span><span class="p">();</span>
-              <span class="c1">// console.log(storageContext);</span>
-              <span class="nx">ctx</span><span class="p">.</span><span class="nf">rect</span><span class="p">(</span>
-                <span class="nx">storageContext</span><span class="p">.</span><span class="nx">clip</span><span class="p">.</span><span class="nx">left</span><span class="p">,</span>
-                <span class="nx">storageContext</span><span class="p">.</span><span class="nx">clip</span><span class="p">.</span><span class="nx">top</span><span class="p">,</span>
-                <span class="nx">storageContext</span><span class="p">.</span><span class="nx">clip</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span>
-                <span class="nx">storageContext</span><span class="p">.</span><span class="nx">clip</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span>
-              <span class="p">);</span>
-              <span class="nx">ctx</span><span class="p">.</span><span class="nf">clip</span><span class="p">();</span>
-            <span class="p">&#125;</span>
+            if (storageContext.clip) {
+              ctx.save();
+              ctx.beginPath();
+              // console.log(storageContext);
+              ctx.rect(
+                storageContext.clip.left,
+                storageContext.clip.top,
+                storageContext.clip.width,
+                storageContext.clip.height,
+              );
+              ctx.clip();
+            }
 
-            <span class="k">if </span><span class="p">(</span><span class="nx">storageContext</span><span class="p">.</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">storage</span><span class="p">)</span> <span class="p">&#123;</span>
-              <span class="k">for </span><span class="p">(</span>
-                <span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">storageLen</span> <span class="o">=</span> <span class="nx">storageContext</span><span class="p">.</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
-                <span class="nx">a</span> <span class="o">&lt;</span> <span class="nx">storageLen</span><span class="p">;</span>
-                <span class="nx">a</span> <span class="o">+=</span> <span class="mi">1</span>
-              <span class="p">)</span> <span class="p">&#123;</span>
-                <span class="nx">renderItem</span> <span class="o">=</span> <span class="nx">storageContext</span><span class="p">.</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">storage</span><span class="p">[</span><span class="nx">a</span><span class="p">];</span>
+            if (storageContext.ctx.storage) {
+              for (
+                a = 0, storageLen = storageContext.ctx.storage.length;
+                a < storageLen;
+                a += 1
+              ) {
+                renderItem = storageContext.ctx.storage[a];
 
-                <span class="k">switch </span><span class="p">(</span><span class="nx">renderItem</span><span class="p">.</span><span class="nx">type</span><span class="p">)</span> <span class="p">&#123;</span>
-                  <span class="k">case</span> <span class="dl">"</span><span class="s2">variable</span><span class="dl">"</span><span class="p">:</span>
-                    <span class="nx">ctx</span><span class="p">[</span><span class="nx">renderItem</span><span class="p">.</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">renderItem</span><span class="p">[</span><span class="dl">"</span><span class="s2">arguments</span><span class="dl">"</span><span class="p">];</span>
-                    <span class="k">break</span><span class="p">;</span>
-                  <span class="k">case</span> <span class="dl">"</span><span class="s2">function</span><span class="dl">"</span><span class="p">:</span>
-                    <span class="k">if </span><span class="p">(</span><span class="nx">renderItem</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">fillRect</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-                      <span class="k">if </span><span class="p">(</span>
-                        <span class="o">!</span><span class="nx">usingFlashcanvas</span> <span class="o">||</span>
-                        <span class="p">(</span><span class="nx">renderItem</span><span class="p">[</span><span class="dl">"</span><span class="s2">arguments</span><span class="dl">"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span>
-                          <span class="nx">renderItem</span><span class="p">[</span><span class="dl">"</span><span class="s2">arguments</span><span class="dl">"</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span>
-                          <span class="nx">flashMaxSize</span> <span class="o">&amp;&amp;</span>
-                          <span class="nx">renderItem</span><span class="p">[</span><span class="dl">"</span><span class="s2">arguments</span><span class="dl">"</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span>
-                            <span class="nx">renderItem</span><span class="p">[</span><span class="dl">"</span><span class="s2">arguments</span><span class="dl">"</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">&lt;</span>
-                            <span class="nx">flashMaxSize</span><span class="p">)</span>
-                      <span class="p">)</span> <span class="p">&#123;</span>
-                        <span class="nx">ctx</span><span class="p">.</span><span class="nx">fillRect</span><span class="p">.</span><span class="nf">apply</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">renderItem</span><span class="p">[</span><span class="dl">"</span><span class="s2">arguments</span><span class="dl">"</span><span class="p">]);</span>
-                      <span class="p">&#125;</span>
-                    <span class="p">&#125;</span> <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="nx">renderItem</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">fillText</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-                      <span class="k">if </span><span class="p">(</span>
-                        <span class="o">!</span><span class="nx">usingFlashcanvas</span> <span class="o">||</span>
-                        <span class="p">(</span><span class="nx">renderItem</span><span class="p">[</span><span class="dl">"</span><span class="s2">arguments</span><span class="dl">"</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nx">flashMaxSize</span> <span class="o">&amp;&amp;</span>
-                          <span class="nx">renderItem</span><span class="p">[</span><span class="dl">"</span><span class="s2">arguments</span><span class="dl">"</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nx">flashMaxSize</span><span class="p">)</span>
-                      <span class="p">)</span> <span class="p">&#123;</span>
-                        <span class="nx">ctx</span><span class="p">.</span><span class="nx">fillText</span><span class="p">.</span><span class="nf">apply</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">renderItem</span><span class="p">[</span><span class="dl">"</span><span class="s2">arguments</span><span class="dl">"</span><span class="p">]);</span>
-                      <span class="p">&#125;</span>
-                    <span class="p">&#125;</span> <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="nx">renderItem</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">drawImage</span><span class="dl">"</span><span class="p">)</span> <span class="p">&#123;</span>
-                      <span class="k">if </span><span class="p">(</span>
-                        <span class="nx">renderItem</span><span class="p">[</span><span class="dl">"</span><span class="s2">arguments</span><span class="dl">"</span><span class="p">][</span><span class="mi">8</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span>
-                        <span class="nx">renderItem</span><span class="p">[</span><span class="dl">"</span><span class="s2">arguments</span><span class="dl">"</span><span class="p">][</span><span class="mi">7</span><span class="p">]</span>
-                      <span class="p">)</span> <span class="p">&#123;</span>
-                        <span class="k">if </span><span class="p">(</span><span class="nx">hasCTX</span> <span class="o">&amp;&amp;</span> <span class="nx">options</span><span class="p">.</span><span class="nx">taintTest</span><span class="p">)</span> <span class="p">&#123;</span>
-                          <span class="k">if </span><span class="p">(</span>
-                            <span class="nx">safeImages</span><span class="p">.</span><span class="nf">indexOf</span><span class="p">(</span>
-                              <span class="nx">renderItem</span><span class="p">[</span><span class="dl">"</span><span class="s2">arguments</span><span class="dl">"</span><span class="p">][</span><span class="mi">0</span><span class="p">].</span><span class="nx">src</span><span class="p">,</span>
-                            <span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span>
-                          <span class="p">)</span> <span class="p">&#123;</span>
-                            <span class="nx">testctx</span><span class="p">.</span><span class="nf">drawImage</span><span class="p">(</span><span class="nx">renderItem</span><span class="p">[</span><span class="dl">"</span><span class="s2">arguments</span><span class="dl">"</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-                            <span class="k">try</span> <span class="p">&#123;</span>
-                              <span class="nx">testctx</span><span class="p">.</span><span class="nf">getImageData</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-                            <span class="p">&#125;</span> <span class="k">catch </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">&#123;</span>
-                              <span class="nx">testCanvas</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">canvas</span><span class="dl">"</span><span class="p">);</span>
-                              <span class="nx">testctx</span> <span class="o">=</span> <span class="nx">testCanvas</span><span class="p">.</span><span class="nf">getContext</span><span class="p">(</span><span class="dl">"</span><span class="s2">2d</span><span class="dl">"</span><span class="p">);</span>
-                              <span class="k">continue</span><span class="p">;</span>
-                            <span class="p">&#125;</span>
+                switch (renderItem.type) {
+                  case "variable":
+                    ctx[renderItem.name] = renderItem["arguments"];
+                    break;
+                  case "function":
+                    if (renderItem.name === "fillRect") {
+                      if (
+                        !usingFlashcanvas ||
+                        (renderItem["arguments"][0] +
+                          renderItem["arguments"][2] <
+                          flashMaxSize &&
+                          renderItem["arguments"][1] +
+                            renderItem["arguments"][3] <
+                            flashMaxSize)
+                      ) {
+                        ctx.fillRect.apply(ctx, renderItem["arguments"]);
+                      }
+                    } else if (renderItem.name === "fillText") {
+                      if (
+                        !usingFlashcanvas ||
+                        (renderItem["arguments"][1] < flashMaxSize &&
+                          renderItem["arguments"][2] < flashMaxSize)
+                      ) {
+                        ctx.fillText.apply(ctx, renderItem["arguments"]);
+                      }
+                    } else if (renderItem.name === "drawImage") {
+                      if (
+                        renderItem["arguments"][8] > 0 &&
+                        renderItem["arguments"][7]
+                      ) {
+                        if (hasCTX && options.taintTest) {
+                          if (
+                            safeImages.indexOf(
+                              renderItem["arguments"][0].src,
+                            ) === -1
+                          ) {
+                            testctx.drawImage(renderItem["arguments"][0], 0, 0);
+                            try {
+                              testctx.getImageData(0, 0, 1, 1);
+                            } catch (e) {
+                              testCanvas = doc.createElement("canvas");
+                              testctx = testCanvas.getContext("2d");
+                              continue;
+                            }
 
-                            <span class="nx">safeImages</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="nx">renderItem</span><span class="p">[</span><span class="dl">"</span><span class="s2">arguments</span><span class="dl">"</span><span class="p">][</span><span class="mi">0</span><span class="p">].</span><span class="nx">src</span><span class="p">);</span>
-                          <span class="p">&#125;</span>
-                        <span class="p">&#125;</span>
-                        <span class="nx">ctx</span><span class="p">.</span><span class="nx">drawImage</span><span class="p">.</span><span class="nf">apply</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">renderItem</span><span class="p">[</span><span class="dl">"</span><span class="s2">arguments</span><span class="dl">"</span><span class="p">]);</span>
-                      <span class="p">&#125;</span>
-                    <span class="p">&#125;</span>
+                            safeImages.push(renderItem["arguments"][0].src);
+                          }
+                        }
+                        ctx.drawImage.apply(ctx, renderItem["arguments"]);
+                      }
+                    }
 
-                    <span class="k">break</span><span class="p">;</span>
-                  <span class="nl">default</span><span class="p">:</span>
-                <span class="p">&#125;</span>
-              <span class="p">&#125;</span>
-            <span class="p">&#125;</span>
-            <span class="k">if </span><span class="p">(</span><span class="nx">storageContext</span><span class="p">.</span><span class="nx">clip</span><span class="p">)</span> <span class="p">&#123;</span>
-              <span class="nx">ctx</span><span class="p">.</span><span class="nf">restore</span><span class="p">();</span>
-            <span class="p">&#125;</span>
-          <span class="p">&#125;</span>
-        <span class="p">&#125;</span>
+                    break;
+                  default:
+                }
+              }
+            }
+            if (storageContext.clip) {
+              ctx.restore();
+            }
+          }
+        }
 
-        <span class="nf">h2clog</span><span class="p">(</span>
-          <span class="dl">"</span><span class="s2">html2canvas: Renderer: Canvas renderer done - returning canvas obj</span><span class="dl">"</span><span class="p">,</span>
-        <span class="p">);</span>
+        h2clog(
+          "html2canvas: Renderer: Canvas renderer done - returning canvas obj",
+        );
 
-        <span class="nx">queueLen</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">elements</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+        queueLen = options.elements.length;
 
-        <span class="k">if </span><span class="p">(</span><span class="nx">queueLen</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="k">if </span><span class="p">(</span>
-            <span class="k">typeof</span> <span class="nx">options</span><span class="p">.</span><span class="nx">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">object</span><span class="dl">"</span> <span class="o">&amp;&amp;</span>
-            <span class="nx">options</span><span class="p">.</span><span class="nx">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">nodeName</span> <span class="o">!==</span> <span class="dl">"</span><span class="s2">BODY</span><span class="dl">"</span> <span class="o">&amp;&amp;</span>
-            <span class="nx">usingFlashcanvas</span> <span class="o">===</span> <span class="kc">false</span>
-          <span class="p">)</span> <span class="p">&#123;</span>
-            <span class="c1">// crop image to the bounds of selected (single) element</span>
-            <span class="nx">bounds</span> <span class="o">=</span> <span class="nx">_html2canvas</span><span class="p">.</span><span class="nx">Util</span><span class="p">.</span><span class="nc">Bounds</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-            <span class="nx">newCanvas</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">canvas</span><span class="dl">"</span><span class="p">);</span>
-            <span class="nx">newCanvas</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span><span class="p">;</span>
-            <span class="nx">newCanvas</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span><span class="p">;</span>
-            <span class="nx">ctx</span> <span class="o">=</span> <span class="nx">newCanvas</span><span class="p">.</span><span class="nf">getContext</span><span class="p">(</span><span class="dl">"</span><span class="s2">2d</span><span class="dl">"</span><span class="p">);</span>
+        if (queueLen === 1) {
+          if (
+            typeof options.elements[0] === "object" &&
+            options.elements[0].nodeName !== "BODY" &&
+            usingFlashcanvas === false
+          ) {
+            // crop image to the bounds of selected (single) element
+            bounds = _html2canvas.Util.Bounds(options.elements[0]);
+            newCanvas = doc.createElement("canvas");
+            newCanvas.width = bounds.width;
+            newCanvas.height = bounds.height;
+            ctx = newCanvas.getContext("2d");
 
-            <span class="nx">ctx</span><span class="p">.</span><span class="nf">drawImage</span><span class="p">(</span>
-              <span class="nx">canvas</span><span class="p">,</span>
-              <span class="nx">bounds</span><span class="p">.</span><span class="nx">left</span><span class="p">,</span>
-              <span class="nx">bounds</span><span class="p">.</span><span class="nx">top</span><span class="p">,</span>
-              <span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span>
-              <span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span>
-              <span class="mi">0</span><span class="p">,</span>
-              <span class="mi">0</span><span class="p">,</span>
-              <span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span>
-              <span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span>
-            <span class="p">);</span>
-            <span class="nx">canvas</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-            <span class="k">return</span> <span class="nx">newCanvas</span><span class="p">;</span>
-          <span class="p">&#125;</span>
-        <span class="p">&#125;</span> <span class="cm">/*else &#123;
+            ctx.drawImage(
+              canvas,
+              bounds.left,
+              bounds.top,
+              bounds.width,
+              bounds.height,
+              0,
+              0,
+              bounds.width,
+              bounds.height,
+            );
+            canvas = null;
+            return newCanvas;
+          }
+        } /*else {
         // TODO clip and resize multiple elements
 
-            for ( i = 0; i &lt; queueLen; i+=1 ) &#123;
-                if (options.elements[ i ] instanceof Element) &#123;
+            for ( i = 0; i < queueLen; i+=1 ) {
+                if (options.elements[ i ] instanceof Element) {
 
-                &#125;
+                }
 
-            &#125;
-        &#125;
-        */</span>
+            }
+        }
+        */
 
-        <span class="k">return</span> <span class="nx">canvas</span><span class="p">;</span>
-      <span class="p">&#125;,</span>
-    <span class="p">&#125;;</span>
+        return canvas;
+      },
+    };
 
-    <span class="k">return</span> <span class="nx">methods</span><span class="p">;</span>
-  <span class="p">&#125;;</span>
+    return methods;
+  };
 
-  <span class="nb">window</span><span class="p">.</span><span class="nx">html2canvas</span> <span class="o">=</span> <span class="nx">html2canvas</span><span class="p">;</span>
-<span class="p">&#125;)(</span><span class="nb">window</span><span class="p">,</span> <span class="nb">document</span><span class="p">);</span>
+  window.html2canvas = html2canvas;
+})(window, document);
 
-<span class="cm">/*
+/*
  * END html2canvas
- */</span>
+ */
 
-<span class="nf">$</span><span class="p">(</span><span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-  <span class="kd">var</span> <span class="nx">example5a</span> <span class="o">=</span> <span class="nf">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#example5 .source</span><span class="dl">"</span><span class="p">);</span>
-  <span class="kd">var</span> <span class="nx">example5b</span> <span class="o">=</span> <span class="nf">$</span><span class="p">(</span>
-    <span class="dl">"</span><span class="s2">&lt;div class='source'&gt;&lt;h2&gt;Page 2&lt;/h2&gt;&lt;p&gt;Beard flexitarian semiotics tofu retro. Synth sustainable accusamus hoodie, scenester retro wayfarers occupy. Twee ea marfa nesciunt pickled pork belly. Pop-up fugiat squid, aute brunch viral fingerstache american apparel et cupidatat placeat butcher etsy art party. Mlkshk sriracha delectus, dreamcatcher occaecat freegan esse placeat fugiat williamsburg aliquip nisi cred retro jean shorts. Stumptown mixtape gastropub, you probably haven't heard of them master cleanse laboris sunt scenester post-ironic dreamcatcher ex. Williamsburg sriracha cray high life cillum.&lt;/p&gt;&lt;/div&gt;</span><span class="dl">"</span><span class="p">,</span>
-  <span class="p">).</span><span class="nf">width</span><span class="p">(</span><span class="mi">400</span><span class="p">);</span>
-  <span class="nf">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#example5 button</span><span class="dl">"</span><span class="p">).</span><span class="nf">click</span><span class="p">(</span><span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-    <span class="k">if </span><span class="p">(</span><span class="nx">example5a</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">parentNode</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="nx">glitch</span><span class="p">.</span><span class="nf">transition</span><span class="p">(</span><span class="nx">example5a</span><span class="p">,</span> <span class="nx">example5b</span><span class="p">);</span>
-    <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-      <span class="nx">glitch</span><span class="p">.</span><span class="nf">transition</span><span class="p">(</span><span class="nx">example5b</span><span class="p">,</span> <span class="nx">example5a</span><span class="p">,</span> <span class="p">&#123;</span>
-        <span class="na">effect</span><span class="p">:</span> <span class="dl">"</span><span class="s2">slide</span><span class="dl">"</span><span class="p">,</span>
-      <span class="p">&#125;);</span>
-    <span class="p">&#125;</span>
-  <span class="p">&#125;);</span>
-<span class="p">&#125;);</span>
-</code></pre>
+$(function () {
+  var example5a = $("#example5 .source");
+  var example5b = $(
+    "<div class='source'><h2>Page 2</h2><p>Beard flexitarian semiotics tofu retro. Synth sustainable accusamus hoodie, scenester retro wayfarers occupy. Twee ea marfa nesciunt pickled pork belly. Pop-up fugiat squid, aute brunch viral fingerstache american apparel et cupidatat placeat butcher etsy art party. Mlkshk sriracha delectus, dreamcatcher occaecat freegan esse placeat fugiat williamsburg aliquip nisi cred retro jean shorts. Stumptown mixtape gastropub, you probably haven't heard of them master cleanse laboris sunt scenester post-ironic dreamcatcher ex. Williamsburg sriracha cray high life cillum.</p></div>",
+  ).width(400);
+  $("#example5 button").click(function () {
+    if (example5a[0].parentNode) {
+      glitch.transition(example5a, example5b);
+    } else {
+      glitch.transition(example5b, example5a, {
+        effect: "slide",
+      });
+    }
+  });
+});
+```
+
 <p data-import-note="">this demo preserves the compiled output and may depend on external libraries or services that are no longer available.</p>
-<p><a href="https://jsfiddle.net/edwardsharp/3TLjN/">original jsfiddle post</a></p>
+
+[original jsfiddle post](https://jsfiddle.net/edwardsharp/3TLjN/)

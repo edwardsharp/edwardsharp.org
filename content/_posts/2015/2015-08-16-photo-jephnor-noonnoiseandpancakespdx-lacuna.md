@@ -12,4 +12,4 @@ preview_alt: "#jephnor #noonnoiseandpancakespdx #LACUNA"
 
 ![#jephnor #noonnoiseandpancakespdx #LACUNA](/content/media/2015/2015-08-16-photo-17842184296060015-1.jpg)
 
-<p>#jephnor #noonnoiseandpancakespdx #LACUNA</p>
+#jephnor #noonnoiseandpancakespdx #LACUNA

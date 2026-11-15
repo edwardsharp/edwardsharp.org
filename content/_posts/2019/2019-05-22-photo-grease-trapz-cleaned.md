@@ -10,6 +10,6 @@ preview_image: "/content/media/2019/2019-05-22-photo-18068132185037501-1.jpg"
 preview_alt: "😻<<GREASE TRAPZ CLEANED>> 😼"
 ---
 
-![😻&lt;&lt;GREASE TRAPZ CLEANED&gt;&gt; 😼](/content/media/2019/2019-05-22-photo-18068132185037501-1.jpg)
+![😻<<GREASE TRAPZ CLEANED>> 😼](/content/media/2019/2019-05-22-photo-18068132185037501-1.jpg)
 
-<p>😻&lt;&lt;GREASE TRAPZ CLEANED&gt;&gt; 😼</p>
+😻<&lt;GREASE TRAPZ CLEANED>&gt; 😼

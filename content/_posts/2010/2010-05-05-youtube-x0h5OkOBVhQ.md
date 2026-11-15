@@ -10,7 +10,10 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=x0h5OkOBVhQ"
 preview_image: "/content/media/2010/2010-05-05-youtube-x0h5OkOBVhQ-f0c8591b05.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/x0h5OkOBVhQ" title="scan" loading="lazy" allowfullscreen></iframe></div>
-<p>just some fresh beatz on high compression. <br>
-http://edwardsharp.net/audio</p>
-<p><a href="https://www.youtube.com/watch?v=x0h5OkOBVhQ">original youtube post</a></p>
+
+just some fresh beatz on high compression.  
+http://edwardsharp.net/audio
+
+[original youtube post](https://www.youtube.com/watch?v=x0h5OkOBVhQ)

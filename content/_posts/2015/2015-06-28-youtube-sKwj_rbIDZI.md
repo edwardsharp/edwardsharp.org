@@ -10,14 +10,17 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=sKwj_rbIDZI"
 preview_image: "/content/media/2015/2015-06-28-youtube-sKwj_rbIDZI-0d44167483.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/sKwj_rbIDZI" title="NOON NOISE &amp; PANCAKEZ: JMEJ &amp; XNOR" loading="lazy" allowfullscreen></iframe></div>
-<p>jmej/xnor<br>
-<br>
-http://anestheticaudio.com/ <br>
-http://x37v.info/<br>
-<br>
-NOON, SUNDAY, JUNE 14, 2015<br>
-<br>
-http://lacuna.club/<br>
-http://noonnoiseandpancakespdx.tumblr.com/</p>
-<p><a href="https://www.youtube.com/watch?v=sKwj_rbIDZI">original youtube post</a></p>
+
+jmej/xnor
+
+http://anestheticaudio.com/  
+http://x37v.info/
+
+NOON, SUNDAY, JUNE 14, 2015
+
+http://lacuna.club/  
+http://noonnoiseandpancakespdx.tumblr.com/
+
+[original youtube post](https://www.youtube.com/watch?v=sKwj_rbIDZI)

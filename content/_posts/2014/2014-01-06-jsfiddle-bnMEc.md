@@ -10,84 +10,94 @@ source_platform: "jsfiddle"
 source_url: "https://jsfiddle.net/edwardsharp/bnMEc/3/"
 source_revision: 3
 ---
+
 <iframe class="code-demo" src="{{ '/content/media/2014/2014-01-06-jsfiddle-bnMEc-demo.html' | relative_url }}" title="fontawesome button" width="100%" height="480" loading="lazy" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe>
-<p>testing out buttons with glyphs </p>
-<h2>html</h2>
-<pre class="highlight"><code class="language-html"><span class="nt">&lt;link</span>
-  <span class="na">rel=</span><span class="s">"stylesheet"</span>
-  <span class="na">href=</span><span class="s">"http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"</span>
-<span class="nt">/&gt;</span>
-<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">class=</span><span class="s">"btn btn-large btn-danger"</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"icon-key icon-3x pull-left way_left"</span><span class="nt">&gt;&lt;/i&gt;</span> click to<span class="nt">&lt;br</span> <span class="nt">/&gt;&lt;span</span>
-    <span class="na">class=</span><span class="s">"button_txt_login"</span>
-    <span class="nt">&gt;</span>login<span class="nt">&lt;/span</span>
-  <span class="nt">&gt;</span>
-<span class="nt">&lt;/button&gt;</span>
-</code></pre>
-<h2>css</h2>
-<pre class="highlight"><code class="language-css"><span class="nc">.btn</span> <span class="p">&#123;</span>
-  <span class="nl">display</span><span class="p">:</span> <span class="nb">inline-block</span><span class="p">;</span>
-  <span class="nl">padding</span><span class="p">:</span> <span class="m">5px</span> <span class="m">15px</span><span class="p">;</span>
 
-  <span class="nl">font-size</span><span class="p">:</span> <span class="m">15px</span><span class="p">;</span>
-  <span class="nl">font-family</span><span class="p">:</span> <span class="n">Arial</span><span class="p">,</span> <span class="n">Helvetica</span><span class="p">,</span> <span class="nb">sans-serif</span><span class="p">;</span>
-  <span class="nl">line-height</span><span class="p">:</span> <span class="m">22px</span><span class="p">;</span>
-  <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
-  <span class="nl">vertical-align</span><span class="p">:</span> <span class="nb">middle</span><span class="p">;</span>
-  <span class="nl">text-transform</span><span class="p">:</span> <span class="nb">uppercase</span><span class="p">;</span>
+testing out buttons with glyphs
 
-  <span class="nl">color</span><span class="p">:</span> <span class="nx">#333333</span><span class="p">;</span>
+## html
 
-  <span class="nl">background-color</span><span class="p">:</span> <span class="nx">#f5f5f5</span><span class="p">;</span>
-  <span class="nl">background-image</span><span class="p">:</span> <span class="o">-</span><span class="n">moz-linear-gradient</span><span class="p">(</span><span class="nb">top</span><span class="p">,</span> <span class="nx">#ffffff</span><span class="p">,</span> <span class="nx">#e6e6e6</span><span class="p">);</span>
-  <span class="nl">background-image</span><span class="p">:</span> <span class="o">-</span><span class="n">webkit-gradient</span><span class="p">(</span>
-    <span class="nb">linear</span><span class="p">,</span>
-    <span class="m">0</span> <span class="m">0</span><span class="p">,</span>
-    <span class="m">0</span> <span class="m">100%</span><span class="p">,</span>
-    <span class="n">from</span><span class="p">(</span><span class="nx">#ffffff</span><span class="p">),</span>
-    <span class="n">to</span><span class="p">(</span><span class="nx">#e6e6e6</span><span class="p">)</span>
-  <span class="p">);</span>
-  <span class="nl">background-image</span><span class="p">:</span> <span class="o">-</span><span class="n">webkit-linear-gradient</span><span class="p">(</span><span class="nb">top</span><span class="p">,</span> <span class="nx">#ffffff</span><span class="p">,</span> <span class="nx">#e6e6e6</span><span class="p">);</span>
-  <span class="nl">background-image</span><span class="p">:</span> <span class="o">-</span><span class="n">o-linear-gradient</span><span class="p">(</span><span class="nb">top</span><span class="p">,</span> <span class="nx">#ffffff</span><span class="p">,</span> <span class="nx">#e6e6e6</span><span class="p">);</span>
-  <span class="nl">background-image</span><span class="p">:</span> <span class="nf">linear-gradient</span><span class="p">(</span><span class="n">to</span> <span class="nb">bottom</span><span class="p">,</span> <span class="nx">#ffffff</span><span class="p">,</span> <span class="nx">#e6e6e6</span><span class="p">);</span>
-  <span class="nl">background-repeat</span><span class="p">:</span> <span class="nb">repeat-x</span><span class="p">;</span>
-  <span class="c">/* filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0); */</span>
-  <span class="nl">border-color</span><span class="p">:</span> <span class="nx">#e6e6e6</span> <span class="nx">#e6e6e6</span> <span class="nx">#bfbfbf</span><span class="p">;</span>
-  <span class="nl">border-color</span><span class="p">:</span> <span class="nf">rgba</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0.1</span><span class="p">)</span> <span class="nf">rgba</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0.1</span><span class="p">)</span> <span class="nf">rgba</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0.25</span><span class="p">);</span>
-  <span class="c">/* filter: progid:DXImageTransform.Microsoft.gradient(enabled=false); */</span>
-  <span class="nl">border</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="nx">#bbbbbb</span><span class="p">;</span>
-  <span class="nl">border-bottom-color</span><span class="p">:</span> <span class="nx">#a2a2a2</span><span class="p">;</span>
-  <span class="nl">-webkit-border-radius</span><span class="p">:</span> <span class="m">30px</span><span class="p">;</span>
-  <span class="nl">-moz-border-radius</span><span class="p">:</span> <span class="m">30px</span><span class="p">;</span>
-  <span class="nl">border-radius</span><span class="p">:</span> <span class="m">30px</span><span class="p">;</span>
-  <span class="nl">-webkit-box-shadow</span><span class="p">:</span>
-    <span class="nb">inset</span> <span class="m">0</span> <span class="m">1px</span> <span class="m">0</span> <span class="nf">rgba</span><span class="p">(</span><span class="m">255</span><span class="p">,</span> <span class="m">255</span><span class="p">,</span> <span class="m">255</span><span class="p">,</span> <span class="m">0.2</span><span class="p">),</span>
-    <span class="m">0</span> <span class="m">1px</span> <span class="m">2px</span> <span class="nf">rgba</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0.05</span><span class="p">);</span>
-  <span class="nl">-moz-box-shadow</span><span class="p">:</span>
-    <span class="nb">inset</span> <span class="m">0</span> <span class="m">1px</span> <span class="m">0</span> <span class="nf">rgba</span><span class="p">(</span><span class="m">255</span><span class="p">,</span> <span class="m">255</span><span class="p">,</span> <span class="m">255</span><span class="p">,</span> <span class="m">0.2</span><span class="p">),</span>
-    <span class="m">0</span> <span class="m">1px</span> <span class="m">2px</span> <span class="nf">rgba</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0.05</span><span class="p">);</span>
-  <span class="nl">box-shadow</span><span class="p">:</span>
-    <span class="nb">inset</span> <span class="m">0</span> <span class="m">1px</span> <span class="m">0</span> <span class="nf">rgba</span><span class="p">(</span><span class="m">255</span><span class="p">,</span> <span class="m">255</span><span class="p">,</span> <span class="m">255</span><span class="p">,</span> <span class="m">0.2</span><span class="p">),</span>
-    <span class="m">0</span> <span class="m">1px</span> <span class="m">2px</span> <span class="nf">rgba</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0.05</span><span class="p">);</span>
-<span class="p">&#125;</span>
-<span class="nc">.btn</span><span class="nd">:hover</span> <span class="p">&#123;</span>
-  <span class="nl">background-color</span><span class="p">:</span> <span class="nx">#818181</span><span class="p">;</span>
-  <span class="nl">background-image</span><span class="p">:</span> <span class="o">-</span><span class="n">o-linear-gradient</span><span class="p">(</span><span class="nb">top</span><span class="p">,</span> <span class="nx">#ffffff</span><span class="p">,</span> <span class="nx">#818181</span><span class="p">);</span>
-  <span class="nl">background-image</span><span class="p">:</span> <span class="nf">linear-gradient</span><span class="p">(</span><span class="n">to</span> <span class="nb">bottom</span><span class="p">,</span> <span class="nx">#ffffff</span><span class="p">,</span> <span class="nx">#818181</span><span class="p">);</span>
-  <span class="nl">background-repeat</span><span class="p">:</span> <span class="nb">repeat-x</span><span class="p">;</span>
-  <span class="nl">filter</span><span class="p">:</span> <span class="n">progid</span><span class="p">:</span><span class="n">DXImageTransform</span><span class="p">.</span><span class="n">Microsoft</span><span class="p">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">startColorstr</span><span class="err">=</span><span class="s2">'#ffffffff'</span><span class="p">,</span> <span class="n">endColorstr</span><span class="err">=</span><span class="s2">'#ff818181'</span><span class="p">,</span> <span class="n">GradientType</span><span class="err">=</span><span class="m">0</span><span class="p">);</span>
-<span class="p">&#125;</span>
-<span class="nc">.way_left</span> <span class="p">&#123;</span>
-  <span class="nl">padding-right</span><span class="p">:</span> <span class="m">7px</span><span class="p">;</span>
-<span class="p">&#125;</span>
-<span class="nc">.button_txt_login</span> <span class="p">&#123;</span>
-  <span class="nl">font-weight</span><span class="p">:</span> <span class="nb">bold</span><span class="p">;</span>
-  <span class="nl">font-size</span><span class="p">:</span> <span class="m">1.3em</span><span class="p">;</span>
-<span class="p">&#125;</span>
-<span class="nt">a</span> <span class="p">&#123;</span>
-  <span class="nl">color</span><span class="p">:</span> <span class="nx">#c83025</span><span class="p">;</span>
-  <span class="nl">text-decoration</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
-<span class="p">&#125;</span>
-</code></pre>
+```html
+<link
+  rel="stylesheet"
+  href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
+/>
+<button type="submit" class="btn btn-large btn-danger">
+  <i class="icon-key icon-3x pull-left way_left"></i> click to<br /><span
+    class="button_txt_login"
+    >login</span
+  >
+</button>
+```
+
+## css
+
+```css
+.btn {
+  display: inline-block;
+  padding: 5px 15px;
+
+  font-size: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 22px;
+  text-align: center;
+  vertical-align: middle;
+  text-transform: uppercase;
+
+  color: #333333;
+
+  background-color: #f5f5f5;
+  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -webkit-gradient(
+    linear,
+    0 0,
+    0 100%,
+    from(#ffffff),
+    to(#e6e6e6)
+  );
+  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  /* filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0); */
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  /* filter: progid:DXImageTransform.Microsoft.gradient(enabled=false); */
+  border: 1px solid #bbbbbb;
+  border-bottom-color: #a2a2a2;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  -webkit-box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.btn:hover {
+  background-color: #818181;
+  background-image: -o-linear-gradient(top, #ffffff, #818181);
+  background-image: linear-gradient(to bottom, #ffffff, #818181);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ff818181', GradientType=0);
+}
+.way_left {
+  padding-right: 7px;
+}
+.button_txt_login {
+  font-weight: bold;
+  font-size: 1.3em;
+}
+a {
+  color: #c83025;
+  text-decoration: none;
+}
+```
+
 <p data-import-note="">this demo preserves the compiled output and may depend on external libraries or services that are no longer available.</p>
-<p><a href="https://jsfiddle.net/edwardsharp/bnMEc/3/">original jsfiddle post</a></p>
+
+[original jsfiddle post](https://jsfiddle.net/edwardsharp/bnMEc/3/)

@@ -10,166 +10,173 @@ source_platform: "jsfiddle"
 source_url: "https://jsfiddle.net/edwardsharp/HMudu/1/"
 source_revision: 1
 ---
+
 <iframe class="code-demo" src="{{ '/content/media/2014/2014-01-06-jsfiddle-HMudu-demo.html' | relative_url }}" title="d3 force layout example" width="100%" height="480" loading="lazy" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe>
-<p>mostly stolen.</p>
-<h2>html</h2>
-<pre class="highlight"><code class="language-html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
-<span class="nt">&lt;html&gt;</span>
-  <span class="nt">&lt;head&gt;</span>
-    <span class="nt">&lt;title&gt;</span>Force-Directed Layout (Dynamic)<span class="nt">&lt;/title&gt;</span>
-    <span class="nt">&lt;script
-      </span><span class="na">type=</span><span class="s">"text/javascript"</span>
-      <span class="na">src=</span><span class="s">"http://mbostock.github.com/d3/d3.min.js"</span>
-    <span class="nt">&gt;&lt;/script&gt;</span>
-    <span class="nt">&lt;script
-      </span><span class="na">type=</span><span class="s">"text/javascript"</span>
-      <span class="na">src=</span><span class="s">"http://mbostock.github.com/d3/d3.geom.min.js"</span>
-    <span class="nt">&gt;&lt;/script&gt;</span>
-    <span class="nt">&lt;script
-      </span><span class="na">type=</span><span class="s">"text/javascript"</span>
-      <span class="na">src=</span><span class="s">"http://mbostock.github.com/d3/d3.layout.min.js"</span>
-    <span class="nt">&gt;&lt;/script&gt;</span>
-    <span class="nt">&lt;style </span><span class="na">type=</span><span class="s">"text/css"</span><span class="nt">&gt;</span>
-      <span class="nt">html</span><span class="o">,</span>
-      <span class="nt">body</span> <span class="p">&#123;</span>
-        <span class="nl">width</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
-        <span class="nl">height</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
-        <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
-        <span class="nl">padding</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
-      <span class="p">&#125;</span>
 
-      <span class="nt">rect</span> <span class="p">&#123;</span>
-        <span class="py">fill</span><span class="p">:</span> <span class="nx">#fff</span><span class="p">;</span>
-      <span class="p">&#125;</span>
+mostly stolen.
 
-      <span class="nc">.node</span> <span class="p">&#123;</span>
-        <span class="py">fill</span><span class="p">:</span> <span class="nx">#000</span><span class="p">;</span>
-      <span class="p">&#125;</span>
+## html
 
-      <span class="nc">.cursor</span> <span class="p">&#123;</span>
-        <span class="py">fill</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
-        <span class="py">stroke</span><span class="p">:</span> <span class="nx">brown</span><span class="p">;</span>
-        <span class="nl">pointer-events</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
-      <span class="p">&#125;</span>
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Force-Directed Layout (Dynamic)</title>
+    <script
+      type="text/javascript"
+      src="//mbostock.github.com/d3/d3.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="//mbostock.github.com/d3/d3.geom.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="//mbostock.github.com/d3/d3.layout.min.js"
+    ></script>
+    <style type="text/css">
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
 
-      <span class="nc">.link</span> <span class="p">&#123;</span>
-        <span class="py">stroke</span><span class="p">:</span> <span class="nx">#999</span><span class="p">;</span>
-      <span class="p">&#125;</span>
-    <span class="nt">&lt;/style&gt;</span>
-  <span class="nt">&lt;/head&gt;</span>
-  <span class="nt">&lt;body&gt;</span>
-    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
-      <span class="kd">var</span> <span class="nx">w</span> <span class="o">=</span> <span class="mi">300</span><span class="p">,</span>
-        <span class="nx">h</span> <span class="o">=</span> <span class="mi">300</span><span class="p">,</span>
-        <span class="nx">fill</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">scale</span><span class="p">.</span><span class="nf">category20</span><span class="p">(),</span>
-        <span class="nx">nodes</span> <span class="o">=</span> <span class="p">[],</span>
-        <span class="nx">links</span> <span class="o">=</span> <span class="p">[];</span>
+      rect {
+        fill: #fff;
+      }
 
-      <span class="kd">var</span> <span class="nx">vis</span> <span class="o">=</span> <span class="nx">d3</span>
-        <span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="dl">"</span><span class="s2">body</span><span class="dl">"</span><span class="p">)</span>
-        <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">svg:svg</span><span class="dl">"</span><span class="p">)</span>
-        <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">viewBox</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">0 0 </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">w</span> <span class="o">+</span> <span class="dl">"</span><span class="s2"> </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">h</span><span class="p">)</span>
-        <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">preserveAspectRatio</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">xMinYMin</span><span class="dl">"</span><span class="p">);</span>
+      .node {
+        fill: #000;
+      }
 
-      <span class="nx">vis</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">svg:rect</span><span class="dl">"</span><span class="p">).</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">width</span><span class="dl">"</span><span class="p">,</span> <span class="nx">w</span><span class="p">).</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">height</span><span class="dl">"</span><span class="p">,</span> <span class="nx">h</span><span class="p">);</span>
+      .cursor {
+        fill: none;
+        stroke: brown;
+        pointer-events: none;
+      }
 
-      <span class="kd">var</span> <span class="nx">force</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">layout</span><span class="p">.</span><span class="nf">force</span><span class="p">().</span><span class="nf">nodes</span><span class="p">(</span><span class="nx">nodes</span><span class="p">).</span><span class="nf">links</span><span class="p">(</span><span class="nx">links</span><span class="p">).</span><span class="nf">size</span><span class="p">([</span><span class="nx">w</span><span class="p">,</span> <span class="nx">h</span><span class="p">]);</span>
+      .link {
+        stroke: #999;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      var w = 300,
+        h = 300,
+        fill = d3.scale.category20(),
+        nodes = [],
+        links = [];
 
-      <span class="kd">var</span> <span class="nx">cursor</span> <span class="o">=</span> <span class="nx">vis</span>
-        <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">svg:circle</span><span class="dl">"</span><span class="p">)</span>
-        <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">r</span><span class="dl">"</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
-        <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">transform</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">translate(-100,-100)</span><span class="dl">"</span><span class="p">)</span>
-        <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">class</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">cursor</span><span class="dl">"</span><span class="p">);</span>
+      var vis = d3
+        .select("body")
+        .append("svg:svg")
+        .attr("viewBox", "0 0 " + w + " " + h)
+        .attr("preserveAspectRatio", "xMinYMin");
 
-      <span class="nx">force</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">tick</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-        <span class="nx">vis</span>
-          <span class="p">.</span><span class="nf">selectAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">line.link</span><span class="dl">"</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">x1</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
-          <span class="p">&#125;)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y1</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
-          <span class="p">&#125;)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">x2</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
-          <span class="p">&#125;)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y2</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
-          <span class="p">&#125;);</span>
+      vis.append("svg:rect").attr("width", w).attr("height", h);
 
-        <span class="nx">vis</span>
-          <span class="p">.</span><span class="nf">selectAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">circle.node</span><span class="dl">"</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">cx</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
-          <span class="p">&#125;)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">cy</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
-          <span class="p">&#125;);</span>
-      <span class="p">&#125;);</span>
+      var force = d3.layout.force().nodes(nodes).links(links).size([w, h]);
 
-      <span class="nx">vis</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">mousemove</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-        <span class="nx">cursor</span><span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">transform</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">translate(</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">svg</span><span class="p">.</span><span class="nf">mouse</span><span class="p">(</span><span class="k">this</span><span class="p">)</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">)</span><span class="dl">"</span><span class="p">);</span>
-      <span class="p">&#125;);</span>
+      var cursor = vis
+        .append("svg:circle")
+        .attr("r", 30)
+        .attr("transform", "translate(-100,-100)")
+        .attr("class", "cursor");
 
-      <span class="nx">vis</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">mousedown</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-        <span class="kd">var</span> <span class="nx">point</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">svg</span><span class="p">.</span><span class="nf">mouse</span><span class="p">(</span><span class="k">this</span><span class="p">),</span>
-          <span class="nx">node</span> <span class="o">=</span> <span class="p">&#123;</span> <span class="na">x</span><span class="p">:</span> <span class="nx">point</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="na">y</span><span class="p">:</span> <span class="nx">point</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">&#125;,</span>
-          <span class="nx">n</span> <span class="o">=</span> <span class="nx">nodes</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+      force.on("tick", function () {
+        vis
+          .selectAll("line.link")
+          .attr("x1", function (d) {
+            return d.source.x;
+          })
+          .attr("y1", function (d) {
+            return d.source.y;
+          })
+          .attr("x2", function (d) {
+            return d.target.x;
+          })
+          .attr("y2", function (d) {
+            return d.target.y;
+          });
 
-        <span class="c1">// add links to any nearby nodes</span>
-        <span class="nx">nodes</span><span class="p">.</span><span class="nf">forEach</span><span class="p">(</span><span class="nf">function </span><span class="p">(</span><span class="nx">target</span><span class="p">)</span> <span class="p">&#123;</span>
-          <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">target</span><span class="p">.</span><span class="nx">x</span> <span class="o">-</span> <span class="nx">node</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span>
-            <span class="nx">y</span> <span class="o">=</span> <span class="nx">target</span><span class="p">.</span><span class="nx">y</span> <span class="o">-</span> <span class="nx">node</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
-          <span class="k">if </span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span><span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span> <span class="o">*</span> <span class="nx">y</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">30</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="nx">links</span><span class="p">.</span><span class="nf">push</span><span class="p">(&#123;</span> <span class="na">source</span><span class="p">:</span> <span class="nx">node</span><span class="p">,</span> <span class="na">target</span><span class="p">:</span> <span class="nx">target</span> <span class="p">&#125;);</span>
-          <span class="p">&#125;</span>
-        <span class="p">&#125;);</span>
+        vis
+          .selectAll("circle.node")
+          .attr("cx", function (d) {
+            return d.x;
+          })
+          .attr("cy", function (d) {
+            return d.y;
+          });
+      });
 
-        <span class="nf">restart</span><span class="p">();</span>
-      <span class="p">&#125;);</span>
+      vis.on("mousemove", function () {
+        cursor.attr("transform", "translate(" + d3.svg.mouse(this) + ")");
+      });
 
-      <span class="nf">restart</span><span class="p">();</span>
+      vis.on("mousedown", function () {
+        var point = d3.svg.mouse(this),
+          node = { x: point[0], y: point[1] },
+          n = nodes.push(node);
 
-      <span class="kd">function</span> <span class="nf">restart</span><span class="p">()</span> <span class="p">&#123;</span>
-        <span class="nx">vis</span>
-          <span class="p">.</span><span class="nf">selectAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">line.link</span><span class="dl">"</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">data</span><span class="p">(</span><span class="nx">links</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">enter</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">insert</span><span class="p">(</span><span class="dl">"</span><span class="s2">svg:line</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">circle.node</span><span class="dl">"</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">class</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">link</span><span class="dl">"</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">x1</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
-          <span class="p">&#125;)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y1</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
-          <span class="p">&#125;)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">x2</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
-          <span class="p">&#125;)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y2</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
-          <span class="p">&#125;);</span>
+        // add links to any nearby nodes
+        nodes.forEach(function (target) {
+          var x = target.x - node.x,
+            y = target.y - node.y;
+          if (Math.sqrt(x * x + y * y) < 30) {
+            links.push({ source: node, target: target });
+          }
+        });
 
-        <span class="nx">vis</span>
-          <span class="p">.</span><span class="nf">selectAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">circle.node</span><span class="dl">"</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">data</span><span class="p">(</span><span class="nx">nodes</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">enter</span><span class="p">()</span>
-          <span class="p">.</span><span class="nf">insert</span><span class="p">(</span><span class="dl">"</span><span class="s2">svg:circle</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">circle.cursor</span><span class="dl">"</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">class</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">node</span><span class="dl">"</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">cx</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
-          <span class="p">&#125;)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">cy</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-            <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
-          <span class="p">&#125;)</span>
-          <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">r</span><span class="dl">"</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="nx">force</span><span class="p">.</span><span class="nx">drag</span><span class="p">);</span>
+        restart();
+      });
 
-        <span class="nx">force</span><span class="p">.</span><span class="nf">start</span><span class="p">();</span>
-      <span class="p">&#125;</span>
-    <span class="nt">&lt;/script&gt;</span>
-  <span class="nt">&lt;/body&gt;</span>
-<span class="nt">&lt;/html&gt;</span>
-</code></pre>
+      restart();
+
+      function restart() {
+        vis
+          .selectAll("line.link")
+          .data(links)
+          .enter()
+          .insert("svg:line", "circle.node")
+          .attr("class", "link")
+          .attr("x1", function (d) {
+            return d.source.x;
+          })
+          .attr("y1", function (d) {
+            return d.source.y;
+          })
+          .attr("x2", function (d) {
+            return d.target.x;
+          })
+          .attr("y2", function (d) {
+            return d.target.y;
+          });
+
+        vis
+          .selectAll("circle.node")
+          .data(nodes)
+          .enter()
+          .insert("svg:circle", "circle.cursor")
+          .attr("class", "node")
+          .attr("cx", function (d) {
+            return d.x;
+          })
+          .attr("cy", function (d) {
+            return d.y;
+          })
+          .attr("r", 5)
+          .call(force.drag);
+
+        force.start();
+      }
+    </script>
+  </body>
+</html>
+```
+
 <p data-import-note="">this demo preserves the compiled output and may depend on external libraries or services that are no longer available.</p>
-<p><a href="https://jsfiddle.net/edwardsharp/HMudu/1/">original jsfiddle post</a></p>
+
+[original jsfiddle post](https://jsfiddle.net/edwardsharp/HMudu/1/)

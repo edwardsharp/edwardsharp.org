@@ -10,6 +10,7 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=4qiH0Iu4kNE"
 preview_image: "/content/media/2014/2014-03-31-youtube-4qiH0Iu4kNE-24d4a14d46.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/4qiH0Iu4kNE" title="Poughkeepsie to Kingston" loading="lazy" allowfullscreen></iframe></div>
 
-<p><a href="https://www.youtube.com/watch?v=4qiH0Iu4kNE">original youtube post</a></p>
+[original youtube post](https://www.youtube.com/watch?v=4qiH0Iu4kNE)

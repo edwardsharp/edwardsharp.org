@@ -10,7 +10,10 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=39gMZ3kPJtY"
 preview_image: "/content/media/2014/2014-05-23-youtube-39gMZ3kPJtY-c774eccafa.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/39gMZ3kPJtY" title="POSITION" loading="lazy" allowfullscreen></iframe></div>
-<p>climb/wedge yourself into a door way - turn on/off the light<br>
-2014</p>
-<p><a href="https://www.youtube.com/watch?v=39gMZ3kPJtY">original youtube post</a></p>
+
+climb/wedge yourself into a door way - turn on/off the light  
+2014
+
+[original youtube post](https://www.youtube.com/watch?v=39gMZ3kPJtY)

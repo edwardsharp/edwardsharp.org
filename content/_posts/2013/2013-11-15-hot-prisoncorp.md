@@ -13,4 +13,4 @@ redirect_from:
 ---
 ![hot prisoncorp](/content/media/2013/2013-11-15-hot-prisoncorp.jpg)
 
-\#HOT \#PRISONCORP
+#HOT #PRISONCORP

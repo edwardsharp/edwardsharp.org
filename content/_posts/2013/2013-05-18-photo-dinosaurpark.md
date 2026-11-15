@@ -12,4 +12,4 @@ preview_alt: "#dinosaurpark"
 
 ![#dinosaurpark](/content/media/2013/2013-05-18-photo-17842666591060015-1.jpg)
 
-<p>#dinosaurpark</p>
+#dinosaurpark

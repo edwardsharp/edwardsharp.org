@@ -12,4 +12,4 @@ preview_alt: "#CONTACT"
 
 ![#CONTACT](/content/media/2013/2013-10-17-photo-17842741321060015-1.jpg)
 
-<p>#CONTACT</p>
+#CONTACT

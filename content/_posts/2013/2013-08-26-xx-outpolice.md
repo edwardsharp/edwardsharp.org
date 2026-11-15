@@ -13,4 +13,4 @@ redirect_from:
 ---
 ![xx outpolice](/content/media/2013/2013-08-26-xx-outpolice.png)
 
-\#xx\-outpolice
+#xx-outpolice

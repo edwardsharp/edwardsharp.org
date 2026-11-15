@@ -12,4 +12,4 @@ preview_alt: "#wearethefilthiestpeoplealive"
 
 ![#wearethefilthiestpeoplealive](/content/media/2017/2017-07-27-photo-17879143168106214-1.jpg)
 
-<p>#wearethefilthiestpeoplealive</p>
+#wearethefilthiestpeoplealive

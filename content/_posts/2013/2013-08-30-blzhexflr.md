@@ -13,4 +13,4 @@ redirect_from:
 ---
 ![blzhexflr](/content/media/2013/2013-08-30-blzhexflr.png)
 
-\#blzhexflr
+#blzhexflr

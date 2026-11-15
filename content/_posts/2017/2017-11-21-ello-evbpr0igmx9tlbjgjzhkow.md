@@ -14,5 +14,6 @@ preview_image: "/content/media/2017/2017-11-21-ello-evbpr0igmx9tlbjgjzhkow-31fdc
 
 ![](/content/media/2017/2017-11-21-ello-evbpr0igmx9tlbjgjzhkow-31fdc13d79.jpg)
 
-<p><a href="https://ello.co/search?terms=%23tonyclifton">#tonyclifton</a></p>
-<p><a href="https://ello.co/3dwardsharp/post/evbpr0igmx9tlbjgjzhkow">original ello post</a> · <a href="https://web.archive.org/web/20210614012230id_/https://ello.co/3dwardsharp">archived post</a></p>
+[#tonyclifton](https://ello.co/search?terms=%23tonyclifton)
+
+[original ello post](https://ello.co/3dwardsharp/post/evbpr0igmx9tlbjgjzhkow) · [archived post](https://web.archive.org/web/20210614012230id_/https://ello.co/3dwardsharp)

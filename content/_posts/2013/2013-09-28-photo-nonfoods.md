@@ -12,4 +12,4 @@ preview_alt: "#nonfoods"
 
 ![#nonfoods](/content/media/2013/2013-09-28-photo-17842732156060015-1.jpg)
 
-<p>#nonfoods</p>
+#nonfoods

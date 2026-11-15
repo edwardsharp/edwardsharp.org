@@ -12,4 +12,4 @@ preview_alt: "#magnets:howdotheyevenwork"
 
 ![#magnets:howdotheyevenwork](/content/media/2016/2016-02-06-photo-17844984439074786-1.jpg)
 
-<p>#magnets:howdotheyevenwork</p>
+#magnets:howdotheyevenwork

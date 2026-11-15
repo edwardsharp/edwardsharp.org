@@ -10,10 +10,13 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=Ue_psjkssrE"
 preview_image: "/content/media/2011/2011-02-07-youtube-Ue_psjkssrE-1b7f587066.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/Ue_psjkssrE" title="head_pump" loading="lazy" allowfullscreen></iframe></div>
-<p>pump 3 times<br>
-but do not<br>
-pump 3 times<br>
-but do not<br>
-pump 3 times</p>
-<p><a href="https://www.youtube.com/watch?v=Ue_psjkssrE">original youtube post</a></p>
+
+pump 3 times  
+but do not  
+pump 3 times  
+but do not  
+pump 3 times
+
+[original youtube post](https://www.youtube.com/watch?v=Ue_psjkssrE)

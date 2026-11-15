@@ -12,4 +12,4 @@ preview_alt: "#hotboyz ❤️"
 
 ![#hotboyz ❤️](/content/media/2015/2015-07-30-photo-17842107145060015-1.jpg)
 
-<p>#hotboyz ❤️</p>
+#hotboyz ❤️

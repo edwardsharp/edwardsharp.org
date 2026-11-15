@@ -11,113 +11,122 @@ source_platform: "jsfiddle"
 source_url: "https://jsfiddle.net/edwardsharp/uybhz0dm/"
 source_revision: 1
 ---
+
 <iframe class="code-demo" src="{{ '/content/media/2016/2016-08-26-jsfiddle-uybhz0dm-demo.html' | relative_url }}" title="ribbon corner" width="100%" height="480" loading="lazy" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe>
-<h2>html</h2>
-<pre class="highlight"><code class="language-html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"corner-ribbon bottom-right sticky ornage shadow"</span><span class="nt">&gt;</span>Ribbon!<span class="nt">&lt;/div&gt;</span>
-</code></pre>
-<h2>css</h2>
-<pre class="highlight"><code class="language-css"><span class="c">/* The ribbons */</span>
 
-<span class="nc">.corner-ribbon</span> <span class="p">&#123;</span>
-  <span class="nl">width</span><span class="p">:</span> <span class="m">200px</span><span class="p">;</span>
-  <span class="nl">background</span><span class="p">:</span> <span class="nx">#e43</span><span class="p">;</span>
-  <span class="nl">position</span><span class="p">:</span> <span class="nb">absolute</span><span class="p">;</span>
-  <span class="nl">top</span><span class="p">:</span> <span class="m">25px</span><span class="p">;</span>
-  <span class="nl">left</span><span class="p">:</span> <span class="m">-50px</span><span class="p">;</span>
-  <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
-  <span class="nl">line-height</span><span class="p">:</span> <span class="m">50px</span><span class="p">;</span>
-  <span class="nl">letter-spacing</span><span class="p">:</span> <span class="m">1px</span><span class="p">;</span>
-  <span class="nl">color</span><span class="p">:</span> <span class="nx">#f0f0f0</span><span class="p">;</span>
-  <span class="nl">transform</span><span class="p">:</span> <span class="nf">rotate</span><span class="p">(</span><span class="m">-45deg</span><span class="p">);</span>
-  <span class="nl">-webkit-transform</span><span class="p">:</span> <span class="nf">rotate</span><span class="p">(</span><span class="m">-45deg</span><span class="p">);</span>
-<span class="p">&#125;</span>
+## html
 
-<span class="c">/* Custom styles */</span>
+```html
+<div class="corner-ribbon bottom-right sticky ornage shadow">Ribbon!</div>
+```
 
-<span class="nc">.corner-ribbon.sticky</span> <span class="p">&#123;</span>
-  <span class="nl">position</span><span class="p">:</span> <span class="nb">fixed</span><span class="p">;</span>
-<span class="p">&#125;</span>
+## css
 
-<span class="nc">.corner-ribbon.shadow</span> <span class="p">&#123;</span>
-  <span class="nl">box-shadow</span><span class="p">:</span> <span class="m">0</span> <span class="m">0</span> <span class="m">3px</span> <span class="nf">rgba</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0.3</span><span class="p">);</span>
-<span class="p">&#125;</span>
+```css
+/* The ribbons */
 
-<span class="c">/* Different positions */</span>
+.corner-ribbon {
+  width: 200px;
+  background: #e43;
+  position: absolute;
+  top: 25px;
+  left: -50px;
+  text-align: center;
+  line-height: 50px;
+  letter-spacing: 1px;
+  color: #f0f0f0;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
 
-<span class="nc">.corner-ribbon.top-left</span> <span class="p">&#123;</span>
-  <span class="nl">top</span><span class="p">:</span> <span class="m">25px</span><span class="p">;</span>
-  <span class="nl">left</span><span class="p">:</span> <span class="m">-50px</span><span class="p">;</span>
-  <span class="nl">transform</span><span class="p">:</span> <span class="nf">rotate</span><span class="p">(</span><span class="m">-45deg</span><span class="p">);</span>
-  <span class="nl">-webkit-transform</span><span class="p">:</span> <span class="nf">rotate</span><span class="p">(</span><span class="m">-45deg</span><span class="p">);</span>
-<span class="p">&#125;</span>
+/* Custom styles */
 
-<span class="nc">.corner-ribbon.top-right</span> <span class="p">&#123;</span>
-  <span class="nl">top</span><span class="p">:</span> <span class="m">25px</span><span class="p">;</span>
-  <span class="nl">right</span><span class="p">:</span> <span class="m">-50px</span><span class="p">;</span>
-  <span class="nl">left</span><span class="p">:</span> <span class="nb">auto</span><span class="p">;</span>
-  <span class="nl">transform</span><span class="p">:</span> <span class="nf">rotate</span><span class="p">(</span><span class="m">45deg</span><span class="p">);</span>
-  <span class="nl">-webkit-transform</span><span class="p">:</span> <span class="nf">rotate</span><span class="p">(</span><span class="m">45deg</span><span class="p">);</span>
-<span class="p">&#125;</span>
+.corner-ribbon.sticky {
+  position: fixed;
+}
 
-<span class="nc">.corner-ribbon.bottom-left</span> <span class="p">&#123;</span>
-  <span class="nl">top</span><span class="p">:</span> <span class="nb">auto</span><span class="p">;</span>
-  <span class="nl">bottom</span><span class="p">:</span> <span class="m">25px</span><span class="p">;</span>
-  <span class="nl">left</span><span class="p">:</span> <span class="m">-50px</span><span class="p">;</span>
-  <span class="nl">transform</span><span class="p">:</span> <span class="nf">rotate</span><span class="p">(</span><span class="m">45deg</span><span class="p">);</span>
-  <span class="nl">-webkit-transform</span><span class="p">:</span> <span class="nf">rotate</span><span class="p">(</span><span class="m">45deg</span><span class="p">);</span>
-<span class="p">&#125;</span>
+.corner-ribbon.shadow {
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
 
-<span class="nc">.corner-ribbon.bottom-right</span> <span class="p">&#123;</span>
-  <span class="nl">top</span><span class="p">:</span> <span class="nb">auto</span><span class="p">;</span>
-  <span class="nl">right</span><span class="p">:</span> <span class="m">-50px</span><span class="p">;</span>
-  <span class="nl">bottom</span><span class="p">:</span> <span class="m">25px</span><span class="p">;</span>
-  <span class="nl">left</span><span class="p">:</span> <span class="nb">auto</span><span class="p">;</span>
-  <span class="nl">transform</span><span class="p">:</span> <span class="nf">rotate</span><span class="p">(</span><span class="m">-45deg</span><span class="p">);</span>
-  <span class="nl">-webkit-transform</span><span class="p">:</span> <span class="nf">rotate</span><span class="p">(</span><span class="m">-45deg</span><span class="p">);</span>
-<span class="p">&#125;</span>
+/* Different positions */
 
-<span class="c">/* Colors */</span>
+.corner-ribbon.top-left {
+  top: 25px;
+  left: -50px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
 
-<span class="nc">.corner-ribbon.white</span> <span class="p">&#123;</span>
-  <span class="nl">background</span><span class="p">:</span> <span class="nx">#f0f0f0</span><span class="p">;</span>
-  <span class="nl">color</span><span class="p">:</span> <span class="nx">#555</span><span class="p">;</span>
-<span class="p">&#125;</span>
+.corner-ribbon.top-right {
+  top: 25px;
+  right: -50px;
+  left: auto;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
 
-<span class="nc">.corner-ribbon.black</span> <span class="p">&#123;</span>
-  <span class="nl">background</span><span class="p">:</span> <span class="nx">#333</span><span class="p">;</span>
-<span class="p">&#125;</span>
+.corner-ribbon.bottom-left {
+  top: auto;
+  bottom: 25px;
+  left: -50px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
 
-<span class="nc">.corner-ribbon.grey</span> <span class="p">&#123;</span>
-  <span class="nl">background</span><span class="p">:</span> <span class="nx">#999</span><span class="p">;</span>
-<span class="p">&#125;</span>
+.corner-ribbon.bottom-right {
+  top: auto;
+  right: -50px;
+  bottom: 25px;
+  left: auto;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
 
-<span class="nc">.corner-ribbon.blue</span> <span class="p">&#123;</span>
-  <span class="nl">background</span><span class="p">:</span> <span class="nx">#39d</span><span class="p">;</span>
-<span class="p">&#125;</span>
+/* Colors */
 
-<span class="nc">.corner-ribbon.green</span> <span class="p">&#123;</span>
-  <span class="nl">background</span><span class="p">:</span> <span class="nx">#2c7</span><span class="p">;</span>
-<span class="p">&#125;</span>
+.corner-ribbon.white {
+  background: #f0f0f0;
+  color: #555;
+}
 
-<span class="nc">.corner-ribbon.turquoise</span> <span class="p">&#123;</span>
-  <span class="nl">background</span><span class="p">:</span> <span class="nx">#1b9</span><span class="p">;</span>
-<span class="p">&#125;</span>
+.corner-ribbon.black {
+  background: #333;
+}
 
-<span class="nc">.corner-ribbon.purple</span> <span class="p">&#123;</span>
-  <span class="nl">background</span><span class="p">:</span> <span class="nx">#95b</span><span class="p">;</span>
-<span class="p">&#125;</span>
+.corner-ribbon.grey {
+  background: #999;
+}
 
-<span class="nc">.corner-ribbon.red</span> <span class="p">&#123;</span>
-  <span class="nl">background</span><span class="p">:</span> <span class="nx">#e43</span><span class="p">;</span>
-<span class="p">&#125;</span>
+.corner-ribbon.blue {
+  background: #39d;
+}
 
-<span class="nc">.corner-ribbon.orange</span> <span class="p">&#123;</span>
-  <span class="nl">background</span><span class="p">:</span> <span class="nx">#e82</span><span class="p">;</span>
-<span class="p">&#125;</span>
+.corner-ribbon.green {
+  background: #2c7;
+}
 
-<span class="nc">.corner-ribbon.yellow</span> <span class="p">&#123;</span>
-  <span class="nl">background</span><span class="p">:</span> <span class="nx">#ec0</span><span class="p">;</span>
-<span class="p">&#125;</span>
-</code></pre>
+.corner-ribbon.turquoise {
+  background: #1b9;
+}
+
+.corner-ribbon.purple {
+  background: #95b;
+}
+
+.corner-ribbon.red {
+  background: #e43;
+}
+
+.corner-ribbon.orange {
+  background: #e82;
+}
+
+.corner-ribbon.yellow {
+  background: #ec0;
+}
+```
+
 <p data-import-note="">this demo preserves the compiled output and may depend on external libraries or services that are no longer available.</p>
-<p><a href="https://jsfiddle.net/edwardsharp/uybhz0dm/">original jsfiddle post</a></p>
+
+[original jsfiddle post](https://jsfiddle.net/edwardsharp/uybhz0dm/)

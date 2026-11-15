@@ -17,4 +17,4 @@ redirect_from:
 
 ![httpyoutubek 0sspo5tag](/content/media/2013/2013-03-25-httpyoutubek-0sspo5tag-03.png)
 
-[http://youtu.be/k\-0SSPO5tAg](http://youtu.be/k-0SSPO5tAg){: target="_blank" rel="nofollow nofollow" }
+[http://youtu.be/k-0SSPO5tAg](http://youtu.be/k-0SSPO5tAg){: target="_blank" rel="nofollow nofollow" }

@@ -12,4 +12,4 @@ preview_alt: "#commonletters #noonnoiseandpancakespdx #LACUNA"
 
 ![#commonletters #noonnoiseandpancakespdx #LACUNA](/content/media/2015/2015-07-19-photo-17842056880060015-1.jpg)
 
-<p>#commonletters #noonnoiseandpancakespdx #LACUNA</p>
+#commonletters #noonnoiseandpancakespdx #LACUNA

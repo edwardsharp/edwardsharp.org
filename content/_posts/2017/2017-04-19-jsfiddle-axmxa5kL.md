@@ -10,99 +10,108 @@ source_platform: "jsfiddle"
 source_url: "https://jsfiddle.net/edwardsharp/axmxa5kL/"
 source_revision: 0
 ---
+
 <iframe class="code-demo" src="{{ '/content/media/2017/2017-04-19-jsfiddle-axmxa5kL-demo.html' | relative_url }}" title="JS: canvas Drag 'n Drop" width="100%" height="480" loading="lazy" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe>
-<p>more at:
-http://codepen.io/jackrugile/pen/yfJBK</p>
-<h2>css</h2>
-<pre class="highlight"><code class="language-css"><span class="nt">html</span><span class="o">,</span>
-<span class="nt">body</span> <span class="p">&#123;</span>
-  <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
-  <span class="nl">padding</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
-<span class="p">&#125;</span>
-<span class="nt">canvas</span> <span class="p">&#123;</span>
-  <span class="nl">display</span><span class="p">:</span> <span class="nb">block</span><span class="p">;</span>
-<span class="p">&#125;</span>
-</code></pre>
-<h2>javascript</h2>
-<pre class="highlight"><code class="language-javascript"><span class="nb">Number</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">clamp</span> <span class="o">=</span>
-  <span class="nb">Number</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">clamp</span> <span class="o">||</span>
-  <span class="nf">function </span><span class="p">(</span><span class="nx">min</span><span class="p">,</span> <span class="nx">max</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="k">return</span> <span class="k">this</span> <span class="o">&lt;</span> <span class="nx">min</span> <span class="p">?</span> <span class="nx">min</span> <span class="p">:</span> <span class="k">this</span> <span class="o">&gt;</span> <span class="nx">max</span> <span class="p">?</span> <span class="nx">max</span> <span class="p">:</span> <span class="k">this</span><span class="p">;</span>
-  <span class="p">&#125;;</span>
 
-<span class="kd">var</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">canvas</span><span class="dl">"</span><span class="p">),</span>
-  <span class="nx">ctx</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nf">getContext</span><span class="p">(</span><span class="dl">"</span><span class="s2">2d</span><span class="dl">"</span><span class="p">),</span>
-  <span class="nx">width</span> <span class="o">=</span> <span class="p">(</span><span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerWidth</span><span class="p">),</span>
-  <span class="nx">height</span> <span class="o">=</span> <span class="p">(</span><span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerHeight</span><span class="p">);</span>
+more at: http://codepen.io/jackrugile/pen/yfJBK
 
-<span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nf">appendChild</span><span class="p">(</span><span class="nx">canvas</span><span class="p">);</span>
+## css
 
-<span class="kd">var</span> <span class="nx">mouse</span> <span class="o">=</span> <span class="p">&#123;</span>
-  <span class="na">x</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="na">y</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="na">down</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-  <span class="na">hover</span><span class="p">:</span> <span class="nf">function </span><span class="p">(</span><span class="nx">rect</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="k">return </span><span class="p">(</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">&gt;</span> <span class="nx">rect</span><span class="p">.</span><span class="nx">x</span> <span class="o">&amp;&amp;</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">&lt;</span> <span class="nx">rect</span><span class="p">.</span><span class="nx">x</span> <span class="o">+</span> <span class="nx">rect</span><span class="p">.</span><span class="nx">w</span> <span class="o">&amp;&amp;</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">&gt;</span> <span class="nx">rect</span><span class="p">.</span><span class="nx">y</span> <span class="o">&amp;&amp;</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">&lt;</span> <span class="nx">rect</span><span class="p">.</span><span class="nx">y</span> <span class="o">+</span> <span class="nx">rect</span><span class="p">.</span><span class="nx">h</span>
-    <span class="p">);</span>
-  <span class="p">&#125;,</span>
-<span class="p">&#125;;</span>
+```css
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+canvas {
+  display: block;
+}
+```
 
-<span class="kd">var</span> <span class="nx">shape</span> <span class="o">=</span> <span class="p">&#123;</span>
-  <span class="na">w</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
-  <span class="na">h</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
-  <span class="na">x</span><span class="p">:</span> <span class="nx">width</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">50</span><span class="p">,</span>
-  <span class="na">y</span><span class="p">:</span> <span class="nx">height</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">50</span><span class="p">,</span>
-  <span class="na">xOff</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="na">yOff</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="na">hover</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-<span class="p">&#125;;</span>
+## javascript
 
-<span class="kd">function</span> <span class="nf">clear</span><span class="p">()</span> <span class="p">&#123;</span>
-  <span class="nx">ctx</span><span class="p">.</span><span class="nf">clearRect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="p">,</span> <span class="nx">height</span><span class="p">);</span>
-<span class="p">&#125;</span>
+```javascript
+Number.prototype.clamp =
+  Number.prototype.clamp ||
+  function (min, max) {
+    return this < min ? min : this > max ? max : this;
+  };
 
-<span class="kd">function</span> <span class="nf">update</span><span class="p">()</span> <span class="p">&#123;</span>
-  <span class="nx">shape</span><span class="p">.</span><span class="nx">hover</span> <span class="o">=</span> <span class="nx">mouse</span><span class="p">.</span><span class="nf">hover</span><span class="p">(</span><span class="nx">shape</span><span class="p">);</span>
+var canvas = document.createElement("canvas"),
+  ctx = canvas.getContext("2d"),
+  width = (canvas.width = window.innerWidth),
+  height = (canvas.height = window.innerHeight);
 
-  <span class="k">if </span><span class="p">(</span><span class="nx">shape</span><span class="p">.</span><span class="nx">hover</span> <span class="o">&amp;&amp;</span> <span class="nx">mouse</span><span class="p">.</span><span class="nx">down</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="nx">shape</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="nx">mouse</span><span class="p">.</span><span class="nx">x</span> <span class="o">-</span> <span class="nx">shape</span><span class="p">.</span><span class="nx">xOff</span><span class="p">;</span>
-    <span class="nx">shape</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="nx">mouse</span><span class="p">.</span><span class="nx">y</span> <span class="o">-</span> <span class="nx">shape</span><span class="p">.</span><span class="nx">yOff</span><span class="p">;</span>
-  <span class="p">&#125;</span>
+document.body.appendChild(canvas);
 
-  <span class="nx">shape</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="nx">shape</span><span class="p">.</span><span class="nx">x</span><span class="p">.</span><span class="nf">clamp</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span> <span class="o">-</span> <span class="nx">shape</span><span class="p">.</span><span class="nx">w</span><span class="p">);</span>
-  <span class="nx">shape</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="nx">shape</span><span class="p">.</span><span class="nx">y</span><span class="p">.</span><span class="nf">clamp</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">height</span> <span class="o">-</span> <span class="nx">shape</span><span class="p">.</span><span class="nx">h</span><span class="p">);</span>
-<span class="p">&#125;</span>
+var mouse = {
+  x: 0,
+  y: 0,
+  down: false,
+  hover: function (rect) {
+    return (
+      this.x > rect.x &&
+      this.x < rect.x + rect.w &&
+      this.y > rect.y &&
+      this.y < rect.y + rect.h
+    );
+  },
+};
 
-<span class="kd">function</span> <span class="nf">draw</span><span class="p">()</span> <span class="p">&#123;</span>
-  <span class="kd">var</span> <span class="nx">hover</span> <span class="o">=</span> <span class="nx">shape</span><span class="p">.</span><span class="nx">hover</span> <span class="p">?</span> <span class="dl">"</span><span class="s2">#222</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">#000</span><span class="dl">"</span><span class="p">;</span>
-  <span class="nx">ctx</span><span class="p">.</span><span class="nx">fillStyle</span> <span class="o">=</span> <span class="nx">mouse</span><span class="p">.</span><span class="nx">down</span> <span class="p">?</span> <span class="dl">"</span><span class="s2">#444</span><span class="dl">"</span> <span class="p">:</span> <span class="nx">hover</span><span class="p">;</span>
-  <span class="nx">ctx</span><span class="p">.</span><span class="nf">fillRect</span><span class="p">(</span><span class="nx">shape</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="nx">shape</span><span class="p">.</span><span class="nx">y</span><span class="p">,</span> <span class="nx">shape</span><span class="p">.</span><span class="nx">w</span><span class="p">,</span> <span class="nx">shape</span><span class="p">.</span><span class="nx">h</span><span class="p">);</span>
-<span class="p">&#125;</span>
+var shape = {
+  w: 100,
+  h: 100,
+  x: width / 2 - 50,
+  y: height / 2 - 50,
+  xOff: 0,
+  yOff: 0,
+  hover: false,
+};
 
-<span class="kd">function</span> <span class="nf">mousemove</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">&#123;</span>
-  <span class="nx">mouse</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">pageX</span> <span class="o">-</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">offsetLeft</span><span class="p">;</span>
-  <span class="nx">mouse</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">pageY</span> <span class="o">-</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">offsetTop</span><span class="p">;</span>
-<span class="p">&#125;</span>
+function clear() {
+  ctx.clearRect(0, 0, width, height);
+}
 
-<span class="kd">function</span> <span class="nf">mousedown</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">&#123;</span>
-  <span class="nx">mouse</span><span class="p">.</span><span class="nx">down</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">type</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">mousedown</span><span class="dl">"</span><span class="p">;</span>
-  <span class="nx">shape</span><span class="p">.</span><span class="nx">xOff</span> <span class="o">=</span> <span class="nx">mouse</span><span class="p">.</span><span class="nx">x</span> <span class="o">-</span> <span class="nx">shape</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
-  <span class="nx">shape</span><span class="p">.</span><span class="nx">yOff</span> <span class="o">=</span> <span class="nx">mouse</span><span class="p">.</span><span class="nx">y</span> <span class="o">-</span> <span class="nx">shape</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
-<span class="p">&#125;</span>
+function update() {
+  shape.hover = mouse.hover(shape);
 
-<span class="p">(</span><span class="kd">function</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">&#123;</span>
-  <span class="nf">clear</span><span class="p">();</span>
-  <span class="nf">update</span><span class="p">();</span>
-  <span class="nf">draw</span><span class="p">();</span>
-  <span class="nf">setTimeout</span><span class="p">(</span><span class="nx">loop</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
-<span class="p">&#125;)();</span>
+  if (shape.hover && mouse.down) {
+    shape.x = mouse.x - shape.xOff;
+    shape.y = mouse.y - shape.yOff;
+  }
 
-<span class="nb">document</span><span class="p">.</span><span class="nx">onmousemove</span> <span class="o">=</span> <span class="nx">mousemove</span><span class="p">;</span>
-<span class="nb">document</span><span class="p">.</span><span class="nx">onmousedown</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">onmouseup</span> <span class="o">=</span> <span class="nx">mousedown</span><span class="p">;</span>
-</code></pre>
+  shape.x = shape.x.clamp(0, width - shape.w);
+  shape.y = shape.y.clamp(0, height - shape.h);
+}
+
+function draw() {
+  var hover = shape.hover ? "#222" : "#000";
+  ctx.fillStyle = mouse.down ? "#444" : hover;
+  ctx.fillRect(shape.x, shape.y, shape.w, shape.h);
+}
+
+function mousemove(e) {
+  mouse.x = e.pageX - canvas.offsetLeft;
+  mouse.y = e.pageY - canvas.offsetTop;
+}
+
+function mousedown(e) {
+  mouse.down = e.type === "mousedown";
+  shape.xOff = mouse.x - shape.x;
+  shape.yOff = mouse.y - shape.y;
+}
+
+(function loop() {
+  clear();
+  update();
+  draw();
+  setTimeout(loop, 20);
+})();
+
+document.onmousemove = mousemove;
+document.onmousedown = document.onmouseup = mousedown;
+```
+
 <p data-import-note="">this demo preserves the compiled output and may depend on external libraries or services that are no longer available.</p>
-<p><a href="https://jsfiddle.net/edwardsharp/axmxa5kL/">original jsfiddle post</a></p>
+
+[original jsfiddle post](https://jsfiddle.net/edwardsharp/axmxa5kL/)

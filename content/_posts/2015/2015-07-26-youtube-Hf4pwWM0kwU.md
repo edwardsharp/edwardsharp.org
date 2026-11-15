@@ -10,9 +10,12 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=Hf4pwWM0kwU"
 preview_image: "/content/media/2015/2015-07-26-youtube-Hf4pwWM0kwU-46a12d5b9a.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/Hf4pwWM0kwU" title="NOON-NOISE&amp;PANCAKES: FAXES" loading="lazy" allowfullscreen></iframe></div>
-<p>NOON, SUNDAY, JULY 26 <br>
-FAXES<br>
-<br>
-http://lacuna.club</p>
-<p><a href="https://www.youtube.com/watch?v=Hf4pwWM0kwU">original youtube post</a></p>
+
+NOON, SUNDAY, JULY 26  
+FAXES
+
+http://lacuna.club
+
+[original youtube post](https://www.youtube.com/watch?v=Hf4pwWM0kwU)

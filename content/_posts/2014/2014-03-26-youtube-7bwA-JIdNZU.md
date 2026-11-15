@@ -10,6 +10,9 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=7bwA-JIdNZU"
 preview_image: "/content/media/2014/2014-03-26-youtube-7bwA-JIdNZU-83f10e2c10.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/7bwA-JIdNZU" title="THE COMET" loading="lazy" allowfullscreen></iframe></div>
-<p>March 24: Monday's at The Comet, Cincinnati, OH</p>
-<p><a href="https://www.youtube.com/watch?v=7bwA-JIdNZU">original youtube post</a></p>
+
+March 24: Monday's at The Comet, Cincinnati, OH
+
+[original youtube post](https://www.youtube.com/watch?v=7bwA-JIdNZU)

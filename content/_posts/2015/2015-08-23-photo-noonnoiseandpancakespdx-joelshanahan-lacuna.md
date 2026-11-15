@@ -12,4 +12,4 @@ preview_alt: "#noonnoiseandpancakespdx #joelshanahan #LACUNA"
 
 ![#noonnoiseandpancakespdx #joelshanahan #LACUNA](/content/media/2015/2015-08-23-photo-17842219489060015-1.jpg)
 
-<p>#noonnoiseandpancakespdx #joelshanahan #LACUNA</p>
+#noonnoiseandpancakespdx #joelshanahan #LACUNA

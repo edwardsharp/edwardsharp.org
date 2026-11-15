@@ -12,4 +12,4 @@ preview_alt: "#mykki"
 
 ![#mykki](/content/media/2013/2013-07-01-photo-17842688308060015-1.jpg)
 
-<p>#mykki</p>
+#mykki

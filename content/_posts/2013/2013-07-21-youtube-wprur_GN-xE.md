@@ -10,8 +10,11 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=wprur_GN-xE"
 preview_image: "/content/media/2013/2013-07-21-youtube-wprur_GN-xE-8104089692.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/wprur_GN-xE" title="PWR_MESH LOBSTER CLAW" loading="lazy" allowfullscreen></iframe></div>
-<p>attempted and failed to go to p_mccarthy's &quot;rabble dabble&quot; at hauser and wirth in new york city.<br>
-<br>
-camera: elizabeth lamb</p>
-<p><a href="https://www.youtube.com/watch?v=wprur_GN-xE">original youtube post</a></p>
+
+attempted and failed to go to p_mccarthy's "rabble dabble" at hauser and wirth in new york city.
+
+camera: elizabeth lamb
+
+[original youtube post](https://www.youtube.com/watch?v=wprur_GN-xE)

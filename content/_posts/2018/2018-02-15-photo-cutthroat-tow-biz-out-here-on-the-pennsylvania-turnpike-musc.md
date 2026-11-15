@@ -12,4 +12,4 @@ preview_alt: "cutthroat tow biz out here on the pennsylvania turnpike  #muscular
 
 ![cutthroat tow biz out here on the pennsylvania turnpike  #muscularbonding](/content/media/2018/2018-02-15-photo-17925688564015861-1.jpg)
 
-<p>cutthroat tow biz out here on the pennsylvania turnpike  #muscularbonding</p>
+cutthroat tow biz out here on the pennsylvania turnpike #muscularbonding

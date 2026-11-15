@@ -13,4 +13,4 @@ redirect_from:
 ---
 ![dancedancedance](/content/media/2013/2013-11-15-dancedancedance.jpg)
 
-\#dancedancedance
+#dancedancedance

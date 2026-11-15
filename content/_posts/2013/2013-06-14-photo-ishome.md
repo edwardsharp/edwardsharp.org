@@ -12,4 +12,4 @@ preview_alt: "#ishome"
 
 ![#ishome](/content/media/2013/2013-06-14-photo-17842679884060015-1.jpg)
 
-<p>#ishome</p>
+#ishome

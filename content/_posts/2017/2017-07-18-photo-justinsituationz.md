@@ -12,4 +12,4 @@ preview_alt: "#justinsituationz"
 
 ![#justinsituationz](/content/media/2017/2017-07-18-photo-17864600605181764-1.jpg)
 
-<p>#justinsituationz</p>
+#justinsituationz

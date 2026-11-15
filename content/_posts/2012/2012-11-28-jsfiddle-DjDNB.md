@@ -11,531 +11,540 @@ source_platform: "jsfiddle"
 source_url: "https://jsfiddle.net/edwardsharp/DjDNB/1/"
 source_revision: 1
 ---
+
 <iframe class="code-demo" src="{{ '/content/media/2012/2012-11-28-jsfiddle-DjDNB-demo.html' | relative_url }}" title="D3 Force Graph" width="100%" height="480" loading="lazy" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe>
-<h2>html</h2>
-<pre class="highlight"><code class="language-html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://raw.github.com/mbostock/d3/master/d3.v2.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
-<span class="nt">&lt;body&gt;</span>
-  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"chart"</span><span class="nt">&gt;&lt;/div&gt;</span>
-<span class="nt">&lt;/body&gt;</span>
-</code></pre>
-<h2>javascript</h2>
-<pre class="highlight"><code class="language-javascript"><span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">&#123;</span>
-  <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">flare</span><span class="dl">"</span><span class="p">,</span>
-  <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">&#123;</span>
-      <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">analytics</span><span class="dl">"</span><span class="p">,</span>
-      <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">&#123;</span>
-          <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">cluster</span><span class="dl">"</span><span class="p">,</span>
-          <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">AgglomerativeCluster</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">3938</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">CommunityStructure</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">3812</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">HierarchicalCluster</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">6714</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">MergeEdge</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">743</span> <span class="p">&#125;,</span>
-          <span class="p">],</span>
-        <span class="p">&#125;,</span>
-        <span class="p">&#123;</span>
-          <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">graph</span><span class="dl">"</span><span class="p">,</span>
-          <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">BetweennessCentrality</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">3534</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">LinkDistance</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">5731</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">MaxFlowMinCut</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">7840</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ShortestPaths</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">5914</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">SpanningTree</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">3416</span> <span class="p">&#125;,</span>
-          <span class="p">],</span>
-        <span class="p">&#125;,</span>
-        <span class="p">&#123;</span>
-          <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">optimization</span><span class="dl">"</span><span class="p">,</span>
-          <span class="na">children</span><span class="p">:</span> <span class="p">[&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">AspectRatioBanker</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">7074</span> <span class="p">&#125;],</span>
-        <span class="p">&#125;,</span>
-      <span class="p">],</span>
-    <span class="p">&#125;,</span>
-    <span class="p">&#123;</span>
-      <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">animate</span><span class="dl">"</span><span class="p">,</span>
-      <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Easing</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">17010</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">FunctionSequence</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">5842</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span>
-          <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">interpolate</span><span class="dl">"</span><span class="p">,</span>
-          <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ArrayInterpolator</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1983</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ColorInterpolator</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">2047</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">DateInterpolator</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1375</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Interpolator</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">8746</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">MatrixInterpolator</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">2202</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">NumberInterpolator</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1382</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ObjectInterpolator</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1629</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">PointInterpolator</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1675</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">RectangleInterpolator</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">2042</span> <span class="p">&#125;,</span>
-          <span class="p">],</span>
-        <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ISchedulable</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1041</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Parallel</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">5176</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Pause</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">449</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Scheduler</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">5593</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Sequence</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">5534</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Transition</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">9201</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Transitioner</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">19975</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">TransitionEvent</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1116</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Tween</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">6006</span> <span class="p">&#125;,</span>
-      <span class="p">],</span>
-    <span class="p">&#125;,</span>
-    <span class="p">&#123;</span>
-      <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">data</span><span class="dl">"</span><span class="p">,</span>
-      <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">&#123;</span>
-          <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">converters</span><span class="dl">"</span><span class="p">,</span>
-          <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Converters</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">721</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">DelimitedTextConverter</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">4294</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">GraphMLConverter</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">9800</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">IDataConverter</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1314</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">JSONConverter</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">2220</span> <span class="p">&#125;,</span>
-          <span class="p">],</span>
-        <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">DataField</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1759</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">DataSchema</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">2165</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">DataSet</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">586</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">DataSource</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">3331</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">DataTable</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">772</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">DataUtil</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">3322</span> <span class="p">&#125;,</span>
-      <span class="p">],</span>
-    <span class="p">&#125;,</span>
-    <span class="p">&#123;</span>
-      <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">display</span><span class="dl">"</span><span class="p">,</span>
-      <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">DirtySprite</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">8833</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">LineSprite</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1732</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">RectSprite</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">3623</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">TextSprite</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">10066</span> <span class="p">&#125;,</span>
-      <span class="p">],</span>
-    <span class="p">&#125;,</span>
-    <span class="p">&#123;</span>
-      <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">flex</span><span class="dl">"</span><span class="p">,</span>
-      <span class="na">children</span><span class="p">:</span> <span class="p">[&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">FlareVis</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">4116</span> <span class="p">&#125;],</span>
-    <span class="p">&#125;,</span>
-    <span class="p">&#123;</span>
-      <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">physics</span><span class="dl">"</span><span class="p">,</span>
-      <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">DragForce</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1082</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">GravityForce</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1336</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">IForce</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">319</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">NBodyForce</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">10498</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Particle</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">2822</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Simulation</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">9983</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Spring</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">2213</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">SpringForce</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1681</span> <span class="p">&#125;,</span>
-      <span class="p">],</span>
-    <span class="p">&#125;,</span>
-    <span class="p">&#123;</span>
-      <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">query</span><span class="dl">"</span><span class="p">,</span>
-      <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">AggregateExpression</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1616</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">And</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1027</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Arithmetic</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">3891</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Average</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">891</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">BinaryExpression</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">2893</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Comparison</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">5103</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">CompositeExpression</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">3677</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Count</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">781</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">DateUtil</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">4141</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Distinct</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">933</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Expression</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">5130</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ExpressionIterator</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">3617</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Fn</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">3240</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">If</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">2732</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">IsA</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">2039</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Literal</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1214</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Match</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">3748</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Maximum</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">843</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span>
-          <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">methods</span><span class="dl">"</span><span class="p">,</span>
-          <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">add</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">593</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">and</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">330</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">average</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">287</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">count</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">277</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">distinct</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">292</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">div</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">595</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">eq</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">594</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">fn</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">460</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">gt</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">603</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">gte</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">625</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">iff</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">748</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">isa</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">461</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">lt</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">597</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">lte</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">619</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">max</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">283</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">min</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">283</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">mod</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">591</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">mul</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">603</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">neq</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">599</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">not</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">386</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">or</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">323</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">orderby</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">307</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">range</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">772</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">select</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">296</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">stddev</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">363</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">sub</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">600</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">sum</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">280</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">update</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">307</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">variance</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">335</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">where</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">299</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">xor</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">354</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">_</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">264</span> <span class="p">&#125;,</span>
-          <span class="p">],</span>
-        <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Minimum</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">843</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Not</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1554</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Or</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">970</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Query</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">13896</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Range</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1594</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">StringUtil</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">4130</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Sum</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">791</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Variable</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1124</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Variance</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1876</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Xor</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1101</span> <span class="p">&#125;,</span>
-      <span class="p">],</span>
-    <span class="p">&#125;,</span>
-    <span class="p">&#123;</span>
-      <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">scale</span><span class="dl">"</span><span class="p">,</span>
-      <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">IScaleMap</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">2105</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">LinearScale</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1316</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">LogScale</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">3151</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">OrdinalScale</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">3770</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">QuantileScale</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">2435</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">QuantitativeScale</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">4839</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">RootScale</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1756</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Scale</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">4268</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ScaleType</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1821</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">TimeScale</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">5833</span> <span class="p">&#125;,</span>
-      <span class="p">],</span>
-    <span class="p">&#125;,</span>
-    <span class="p">&#123;</span>
-      <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">util</span><span class="dl">"</span><span class="p">,</span>
-      <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Arrays</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">8258</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Colors</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">10001</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Dates</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">8217</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Displays</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">12555</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Filter</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">2324</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Geometry</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">10993</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span>
-          <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">heap</span><span class="dl">"</span><span class="p">,</span>
-          <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">FibonacciHeap</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">9354</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">HeapNode</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1233</span> <span class="p">&#125;,</span>
-          <span class="p">],</span>
-        <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">IEvaluable</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">335</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">IPredicate</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">383</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">IValueProxy</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">874</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span>
-          <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">math</span><span class="dl">"</span><span class="p">,</span>
-          <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">DenseMatrix</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">3165</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">IMatrix</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">2815</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">SparseMatrix</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">3366</span> <span class="p">&#125;,</span>
-          <span class="p">],</span>
-        <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Maths</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">17705</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Orientation</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1486</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span>
-          <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">palette</span><span class="dl">"</span><span class="p">,</span>
-          <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ColorPalette</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">6367</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Palette</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1229</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ShapePalette</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">2059</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">SizePalette</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">2291</span> <span class="p">&#125;,</span>
-          <span class="p">],</span>
-        <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Property</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">5559</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Shapes</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">19118</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Sort</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">6887</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Stats</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">6557</span> <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Strings</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">22026</span> <span class="p">&#125;,</span>
-      <span class="p">],</span>
-    <span class="p">&#125;,</span>
-    <span class="p">&#123;</span>
-      <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">vis</span><span class="dl">"</span><span class="p">,</span>
-      <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">&#123;</span>
-          <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">axis</span><span class="dl">"</span><span class="p">,</span>
-          <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Axes</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1302</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Axis</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">24593</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">AxisGridLine</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">652</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">AxisLabel</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">636</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">CartesianAxes</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">6703</span> <span class="p">&#125;,</span>
-          <span class="p">],</span>
-        <span class="p">&#125;,</span>
-        <span class="p">&#123;</span>
-          <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">controls</span><span class="dl">"</span><span class="p">,</span>
-          <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">AnchorControl</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">2138</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ClickControl</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">3824</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Control</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1353</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ControlList</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">4665</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">DragControl</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">2649</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ExpandControl</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">2832</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">HoverControl</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">4896</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">IControl</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">763</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">PanZoomControl</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">5222</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">SelectionControl</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">7862</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">TooltipControl</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">8435</span> <span class="p">&#125;,</span>
-          <span class="p">],</span>
-        <span class="p">&#125;,</span>
-        <span class="p">&#123;</span>
-          <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">data</span><span class="dl">"</span><span class="p">,</span>
-          <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Data</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">20544</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">DataList</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">19788</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">DataSprite</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">10349</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">EdgeSprite</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">3301</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">NodeSprite</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">19382</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span>
-              <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">render</span><span class="dl">"</span><span class="p">,</span>
-              <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ArrowType</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">698</span> <span class="p">&#125;,</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">EdgeRenderer</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">5569</span> <span class="p">&#125;,</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">IRenderer</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">353</span> <span class="p">&#125;,</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ShapeRenderer</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">2247</span> <span class="p">&#125;,</span>
-              <span class="p">],</span>
-            <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ScaleBinding</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">11275</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Tree</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">7147</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">TreeBuilder</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">9930</span> <span class="p">&#125;,</span>
-          <span class="p">],</span>
-        <span class="p">&#125;,</span>
-        <span class="p">&#123;</span>
-          <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">events</span><span class="dl">"</span><span class="p">,</span>
-          <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">DataEvent</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">2313</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">SelectionEvent</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1880</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">TooltipEvent</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1701</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">VisualizationEvent</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1117</span> <span class="p">&#125;,</span>
-          <span class="p">],</span>
-        <span class="p">&#125;,</span>
-        <span class="p">&#123;</span>
-          <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">legend</span><span class="dl">"</span><span class="p">,</span>
-          <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Legend</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">20859</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">LegendItem</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">4614</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">LegendRange</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">10530</span> <span class="p">&#125;,</span>
-          <span class="p">],</span>
-        <span class="p">&#125;,</span>
-        <span class="p">&#123;</span>
-          <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">operator</span><span class="dl">"</span><span class="p">,</span>
-          <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-            <span class="p">&#123;</span>
-              <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">distortion</span><span class="dl">"</span><span class="p">,</span>
-              <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">BifocalDistortion</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">4461</span> <span class="p">&#125;,</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Distortion</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">6314</span> <span class="p">&#125;,</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">FisheyeDistortion</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">3444</span> <span class="p">&#125;,</span>
-              <span class="p">],</span>
-            <span class="p">&#125;,</span>
-            <span class="p">&#123;</span>
-              <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">encoder</span><span class="dl">"</span><span class="p">,</span>
-              <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ColorEncoder</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">3179</span> <span class="p">&#125;,</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Encoder</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">4060</span> <span class="p">&#125;,</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">PropertyEncoder</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">4138</span> <span class="p">&#125;,</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ShapeEncoder</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1690</span> <span class="p">&#125;,</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">SizeEncoder</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1830</span> <span class="p">&#125;,</span>
-              <span class="p">],</span>
-            <span class="p">&#125;,</span>
-            <span class="p">&#123;</span>
-              <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">filter</span><span class="dl">"</span><span class="p">,</span>
-              <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">FisheyeTreeFilter</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">5219</span> <span class="p">&#125;,</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">GraphDistanceFilter</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">3165</span> <span class="p">&#125;,</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">VisibilityFilter</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">3509</span> <span class="p">&#125;,</span>
-              <span class="p">],</span>
-            <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">IOperator</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">1286</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span>
-              <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">label</span><span class="dl">"</span><span class="p">,</span>
-              <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Labeler</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">9956</span> <span class="p">&#125;,</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">RadialLabeler</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">3899</span> <span class="p">&#125;,</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">StackedAreaLabeler</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">3202</span> <span class="p">&#125;,</span>
-              <span class="p">],</span>
-            <span class="p">&#125;,</span>
-            <span class="p">&#123;</span>
-              <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">layout</span><span class="dl">"</span><span class="p">,</span>
-              <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">AxisLayout</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">6725</span> <span class="p">&#125;,</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">BundledEdgeRouter</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">3727</span> <span class="p">&#125;,</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">CircleLayout</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">9317</span> <span class="p">&#125;,</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">CirclePackingLayout</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">12003</span> <span class="p">&#125;,</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">DendrogramLayout</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">4853</span> <span class="p">&#125;,</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ForceDirectedLayout</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">8411</span> <span class="p">&#125;,</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">IcicleTreeLayout</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">4864</span> <span class="p">&#125;,</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">IndentedTreeLayout</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">3174</span> <span class="p">&#125;,</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Layout</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">7881</span> <span class="p">&#125;,</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">NodeLinkTreeLayout</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">12870</span> <span class="p">&#125;,</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">PieLayout</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">2728</span> <span class="p">&#125;,</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">RadialTreeLayout</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">12348</span> <span class="p">&#125;,</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">RandomLayout</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">870</span> <span class="p">&#125;,</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">StackedAreaLayout</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">9121</span> <span class="p">&#125;,</span>
-                <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">TreeMapLayout</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">9191</span> <span class="p">&#125;,</span>
-              <span class="p">],</span>
-            <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Operator</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">2490</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">OperatorList</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">5248</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">OperatorSequence</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">4190</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">OperatorSwitch</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">2581</span> <span class="p">&#125;,</span>
-            <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">SortOperator</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">2023</span> <span class="p">&#125;,</span>
-          <span class="p">],</span>
-        <span class="p">&#125;,</span>
-        <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Visualization</span><span class="dl">"</span><span class="p">,</span> <span class="na">size</span><span class="p">:</span> <span class="mi">16540</span> <span class="p">&#125;,</span>
-      <span class="p">],</span>
-    <span class="p">&#125;,</span>
-  <span class="p">],</span>
-<span class="p">&#125;;</span>
 
-<span class="kd">var</span> <span class="nx">w</span> <span class="o">=</span> <span class="mi">960</span><span class="p">,</span>
-  <span class="nx">h</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span>
-  <span class="nx">node</span><span class="p">,</span>
-  <span class="nx">link</span><span class="p">,</span>
-  <span class="nx">root</span><span class="p">;</span>
+## html
 
-<span class="kd">var</span> <span class="nx">force</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">layout</span><span class="p">.</span><span class="nf">force</span><span class="p">().</span><span class="nf">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">tick</span><span class="dl">"</span><span class="p">,</span> <span class="nx">tick</span><span class="p">).</span><span class="nf">size</span><span class="p">([</span><span class="nx">w</span><span class="p">,</span> <span class="nx">h</span><span class="p">]);</span>
+```html
+<script src="//raw.github.com/mbostock/d3/master/d3.v2.js"></script>
+<body>
+  <div id="chart"></div>
+</body>
+```
 
-<span class="kd">var</span> <span class="nx">vis</span> <span class="o">=</span> <span class="nx">d3</span>
-  <span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="dl">"</span><span class="s2">#chart</span><span class="dl">"</span><span class="p">)</span>
-  <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">svg:svg</span><span class="dl">"</span><span class="p">)</span>
-  <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">width</span><span class="dl">"</span><span class="p">,</span> <span class="nx">w</span> <span class="o">+</span> <span class="mi">50</span><span class="p">)</span>
-  <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">height</span><span class="dl">"</span><span class="p">,</span> <span class="nx">h</span> <span class="o">+</span> <span class="mi">50</span><span class="p">);</span>
+## javascript
 
-<span class="kd">function</span> <span class="nf">update</span><span class="p">()</span> <span class="p">&#123;</span>
-  <span class="kd">var</span> <span class="nx">nodes</span> <span class="o">=</span> <span class="nf">flatten</span><span class="p">(</span><span class="nx">root</span><span class="p">),</span>
-    <span class="nx">links</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">layout</span><span class="p">.</span><span class="nf">tree</span><span class="p">().</span><span class="nf">links</span><span class="p">(</span><span class="nx">nodes</span><span class="p">);</span>
+```javascript
+var data = {
+  name: "flare",
+  children: [
+    {
+      name: "analytics",
+      children: [
+        {
+          name: "cluster",
+          children: [
+            { name: "AgglomerativeCluster", size: 3938 },
+            { name: "CommunityStructure", size: 3812 },
+            { name: "HierarchicalCluster", size: 6714 },
+            { name: "MergeEdge", size: 743 },
+          ],
+        },
+        {
+          name: "graph",
+          children: [
+            { name: "BetweennessCentrality", size: 3534 },
+            { name: "LinkDistance", size: 5731 },
+            { name: "MaxFlowMinCut", size: 7840 },
+            { name: "ShortestPaths", size: 5914 },
+            { name: "SpanningTree", size: 3416 },
+          ],
+        },
+        {
+          name: "optimization",
+          children: [{ name: "AspectRatioBanker", size: 7074 }],
+        },
+      ],
+    },
+    {
+      name: "animate",
+      children: [
+        { name: "Easing", size: 17010 },
+        { name: "FunctionSequence", size: 5842 },
+        {
+          name: "interpolate",
+          children: [
+            { name: "ArrayInterpolator", size: 1983 },
+            { name: "ColorInterpolator", size: 2047 },
+            { name: "DateInterpolator", size: 1375 },
+            { name: "Interpolator", size: 8746 },
+            { name: "MatrixInterpolator", size: 2202 },
+            { name: "NumberInterpolator", size: 1382 },
+            { name: "ObjectInterpolator", size: 1629 },
+            { name: "PointInterpolator", size: 1675 },
+            { name: "RectangleInterpolator", size: 2042 },
+          ],
+        },
+        { name: "ISchedulable", size: 1041 },
+        { name: "Parallel", size: 5176 },
+        { name: "Pause", size: 449 },
+        { name: "Scheduler", size: 5593 },
+        { name: "Sequence", size: 5534 },
+        { name: "Transition", size: 9201 },
+        { name: "Transitioner", size: 19975 },
+        { name: "TransitionEvent", size: 1116 },
+        { name: "Tween", size: 6006 },
+      ],
+    },
+    {
+      name: "data",
+      children: [
+        {
+          name: "converters",
+          children: [
+            { name: "Converters", size: 721 },
+            { name: "DelimitedTextConverter", size: 4294 },
+            { name: "GraphMLConverter", size: 9800 },
+            { name: "IDataConverter", size: 1314 },
+            { name: "JSONConverter", size: 2220 },
+          ],
+        },
+        { name: "DataField", size: 1759 },
+        { name: "DataSchema", size: 2165 },
+        { name: "DataSet", size: 586 },
+        { name: "DataSource", size: 3331 },
+        { name: "DataTable", size: 772 },
+        { name: "DataUtil", size: 3322 },
+      ],
+    },
+    {
+      name: "display",
+      children: [
+        { name: "DirtySprite", size: 8833 },
+        { name: "LineSprite", size: 1732 },
+        { name: "RectSprite", size: 3623 },
+        { name: "TextSprite", size: 10066 },
+      ],
+    },
+    {
+      name: "flex",
+      children: [{ name: "FlareVis", size: 4116 }],
+    },
+    {
+      name: "physics",
+      children: [
+        { name: "DragForce", size: 1082 },
+        { name: "GravityForce", size: 1336 },
+        { name: "IForce", size: 319 },
+        { name: "NBodyForce", size: 10498 },
+        { name: "Particle", size: 2822 },
+        { name: "Simulation", size: 9983 },
+        { name: "Spring", size: 2213 },
+        { name: "SpringForce", size: 1681 },
+      ],
+    },
+    {
+      name: "query",
+      children: [
+        { name: "AggregateExpression", size: 1616 },
+        { name: "And", size: 1027 },
+        { name: "Arithmetic", size: 3891 },
+        { name: "Average", size: 891 },
+        { name: "BinaryExpression", size: 2893 },
+        { name: "Comparison", size: 5103 },
+        { name: "CompositeExpression", size: 3677 },
+        { name: "Count", size: 781 },
+        { name: "DateUtil", size: 4141 },
+        { name: "Distinct", size: 933 },
+        { name: "Expression", size: 5130 },
+        { name: "ExpressionIterator", size: 3617 },
+        { name: "Fn", size: 3240 },
+        { name: "If", size: 2732 },
+        { name: "IsA", size: 2039 },
+        { name: "Literal", size: 1214 },
+        { name: "Match", size: 3748 },
+        { name: "Maximum", size: 843 },
+        {
+          name: "methods",
+          children: [
+            { name: "add", size: 593 },
+            { name: "and", size: 330 },
+            { name: "average", size: 287 },
+            { name: "count", size: 277 },
+            { name: "distinct", size: 292 },
+            { name: "div", size: 595 },
+            { name: "eq", size: 594 },
+            { name: "fn", size: 460 },
+            { name: "gt", size: 603 },
+            { name: "gte", size: 625 },
+            { name: "iff", size: 748 },
+            { name: "isa", size: 461 },
+            { name: "lt", size: 597 },
+            { name: "lte", size: 619 },
+            { name: "max", size: 283 },
+            { name: "min", size: 283 },
+            { name: "mod", size: 591 },
+            { name: "mul", size: 603 },
+            { name: "neq", size: 599 },
+            { name: "not", size: 386 },
+            { name: "or", size: 323 },
+            { name: "orderby", size: 307 },
+            { name: "range", size: 772 },
+            { name: "select", size: 296 },
+            { name: "stddev", size: 363 },
+            { name: "sub", size: 600 },
+            { name: "sum", size: 280 },
+            { name: "update", size: 307 },
+            { name: "variance", size: 335 },
+            { name: "where", size: 299 },
+            { name: "xor", size: 354 },
+            { name: "_", size: 264 },
+          ],
+        },
+        { name: "Minimum", size: 843 },
+        { name: "Not", size: 1554 },
+        { name: "Or", size: 970 },
+        { name: "Query", size: 13896 },
+        { name: "Range", size: 1594 },
+        { name: "StringUtil", size: 4130 },
+        { name: "Sum", size: 791 },
+        { name: "Variable", size: 1124 },
+        { name: "Variance", size: 1876 },
+        { name: "Xor", size: 1101 },
+      ],
+    },
+    {
+      name: "scale",
+      children: [
+        { name: "IScaleMap", size: 2105 },
+        { name: "LinearScale", size: 1316 },
+        { name: "LogScale", size: 3151 },
+        { name: "OrdinalScale", size: 3770 },
+        { name: "QuantileScale", size: 2435 },
+        { name: "QuantitativeScale", size: 4839 },
+        { name: "RootScale", size: 1756 },
+        { name: "Scale", size: 4268 },
+        { name: "ScaleType", size: 1821 },
+        { name: "TimeScale", size: 5833 },
+      ],
+    },
+    {
+      name: "util",
+      children: [
+        { name: "Arrays", size: 8258 },
+        { name: "Colors", size: 10001 },
+        { name: "Dates", size: 8217 },
+        { name: "Displays", size: 12555 },
+        { name: "Filter", size: 2324 },
+        { name: "Geometry", size: 10993 },
+        {
+          name: "heap",
+          children: [
+            { name: "FibonacciHeap", size: 9354 },
+            { name: "HeapNode", size: 1233 },
+          ],
+        },
+        { name: "IEvaluable", size: 335 },
+        { name: "IPredicate", size: 383 },
+        { name: "IValueProxy", size: 874 },
+        {
+          name: "math",
+          children: [
+            { name: "DenseMatrix", size: 3165 },
+            { name: "IMatrix", size: 2815 },
+            { name: "SparseMatrix", size: 3366 },
+          ],
+        },
+        { name: "Maths", size: 17705 },
+        { name: "Orientation", size: 1486 },
+        {
+          name: "palette",
+          children: [
+            { name: "ColorPalette", size: 6367 },
+            { name: "Palette", size: 1229 },
+            { name: "ShapePalette", size: 2059 },
+            { name: "SizePalette", size: 2291 },
+          ],
+        },
+        { name: "Property", size: 5559 },
+        { name: "Shapes", size: 19118 },
+        { name: "Sort", size: 6887 },
+        { name: "Stats", size: 6557 },
+        { name: "Strings", size: 22026 },
+      ],
+    },
+    {
+      name: "vis",
+      children: [
+        {
+          name: "axis",
+          children: [
+            { name: "Axes", size: 1302 },
+            { name: "Axis", size: 24593 },
+            { name: "AxisGridLine", size: 652 },
+            { name: "AxisLabel", size: 636 },
+            { name: "CartesianAxes", size: 6703 },
+          ],
+        },
+        {
+          name: "controls",
+          children: [
+            { name: "AnchorControl", size: 2138 },
+            { name: "ClickControl", size: 3824 },
+            { name: "Control", size: 1353 },
+            { name: "ControlList", size: 4665 },
+            { name: "DragControl", size: 2649 },
+            { name: "ExpandControl", size: 2832 },
+            { name: "HoverControl", size: 4896 },
+            { name: "IControl", size: 763 },
+            { name: "PanZoomControl", size: 5222 },
+            { name: "SelectionControl", size: 7862 },
+            { name: "TooltipControl", size: 8435 },
+          ],
+        },
+        {
+          name: "data",
+          children: [
+            { name: "Data", size: 20544 },
+            { name: "DataList", size: 19788 },
+            { name: "DataSprite", size: 10349 },
+            { name: "EdgeSprite", size: 3301 },
+            { name: "NodeSprite", size: 19382 },
+            {
+              name: "render",
+              children: [
+                { name: "ArrowType", size: 698 },
+                { name: "EdgeRenderer", size: 5569 },
+                { name: "IRenderer", size: 353 },
+                { name: "ShapeRenderer", size: 2247 },
+              ],
+            },
+            { name: "ScaleBinding", size: 11275 },
+            { name: "Tree", size: 7147 },
+            { name: "TreeBuilder", size: 9930 },
+          ],
+        },
+        {
+          name: "events",
+          children: [
+            { name: "DataEvent", size: 2313 },
+            { name: "SelectionEvent", size: 1880 },
+            { name: "TooltipEvent", size: 1701 },
+            { name: "VisualizationEvent", size: 1117 },
+          ],
+        },
+        {
+          name: "legend",
+          children: [
+            { name: "Legend", size: 20859 },
+            { name: "LegendItem", size: 4614 },
+            { name: "LegendRange", size: 10530 },
+          ],
+        },
+        {
+          name: "operator",
+          children: [
+            {
+              name: "distortion",
+              children: [
+                { name: "BifocalDistortion", size: 4461 },
+                { name: "Distortion", size: 6314 },
+                { name: "FisheyeDistortion", size: 3444 },
+              ],
+            },
+            {
+              name: "encoder",
+              children: [
+                { name: "ColorEncoder", size: 3179 },
+                { name: "Encoder", size: 4060 },
+                { name: "PropertyEncoder", size: 4138 },
+                { name: "ShapeEncoder", size: 1690 },
+                { name: "SizeEncoder", size: 1830 },
+              ],
+            },
+            {
+              name: "filter",
+              children: [
+                { name: "FisheyeTreeFilter", size: 5219 },
+                { name: "GraphDistanceFilter", size: 3165 },
+                { name: "VisibilityFilter", size: 3509 },
+              ],
+            },
+            { name: "IOperator", size: 1286 },
+            {
+              name: "label",
+              children: [
+                { name: "Labeler", size: 9956 },
+                { name: "RadialLabeler", size: 3899 },
+                { name: "StackedAreaLabeler", size: 3202 },
+              ],
+            },
+            {
+              name: "layout",
+              children: [
+                { name: "AxisLayout", size: 6725 },
+                { name: "BundledEdgeRouter", size: 3727 },
+                { name: "CircleLayout", size: 9317 },
+                { name: "CirclePackingLayout", size: 12003 },
+                { name: "DendrogramLayout", size: 4853 },
+                { name: "ForceDirectedLayout", size: 8411 },
+                { name: "IcicleTreeLayout", size: 4864 },
+                { name: "IndentedTreeLayout", size: 3174 },
+                { name: "Layout", size: 7881 },
+                { name: "NodeLinkTreeLayout", size: 12870 },
+                { name: "PieLayout", size: 2728 },
+                { name: "RadialTreeLayout", size: 12348 },
+                { name: "RandomLayout", size: 870 },
+                { name: "StackedAreaLayout", size: 9121 },
+                { name: "TreeMapLayout", size: 9191 },
+              ],
+            },
+            { name: "Operator", size: 2490 },
+            { name: "OperatorList", size: 5248 },
+            { name: "OperatorSequence", size: 4190 },
+            { name: "OperatorSwitch", size: 2581 },
+            { name: "SortOperator", size: 2023 },
+          ],
+        },
+        { name: "Visualization", size: 16540 },
+      ],
+    },
+  ],
+};
 
-  <span class="c1">// Restart the force layout.</span>
-  <span class="nx">force</span><span class="p">.</span><span class="nf">nodes</span><span class="p">(</span><span class="nx">nodes</span><span class="p">).</span><span class="nf">links</span><span class="p">(</span><span class="nx">links</span><span class="p">).</span><span class="nf">start</span><span class="p">();</span>
+var w = 960,
+  h = 500,
+  node,
+  link,
+  root;
 
-  <span class="c1">// Update the links…</span>
-  <span class="nx">link</span> <span class="o">=</span> <span class="nx">vis</span><span class="p">.</span><span class="nf">selectAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">line.link</span><span class="dl">"</span><span class="p">).</span><span class="nf">data</span><span class="p">(</span><span class="nx">links</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
-  <span class="p">&#125;);</span>
+var force = d3.layout.force().on("tick", tick).size([w, h]);
 
-  <span class="c1">// Enter any new links.</span>
-  <span class="nx">link</span>
-    <span class="p">.</span><span class="nf">enter</span><span class="p">()</span>
-    <span class="p">.</span><span class="nf">insert</span><span class="p">(</span><span class="dl">"</span><span class="s2">svg:line</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">.node</span><span class="dl">"</span><span class="p">)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">class</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">link</span><span class="dl">"</span><span class="p">)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">x1</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
-    <span class="p">&#125;)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y1</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
-    <span class="p">&#125;)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">x2</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
-    <span class="p">&#125;)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y2</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
-    <span class="p">&#125;);</span>
+var vis = d3
+  .select("#chart")
+  .append("svg:svg")
+  .attr("width", w + 50)
+  .attr("height", h + 50);
 
-  <span class="c1">// Exit any old links.</span>
-  <span class="nx">link</span><span class="p">.</span><span class="nf">exit</span><span class="p">().</span><span class="nf">remove</span><span class="p">();</span>
+function update() {
+  var nodes = flatten(root),
+    links = d3.layout.tree().links(nodes);
 
-  <span class="c1">// Update the nodes…</span>
-  <span class="nx">node</span> <span class="o">=</span> <span class="nx">vis</span>
-    <span class="p">.</span><span class="nf">selectAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">circle.node</span><span class="dl">"</span><span class="p">)</span>
-    <span class="p">.</span><span class="nf">data</span><span class="p">(</span><span class="nx">nodes</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
-    <span class="p">&#125;)</span>
-    <span class="p">.</span><span class="nf">style</span><span class="p">(</span><span class="dl">"</span><span class="s2">fill</span><span class="dl">"</span><span class="p">,</span> <span class="nx">color</span><span class="p">);</span>
+  // Restart the force layout.
+  force.nodes(nodes).links(links).start();
 
-  <span class="c1">// Enter any new nodes.</span>
-  <span class="nx">node</span>
-    <span class="p">.</span><span class="nf">enter</span><span class="p">()</span>
-    <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">svg:circle</span><span class="dl">"</span><span class="p">)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">class</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">node</span><span class="dl">"</span><span class="p">)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">cx</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
-    <span class="p">&#125;)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">cy</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
-    <span class="p">&#125;)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">r</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span> <span class="o">||</span> <span class="mf">4.5</span><span class="p">;</span>
-    <span class="p">&#125;)</span>
-    <span class="p">.</span><span class="nf">style</span><span class="p">(</span><span class="dl">"</span><span class="s2">fill</span><span class="dl">"</span><span class="p">,</span> <span class="nx">color</span><span class="p">)</span>
-    <span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="nx">click</span><span class="p">)</span>
-    <span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="nx">force</span><span class="p">.</span><span class="nx">drag</span><span class="p">);</span>
+  // Update the links…
+  link = vis.selectAll("line.link").data(links, function (d) {
+    return d.target.id;
+  });
 
-  <span class="c1">// Exit any old nodes.</span>
-  <span class="nx">node</span><span class="p">.</span><span class="nf">exit</span><span class="p">().</span><span class="nf">remove</span><span class="p">();</span>
-<span class="p">&#125;</span>
+  // Enter any new links.
+  link
+    .enter()
+    .insert("svg:line", ".node")
+    .attr("class", "link")
+    .attr("x1", function (d) {
+      return d.source.x;
+    })
+    .attr("y1", function (d) {
+      return d.source.y;
+    })
+    .attr("x2", function (d) {
+      return d.target.x;
+    })
+    .attr("y2", function (d) {
+      return d.target.y;
+    });
 
-<span class="kd">function</span> <span class="nf">tick</span><span class="p">()</span> <span class="p">&#123;</span>
-  <span class="nx">link</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">x1</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
-    <span class="p">&#125;)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y1</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
-    <span class="p">&#125;)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">x2</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
-    <span class="p">&#125;)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y2</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
-    <span class="p">&#125;);</span>
+  // Exit any old links.
+  link.exit().remove();
 
-  <span class="nx">node</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">cx</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
-    <span class="p">&#125;)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">cy</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
-    <span class="p">&#125;);</span>
-<span class="p">&#125;</span>
+  // Update the nodes…
+  node = vis
+    .selectAll("circle.node")
+    .data(nodes, function (d) {
+      return d.id;
+    })
+    .style("fill", color);
 
-<span class="c1">// Color leaf nodes orange, and packages white or blue.</span>
-<span class="kd">function</span> <span class="nf">color</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-  <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">_children</span> <span class="p">?</span> <span class="dl">"</span><span class="s2">#3182bd</span><span class="dl">"</span> <span class="p">:</span> <span class="nx">d</span><span class="p">.</span><span class="nx">children</span> <span class="p">?</span> <span class="dl">"</span><span class="s2">#c6dbef</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">#fd8d3c</span><span class="dl">"</span><span class="p">;</span>
-<span class="p">&#125;</span>
+  // Enter any new nodes.
+  node
+    .enter()
+    .append("svg:circle")
+    .attr("class", "node")
+    .attr("cx", function (d) {
+      return d.x;
+    })
+    .attr("cy", function (d) {
+      return d.y;
+    })
+    .attr("r", function (d) {
+      return Math.sqrt(d.size) || 4.5;
+    })
+    .style("fill", color)
+    .on("click", click)
+    .call(force.drag);
 
-<span class="c1">// Toggle children on click.</span>
-<span class="kd">function</span> <span class="nf">click</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-  <span class="k">if </span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">children</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="nx">d</span><span class="p">.</span><span class="nx">_children</span> <span class="o">=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">children</span><span class="p">;</span>
-    <span class="nx">d</span><span class="p">.</span><span class="nx">children</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-  <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-    <span class="nx">d</span><span class="p">.</span><span class="nx">children</span> <span class="o">=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">_children</span><span class="p">;</span>
-    <span class="nx">d</span><span class="p">.</span><span class="nx">_children</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-  <span class="p">&#125;</span>
-  <span class="nf">update</span><span class="p">();</span>
-<span class="p">&#125;</span>
+  // Exit any old nodes.
+  node.exit().remove();
+}
 
-<span class="c1">// Returns a list of all nodes under the root.</span>
-<span class="kd">function</span> <span class="nf">flatten</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span> <span class="p">&#123;</span>
-  <span class="kd">var</span> <span class="nx">nodes</span> <span class="o">=</span> <span class="p">[],</span>
-    <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+function tick() {
+  link
+    .attr("x1", function (d) {
+      return d.source.x;
+    })
+    .attr("y1", function (d) {
+      return d.source.y;
+    })
+    .attr("x2", function (d) {
+      return d.target.x;
+    })
+    .attr("y2", function (d) {
+      return d.target.y;
+    });
 
-  <span class="kd">function</span> <span class="nf">recurse</span><span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="k">if </span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">children</span><span class="p">)</span> <span class="nx">node</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nf">forEach</span><span class="p">(</span><span class="nx">recurse</span><span class="p">);</span>
-    <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">node</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span> <span class="nx">node</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="o">++</span><span class="nx">i</span><span class="p">;</span>
-    <span class="nx">nodes</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
-  <span class="p">&#125;</span>
+  node
+    .attr("cx", function (d) {
+      return d.x;
+    })
+    .attr("cy", function (d) {
+      return d.y;
+    });
+}
 
-  <span class="nf">recurse</span><span class="p">(</span><span class="nx">root</span><span class="p">);</span>
-  <span class="k">return</span> <span class="nx">nodes</span><span class="p">;</span>
-<span class="p">&#125;</span>
+// Color leaf nodes orange, and packages white or blue.
+function color(d) {
+  return d._children ? "#3182bd" : d.children ? "#c6dbef" : "#fd8d3c";
+}
 
-<span class="nx">root</span> <span class="o">=</span> <span class="nx">data</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">nodes</span> <span class="o">=</span> <span class="nf">flatten</span><span class="p">(</span><span class="nx">root</span><span class="p">);</span>
-<span class="nx">nodes</span><span class="p">.</span><span class="nf">forEach</span><span class="p">(</span><span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-  <span class="nx">d</span><span class="p">.</span><span class="nx">_children</span> <span class="o">=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">children</span><span class="p">;</span>
-  <span class="nx">d</span><span class="p">.</span><span class="nx">children</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-<span class="p">&#125;);</span>
-<span class="nf">update</span><span class="p">();</span>
-</code></pre>
+// Toggle children on click.
+function click(d) {
+  if (d.children) {
+    d._children = d.children;
+    d.children = null;
+  } else {
+    d.children = d._children;
+    d._children = null;
+  }
+  update();
+}
+
+// Returns a list of all nodes under the root.
+function flatten(root) {
+  var nodes = [],
+    i = 0;
+
+  function recurse(node) {
+    if (node.children) node.children.forEach(recurse);
+    if (!node.id) node.id = ++i;
+    nodes.push(node);
+  }
+
+  recurse(root);
+  return nodes;
+}
+
+root = data;
+var nodes = flatten(root);
+nodes.forEach(function (d) {
+  d._children = d.children;
+  d.children = null;
+});
+update();
+```
+
 <p data-import-note="">this demo preserves the compiled output and may depend on external libraries or services that are no longer available.</p>
-<p><a href="https://jsfiddle.net/edwardsharp/DjDNB/1/">original jsfiddle post</a></p>
+
+[original jsfiddle post](https://jsfiddle.net/edwardsharp/DjDNB/1/)

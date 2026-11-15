@@ -10,6 +10,7 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=AbBTaLQzWL0"
 preview_image: "/content/media/2013/2013-06-04-youtube-AbBTaLQzWL0-25c64f4d90.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/AbBTaLQzWL0" title="pwnw14" loading="lazy" allowfullscreen></iframe></div>
 
-<p><a href="https://www.youtube.com/watch?v=AbBTaLQzWL0">original youtube post</a></p>
+[original youtube post](https://www.youtube.com/watch?v=AbBTaLQzWL0)

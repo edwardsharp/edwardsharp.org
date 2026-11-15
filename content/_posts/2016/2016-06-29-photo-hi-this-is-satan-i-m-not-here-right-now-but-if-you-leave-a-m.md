@@ -12,4 +12,4 @@ preview_alt: "hi this is satan, i'm not here right now but if you leave a messag
 
 ![hi this is satan, i'm not here right now but if you leave a message i'll get behind you.](/content/media/2016/2016-06-29-photo-17857871485008071-1.jpg)
 
-<p>hi this is satan, i'm not here right now but if you leave a message i'll get behind you.</p>
+hi this is satan, i'm not here right now but if you leave a message i'll get behind you.

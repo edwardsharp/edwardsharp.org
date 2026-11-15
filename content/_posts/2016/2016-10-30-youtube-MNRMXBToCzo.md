@@ -10,6 +10,9 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=MNRMXBToCzo"
 preview_image: "/content/media/2016/2016-10-30-youtube-MNRMXBToCzo-d77b8bdd22.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/MNRMXBToCzo" title="zomg666" loading="lazy" allowfullscreen></iframe></div>
-<p>HAIL SATAN!!!1 (&amp; srry abt teh nude-y vidz)</p>
-<p><a href="https://www.youtube.com/watch?v=MNRMXBToCzo">original youtube post</a></p>
+
+HAIL SATAN!!!1 (& srry abt teh nude-y vidz)
+
+[original youtube post](https://www.youtube.com/watch?v=MNRMXBToCzo)

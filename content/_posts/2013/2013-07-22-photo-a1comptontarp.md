@@ -12,4 +12,4 @@ preview_alt: "#a1comptontarp"
 
 ![#a1comptontarp](/content/media/2013/2013-07-22-photo-17842698403060015-1.jpg)
 
-<p>#a1comptontarp</p>
+#a1comptontarp

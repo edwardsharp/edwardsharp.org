@@ -12,4 +12,4 @@ preview_alt: "#simulationz"
 
 ![#simulationz](/content/media/2015/2015-07-25-photo-17842083076060015-1.jpg)
 
-<p>#simulationz</p>
+#simulationz

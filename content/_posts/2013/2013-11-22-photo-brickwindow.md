@@ -12,4 +12,4 @@ preview_alt: "#brickwindow"
 
 ![#brickwindow](/content/media/2013/2013-11-22-photo-17842757578060015-1.jpg)
 
-<p>#brickwindow</p>
+#brickwindow

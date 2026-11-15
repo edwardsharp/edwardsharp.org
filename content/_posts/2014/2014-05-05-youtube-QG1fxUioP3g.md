@@ -10,6 +10,7 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=QG1fxUioP3g"
 preview_image: "/content/media/2014/2014-05-05-youtube-QG1fxUioP3g-582611eed2.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/QG1fxUioP3g" title="SAW" loading="lazy" allowfullscreen></iframe></div>
 
-<p><a href="https://www.youtube.com/watch?v=QG1fxUioP3g">original youtube post</a></p>
+[original youtube post](https://www.youtube.com/watch?v=QG1fxUioP3g)

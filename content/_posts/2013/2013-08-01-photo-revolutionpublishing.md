@@ -12,4 +12,4 @@ preview_alt: "#revolutionpublishing"
 
 ![#revolutionpublishing](/content/media/2013/2013-08-01-photo-17842702723060015-1.jpg)
 
-<p>#revolutionpublishing</p>
+#revolutionpublishing

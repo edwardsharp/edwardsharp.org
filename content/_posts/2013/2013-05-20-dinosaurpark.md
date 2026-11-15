@@ -13,4 +13,4 @@ redirect_from:
 ---
 ![dinosaurpark](/content/media/2013/2013-05-20-dinosaurpark.jpg)
 
-\#dinosaurpark
+#dinosaurpark

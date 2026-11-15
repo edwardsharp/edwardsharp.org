@@ -12,4 +12,4 @@ preview_alt: "photo on 2-14-18 at 3.11 AM.jpg"
 
 ![photo on 2-14-18 at 3.11 AM.jpg](/content/media/2018/2018-02-14-photo-17910905242117017-1.jpg)
 
-<p>photo on 2-14-18 at 3.11 AM.jpg</p>
+photo on 2-14-18 at 3.11 AM.jpg

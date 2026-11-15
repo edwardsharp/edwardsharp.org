@@ -10,6 +10,9 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=r1eZfaSL7Nw"
 preview_image: "/content/media/2017/2017-06-05-youtube-r1eZfaSL7Nw-5d4a906ab2.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/r1eZfaSL7Nw" title="TRUCKING MUSEUM" loading="lazy" allowfullscreen></iframe></div>
-<p>iowa</p>
-<p><a href="https://www.youtube.com/watch?v=r1eZfaSL7Nw">original youtube post</a></p>
+
+iowa
+
+[original youtube post](https://www.youtube.com/watch?v=r1eZfaSL7Nw)

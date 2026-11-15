@@ -10,6 +10,7 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=0MH_7pv3cEs"
 preview_image: "/content/media/2014/2014-12-05-youtube-0MH_7pv3cEs-8680023591.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/0MH_7pv3cEs" title="me&amp;you&amp;me&amp;ME&amp;ME&amp;ME&amp;ME&amp;ME&amp;me&amp;you&amp;us[p_orange_corp]" loading="lazy" allowfullscreen></iframe></div>
 
-<p><a href="https://www.youtube.com/watch?v=0MH_7pv3cEs">original youtube post</a></p>
+[original youtube post](https://www.youtube.com/watch?v=0MH_7pv3cEs)

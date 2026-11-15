@@ -12,4 +12,4 @@ preview_alt: "#prop"
 
 ![#prop](/content/media/2013/2013-10-19-photo-17842067134060015-1.jpg)
 
-<p>#prop</p>
+#prop

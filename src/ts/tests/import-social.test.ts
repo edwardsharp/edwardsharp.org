@@ -22,6 +22,7 @@ import {
   postMarkdown,
   postHTML,
   postTags,
+  protocolRelativeResources,
   replaceUnavailableImage,
   sourceDate,
   type SocialPost,
@@ -38,6 +39,51 @@ const post: SocialPost = {
   tags: ["Canvas", "canvas"],
   images: [],
 };
+
+test("demo resources inherit the page protocol without changing namespace identifiers or credits", () => {
+  const source = [
+    '<script src="http://code.jquery.com/jquery.js"></script>',
+    "<link href='https://code.jquery.com/ui.css'>",
+    "<img src=http://example.test/image.png>",
+    '@import "http://example.test/style.css";',
+    "body { background: url(https://example.test/background.png); }",
+    "@namespace svg url(http://www.w3.org/2000/svg);",
+    'import("http://example.test/module.js");',
+    'fetch("http://example.test/data.json");',
+    'const options = { url: "http://example.test/request" };',
+    'const media = { src: "http://example.test/audio.mp3", icon: "http://example.test/marker.png", proxy: "http://example.test/proxy" };',
+    'var url = "http://example.test/jsonp";',
+    '<svg xmlns="http://www.w3.org/2000/svg"></svg>',
+    '<svg xmlns:src="http://example.test/namespace"></svg>',
+    'document.createElementNS("http://www.w3.org/2000/svg", "circle");',
+    "// Source: http://example.test/project",
+  ].join("\n");
+  const normalized = protocolRelativeResources(source);
+  assert.match(normalized, /src="\/\/code\.jquery\.com\/jquery\.js"/);
+  assert.match(normalized, /href='\/\/code\.jquery\.com\/ui\.css'/);
+  assert.match(normalized, /src=\/\/example\.test\/image\.png/);
+  assert.match(normalized, /@import "\/\/example\.test\/style\.css"/);
+  assert.match(normalized, /url\(\/\/example\.test\/background\.png\)/);
+  assert.match(
+    normalized,
+    /@namespace svg url\(http:\/\/www\.w3\.org\/2000\/svg\)/,
+  );
+  assert.match(normalized, /import\("\/\/example\.test\/module\.js"\)/);
+  assert.match(normalized, /fetch\("\/\/example\.test\/data\.json"\)/);
+  assert.match(normalized, /url: "\/\/example\.test\/request"/);
+  assert.match(normalized, /src: "\/\/example\.test\/audio\.mp3"/);
+  assert.match(normalized, /icon: "\/\/example\.test\/marker\.png"/);
+  assert.match(normalized, /proxy: "\/\/example\.test\/proxy"/);
+  assert.match(normalized, /url = "\/\/example\.test\/jsonp"/);
+  assert.match(normalized, /xmlns="http:\/\/www\.w3\.org\/2000\/svg"/);
+  assert.match(normalized, /xmlns:src="http:\/\/example\.test\/namespace"/);
+  assert.match(
+    normalized,
+    /createElementNS\("http:\/\/www\.w3\.org\/2000\/svg"/,
+  );
+  assert.match(normalized, /Source: http:\/\/example\.test\/project/);
+  assert.equal(protocolRelativeResources(normalized), normalized);
+});
 
 test("imports preserve source instants and mark date-only sources without assuming a timezone", () => {
   assert.deepEqual(sourceDate(post.date), {
@@ -201,6 +247,41 @@ test("snippets are formatted and highlighted without running their code; invalid
   assert.equal(blocks[1]?.textContent, "const =");
   assert.equal(result.warnings.length, 1);
   assert.match(result.html, /original code is shown/);
+});
+
+test("code imports normalize both displayed includes and saved demo resources", async (t) => {
+  const root = await mkdtemp(join(tmpdir(), "social-import-test-"));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  const input = join(root, "capture.json");
+  const report = join(root, "report.json");
+  await writeFile(
+    input,
+    JSON.stringify([
+      {
+        ...post,
+        html: '<pre><code class="language-html">&lt;script src="http://example.test/library.js"&gt;&lt;/script&gt;\n&lt;svg xmlns="http://www.w3.org/2000/svg"&gt;&lt;/svg&gt;</code></pre>',
+        demo: '<link href="http://example.test/style.css"><script src="https://example.test/library.js"></script>',
+      },
+    ]),
+  );
+  await importPosts(input, report, root);
+  assert.equal(JSON.parse(await readFile(report, "utf8")).failures.length, 0);
+  const markdown = await readFile(
+    join(root, "content/_posts/2014/2014-06-01-jsfiddle-example.md"),
+    "utf8",
+  );
+  const body = markdown.slice(markdown.indexOf("\n---\n") + 5);
+  const { document } = parseHTML(`<html><body>${body}</body></html>`);
+  const code = document.querySelector("pre code");
+  assert.ok(code);
+  assert.match(code.textContent, /src="\/\/example\.test\/library\.js"/);
+  assert.match(code.textContent, /xmlns="http:\/\/www\.w3\.org\/2000\/svg"/);
+  const demo = await readFile(
+    join(root, "content/media/2014/2014-06-01-jsfiddle-example-demo.html"),
+    "utf8",
+  );
+  assert.match(demo, /href="\/\/example\.test\/style\.css"/);
+  assert.match(demo, /src="\/\/example\.test\/library\.js"/);
 });
 
 test("import history skips edited, renamed, and deleted posts but admits new source IDs", async (t) => {

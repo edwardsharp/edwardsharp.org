@@ -13,4 +13,4 @@ source_url: http://edwardsharp.org/post/39522595894/error-burn-in-hell
 redirect_from:
 - /post/39522595894/error-burn-in-hell/
 ---
-[error \- burn in hell](http://www.youtube.com/watch?v=dXTTmXB4ZMo)
+[error - burn in hell](http://www.youtube.com/watch?v=dXTTmXB4ZMo)

@@ -12,4 +12,4 @@ preview_alt: "#grandmasters'flash"
 
 ![#grandmasters'flash](/content/media/2013/2013-09-05-photo-17842720834060015-1.jpg)
 
-<p>#grandmasters'flash</p>
+#grandmasters'flash

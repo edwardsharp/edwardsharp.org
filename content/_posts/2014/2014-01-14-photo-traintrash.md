@@ -12,4 +12,4 @@ preview_alt: "#traintrash"
 
 ![#traintrash](/content/media/2014/2014-01-14-photo-17842783747060015-1.jpg)
 
-<p>#traintrash</p>
+#traintrash

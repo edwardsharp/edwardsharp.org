@@ -12,4 +12,4 @@ preview_alt: "#CAMO"
 
 ![#CAMO](/content/media/2014/2014-01-20-photo-17842786036060015-1.jpg)
 
-<p>#CAMO</p>
+#CAMO

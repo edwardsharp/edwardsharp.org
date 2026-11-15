@@ -10,181 +10,194 @@ source_platform: "jsfiddle"
 source_url: "https://jsfiddle.net/edwardsharp/uNt99/2/"
 source_revision: 2
 ---
+
 <iframe class="code-demo" src="{{ '/content/media/2014/2014-01-06-jsfiddle-uNt99-demo.html' | relative_url }}" title="d3 graphing test" width="100%" height="480" loading="lazy" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe>
-<p>just testing out the d3 js framework</p>
-<h2>html</h2>
-<pre class="highlight"><code class="language-html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"http://d3js.org/d3.v2.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
-<span class="nt">&lt;form&gt;</span>
-  <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">value=</span><span class="s">"Graph"</span> <span class="na">id=</span><span class="s">"graph_submit"</span> <span class="nt">/&gt;</span>
-<span class="nt">&lt;/form&gt;</span>
-<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"chart"</span><span class="nt">&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;</span>
-</code></pre>
-<h2>css</h2>
-<pre class="highlight"><code class="language-css"><span class="nc">.link</span> <span class="nt">line</span> <span class="p">&#123;</span>
-  <span class="py">stroke</span><span class="p">:</span> <span class="nx">#32cd32</span><span class="p">;</span>
-  <span class="py">stroke-width</span><span class="p">:</span> <span class="m">2</span><span class="p">;</span>
-<span class="p">&#125;</span>
-</code></pre>
-<h2>javascript</h2>
-<pre class="highlight"><code class="language-javascript"><span class="kd">var</span> <span class="nx">data_nodes</span><span class="p">,</span> <span class="nx">data_links</span><span class="p">,</span> <span class="nx">svg_nodes</span><span class="p">,</span> <span class="nx">svg_links</span><span class="p">,</span> <span class="nx">svg_root</span><span class="p">;</span>
 
-<span class="c1">// array for chart size [width, height]</span>
-<span class="kd">var</span> <span class="nx">chart_size</span> <span class="o">=</span> <span class="p">[];</span>
+just testing out the d3 js framework
 
-<span class="nx">chart_size</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="mi">600</span><span class="p">);</span>
-<span class="nx">chart_size</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="mi">600</span><span class="p">);</span>
+## html
 
-<span class="c1">// create new force directed graph</span>
-<span class="kd">var</span> <span class="nx">force</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">layout</span>
-  <span class="p">.</span><span class="nf">force</span><span class="p">()</span>
-  <span class="p">.</span><span class="nf">size</span><span class="p">(</span><span class="nx">chart_size</span><span class="p">)</span>
-  <span class="p">.</span><span class="nf">linkDistance</span><span class="p">(</span><span class="mi">150</span><span class="p">)</span>
-  <span class="p">.</span><span class="nf">charge</span><span class="p">(</span><span class="o">-</span><span class="mi">1000</span><span class="p">)</span>
-  <span class="p">.</span><span class="nf">friction</span><span class="p">(</span><span class="mf">0.3</span><span class="p">);</span>
+```html
+<script src="//d3js.org/d3.v2.js"></script>
+<form>
+  <input type="button" value="Graph" id="graph_submit" />
+</form>
+<div id="chart"><div></div></div>
+```
 
-<span class="c1">// set tick handler for force graph animation</span>
-<span class="nx">force</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">tick</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-  <span class="c1">// all links get an x and y coordinate for their end points</span>
-  <span class="nx">svg_root</span>
-    <span class="p">.</span><span class="nf">selectAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">g.link line</span><span class="dl">"</span><span class="p">)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">x1</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
-    <span class="p">&#125;)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y1</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
-    <span class="p">&#125;)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">x2</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
-    <span class="p">&#125;)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y2</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
-    <span class="p">&#125;);</span>
+## css
 
-  <span class="c1">// all nodes get a SVG transform attribute</span>
-  <span class="c1">// http://www.w3.org/TR/SVG/coords.html#TransformAttribute</span>
-  <span class="nx">svg_root</span><span class="p">.</span><span class="nf">selectAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">g.node</span><span class="dl">"</span><span class="p">).</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">transform</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="k">return</span> <span class="dl">"</span><span class="s2">translate(</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">d</span><span class="p">.</span><span class="nx">x</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">,</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">d</span><span class="p">.</span><span class="nx">y</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">)</span><span class="dl">"</span><span class="p">;</span>
-  <span class="p">&#125;);</span>
-<span class="p">&#125;);</span>
+```css
+.link line {
+  stroke: #32cd32;
+  stroke-width: 2;
+}
+```
 
-<span class="nf">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#graph_submit</span><span class="dl">"</span><span class="p">).</span><span class="nf">click</span><span class="p">(</span><span class="nf">function </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">&#123;</span>
-  <span class="c1">// remove inner div</span>
-  <span class="nx">d3</span><span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="dl">"</span><span class="s2">#chart div</span><span class="dl">"</span><span class="p">).</span><span class="nf">remove</span><span class="p">();</span>
+## javascript
 
-  <span class="c1">// create new inner div and svg element with a configurable size</span>
-  <span class="nx">svg_root</span> <span class="o">=</span> <span class="nx">d3</span>
-    <span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="dl">"</span><span class="s2">#chart</span><span class="dl">"</span><span class="p">)</span>
-    <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">div</span><span class="dl">"</span><span class="p">)</span>
-    <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">svg</span><span class="dl">"</span><span class="p">)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">width</span><span class="dl">"</span><span class="p">,</span> <span class="nx">chart_size</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">height</span><span class="dl">"</span><span class="p">,</span> <span class="nx">chart_size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-    <span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="nx">d3</span><span class="p">.</span><span class="nx">behavior</span><span class="p">.</span><span class="nf">zoom</span><span class="p">().</span><span class="nf">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">zoom</span><span class="dl">"</span><span class="p">,</span> <span class="nx">redraw</span><span class="p">))</span>
-    <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">svg:g</span><span class="dl">"</span><span class="p">);</span>
+```javascript
+var data_nodes, data_links, svg_nodes, svg_links, svg_root;
 
-  <span class="c1">// fill rect which is same size as while SVG element</span>
-  <span class="nx">svg_root</span>
-    <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">svg:rect</span><span class="dl">"</span><span class="p">)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">width</span><span class="dl">"</span><span class="p">,</span> <span class="nx">chart_size</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">height</span><span class="dl">"</span><span class="p">,</span> <span class="nx">chart_size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">fill</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">#F2F0E3</span><span class="dl">"</span><span class="p">);</span>
+// array for chart size [width, height]
+var chart_size = [];
 
-  <span class="c1">// zoom handler</span>
-  <span class="kd">function</span> <span class="nf">redraw</span><span class="p">()</span> <span class="p">&#123;</span>
-    <span class="nx">svg_root</span><span class="p">.</span><span class="nf">attr</span><span class="p">(</span>
-      <span class="dl">"</span><span class="s2">transform</span><span class="dl">"</span><span class="p">,</span>
-      <span class="dl">"</span><span class="s2">translate(</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">event</span><span class="p">.</span><span class="nx">translate</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">) scale(</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">event</span><span class="p">.</span><span class="nx">scale</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">)</span><span class="dl">"</span><span class="p">,</span>
-    <span class="p">);</span>
-  <span class="p">&#125;</span>
+chart_size.push(600);
+chart_size.push(600);
 
-  <span class="c1">// start from scratch with empty nodes and links</span>
-  <span class="nx">data_nodes</span> <span class="o">=</span> <span class="p">[&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ROOT</span><span class="dl">"</span> <span class="p">&#125;,</span> <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">NODE1</span><span class="dl">"</span> <span class="p">&#125;,</span> <span class="p">&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">NODE2</span><span class="dl">"</span> <span class="p">&#125;];</span>
-  <span class="nx">data_links</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">&#123;</span> <span class="na">source</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">target</span><span class="p">:</span> <span class="mi">0</span> <span class="p">&#125;,</span>
-    <span class="p">&#123;</span> <span class="na">source</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="na">target</span><span class="p">:</span> <span class="mi">0</span> <span class="p">&#125;,</span>
-  <span class="p">];</span>
+// create new force directed graph
+var force = d3.layout
+  .force()
+  .size(chart_size)
+  .linkDistance(150)
+  .charge(-1000)
+  .friction(0.3);
 
-  <span class="nf">update_graph</span><span class="p">();</span>
-<span class="p">&#125;);</span>
+// set tick handler for force graph animation
+force.on("tick", function () {
+  // all links get an x and y coordinate for their end points
+  svg_root
+    .selectAll("g.link line")
+    .attr("x1", function (d) {
+      return d.source.x;
+    })
+    .attr("y1", function (d) {
+      return d.source.y;
+    })
+    .attr("x2", function (d) {
+      return d.target.x;
+    })
+    .attr("y2", function (d) {
+      return d.target.y;
+    });
 
-<span class="kd">function</span> <span class="nf">update_graph</span><span class="p">()</span> <span class="p">&#123;</span>
-  <span class="c1">// update SVG links and assign proper attributes</span>
-  <span class="nx">svg_links</span> <span class="o">=</span> <span class="nx">svg_root</span>
-    <span class="p">.</span><span class="nf">selectAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">g.link</span><span class="dl">"</span><span class="p">)</span>
-    <span class="p">.</span><span class="nf">data</span><span class="p">(</span><span class="nx">data_links</span><span class="p">)</span>
-    <span class="p">.</span><span class="nf">enter</span><span class="p">()</span>
-    <span class="p">.</span><span class="nf">insert</span><span class="p">(</span><span class="dl">"</span><span class="s2">svg:g</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">.node</span><span class="dl">"</span><span class="p">)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">class</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">link</span><span class="dl">"</span><span class="p">);</span>
+  // all nodes get a SVG transform attribute
+  // http://www.w3.org/TR/SVG/coords.html#TransformAttribute
+  svg_root.selectAll("g.node").attr("transform", function (d) {
+    return "translate(" + d.x + "," + d.y + ")";
+  });
+});
 
-  <span class="nx">svg_links</span>
-    <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">svg:line</span><span class="dl">"</span><span class="p">)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">x1</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
-    <span class="p">&#125;)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y1</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
-    <span class="p">&#125;)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">x2</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
-    <span class="p">&#125;)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y2</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
-    <span class="p">&#125;);</span>
+$("#graph_submit").click(function (event) {
+  // remove inner div
+  d3.select("#chart div").remove();
 
-  <span class="c1">// update SVG nodes</span>
-  <span class="nx">svg_nodes</span> <span class="o">=</span> <span class="nx">svg_root</span>
-    <span class="p">.</span><span class="nf">selectAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">g.node</span><span class="dl">"</span><span class="p">)</span>
-    <span class="p">.</span><span class="nf">data</span><span class="p">(</span><span class="nx">data_nodes</span><span class="p">)</span>
-    <span class="p">.</span><span class="nf">enter</span><span class="p">()</span>
-    <span class="p">.</span><span class="nf">insert</span><span class="p">(</span><span class="dl">"</span><span class="s2">svg:g</span><span class="dl">"</span><span class="p">)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">class</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">node</span><span class="dl">"</span><span class="p">)</span>
-    <span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="nx">force</span><span class="p">.</span><span class="nx">drag</span><span class="p">);</span>
+  // create new inner div and svg element with a configurable size
+  svg_root = d3
+    .select("#chart")
+    .append("div")
+    .append("svg")
+    .attr("width", chart_size[0])
+    .attr("height", chart_size[1])
+    .call(d3.behavior.zoom().on("zoom", redraw))
+    .append("svg:g");
 
-  <span class="c1">// set SVG nodes attributes for position and look/feel</span>
-  <span class="nx">svg_nodes</span>
-    <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">svg:rect</span><span class="dl">"</span><span class="p">)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">x</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="o">-</span><span class="mi">8</span> <span class="o">*</span> <span class="nx">d</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
-    <span class="p">&#125;)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">y</span><span class="dl">"</span><span class="p">,</span> <span class="o">-</span><span class="mi">20</span><span class="p">)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">rx</span><span class="dl">"</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">stroke</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">blue</span><span class="dl">"</span><span class="p">)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">stroke-width</span><span class="dl">"</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">width</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">length</span> <span class="o">*</span> <span class="mi">15</span><span class="p">;</span>
-    <span class="p">&#125;)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">height</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="mi">30</span><span class="p">;</span>
-    <span class="p">&#125;)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">fill</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">if </span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">id</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&#123;</span>
-        <span class="k">return</span> <span class="dl">"</span><span class="s2">red</span><span class="dl">"</span><span class="p">;</span>
-      <span class="p">&#125;</span> <span class="k">else</span> <span class="p">&#123;</span>
-        <span class="k">return</span> <span class="dl">"</span><span class="s2">lightblue</span><span class="dl">"</span><span class="p">;</span>
-      <span class="p">&#125;</span>
-    <span class="p">&#125;);</span>
+  // fill rect which is same size as while SVG element
+  svg_root
+    .append("svg:rect")
+    .attr("width", chart_size[0])
+    .attr("height", chart_size[1])
+    .attr("fill", "#F2F0E3");
 
-  <span class="c1">// set SVG node text</span>
-  <span class="nx">svg_nodes</span>
-    <span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">svg:text</span><span class="dl">"</span><span class="p">)</span>
-    <span class="p">.</span><span class="nf">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">text-anchor</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">middle</span><span class="dl">"</span><span class="p">)</span>
-    <span class="p">.</span><span class="nf">text</span><span class="p">(</span><span class="nf">function </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-      <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
-    <span class="p">&#125;);</span>
+  // zoom handler
+  function redraw() {
+    svg_root.attr(
+      "transform",
+      "translate(" + d3.event.translate + ") scale(" + d3.event.scale + ")",
+    );
+  }
 
-  <span class="c1">// set SVG click handler</span>
-  <span class="nx">svg_nodes</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="nx">node_event_handler</span><span class="p">);</span>
-  <span class="c1">// set SVG touch handler (iPad needs this)</span>
-  <span class="nx">svg_nodes</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">touchstart</span><span class="dl">"</span><span class="p">,</span> <span class="nx">node_event_handler</span><span class="p">);</span>
+  // start from scratch with empty nodes and links
+  data_nodes = [{ name: "ROOT" }, { name: "NODE1" }, { name: "NODE2" }];
+  data_links = [
+    { source: 1, target: 0 },
+    { source: 2, target: 0 },
+  ];
 
-  <span class="kd">function</span> <span class="nf">node_event_handler</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">&#123;</span>
-    <span class="nx">data_nodes</span><span class="p">.</span><span class="nf">push</span><span class="p">(&#123;</span> <span class="na">name</span><span class="p">:</span> <span class="nx">d</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">_X</span><span class="dl">"</span> <span class="p">&#125;);</span>
-    <span class="nx">data_links</span><span class="p">.</span><span class="nf">push</span><span class="p">(&#123;</span> <span class="na">target</span><span class="p">:</span> <span class="nx">d</span><span class="p">.</span><span class="nx">index</span><span class="p">,</span> <span class="na">source</span><span class="p">:</span> <span class="nx">data_nodes</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">&#125;);</span>
-    <span class="nf">update_graph</span><span class="p">();</span>
-  <span class="p">&#125;</span>
+  update_graph();
+});
 
-  <span class="c1">// render graph</span>
-  <span class="nx">force</span><span class="p">.</span><span class="nf">links</span><span class="p">(</span><span class="nx">data_links</span><span class="p">).</span><span class="nf">nodes</span><span class="p">(</span><span class="nx">data_nodes</span><span class="p">).</span><span class="nf">start</span><span class="p">();</span>
-<span class="p">&#125;</span>
-</code></pre>
+function update_graph() {
+  // update SVG links and assign proper attributes
+  svg_links = svg_root
+    .selectAll("g.link")
+    .data(data_links)
+    .enter()
+    .insert("svg:g", ".node")
+    .attr("class", "link");
+
+  svg_links
+    .append("svg:line")
+    .attr("x1", function (d) {
+      return d.source.x;
+    })
+    .attr("y1", function (d) {
+      return d.source.y;
+    })
+    .attr("x2", function (d) {
+      return d.target.x;
+    })
+    .attr("y2", function (d) {
+      return d.target.y;
+    });
+
+  // update SVG nodes
+  svg_nodes = svg_root
+    .selectAll("g.node")
+    .data(data_nodes)
+    .enter()
+    .insert("svg:g")
+    .attr("class", "node")
+    .call(force.drag);
+
+  // set SVG nodes attributes for position and look/feel
+  svg_nodes
+    .append("svg:rect")
+    .attr("x", function (d) {
+      return -8 * d.name.length;
+    })
+    .attr("y", -20)
+    .attr("rx", 7)
+    .attr("stroke", "blue")
+    .attr("stroke-width", 2)
+    .attr("width", function (d) {
+      return d.name.length * 15;
+    })
+    .attr("height", function (d) {
+      return 30;
+    })
+    .attr("fill", function (d) {
+      if (d.id == 1) {
+        return "red";
+      } else {
+        return "lightblue";
+      }
+    });
+
+  // set SVG node text
+  svg_nodes
+    .append("svg:text")
+    .attr("text-anchor", "middle")
+    .text(function (d) {
+      return d.name;
+    });
+
+  // set SVG click handler
+  svg_nodes.on("click", node_event_handler);
+  // set SVG touch handler (iPad needs this)
+  svg_nodes.on("touchstart", node_event_handler);
+
+  function node_event_handler(d) {
+    data_nodes.push({ name: d.name + "_X" });
+    data_links.push({ target: d.index, source: data_nodes.length - 1 });
+    update_graph();
+  }
+
+  // render graph
+  force.links(data_links).nodes(data_nodes).start();
+}
+```
+
 <p data-import-note="">this demo preserves the compiled output and may depend on external libraries or services that are no longer available.</p>
-<p><a href="https://jsfiddle.net/edwardsharp/uNt99/2/">original jsfiddle post</a></p>
+
+[original jsfiddle post](https://jsfiddle.net/edwardsharp/uNt99/2/)

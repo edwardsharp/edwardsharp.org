@@ -12,4 +12,4 @@ preview_alt: "#LACUNA #SLOWLYF3"
 
 ![#LACUNA #SLOWLYF3](/content/media/2015/2015-07-07-photo-17842000621060015-1.jpg)
 
-<p>#LACUNA #SLOWLYF3</p>
+#LACUNA #SLOWLYF3

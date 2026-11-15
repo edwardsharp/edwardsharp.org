@@ -12,4 +12,4 @@ preview_alt: "#WEIRDFICTION #fictoquizzical"
 
 ![#WEIRDFICTION #fictoquizzical](/content/media/2015/2015-07-12-photo-17842024093060015-1.jpg)
 
-<p>#WEIRDFICTION #fictoquizzical</p>
+#WEIRDFICTION #fictoquizzical

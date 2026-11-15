@@ -10,6 +10,6 @@ preview_image: "/content/media/2019/2019-04-14-photo-17973869410245904-1.jpg"
 preview_alt: "UNDOING (& doing)"
 ---
 
-![UNDOING (&amp; doing)](/content/media/2019/2019-04-14-photo-17973869410245904-1.jpg)
+![UNDOING (& doing)](/content/media/2019/2019-04-14-photo-17973869410245904-1.jpg)
 
-<p>UNDOING (&amp; doing)</p>
+UNDOING (& doing)

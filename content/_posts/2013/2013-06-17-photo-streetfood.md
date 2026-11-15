@@ -12,4 +12,4 @@ preview_alt: "#streetfood"
 
 ![#streetfood](/content/media/2013/2013-06-17-photo-17842681315060015-1.jpg)
 
-<p>#streetfood</p>
+#streetfood

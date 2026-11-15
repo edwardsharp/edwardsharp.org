@@ -10,6 +10,9 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=dHm8gbEmInk"
 preview_image: "/content/media/2014/2014-11-20-youtube-dHm8gbEmInk-8779e8ee92.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/dHm8gbEmInk" title="logz" loading="lazy" allowfullscreen></iframe></div>
-<p>Kaia Gilje, David Ian Griess, Elizabeth Lamb, Esther Neff, &amp; Alex Romania</p>
-<p><a href="https://www.youtube.com/watch?v=dHm8gbEmInk">original youtube post</a></p>
+
+Kaia Gilje, David Ian Griess, Elizabeth Lamb, Esther Neff, & Alex Romania
+
+[original youtube post](https://www.youtube.com/watch?v=dHm8gbEmInk)

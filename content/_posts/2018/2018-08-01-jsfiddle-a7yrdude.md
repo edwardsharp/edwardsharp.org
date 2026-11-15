@@ -10,18 +10,23 @@ source_platform: "jsfiddle"
 source_url: "https://jsfiddle.net/a7yrdude/5/"
 source_revision: 5
 ---
+
 <iframe class="code-demo" src="{{ '/content/media/2018/2018-08-01-jsfiddle-a7yrdude-demo.html' | relative_url }}" title="Materializecss" width="100%" height="480" loading="lazy" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe>
-<p>Materialize css</p>
-<h2>html</h2>
-<pre class="highlight"><code class="language-html"><span class="nt">&lt;link</span>
-  <span class="na">rel=</span><span class="s">"stylesheet"</span>
-  <span class="na">href=</span><span class="s">"https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css"</span>
-<span class="nt">/&gt;</span>
-<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
-<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col s12 m9 l10"</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"introduction"</span> <span class="na">class=</span><span class="s">"section scrollspy"</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;p&gt;</span>
+
+Materialize css
+
+## html
+
+```html
+<link
+  rel="stylesheet"
+  href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css"
+/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+<div class="row">
+  <div class="col s12 m9 l10">
+    <div id="introduction" class="section scrollspy">
+      <p>
         order cruelty disagree censorship vegetable polish exercise precede
         parking seminar cell dependence landowner inject practical air hand put
         inspiration refuse unity press stop apple art interrupt fibre leaflet
@@ -66,11 +71,11 @@ source_revision: 5
         battle reporter coalition comment youth fate freighter switch retailer
         monstrous cherry guide scandal warning award injection control pick
         texture
-      <span class="nt">&lt;/p&gt;</span>
-    <span class="nt">&lt;/div&gt;</span>
+      </p>
+    </div>
 
-    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"structure"</span> <span class="na">class=</span><span class="s">"section scrollspy"</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;p&gt;</span>
+    <div id="structure" class="section scrollspy">
+      <p>
         order cruelty disagree censorship vegetable polish exercise precede
         parking seminar cell dependence landowner inject practical air hand put
         inspiration refuse unity press stop apple art interrupt fibre leaflet
@@ -115,11 +120,11 @@ source_revision: 5
         battle reporter coalition comment youth fate freighter switch retailer
         monstrous cherry guide scandal warning award injection control pick
         texture
-      <span class="nt">&lt;/p&gt;</span>
-    <span class="nt">&lt;/div&gt;</span>
+      </p>
+    </div>
 
-    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"initialization"</span> <span class="na">class=</span><span class="s">"section scrollspy"</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;p&gt;</span>
+    <div id="initialization" class="section scrollspy">
+      <p>
         order cruelty disagree censorship vegetable polish exercise precede
         parking seminar cell dependence landowner inject practical air hand put
         inspiration refuse unity press stop apple art interrupt fibre leaflet
@@ -164,55 +169,63 @@ source_revision: 5
         battle reporter coalition comment youth fate freighter switch retailer
         monstrous cherry guide scandal warning award injection control pick
         texture
-      <span class="nt">&lt;/p&gt;</span>
-    <span class="nt">&lt;/div&gt;</span>
-  <span class="nt">&lt;/div&gt;</span>
-  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"scrollspy-nav"</span> <span class="na">class=</span><span class="s">"col hide-on-small-only m3 l2"</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"section table-of-contents"</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#introduction"</span><span class="nt">&gt;</span>Introduction<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
-      <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#structure"</span><span class="nt">&gt;</span>Structure<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
-      <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#initialization"</span><span class="nt">&gt;</span>Intialization<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
-    <span class="nt">&lt;/ul&gt;</span>
-  <span class="nt">&lt;/div&gt;</span>
-<span class="nt">&lt;/div&gt;</span>
-</code></pre>
-<h2>css</h2>
-<pre class="highlight"><code class="language-css"><span class="nf">#scrollspy-nav</span> <span class="p">&#123;</span>
-  <span class="nl">position</span><span class="p">:</span> <span class="nb">sticky</span><span class="p">;</span>
-  <span class="nl">top</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
-<span class="p">&#125;</span>
+      </p>
+    </div>
+  </div>
+  <div id="scrollspy-nav" class="col hide-on-small-only m3 l2">
+    <ul class="section table-of-contents">
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#structure">Structure</a></li>
+      <li><a href="#initialization">Intialization</a></li>
+    </ul>
+  </div>
+</div>
+```
 
-<span class="nf">#scrollspy-nav</span> <span class="nc">.active</span> <span class="p">&#123;</span>
-  <span class="nl">color</span><span class="p">:</span> <span class="nx">red</span><span class="p">;</span>
-<span class="p">&#125;</span>
-</code></pre>
-<h2>javascript</h2>
-<pre class="highlight"><code class="language-javascript"><span class="nf">$</span><span class="p">(</span><span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-  <span class="c1">// $('.scrollspy').scrollSpy();</span>
-  <span class="c1">// &#123;</span>
-  <span class="c1">//   scrollOffset: 1,</span>
-  <span class="c1">//   getActiveElement: function(id) &#123;</span>
-  <span class="c1">//     console.log('getActiveElement id:',id);</span>
-  <span class="c1">//     return 'a[href="#' + id + '"]';</span>
-  <span class="c1">//   &#125;</span>
-  <span class="c1">// &#125;);</span>
+## css
 
-  <span class="nf">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">.scrollspy</span><span class="dl">"</span><span class="p">).</span><span class="nf">scrollSpy</span><span class="p">();</span>
+```css
+#scrollspy-nav {
+  position: sticky;
+  top: 0;
+}
 
-  <span class="nf">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">.scrollspy</span><span class="dl">"</span><span class="p">).</span><span class="nf">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">scrollSpy:enter</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">scrollSpy:enter! $(this):</span><span class="dl">"</span><span class="p">,</span> <span class="nf">$</span><span class="p">(</span><span class="k">this</span><span class="p">));</span>
-    <span class="c1">// $('.navbar-fixed').find('a[href="#'+$(this).attr('id')+'"]').parent().addClass('active');</span>
-  <span class="p">&#125;);</span>
-  <span class="nf">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">scrollspy</span><span class="dl">"</span><span class="p">).</span><span class="nf">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">scrollSpy:exit</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">()</span> <span class="p">&#123;</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">scrollSpy:exit! $(this):</span><span class="dl">"</span><span class="p">,</span> <span class="nf">$</span><span class="p">(</span><span class="k">this</span><span class="p">));</span>
-    <span class="c1">// $('.navbar-fixed').find('a[href="#'+$(this).attr('id')+'"]').parent().removeClass('active');</span>
-  <span class="p">&#125;);</span>
+#scrollspy-nav .active {
+  color: red;
+}
+```
 
-  <span class="c1">// $('.scrollspy').waypoint(function(direction) &#123;</span>
-  <span class="c1">//   console.log('WAYPOINT!! direction:',direction);</span>
-  <span class="c1">//   jQuery(this).addClass('on').next();</span>
-  <span class="c1">// &#125;);</span>
-<span class="p">&#125;);</span>
-</code></pre>
+## javascript
+
+```javascript
+$(function () {
+  // $('.scrollspy').scrollSpy();
+  // {
+  //   scrollOffset: 1,
+  //   getActiveElement: function(id) {
+  //     console.log('getActiveElement id:',id);
+  //     return 'a[href="#' + id + '"]';
+  //   }
+  // });
+
+  $(".scrollspy").scrollSpy();
+
+  $(".scrollspy").on("scrollSpy:enter", function () {
+    console.log("scrollSpy:enter! $(this):", $(this));
+    // $('.navbar-fixed').find('a[href="#'+$(this).attr('id')+'"]').parent().addClass('active');
+  });
+  $("scrollspy").on("scrollSpy:exit", function () {
+    console.log("scrollSpy:exit! $(this):", $(this));
+    // $('.navbar-fixed').find('a[href="#'+$(this).attr('id')+'"]').parent().removeClass('active');
+  });
+
+  // $('.scrollspy').waypoint(function(direction) {
+  //   console.log('WAYPOINT!! direction:',direction);
+  //   jQuery(this).addClass('on').next();
+  // });
+});
+```
+
 <p data-import-note="">this demo preserves the compiled output and may depend on external libraries or services that are no longer available.</p>
-<p><a href="https://jsfiddle.net/a7yrdude/5/">original jsfiddle post</a></p>
+
+[original jsfiddle post](https://jsfiddle.net/a7yrdude/5/)

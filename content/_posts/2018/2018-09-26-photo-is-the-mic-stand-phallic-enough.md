@@ -12,4 +12,4 @@ preview_alt: "is the mic stand phallic enough?"
 
 ![is the mic stand phallic enough?](/content/media/2018/2018-09-26-photo-17984543911040958-1.jpg)
 
-<p>is the mic stand phallic enough?</p>
+is the mic stand phallic enough?

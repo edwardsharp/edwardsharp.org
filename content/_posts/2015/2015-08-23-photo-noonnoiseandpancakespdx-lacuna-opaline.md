@@ -12,4 +12,4 @@ preview_alt: "#noonnoiseandpancakespdx #LACUNA #opaline"
 
 ![#noonnoiseandpancakespdx #LACUNA #opaline](/content/media/2015/2015-08-23-photo-17842219495060015-1.jpg)
 
-<p>#noonnoiseandpancakespdx #LACUNA #opaline</p>
+#noonnoiseandpancakespdx #LACUNA #opaline

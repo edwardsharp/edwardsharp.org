@@ -12,4 +12,4 @@ preview_alt: "#ANTIBODYCORP"
 
 ![#ANTIBODYCORP](/content/media/2015/2015-09-27-photo-17844315994060015-1.jpg)
 
-<p>#ANTIBODYCORP</p>
+#ANTIBODYCORP

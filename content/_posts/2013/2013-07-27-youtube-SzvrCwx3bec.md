@@ -10,6 +10,7 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=SzvrCwx3bec"
 preview_image: "/content/media/2013/2013-07-27-youtube-SzvrCwx3bec-6d3c853863.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/SzvrCwx3bec" title="6x clipperz [PWR]" loading="lazy" allowfullscreen></iframe></div>
 
-<p><a href="https://www.youtube.com/watch?v=SzvrCwx3bec">original youtube post</a></p>
+[original youtube post](https://www.youtube.com/watch?v=SzvrCwx3bec)

@@ -12,4 +12,4 @@ preview_alt: "#RNNN"
 
 ![#RNNN](/content/media/2013/2013-05-30-photo-17842672282060015-1.jpg)
 
-<p>#RNNN</p>
+#RNNN

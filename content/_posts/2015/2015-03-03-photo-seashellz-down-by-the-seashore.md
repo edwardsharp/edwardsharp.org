@@ -12,4 +12,4 @@ preview_alt: "seashellz down by the seashore"
 
 ![seashellz down by the seashore](/content/media/2015/2015-03-03-photo-17843195032060015-1.jpg)
 
-<p>seashellz down by the seashore</p>
+seashellz down by the seashore

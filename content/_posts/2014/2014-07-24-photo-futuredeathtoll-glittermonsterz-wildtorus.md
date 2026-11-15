@@ -12,4 +12,4 @@ preview_alt: "#futuredeathtoll #glittermonsterz #wildtorus"
 
 ![#futuredeathtoll #glittermonsterz #wildtorus](/content/media/2014/2014-07-24-photo-17842909411060015-1.jpg)
 
-<p>#futuredeathtoll #glittermonsterz #wildtorus</p>
+#futuredeathtoll #glittermonsterz #wildtorus

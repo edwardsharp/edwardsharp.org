@@ -10,6 +10,9 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=lbvUak8mlEc"
 preview_image: "/content/media/2014/2014-05-23-youtube-lbvUak8mlEc-5fd5efcd98.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/lbvUak8mlEc" title="SLEEP" loading="lazy" allowfullscreen></iframe></div>
-<p>2014</p>
-<p><a href="https://www.youtube.com/watch?v=lbvUak8mlEc">original youtube post</a></p>
+
+2014
+
+[original youtube post](https://www.youtube.com/watch?v=lbvUak8mlEc)

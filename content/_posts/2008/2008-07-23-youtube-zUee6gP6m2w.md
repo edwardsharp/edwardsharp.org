@@ -10,6 +10,9 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=zUee6gP6m2w"
 preview_image: "/content/media/2008/2008-07-23-youtube-zUee6gP6m2w-5f1783455f.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/zUee6gP6m2w" title="BIND_4" loading="lazy" allowfullscreen></iframe></div>
-<p>RENDER\\\\\\\\\\\THE|jstcm</p>
-<p><a href="https://www.youtube.com/watch?v=zUee6gP6m2w">original youtube post</a></p>
+
+RENDER\\\\\\\\\\\\\\\\\\\\\THE\|jstcm
+
+[original youtube post](https://www.youtube.com/watch?v=zUee6gP6m2w)

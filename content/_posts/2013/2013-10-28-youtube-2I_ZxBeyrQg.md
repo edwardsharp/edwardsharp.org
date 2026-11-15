@@ -10,6 +10,9 @@ source_platform: "youtube"
 source_url: "https://www.youtube.com/watch?v=2I_ZxBeyrQg"
 preview_image: "/content/media/2013/2013-10-28-youtube-2I_ZxBeyrQg-0f37d34ff5.jpg"
 ---
+
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/2I_ZxBeyrQg" title="negativwobblyland @godwaffle noise pancakes" loading="lazy" allowfullscreen></iframe></div>
-<p>via YouTube Capture</p>
-<p><a href="https://www.youtube.com/watch?v=2I_ZxBeyrQg">original youtube post</a></p>
+
+via YouTube Capture
+
+[original youtube post](https://www.youtube.com/watch?v=2I_ZxBeyrQg)

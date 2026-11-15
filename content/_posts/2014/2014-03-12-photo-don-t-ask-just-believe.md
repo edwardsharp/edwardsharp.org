@@ -12,4 +12,4 @@ preview_alt: "don't ask. just believe."
 
 ![don't ask. just believe.](/content/media/2014/2014-03-12-photo-17842813744060015-1.jpg)
 
-<p>don't ask. just believe.</p>
+don't ask. just believe.

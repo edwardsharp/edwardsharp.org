@@ -15,4 +15,4 @@ redirect_from:
 
 [futuredeathtoll](http://futuredeathtoll.tumblr.com/post/39357463164/listen-to-temperamental-machine-hydrocarbonz-by){: target="_blank" }:
 
-> Listen to [temperamental machine \[hydrocarbonz\]](http://futuredeathtoll.bandcamp.com/album/temperamental-machine-hydrocarbonz){: target="_blank" } by future death toll.
+> Listen to [temperamental machine [hydrocarbonz]](http://futuredeathtoll.bandcamp.com/album/temperamental-machine-hydrocarbonz){: target="_blank" } by future death toll.
