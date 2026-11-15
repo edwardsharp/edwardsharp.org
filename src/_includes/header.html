@@ -28,11 +28,39 @@
   <nav id="site-navigation" aria-label="main navigation">
     <a
       href="{{ '/archive/' | relative_url }}"
+      aria-label="search"
+      title="search"
       {% if page.url == '/archive/' %}
         aria-current="page"
       {% endif %}
-      >search</a
-    >
-    <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+      ><span class="navigation-label">search</span>
+      <svg
+        class="navigation-icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <circle cx="10.5" cy="10.5" r="6.5"></circle>
+        <path d="m16 16 5 5"></path>
+      </svg>
+    </a>
+    <a href="{{ '/feed.xml' | relative_url }}" aria-label="RSS" title="RSS">
+      <span class="navigation-label">RSS</span>
+      <svg
+        class="navigation-icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <circle cx="5" cy="19" r="1" fill="currentColor"></circle>
+        <path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"></path>
+      </svg>
+    </a>
   </nav>
 </header>

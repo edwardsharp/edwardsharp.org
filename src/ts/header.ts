@@ -30,22 +30,28 @@ function enhanceHeader(header: HTMLElement) {
   const update = () => {
     const links = Array.from(navigation.querySelectorAll("a"));
     const gap = Number.parseFloat(getComputedStyle(header).columnGap);
-    const linkGap = Number.parseFloat(getComputedStyle(navigation).columnGap);
-    const compact = needsMenu({
+    const navigationWidth = () =>
+      links.reduce(
+        (width, link) => width + link.getBoundingClientRect().width,
+        0,
+      ) +
+      Math.max(0, links.length - 1) *
+        Number.parseFloat(getComputedStyle(navigation).columnGap);
+    header.classList.remove("has-icon-navigation");
+    const widths = {
       available: header.getBoundingClientRect().width,
       wordmark: wordmark.getBoundingClientRect().width,
-      navigation:
-        links.reduce(
-          (width, link) => width + link.getBoundingClientRect().width,
-          0,
-        ) +
-        Math.max(0, links.length - 1) * linkGap,
+      navigation: navigationWidth(),
       filter:
         filter && !filter.hidden
           ? Number.parseFloat(getComputedStyle(filter).minWidth)
           : 0,
       gap,
-    });
+    };
+    const icons = needsMenu(widths);
+    header.classList.toggle("has-icon-navigation", icons);
+    const compact =
+      icons && needsMenu({ ...widths, navigation: navigationWidth() });
     const changed = compact !== header.classList.contains("is-compact");
     const restoreFocus =
       compact && changed && navigation.contains(document.activeElement);
