@@ -9,17 +9,31 @@ kind: "photo"
 preview_image: "/content/media/2022/local-set-2d6d83971e62721a3c48830951de338b7019131a24a563aea66420ec89582574-1.jpg"
 preview_alt: "f-dt misc"
 ---
-<p><img src="{{ '/content/media/2022/local-set-2d6d83971e62721a3c48830951de338b7019131a24a563aea66420ec89582574-1.jpg' | relative_url }}" alt="IMG_2239" loading="lazy" decoding="async"></p>
-<p><img src="{{ '/content/media/2022/local-set-2d6d83971e62721a3c48830951de338b7019131a24a563aea66420ec89582574-2.jpg' | relative_url }}" alt="IMG_2240" loading="lazy" decoding="async"></p>
-<p><img src="{{ '/content/media/2022/local-set-2d6d83971e62721a3c48830951de338b7019131a24a563aea66420ec89582574-3.jpg' | relative_url }}" alt="IMG_2241" loading="lazy" decoding="async"></p>
-<p><img src="{{ '/content/media/2022/local-set-2d6d83971e62721a3c48830951de338b7019131a24a563aea66420ec89582574-4.jpg' | relative_url }}" alt="IMG_2242" loading="lazy" decoding="async"></p>
-<p><img src="{{ '/content/media/2022/local-set-2d6d83971e62721a3c48830951de338b7019131a24a563aea66420ec89582574-5.jpg' | relative_url }}" alt="IMG_2244" loading="lazy" decoding="async"></p>
-<p><img src="{{ '/content/media/2022/local-set-2d6d83971e62721a3c48830951de338b7019131a24a563aea66420ec89582574-6.jpg' | relative_url }}" alt="IMG_2245" loading="lazy" decoding="async"></p>
-<p><img src="{{ '/content/media/2022/local-set-2d6d83971e62721a3c48830951de338b7019131a24a563aea66420ec89582574-7.jpg' | relative_url }}" alt="IMG_2246" loading="lazy" decoding="async"></p>
-<p><img src="{{ '/content/media/2022/local-set-2d6d83971e62721a3c48830951de338b7019131a24a563aea66420ec89582574-8.jpg' | relative_url }}" alt="IMG_2247" loading="lazy" decoding="async"></p>
-<p><img src="{{ '/content/media/2022/local-set-2d6d83971e62721a3c48830951de338b7019131a24a563aea66420ec89582574-9.jpg' | relative_url }}" alt="IMG_2248" loading="lazy" decoding="async"></p>
-<p><img src="{{ '/content/media/2022/local-set-2d6d83971e62721a3c48830951de338b7019131a24a563aea66420ec89582574-10.jpg' | relative_url }}" alt="IMG_2249" loading="lazy" decoding="async"></p>
-<p><img src="{{ '/content/media/2022/local-set-2d6d83971e62721a3c48830951de338b7019131a24a563aea66420ec89582574-11.jpg' | relative_url }}" alt="IMG_2250" loading="lazy" decoding="async"></p>
-<p><img src="{{ '/content/media/2022/local-set-2d6d83971e62721a3c48830951de338b7019131a24a563aea66420ec89582574-12.jpg' | relative_url }}" alt="hamhock" loading="lazy" decoding="async"></p>
-<p><img src="{{ '/content/media/2022/local-set-2d6d83971e62721a3c48830951de338b7019131a24a563aea66420ec89582574-13.jpg' | relative_url }}" alt="IMG_2430" loading="lazy" decoding="async"></p>
-<p><img src="{{ '/content/media/2022/local-set-2d6d83971e62721a3c48830951de338b7019131a24a563aea66420ec89582574-14.jpg' | relative_url }}" alt="IMG_2432" loading="lazy" decoding="async"></p>
+
+![IMG\_2239](/content/media/2022/local-set-2d6d83971e62721a3c48830951de338b7019131a24a563aea66420ec89582574-1.jpg)
+
+![IMG\_2240](/content/media/2022/local-set-2d6d83971e62721a3c48830951de338b7019131a24a563aea66420ec89582574-2.jpg)
+
+![IMG\_2241](/content/media/2022/local-set-2d6d83971e62721a3c48830951de338b7019131a24a563aea66420ec89582574-3.jpg)
+
+![IMG\_2242](/content/media/2022/local-set-2d6d83971e62721a3c48830951de338b7019131a24a563aea66420ec89582574-4.jpg)
+
+![IMG\_2244](/content/media/2022/local-set-2d6d83971e62721a3c48830951de338b7019131a24a563aea66420ec89582574-5.jpg)
+
+![IMG\_2245](/content/media/2022/local-set-2d6d83971e62721a3c48830951de338b7019131a24a563aea66420ec89582574-6.jpg)
+
+![IMG\_2246](/content/media/2022/local-set-2d6d83971e62721a3c48830951de338b7019131a24a563aea66420ec89582574-7.jpg)
+
+![IMG\_2247](/content/media/2022/local-set-2d6d83971e62721a3c48830951de338b7019131a24a563aea66420ec89582574-8.jpg)
+
+![IMG\_2248](/content/media/2022/local-set-2d6d83971e62721a3c48830951de338b7019131a24a563aea66420ec89582574-9.jpg)
+
+![IMG\_2249](/content/media/2022/local-set-2d6d83971e62721a3c48830951de338b7019131a24a563aea66420ec89582574-10.jpg)
+
+![IMG\_2250](/content/media/2022/local-set-2d6d83971e62721a3c48830951de338b7019131a24a563aea66420ec89582574-11.jpg)
+
+![hamhock](/content/media/2022/local-set-2d6d83971e62721a3c48830951de338b7019131a24a563aea66420ec89582574-12.jpg)
+
+![IMG\_2430](/content/media/2022/local-set-2d6d83971e62721a3c48830951de338b7019131a24a563aea66420ec89582574-13.jpg)
+
+![IMG\_2432](/content/media/2022/local-set-2d6d83971e62721a3c48830951de338b7019131a24a563aea66420ec89582574-14.jpg)

@@ -9,5 +9,7 @@ kind: "photo"
 preview_image: "/content/media/2014/2014-07-04-photo-17842902343060015-1.jpg"
 preview_alt: "#PPL-COA"
 ---
-<p><img src="{{ '/content/media/2014/2014-07-04-photo-17842902343060015-1.jpg' | relative_url }}" alt="#PPL-COA" loading="lazy" decoding="async"></p>
+
+![#PPL-COA](/content/media/2014/2014-07-04-photo-17842902343060015-1.jpg)
+
 <p>#PPL-COA</p>

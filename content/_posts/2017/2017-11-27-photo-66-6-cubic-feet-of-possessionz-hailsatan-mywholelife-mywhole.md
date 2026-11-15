@@ -9,5 +9,7 @@ kind: "photo"
 preview_image: "/content/media/2017/2017-11-27-photo-17893176940080713-1.jpg"
 preview_alt: "66.6 cubic feet of possessionz... #hailsatan #mywholelife #mywholefuckinglife"
 ---
-<p><img src="{{ '/content/media/2017/2017-11-27-photo-17893176940080713-1.jpg' | relative_url }}" alt="66.6 cubic feet of possessionz... #hailsatan #mywholelife #mywholefuckinglife" loading="lazy" decoding="async"></p>
+
+![66.6 cubic feet of possessionz... #hailsatan #mywholelife #mywholefuckinglife](/content/media/2017/2017-11-27-photo-17893176940080713-1.jpg)
+
 <p>66.6 cubic feet of possessionz... #hailsatan #mywholelife #mywholefuckinglife</p>

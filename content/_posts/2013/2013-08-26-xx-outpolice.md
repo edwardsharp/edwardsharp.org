@@ -11,6 +11,6 @@ source_url: http://edwardsharp.org/post/59447619413/xx-outpolice
 redirect_from:
 - /post/59447619413/xx-outpolice/
 ---
-![xx outpolice]({{ '/content/media/2013/2013-08-26-xx-outpolice.png' | relative_url }})
+![xx outpolice](/content/media/2013/2013-08-26-xx-outpolice.png)
 
 \#xx\-outpolice

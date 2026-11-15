@@ -9,5 +9,7 @@ kind: "photo"
 preview_image: "/content/media/2018/2018-02-20-photo-17899642462189358-1.jpg"
 preview_alt: "#muscularbonding"
 ---
-<p><img src="{{ '/content/media/2018/2018-02-20-photo-17899642462189358-1.jpg' | relative_url }}" alt="#muscularbonding" loading="lazy" decoding="async"></p>
+
+![#muscularbonding](/content/media/2018/2018-02-20-photo-17899642462189358-1.jpg)
+
 <p>#muscularbonding</p>

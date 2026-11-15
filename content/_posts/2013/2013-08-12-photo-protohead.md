@@ -9,5 +9,7 @@ kind: "photo"
 preview_image: "/content/media/2013/2013-08-12-photo-17842708912060015-1.jpg"
 preview_alt: "#protohead"
 ---
-<p><img src="{{ '/content/media/2013/2013-08-12-photo-17842708912060015-1.jpg' | relative_url }}" alt="#protohead" loading="lazy" decoding="async"></p>
+
+![#protohead](/content/media/2013/2013-08-12-photo-17842708912060015-1.jpg)
+
 <p>#protohead</p>

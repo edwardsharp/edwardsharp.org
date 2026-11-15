@@ -9,5 +9,7 @@ kind: "photo"
 preview_image: "/content/media/2016/2016-08-28-photo-17861749855004434-1.jpg"
 preview_alt: "line/circle/velocity"
 ---
-<p><img src="{{ '/content/media/2016/2016-08-28-photo-17861749855004434-1.jpg' | relative_url }}" alt="line/circle/velocity" loading="lazy" decoding="async"></p>
+
+![line/circle/velocity](/content/media/2016/2016-08-28-photo-17861749855004434-1.jpg)
+
 <p>line/circle/velocity</p>

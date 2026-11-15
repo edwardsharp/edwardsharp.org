@@ -11,6 +11,6 @@ source_url: http://edwardsharp.org/post/45964564903/generic-bass-system
 redirect_from:
 - /post/45964564903/generic-bass-system/
 ---
-![generic bass system]({{ '/content/media/2013/2013-03-21-generic-bass-system.png' | relative_url }})
+![generic bass system](/content/media/2013/2013-03-21-generic-bass-system.png)
 
 generic bass system

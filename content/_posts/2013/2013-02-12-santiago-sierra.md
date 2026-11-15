@@ -11,6 +11,6 @@ source_url: http://edwardsharp.org/post/42967421576/santiago-sierra
 redirect_from:
 - /post/42967421576/santiago-sierra/
 ---
-![santiago sierra]({{ '/content/media/2013/2013-02-12-santiago-sierra.jpg' | relative_url }})
+![santiago sierra](/content/media/2013/2013-02-12-santiago-sierra.jpg)
 
 santiago sierra

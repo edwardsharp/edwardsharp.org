@@ -9,4 +9,5 @@ kind: "photo"
 preview_image: "/content/media/2025/local-photo-4e7f51ea67398cb1e3ab7ac125b2c5fbccaac6b974507da2309806c60eb00855-1.png"
 preview_alt: "sadcloud"
 ---
-<p><img src="{{ '/content/media/2025/local-photo-4e7f51ea67398cb1e3ab7ac125b2c5fbccaac6b974507da2309806c60eb00855-1.png' | relative_url }}" alt="sadcloud" loading="lazy" decoding="async"></p>
+
+![sadcloud](/content/media/2025/local-photo-4e7f51ea67398cb1e3ab7ac125b2c5fbccaac6b974507da2309806c60eb00855-1.png)

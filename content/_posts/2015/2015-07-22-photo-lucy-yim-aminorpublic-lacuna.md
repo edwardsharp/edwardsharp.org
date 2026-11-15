@@ -9,5 +9,7 @@ kind: "photo"
 preview_image: "/content/media/2015/2015-07-22-photo-17842066231060015-1.jpg"
 preview_alt: "LUCY YIM #aminorpublic #LACUNA"
 ---
-<p><img src="{{ '/content/media/2015/2015-07-22-photo-17842066231060015-1.jpg' | relative_url }}" alt="LUCY YIM #aminorpublic #LACUNA" loading="lazy" decoding="async"></p>
+
+![LUCY YIM #aminorpublic #LACUNA](/content/media/2015/2015-07-22-photo-17842066231060015-1.jpg)
+
 <p>LUCY YIM #aminorpublic #LACUNA</p>

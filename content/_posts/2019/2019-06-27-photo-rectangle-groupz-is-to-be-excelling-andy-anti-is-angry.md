@@ -9,8 +9,13 @@ kind: "photo"
 preview_image: "/content/media/2019/2019-06-27-photo-17943527932288291-1.jpg"
 preview_alt: "rectangle groupz is to be excelling andy anti is angry"
 ---
-<p><img src="{{ '/content/media/2019/2019-06-27-photo-17943527932288291-1.jpg' | relative_url }}" alt="rectangle groupz is to be excelling andy anti is angry (1 of 4)" loading="lazy" decoding="async"></p>
-<p><img src="{{ '/content/media/2019/2019-06-27-photo-17943527932288291-2.jpg' | relative_url }}" alt="rectangle groupz is to be excelling andy anti is angry (2 of 4)" loading="lazy" decoding="async"></p>
-<p><img src="{{ '/content/media/2019/2019-06-27-photo-17943527932288291-3.jpg' | relative_url }}" alt="rectangle groupz is to be excelling andy anti is angry (3 of 4)" loading="lazy" decoding="async"></p>
-<p><img src="{{ '/content/media/2019/2019-06-27-photo-17943527932288291-4.jpg' | relative_url }}" alt="rectangle groupz is to be excelling andy anti is angry (4 of 4)" loading="lazy" decoding="async"></p>
+
+![rectangle groupz is to be excelling andy anti is angry (1 of 4)](/content/media/2019/2019-06-27-photo-17943527932288291-1.jpg)
+
+![rectangle groupz is to be excelling andy anti is angry (2 of 4)](/content/media/2019/2019-06-27-photo-17943527932288291-2.jpg)
+
+![rectangle groupz is to be excelling andy anti is angry (3 of 4)](/content/media/2019/2019-06-27-photo-17943527932288291-3.jpg)
+
+![rectangle groupz is to be excelling andy anti is angry (4 of 4)](/content/media/2019/2019-06-27-photo-17943527932288291-4.jpg)
+
 <p>rectangle groupz is to be excelling andy anti is angry <br>evenhandedly thoroughfare thermosphere winding arena-worth, thermosphere <br>it’s botched comradeship soothing: salve &amp; desuetude <br>recreate grotesquely is to be exclusiveness and antimicrobial is anguish <br>eveready thoughtfully therefore win arenaz wordiness.</p>

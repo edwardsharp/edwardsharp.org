@@ -11,6 +11,6 @@ source_url: http://edwardsharp.org/post/67093945032/hot-prisoncorp
 redirect_from:
 - /post/67093945032/hot-prisoncorp/
 ---
-![hot prisoncorp]({{ '/content/media/2013/2013-11-15-hot-prisoncorp.jpg' | relative_url }})
+![hot prisoncorp](/content/media/2013/2013-11-15-hot-prisoncorp.jpg)
 
 \#HOT \#PRISONCORP

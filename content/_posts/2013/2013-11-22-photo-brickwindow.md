@@ -9,5 +9,7 @@ kind: "photo"
 preview_image: "/content/media/2013/2013-11-22-photo-17842757578060015-1.jpg"
 preview_alt: "#brickwindow"
 ---
-<p><img src="{{ '/content/media/2013/2013-11-22-photo-17842757578060015-1.jpg' | relative_url }}" alt="#brickwindow" loading="lazy" decoding="async"></p>
+
+![#brickwindow](/content/media/2013/2013-11-22-photo-17842757578060015-1.jpg)
+
 <p>#brickwindow</p>

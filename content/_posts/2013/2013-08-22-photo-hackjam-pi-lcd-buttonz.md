@@ -9,5 +9,7 @@ kind: "photo"
 preview_image: "/content/media/2013/2013-08-22-photo-17842713976060015-1.jpg"
 preview_alt: "#hackjam #pi #lcd #buttonz"
 ---
-<p><img src="{{ '/content/media/2013/2013-08-22-photo-17842713976060015-1.jpg' | relative_url }}" alt="#hackjam #pi #lcd #buttonz" loading="lazy" decoding="async"></p>
+
+![#hackjam #pi #lcd #buttonz](/content/media/2013/2013-08-22-photo-17842713976060015-1.jpg)
+
 <p>#hackjam #pi #lcd #buttonz</p>

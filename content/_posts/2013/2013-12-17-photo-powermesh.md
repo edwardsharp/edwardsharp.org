@@ -9,5 +9,7 @@ kind: "photo"
 preview_image: "/content/media/2013/2013-12-17-photo-17842768057060015-1.jpg"
 preview_alt: "#powermesh"
 ---
-<p><img src="{{ '/content/media/2013/2013-12-17-photo-17842768057060015-1.jpg' | relative_url }}" alt="#powermesh" loading="lazy" decoding="async"></p>
+
+![#powermesh](/content/media/2013/2013-12-17-photo-17842768057060015-1.jpg)
+
 <p>#powermesh</p>

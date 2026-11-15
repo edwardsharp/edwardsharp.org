@@ -11,10 +11,9 @@ source_url: "https://ello.co/3dwardsharp/post/impaujy41mwjbxi-gaehfa"
 archive_url: "https://web.archive.org/web/20210614012230id_/https://ello.co/3dwardsharp"
 preview_image: "/content/media/2018/2018-07-26-ello-impaujy41mwjbxi-gaehfa-816cdc6c4a.jpg"
 ---
+
 <p><a href="https://futuredeathtoll.bandcamp.com/album/lost-found">https://futuredeathtoll.bandcamp.com/album/lost-found</a></p>
 
-  <a href="https://futuredeathtoll.bandcamp.com/album/lost-found">
-    <img src="{{ '/content/media/2018/2018-07-26-ello-impaujy41mwjbxi-gaehfa-816cdc6c4a.jpg' | relative_url }}">
-  </a>
+[![](/content/media/2018/2018-07-26-ello-impaujy41mwjbxi-gaehfa-816cdc6c4a.jpg)](https://futuredeathtoll.bandcamp.com/album/lost-found)
 
 <p><a href="https://ello.co/3dwardsharp/post/impaujy41mwjbxi-gaehfa">original ello post</a> · <a href="https://web.archive.org/web/20210614012230id_/https://ello.co/3dwardsharp">archived post</a></p>

@@ -16,6 +16,6 @@ source_url: http://edwardsharp.org/post/35819206446/triangletoned
 redirect_from:
 - /post/35819206446/triangletoned/
 ---
-![triangletoned]({{ '/content/media/2012/2012-11-15-triangletoned.jpg' | relative_url }})
+![triangletoned](/content/media/2012/2012-11-15-triangletoned.jpg)
 
 triangle_toned

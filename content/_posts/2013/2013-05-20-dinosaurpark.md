@@ -11,6 +11,6 @@ source_url: http://edwardsharp.org/post/50912002319/dinosaurpark
 redirect_from:
 - /post/50912002319/dinosaurpark/
 ---
-![dinosaurpark]({{ '/content/media/2013/2013-05-20-dinosaurpark.jpg' | relative_url }})
+![dinosaurpark](/content/media/2013/2013-05-20-dinosaurpark.jpg)
 
 \#dinosaurpark

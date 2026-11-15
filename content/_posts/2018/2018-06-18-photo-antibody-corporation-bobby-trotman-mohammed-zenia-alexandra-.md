@@ -9,5 +9,7 @@ kind: "photo"
 preview_image: "/content/media/2018/2018-06-18-photo-17876243467244983-1.jpg"
 preview_alt: "Antibody Corporation; Bobby trotman Mohammed zenia; Alexandra Sullivan performing @Panoply Performance Laborat"
 ---
-<p><img src="{{ '/content/media/2018/2018-06-18-photo-17876243467244983-1.jpg' | relative_url }}" alt="Antibody Corporation; Bobby trotman Mohammed zenia; Alexandra Sullivan performing @Panoply Performance Laborat" loading="lazy" decoding="async"></p>
+
+![Antibody Corporation; Bobby trotman Mohammed zenia; Alexandra Sullivan performing @Panoply Performance Laborat](/content/media/2018/2018-06-18-photo-17876243467244983-1.jpg)
+
 <p>Antibody Corporation; Bobby trotman Mohammed zenia; Alexandra Sullivan performing @Panoply Performance Laboratory! gonna be hottt ☀ but we got chill bevzzz! 🥫</p>

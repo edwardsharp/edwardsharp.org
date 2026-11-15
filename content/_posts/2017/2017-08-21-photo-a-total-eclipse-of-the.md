@@ -9,5 +9,7 @@ kind: "photo"
 preview_image: "/content/media/2017/2017-08-21-photo-17895073579025066-1.jpg"
 preview_alt: "a total eclipse of the"
 ---
-<p><img src="{{ '/content/media/2017/2017-08-21-photo-17895073579025066-1.jpg' | relative_url }}" alt="a total eclipse of the" loading="lazy" decoding="async"></p>
+
+![a total eclipse of the](/content/media/2017/2017-08-21-photo-17895073579025066-1.jpg)
+
 <p>a total eclipse of the</p>

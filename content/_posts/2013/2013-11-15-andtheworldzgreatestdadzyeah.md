@@ -11,6 +11,6 @@ source_url: http://edwardsharp.org/post/67093843024/andtheworldzgreatestdadzyeah
 redirect_from:
 - /post/67093843024/andtheworldzgreatestdadzyeah/
 ---
-![andtheworldzgreatestdadzyeah]({{ '/content/media/2013/2013-11-15-andtheworldzgreatestdadzyeah.jpg' | relative_url }})
+![andtheworldzgreatestdadzyeah](/content/media/2013/2013-11-15-andtheworldzgreatestdadzyeah.jpg)
 
 \#andtheworldzgreatestdadzyeah

@@ -11,6 +11,6 @@ source_url: http://edwardsharp.org/post/67094243309/brickwindow
 redirect_from:
 - /post/67094243309/brickwindow/
 ---
-![brickwindow]({{ '/content/media/2013/2013-11-15-brickwindow.jpg' | relative_url }})
+![brickwindow](/content/media/2013/2013-11-15-brickwindow.jpg)
 
 \#brickwindow

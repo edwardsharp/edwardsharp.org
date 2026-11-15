@@ -9,5 +9,7 @@ kind: "photo"
 preview_image: "/content/media/2019/2019-05-22-photo-18068132185037501-1.jpg"
 preview_alt: "😻<<GREASE TRAPZ CLEANED>> 😼"
 ---
-<p><img src="{{ '/content/media/2019/2019-05-22-photo-18068132185037501-1.jpg' | relative_url }}" alt="😻&lt;&lt;GREASE TRAPZ CLEANED&gt;&gt; 😼" loading="lazy" decoding="async"></p>
+
+![😻&lt;&lt;GREASE TRAPZ CLEANED&gt;&gt; 😼](/content/media/2019/2019-05-22-photo-18068132185037501-1.jpg)
+
 <p>😻&lt;&lt;GREASE TRAPZ CLEANED&gt;&gt; 😼</p>

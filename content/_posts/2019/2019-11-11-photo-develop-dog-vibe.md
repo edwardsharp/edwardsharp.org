@@ -9,5 +9,7 @@ kind: "photo"
 preview_image: "/content/media/2019/2019-11-11-photo-17859760624589120-1.jpg"
 preview_alt: "develop dog vibe"
 ---
-<p><img src="{{ '/content/media/2019/2019-11-11-photo-17859760624589120-1.jpg' | relative_url }}" alt="develop dog vibe" loading="lazy" decoding="async"></p>
+
+![develop dog vibe](/content/media/2019/2019-11-11-photo-17859760624589120-1.jpg)
+
 <p>develop dog vibe</p>

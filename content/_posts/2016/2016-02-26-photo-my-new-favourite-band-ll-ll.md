@@ -9,5 +9,7 @@ kind: "photo"
 preview_image: "/content/media/2016/2016-02-26-photo-17844725230115990-1.jpg"
 preview_alt: "my new favourite band: LL LL!"
 ---
-<p><img src="{{ '/content/media/2016/2016-02-26-photo-17844725230115990-1.jpg' | relative_url }}" alt="my new favourite band: LL LL!" loading="lazy" decoding="async"></p>
+
+![my new favourite band: LL LL\!](/content/media/2016/2016-02-26-photo-17844725230115990-1.jpg)
+
 <p>my new favourite band: LL LL!</p>

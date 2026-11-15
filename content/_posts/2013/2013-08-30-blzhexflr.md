@@ -11,6 +11,6 @@ source_url: http://edwardsharp.org/post/59818864150/blzhexflr
 redirect_from:
 - /post/59818864150/blzhexflr/
 ---
-![blzhexflr]({{ '/content/media/2013/2013-08-30-blzhexflr.png' | relative_url }})
+![blzhexflr](/content/media/2013/2013-08-30-blzhexflr.png)
 
 \#blzhexflr

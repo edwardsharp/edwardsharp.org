@@ -9,5 +9,7 @@ kind: "photo"
 preview_image: "/content/media/2016/2016-01-04-photo-17844450577077695-1.jpg"
 preview_alt: "¡hola de la casa de edward!"
 ---
-<p><img src="{{ '/content/media/2016/2016-01-04-photo-17844450577077695-1.jpg' | relative_url }}" alt="¡hola de la casa de edward!" loading="lazy" decoding="async"></p>
+
+![¡hola de la casa de edward\!](/content/media/2016/2016-01-04-photo-17844450577077695-1.jpg)
+
 <p>¡hola de la casa de edward!</p>

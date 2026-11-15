@@ -9,5 +9,7 @@ kind: "photo"
 preview_image: "/content/media/2018/2018-09-26-photo-17984543911040958-1.jpg"
 preview_alt: "is the mic stand phallic enough?"
 ---
-<p><img src="{{ '/content/media/2018/2018-09-26-photo-17984543911040958-1.jpg' | relative_url }}" alt="is the mic stand phallic enough?" loading="lazy" decoding="async"></p>
+
+![is the mic stand phallic enough?](/content/media/2018/2018-09-26-photo-17984543911040958-1.jpg)
+
 <p>is the mic stand phallic enough?</p>

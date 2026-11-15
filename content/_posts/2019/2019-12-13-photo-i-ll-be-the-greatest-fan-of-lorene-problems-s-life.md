@@ -9,5 +9,7 @@ kind: "photo"
 preview_image: "/content/media/2019/2019-12-13-photo-18108001987076019-1.jpg"
 preview_alt: "i’ll be the greatest fan of @lorene.problems’s life"
 ---
-<p><img src="{{ '/content/media/2019/2019-12-13-photo-18108001987076019-1.jpg' | relative_url }}" alt="i’ll be the greatest fan of @lorene.problems’s life" loading="lazy" decoding="async"></p>
+
+![i’ll be the greatest fan of @lorene.problems’s life](/content/media/2019/2019-12-13-photo-18108001987076019-1.jpg)
+
 <p>i’ll be the greatest fan of @lorene.problems’s life</p>

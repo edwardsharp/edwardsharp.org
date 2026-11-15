@@ -9,5 +9,7 @@ kind: "photo"
 preview_image: "/content/media/2017/2017-07-27-photo-17879143168106214-1.jpg"
 preview_alt: "#wearethefilthiestpeoplealive"
 ---
-<p><img src="{{ '/content/media/2017/2017-07-27-photo-17879143168106214-1.jpg' | relative_url }}" alt="#wearethefilthiestpeoplealive" loading="lazy" decoding="async"></p>
+
+![#wearethefilthiestpeoplealive](/content/media/2017/2017-07-27-photo-17879143168106214-1.jpg)
+
 <p>#wearethefilthiestpeoplealive</p>

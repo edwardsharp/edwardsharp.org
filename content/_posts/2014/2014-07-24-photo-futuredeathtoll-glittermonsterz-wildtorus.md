@@ -9,5 +9,7 @@ kind: "photo"
 preview_image: "/content/media/2014/2014-07-24-photo-17842909411060015-1.jpg"
 preview_alt: "#futuredeathtoll #glittermonsterz #wildtorus"
 ---
-<p><img src="{{ '/content/media/2014/2014-07-24-photo-17842909411060015-1.jpg' | relative_url }}" alt="#futuredeathtoll #glittermonsterz #wildtorus" loading="lazy" decoding="async"></p>
+
+![#futuredeathtoll #glittermonsterz #wildtorus](/content/media/2014/2014-07-24-photo-17842909411060015-1.jpg)
+
 <p>#futuredeathtoll #glittermonsterz #wildtorus</p>

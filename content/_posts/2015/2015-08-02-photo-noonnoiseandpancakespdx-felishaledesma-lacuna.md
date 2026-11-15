@@ -9,5 +9,7 @@ kind: "photo"
 preview_image: "/content/media/2015/2015-08-02-photo-17842121674060015-1.jpg"
 preview_alt: "#noonnoiseandpancakespdx #FelishaLedesma #LACUNA"
 ---
-<p><img src="{{ '/content/media/2015/2015-08-02-photo-17842121674060015-1.jpg' | relative_url }}" alt="#noonnoiseandpancakespdx #FelishaLedesma #LACUNA" loading="lazy" decoding="async"></p>
+
+![#noonnoiseandpancakespdx #FelishaLedesma #LACUNA](/content/media/2015/2015-08-02-photo-17842121674060015-1.jpg)
+
 <p>#noonnoiseandpancakespdx #FelishaLedesma #LACUNA</p>

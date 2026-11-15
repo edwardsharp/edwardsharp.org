@@ -9,5 +9,7 @@ kind: "photo"
 preview_image: "/content/media/2016/2016-02-06-photo-17844984439074786-1.jpg"
 preview_alt: "#magnets:howdotheyevenwork"
 ---
-<p><img src="{{ '/content/media/2016/2016-02-06-photo-17844984439074786-1.jpg' | relative_url }}" alt="#magnets:howdotheyevenwork" loading="lazy" decoding="async"></p>
+
+![#magnets:howdotheyevenwork](/content/media/2016/2016-02-06-photo-17844984439074786-1.jpg)
+
 <p>#magnets:howdotheyevenwork</p>

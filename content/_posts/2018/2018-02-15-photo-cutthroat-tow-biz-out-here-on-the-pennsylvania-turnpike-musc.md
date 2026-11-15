@@ -9,5 +9,7 @@ kind: "photo"
 preview_image: "/content/media/2018/2018-02-15-photo-17925688564015861-1.jpg"
 preview_alt: "cutthroat tow biz out here on the pennsylvania turnpike  #muscularbonding"
 ---
-<p><img src="{{ '/content/media/2018/2018-02-15-photo-17925688564015861-1.jpg' | relative_url }}" alt="cutthroat tow biz out here on the pennsylvania turnpike  #muscularbonding" loading="lazy" decoding="async"></p>
+
+![cutthroat tow biz out here on the pennsylvania turnpike  #muscularbonding](/content/media/2018/2018-02-15-photo-17925688564015861-1.jpg)
+
 <p>cutthroat tow biz out here on the pennsylvania turnpike  #muscularbonding</p>

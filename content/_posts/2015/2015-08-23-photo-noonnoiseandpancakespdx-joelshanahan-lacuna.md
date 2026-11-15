@@ -9,5 +9,7 @@ kind: "photo"
 preview_image: "/content/media/2015/2015-08-23-photo-17842219489060015-1.jpg"
 preview_alt: "#noonnoiseandpancakespdx #joelshanahan #LACUNA"
 ---
-<p><img src="{{ '/content/media/2015/2015-08-23-photo-17842219489060015-1.jpg' | relative_url }}" alt="#noonnoiseandpancakespdx #joelshanahan #LACUNA" loading="lazy" decoding="async"></p>
+
+![#noonnoiseandpancakespdx #joelshanahan #LACUNA](/content/media/2015/2015-08-23-photo-17842219489060015-1.jpg)
+
 <p>#noonnoiseandpancakespdx #joelshanahan #LACUNA</p>

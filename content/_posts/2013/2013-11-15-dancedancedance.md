@@ -11,6 +11,6 @@ source_url: http://edwardsharp.org/post/67108658009/dancedancedance
 redirect_from:
 - /post/67108658009/dancedancedance/
 ---
-![dancedancedance]({{ '/content/media/2013/2013-11-15-dancedancedance.jpg' | relative_url }})
+![dancedancedance](/content/media/2013/2013-11-15-dancedancedance.jpg)
 
 \#dancedancedance

@@ -9,5 +9,7 @@ kind: "photo"
 preview_image: "/content/media/2013/2013-07-21-photo-17842697929060015-1.jpg"
 preview_alt: "strap(head+foot)"
 ---
-<p><img src="{{ '/content/media/2013/2013-07-21-photo-17842697929060015-1.jpg' | relative_url }}" alt="strap(head+foot)" loading="lazy" decoding="async"></p>
+
+![strap(head+foot)](/content/media/2013/2013-07-21-photo-17842697929060015-1.jpg)
+
 <p>strap(head+foot)</p>

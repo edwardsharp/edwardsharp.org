@@ -13,6 +13,6 @@ source_url: http://edwardsharp.org/post/35829683999/keyonghoul
 redirect_from:
 - /post/35829683999/keyonghoul/
 ---
-![keyonghoul]({{ '/content/media/2012/2012-11-16-keyonghoul.gif' | relative_url }})
+![keyonghoul](/content/media/2012/2012-11-16-keyonghoul.gif)
 
 keyonghoul

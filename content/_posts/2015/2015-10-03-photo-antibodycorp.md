@@ -9,5 +9,7 @@ kind: "photo"
 preview_image: "/content/media/2015/2015-10-03-photo-17844452854060015-1.jpg"
 preview_alt: "#ANTIBODYCORP"
 ---
-<p><img src="{{ '/content/media/2015/2015-10-03-photo-17844452854060015-1.jpg' | relative_url }}" alt="#ANTIBODYCORP" loading="lazy" decoding="async"></p>
+
+![#ANTIBODYCORP](/content/media/2015/2015-10-03-photo-17844452854060015-1.jpg)
+
 <p>#ANTIBODYCORP</p>

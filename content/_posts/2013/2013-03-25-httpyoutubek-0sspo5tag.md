@@ -11,10 +11,10 @@ source_url: http://edwardsharp.org/post/46229813070/httpyoutubek-0sspo5tag
 redirect_from:
 - /post/46229813070/httpyoutubek-0sspo5tag/
 ---
-![httpyoutubek 0sspo5tag]({{ '/content/media/2013/2013-03-25-httpyoutubek-0sspo5tag-01.png' | relative_url }})
+![httpyoutubek 0sspo5tag](/content/media/2013/2013-03-25-httpyoutubek-0sspo5tag-01.png)
 
-![httpyoutubek 0sspo5tag]({{ '/content/media/2013/2013-03-25-httpyoutubek-0sspo5tag-02.png' | relative_url }})
+![httpyoutubek 0sspo5tag](/content/media/2013/2013-03-25-httpyoutubek-0sspo5tag-02.png)
 
-![httpyoutubek 0sspo5tag]({{ '/content/media/2013/2013-03-25-httpyoutubek-0sspo5tag-03.png' | relative_url }})
+![httpyoutubek 0sspo5tag](/content/media/2013/2013-03-25-httpyoutubek-0sspo5tag-03.png)
 
 [http://youtu.be/k\-0SSPO5tAg](http://youtu.be/k-0SSPO5tAg){: target="_blank" rel="nofollow nofollow" }

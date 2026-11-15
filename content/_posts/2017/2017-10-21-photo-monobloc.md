@@ -9,5 +9,7 @@ kind: "photo"
 preview_image: "/content/media/2017/2017-10-21-photo-17902860148025272-1.jpg"
 preview_alt: "#monobloc"
 ---
-<p><img src="{{ '/content/media/2017/2017-10-21-photo-17902860148025272-1.jpg' | relative_url }}" alt="#monobloc" loading="lazy" decoding="async"></p>
+
+![#monobloc](/content/media/2017/2017-10-21-photo-17902860148025272-1.jpg)
+
 <p>#monobloc</p>

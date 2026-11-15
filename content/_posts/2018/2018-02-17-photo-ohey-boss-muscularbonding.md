@@ -9,5 +9,7 @@ kind: "photo"
 preview_image: "/content/media/2018/2018-02-17-photo-17900805601140985-1.jpg"
 preview_alt: "ohey boss #muscularbonding"
 ---
-<p><img src="{{ '/content/media/2018/2018-02-17-photo-17900805601140985-1.jpg' | relative_url }}" alt="ohey boss #muscularbonding" loading="lazy" decoding="async"></p>
+
+![ohey boss #muscularbonding](/content/media/2018/2018-02-17-photo-17900805601140985-1.jpg)
+
 <p>ohey boss #muscularbonding</p>

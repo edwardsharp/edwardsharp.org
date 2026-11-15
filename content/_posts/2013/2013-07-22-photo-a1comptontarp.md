@@ -9,5 +9,7 @@ kind: "photo"
 preview_image: "/content/media/2013/2013-07-22-photo-17842698403060015-1.jpg"
 preview_alt: "#a1comptontarp"
 ---
-<p><img src="{{ '/content/media/2013/2013-07-22-photo-17842698403060015-1.jpg' | relative_url }}" alt="#a1comptontarp" loading="lazy" decoding="async"></p>
+
+![#a1comptontarp](/content/media/2013/2013-07-22-photo-17842698403060015-1.jpg)
+
 <p>#a1comptontarp</p>
