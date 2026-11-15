@@ -1,27 +1,19 @@
-export function isMediaKind(kind: string): boolean {
-  return ["photo", "photoset", "audio", "video"].includes(kind);
-}
-
-export function enhanceMedia(shell: HTMLElement): void {
-  const dialog = shell.querySelector<HTMLDialogElement>(".media-dialog");
+export function enhancePostDialog(shell: HTMLElement): void {
+  const dialog = shell.querySelector<HTMLDialogElement>(".post-dialog");
   const permalink = dialog?.querySelector<HTMLAnchorElement>(
-    ".media-dialog__permalink",
+    ".post-dialog__permalink",
   );
-  const close = dialog?.querySelector<HTMLButtonElement>(
-    ".media-dialog__close",
-  );
-  const status = dialog?.querySelector<HTMLElement>(".media-dialog__status");
-  const retry = dialog?.querySelector<HTMLButtonElement>(
-    ".media-dialog__retry",
-  );
-  const content = dialog?.querySelector<HTMLElement>(".media-dialog__content");
+  const close = dialog?.querySelector<HTMLButtonElement>(".post-dialog__close");
+  const status = dialog?.querySelector<HTMLElement>(".post-dialog__status");
+  const retry = dialog?.querySelector<HTMLButtonElement>(".post-dialog__retry");
+  const content = dialog?.querySelector<HTMLElement>(".post-dialog__content");
   if (!dialog || !permalink || !close || !status || !retry || !content)
-    throw new Error("missing media dialog controls");
+    throw new Error("missing post dialog controls");
 
   let request: AbortController | undefined;
   let opener: HTMLAnchorElement | undefined;
 
-  const clearMedia = () => {
+  const clearContent = () => {
     for (const media of content.querySelectorAll<HTMLMediaElement>(
       "audio, video",
     ))
@@ -30,10 +22,10 @@ export function enhanceMedia(shell: HTMLElement): void {
   };
 
   const showError = (error: unknown) => {
-    console.error("could not load media", error);
+    console.error("could not load post", error);
     status.hidden = false;
     status.setAttribute("role", "alert");
-    status.textContent = `could not load media (${error instanceof Error ? error.message : "unknown error"}). try again or follow the title to the post.`;
+    status.textContent = `could not load post (${error instanceof Error ? error.message : "unknown error"}). try again or follow the title to the post.`;
     retry.hidden = false;
   };
 
@@ -41,37 +33,40 @@ export function enhanceMedia(shell: HTMLElement): void {
     request?.abort();
     const controller = new AbortController();
     request = controller;
-    clearMedia();
+    clearContent();
     status.hidden = false;
     status.setAttribute("role", "status");
-    status.textContent = "loading media...";
+    status.textContent = "loading post...";
     retry.hidden = true;
     try {
       if (new URL(url).origin !== location.origin)
-        throw new Error("media posts must be on this site");
+        throw new Error("posts must be on this site");
       const response = await fetch(url, { signal: controller.signal });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       if (new URL(response.url).origin !== location.origin)
-        throw new Error("media post redirected away from this site");
+        throw new Error("post redirected away from this site");
       const page = new DOMParser().parseFromString(
         await response.text(),
         "text/html",
       );
       if (controller.signal.aborted || !dialog.open) return;
       const prose = page.querySelector(".post > .prose");
-      if (!prose?.querySelector("img, audio, video, iframe"))
-        throw new Error("post media is missing");
-      content.replaceChildren(...prose.childNodes);
+      const date = page.querySelector(".post > .page-heading > .eyebrow");
+      const tags = page.querySelector(".post > .post-navigation > .tags");
+      if (!prose || !date) throw new Error("post content or date is missing");
+      content.replaceChildren(
+        date,
+        ...prose.childNodes,
+        ...(tags ? [tags] : []),
+      );
       status.hidden = true;
     } catch (error) {
       if (!controller.signal.aborted) showError(error);
     }
   };
 
-  for (const card of shell.querySelectorAll<HTMLElement>(".hex-card")) {
-    if (isMediaKind(card.dataset.kind ?? ""))
-      card.querySelector("a")?.setAttribute("aria-haspopup", "dialog");
-  }
+  for (const link of shell.querySelectorAll(".hex-card__link"))
+    link.setAttribute("aria-haspopup", "dialog");
 
   shell.addEventListener("click", (event) => {
     if (
@@ -89,7 +84,6 @@ export function enhanceMedia(shell: HTMLElement): void {
     if (
       !link ||
       !card ||
-      !isMediaKind(card.dataset.kind ?? "") ||
       link.hasAttribute("download") ||
       (link.target && link.target !== "_self")
     )
@@ -97,10 +91,10 @@ export function enhanceMedia(shell: HTMLElement): void {
     event.preventDefault();
     opener = link;
     permalink.textContent =
-      card.querySelector(".hex-card__title")?.textContent ?? "media";
+      card.querySelector(".hex-card__title")?.textContent ?? "post";
     permalink.href = link.href;
     dialog.showModal();
-    document.documentElement.classList.add("media-open");
+    document.documentElement.classList.add("post-dialog-open");
     void load(link.href);
   });
 
@@ -136,8 +130,8 @@ export function enhanceMedia(shell: HTMLElement): void {
   );
   dialog.addEventListener("close", () => {
     request?.abort();
-    clearMedia();
-    document.documentElement.classList.remove("media-open");
+    clearContent();
+    document.documentElement.classList.remove("post-dialog-open");
     const target = opener?.isConnected
       ? opener
       : Array.from(

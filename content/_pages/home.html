@@ -18,10 +18,10 @@ searchable: false
         <p class="feed-status visually-hidden" role="status" aria-live="polite"></p>
         <button class="feed-more" type="button" hidden>load more posts</button>
       </div>
-      <dialog class="media-dialog" aria-labelledby="media-title">
-        <header class="media-dialog__toolbar">
-          <h2><a id="media-title" class="media-dialog__permalink"></a></h2>
-          <button class="media-dialog__close" type="button" aria-label="close media" autofocus>
+      <dialog class="post-dialog" aria-labelledby="post-dialog-title">
+        <header class="post-dialog__toolbar">
+          <h2><a id="post-dialog-title" class="post-dialog__permalink"></a></h2>
+          <button class="post-dialog__close" type="button" aria-label="close post" autofocus>
             <svg
               width="20"
               height="20"
@@ -37,9 +37,9 @@ searchable: false
             </svg>
           </button>
         </header>
-        <p class="media-dialog__status" role="status"></p>
-        <button class="media-dialog__retry" type="button" hidden>retry media</button>
-        <div class="media-dialog__content prose"></div>
+        <p class="post-dialog__status" role="status"></p>
+        <button class="post-dialog__retry" type="button" hidden>retry post</button>
+        <div class="post-dialog__content prose"></div>
       </dialog>
     </div>
   {% else %}

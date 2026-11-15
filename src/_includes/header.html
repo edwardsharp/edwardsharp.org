@@ -11,7 +11,7 @@
     <form class="feed-filter" hidden>
       <label for="feed-filter" class="visually-hidden">filter journal</label>
       <select id="feed-filter" name="filter" disabled>
-        <option value="">all posts</option>
+        <option value="">all postz</option>
       </select>
     </form>
   {% endif %}
@@ -26,13 +26,6 @@
     <span class="menu-icon" aria-hidden="true"></span>
   </button>
   <nav id="site-navigation" aria-label="main navigation">
-    <a
-      href="{{ '/' | relative_url }}"
-      {% if page.url == '/' %}
-        aria-current="page"
-      {% endif %}
-      >home</a
-    >
     <a
       href="{{ '/archive/' | relative_url }}"
       {% if page.url == '/archive/' %}

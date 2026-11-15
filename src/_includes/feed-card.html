@@ -9,10 +9,7 @@
   data-kind="{{ post.kind | default: 'entry' | escape }}"
   data-post-url="{{ post.url | relative_url }}"
 >
-  <a
-    class="hex-card__link"
-    href="{% if post.kind == 'link' %}{{ post.link_url | escape }}{% else %}{{ post.url | relative_url }}{% endif %}"
-  >
+  <a class="hex-card__link" href="{{ post.url | relative_url }}">
     <div class="hex-card__body">
       {% if post.preview_image %}
         <img

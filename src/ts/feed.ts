@@ -8,7 +8,7 @@ import {
 } from "@tanstack/virtual-core";
 import { buildRows, geometry, rowForIndex } from "./honeycomb.ts";
 import { filterChoices, filterPosts } from "./feed-filters.ts";
-import { enhanceMedia, isMediaKind } from "./media.ts";
+import { enhancePostDialog } from "./post-dialog.ts";
 
 interface PreviewPost {
   id: string;
@@ -21,7 +21,6 @@ interface PreviewPost {
   image: string | null;
   alt: string;
   tags: string[];
-  link: string | null;
 }
 
 function isPreviewPost(value: unknown): value is PreviewPost {
@@ -34,12 +33,7 @@ function isPreviewPost(value: unknown): value is PreviewPost {
     (value.image === null || typeof value.image === "string") &&
     "tags" in value &&
     Array.isArray(value.tags) &&
-    value.tags.every((tag: unknown) => typeof tag === "string") &&
-    "kind" in value &&
-    "link" in value &&
-    (value.kind === "link"
-      ? typeof value.link === "string" && /^https?:\/\//i.test(value.link)
-      : value.link === null)
+    value.tags.every((tag: unknown) => typeof tag === "string")
   );
 }
 
@@ -65,8 +59,8 @@ function createCard(post: PreviewPost, index: number, total: number) {
   card.dataset.postUrl = post.url;
   const link = document.createElement("a");
   link.className = "hex-card__link";
-  link.href = post.kind === "link" && post.link ? post.link : post.url;
-  if (isMediaKind(post.kind)) link.setAttribute("aria-haspopup", "dialog");
+  link.href = post.url;
+  link.setAttribute("aria-haspopup", "dialog");
   const body = document.createElement("div");
   body.className = "hex-card__body";
   const copy = document.createElement("div");
@@ -493,6 +487,6 @@ async function startFeed(shell: HTMLElement) {
 
 const shell = document.querySelector<HTMLElement>("[data-honeycomb]");
 if (shell) {
-  enhanceMedia(shell);
+  enhancePostDialog(shell);
   void startFeed(shell);
 }

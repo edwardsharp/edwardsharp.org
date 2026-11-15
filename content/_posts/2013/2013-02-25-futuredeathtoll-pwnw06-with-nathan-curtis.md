@@ -8,7 +8,7 @@ kind: video
 source_url: http://edwardsharp.org/post/43998473751/futuredeathtoll-pwnw06-with-nathan-curtis
 redirect_from:
 - /post/43998473751/futuredeathtoll-pwnw06-with-nathan-curtis/
-preview_image: https://i.ytimg.com/vi/svfpokt__GM/hqdefault.jpg
+preview_image: https://i.ytimg.com/vi/svfpokt__GM/mqdefault.jpg
 ---
 <div class="video-embed" style="aspect-ratio: 400 / 225">
   <iframe src="https://www.youtube-nocookie.com/embed/svfpokt__GM" title="video / 2013-02-25" loading="lazy" allowfullscreen></iframe>
