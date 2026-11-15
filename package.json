@@ -7,6 +7,7 @@
   },
   "scripts": {
     "import:social": "node src/ts/import-social.ts",
+    "import:images": "node src/ts/import-images.ts",
     "build": "npm run typecheck && node src/ts/esbuild.config.ts",
     "typecheck": "tsc --project src/tsconfig.json",
     "test": "node --test src/ts/tests/*.test.ts",
