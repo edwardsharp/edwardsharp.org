@@ -182,9 +182,14 @@ export function enhancePostDialog(shell: HTMLElement) {
         ".post-dialog__filter",
       );
       const readerFilter = form?.querySelector<HTMLSelectElement>("select");
-      if (!form || !readerFilter) throw new Error("missing reader filter");
+      const toolbar = dialog.querySelector<HTMLElement>(
+        ".post-dialog__toolbar",
+      );
+      if (!form || !readerFilter || !toolbar)
+        throw new Error("missing reader controls");
       reader ??= createPostReader({
         content,
+        toolbar,
         form,
         select: readerFilter,
         status,

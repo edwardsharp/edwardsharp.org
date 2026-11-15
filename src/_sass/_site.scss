@@ -127,15 +127,21 @@ a:hover {
   font-weight: 100;
 }
 
-.site-header::before {
+.site-header::before,
+.post-dialog__toolbar::before {
   content: "";
   position: absolute;
-  inset: 0 calc((100% - 100vw) / 2);
+  inset: 0;
+  inset-block-start: calc(-1 * env(safe-area-inset-top, 0px));
   z-index: -1;
   background: color-mix(in srgb, var(--background) 25%, transparent);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   pointer-events: none;
+}
+
+.site-header::before {
+  inset-inline: calc((100% - 100vw) / 2);
 }
 
 .wordmark {
@@ -706,20 +712,28 @@ html.post-dialog-open {
 }
 
 .post-dialog {
+  --post-dialog-gap: 1rem;
+  --post-dialog-height: calc(
+    100svh - 2 *
+      var(--post-dialog-gap) - env(safe-area-inset-top, 0px) - env(
+        safe-area-inset-bottom,
+        0px
+      )
+  );
   container-type: inline-size;
   inset: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px)
     env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
   width: min(
     64rem,
     calc(
-      100% -
-        2rem - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)
+      100% - 2 *
+        var(--post-dialog-gap) - env(safe-area-inset-left, 0px) - env(
+          safe-area-inset-right,
+          0px
+        )
     )
   );
-  max-height: calc(
-    100svh -
-      2rem - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)
-  );
+  max-height: var(--post-dialog-height);
   overflow: auto;
   padding: 0;
   border: 0;
@@ -733,6 +747,16 @@ html.post-dialog-open {
   backdrop-filter: blur(8px);
 }
 
+@media (max-width: 36rem) {
+  .post-dialog {
+    --post-dialog-gap: 0px;
+    --post-dialog-height: 100dvh;
+    inset: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
 .post-dialog__toolbar {
   position: sticky;
   top: 0;
@@ -741,7 +765,7 @@ html.post-dialog-open {
   align-items: center;
   gap: 1rem;
   padding: 1rem;
-  background: var(--background);
+  background: transparent;
 }
 
 .post-dialog__toolbar h2 {
@@ -804,10 +828,7 @@ html.post-dialog-open {
 .post-dialog.is-reader[open] {
   display: flex;
   flex-direction: column;
-  height: calc(
-    100svh -
-      2rem - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)
-  );
+  height: var(--post-dialog-height);
   overflow: hidden;
 }
 
@@ -825,6 +846,26 @@ html.post-dialog-open {
 }
 
 @container (max-width: 36rem) {
+  .post-dialog__toolbar,
+  .is-reader .post-reader__entry {
+    padding: 0.5rem;
+    padding-inline-start: max(0.5rem, env(safe-area-inset-left, 0px));
+    padding-inline-end: max(0.5rem, env(safe-area-inset-right, 0px));
+  }
+
+  .post-dialog__toolbar {
+    padding-block-start: calc(0.5rem + env(safe-area-inset-top, 0px));
+  }
+
+  .post-dialog__content,
+  .post-dialog__status {
+    padding-inline: 0.5rem;
+  }
+
+  .post-dialog__retry {
+    margin-inline: 0.5rem;
+  }
+
   .is-reader .post-dialog__toolbar {
     grid-template-columns: minmax(0, 1fr) 2.75rem auto;
   }
@@ -857,7 +898,9 @@ html.post-dialog-open {
   overflow: auto;
   overflow-anchor: none;
   overscroll-behavior: contain;
-  padding: 0;
+  margin-block-start: calc(-1 * var(--post-reader-header-height, 0px));
+  padding: var(--post-reader-header-height, 0px) 0 0;
+  scroll-padding-block-start: var(--post-reader-header-height, 0px);
 }
 
 .post-reader__track {

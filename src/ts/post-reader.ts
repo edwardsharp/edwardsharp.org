@@ -16,13 +16,14 @@ export interface ReaderPost {
 
 export function createPostReader(options: {
   content: HTMLElement;
+  toolbar: HTMLElement;
   form: HTMLFormElement;
   select: HTMLSelectElement;
   status: HTMLElement;
   load: (url: string, signal: AbortSignal) => Promise<DocumentFragment>;
   setActive: (post: ReaderPost) => void;
 }) {
-  const { content, form, select, status, load, setActive } = options;
+  const { content, toolbar, form, select, status, load, setActive } = options;
   const cache = new Map<string, DocumentFragment>();
   const mounted = new Map<
     number,
@@ -38,6 +39,19 @@ export function createPostReader(options: {
   let generation = 0;
   let transition = 0;
   let animation: Animation | undefined;
+  let toolbarHeight = 0;
+
+  const measureToolbar = () => {
+    toolbarHeight = toolbar.getBoundingClientRect().height;
+    content.style.setProperty(
+      "--post-reader-header-height",
+      `${toolbarHeight}px`,
+    );
+  };
+  const toolbarResize = new ResizeObserver(() => {
+    measureToolbar();
+    render();
+  });
 
   const pause = (node: HTMLElement) => {
     for (const media of node.querySelectorAll<HTMLMediaElement>("audio, video"))
@@ -114,7 +128,10 @@ export function createPostReader(options: {
     const last = posts.at(-1);
     const lastSize = last ? (virtualizer.itemSizeCache.get(last.url) ?? 0) : 0;
     // A short final post must still be able to align with the reader's top.
-    const paddingEnd = Math.max(0, content.clientHeight - lastSize);
+    const paddingEnd = Math.max(
+      0,
+      content.clientHeight - toolbarHeight - lastSize,
+    );
     if (paddingEnd !== virtualizer.options.paddingEnd)
       virtualizer.setOptions({ ...virtualizer.options, paddingEnd });
     const visible = virtualizer.getVirtualItems();
@@ -159,6 +176,7 @@ export function createPostReader(options: {
     if (post && post !== active) {
       active = post;
       setActive(post);
+      measureToolbar();
     }
   };
 
@@ -182,9 +200,10 @@ export function createPostReader(options: {
     if (!post) throw new Error("reader anchor is missing");
     active = post;
     setActive(post);
+    measureToolbar();
     track = document.createElement("div");
     track.className = "post-reader__track";
-    const estimate = Math.max(240, content.clientHeight);
+    const estimate = Math.max(240, content.clientHeight - toolbarHeight);
     track.style.height = `${(posts.length + 1) * estimate}px`;
     content.replaceChildren(track);
     content.scrollTop = selection.index * estimate;
@@ -306,6 +325,7 @@ export function createPostReader(options: {
       if (all)
         all.textContent = `all ${opening.kind} posts (${readerSelection(allPosts, "", opening).posts.length})`;
       form.hidden = false;
+      toolbarResize.observe(toolbar);
       rebuild(source.value);
       content.focus({ preventScroll: true });
     },
@@ -313,6 +333,9 @@ export function createPostReader(options: {
       transition++;
       animation?.cancel();
       opening = undefined;
+      toolbarResize.disconnect();
+      toolbarHeight = 0;
+      content.style.removeProperty("--post-reader-header-height");
       clear();
       form.hidden = true;
     },
