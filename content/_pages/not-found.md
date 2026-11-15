@@ -4,6 +4,6 @@ permalink: /404.html
 searchable: false
 ---
 
-this page is missing, or hasn't made it here yet.
+this page is missing, or hasn't made it here yet. #sorry
 
 [back to the journal]({{ '/' | relative_url }}).
