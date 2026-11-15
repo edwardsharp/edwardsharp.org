@@ -86,13 +86,39 @@ test("archived HTML keeps public links and captions without executable markup", 
   assert.doesNotMatch(html, /onclick|onerror|javascript:|<script/);
 });
 
+test("older photoset captures produce photo metadata and retain every image", () => {
+  const images = [
+    "https://example.com/first.jpg",
+    "https://example.com/second.jpg",
+  ];
+  const photoset: SocialPost = {
+    ...post,
+    platform: "ello",
+    kind: "photoset",
+    title: "",
+    tags: [],
+    images,
+    html: images.map((src) => `<img src="${src}">`).join(""),
+  };
+  assert.deepEqual(postTags(photoset), ["ello", "photo"]);
+  const markdown = postMarkdown(photoset, photoset.html);
+  assert.match(markdown, /^kind: "photo"$/m);
+  assert.match(markdown, /^title: "photo \/ 2014-06-01"$/m);
+  assert.doesNotMatch(markdown, /photoset/);
+  for (const image of images) assert.ok(markdown.includes(image));
+});
+
 test("Ello imports use post publication dates rather than snapshot dates", () => {
   const [parsed] = parseEllo(
-    '<article><header><span>Thu, 26 Jul 18 21:07:10 +0000</span><a href="https://ello.co/3dwardsharp/post/abc">post</a></header><section><p>original caption</p><img src="https://example.com/photo.jpg"></section><footer>10 likes</footer></article>',
+    '<article><header><span>Thu, 26 Jul 18 21:07:10 +0000</span><a href="https://ello.co/3dwardsharp/post/abc">post</a></header><section><p>original caption</p><img src="https://example.com/photo.jpg"><img src="https://example.com/second.jpg"></section><footer>10 likes</footer></article>',
     "https://web.archive.org/web/20210614012230/https://ello.co/3dwardsharp",
   );
   assert.equal(parsed?.date, "2018-07-26T21:07:10.000Z");
   assert.equal(parsed?.kind, "photo");
+  assert.deepEqual(parsed?.images, [
+    "https://example.com/photo.jpg",
+    "https://example.com/second.jpg",
+  ]);
   assert.doesNotMatch(parsed!.html, /likes/);
 });
 
@@ -116,7 +142,7 @@ test("unavailable archived images become notices without removing captions or wo
 
 test("Twitter imports check ownership and recover the original instant from its source ID", () => {
   const id = "1212440717953556482";
-  const html = `<div class="tweet" data-tweet-id="${id}" data-screen-name="3dwardsharp"><p class="js-tweet-text">original tweet</p></div>`;
+  const html = `<div class="tweet" data-tweet-id="${id}" data-screen-name="3dwardsharp"><p class="js-tweet-text">original tweet</p><div class="AdaptiveMedia-photoContainer"><img src="https://example.com/first.jpg"></div><div class="AdaptiveMedia-photoContainer"><img src="https://example.com/second.jpg"></div></div>`;
   const parsed = parseTweet(
     html,
     id,
@@ -124,6 +150,11 @@ test("Twitter imports check ownership and recover the original instant from its 
       id,
   );
   assert.equal(parsed.date, "2020-01-01T18:29:27.876Z");
+  assert.equal(parsed.kind, "photo");
+  assert.deepEqual(parsed.images, [
+    "https://example.com/first.jpg",
+    "https://example.com/second.jpg",
+  ]);
   assert.throws(
     () =>
       parseTweet(

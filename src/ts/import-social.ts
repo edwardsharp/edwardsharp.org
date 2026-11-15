@@ -88,11 +88,15 @@ export function sourceDate(value: string): {
   };
 }
 
+function postKind(kind: Kind): Exclude<Kind, "photoset"> {
+  return kind === "photoset" ? "photo" : kind;
+}
+
 export function postTags(post: SocialPost): string[] {
+  const kind = postKind(post.kind);
   const tags = [
     ...(post.platform === "twitter" ? [] : [post.platform]),
-    post.kind === "entry" ? "text" : post.kind,
-    ...(post.kind === "photoset" ? ["photo"] : []),
+    kind === "entry" ? "text" : kind,
     ...post.tags,
   ];
   const prose = parseHTML(`<html><body>${post.html}</body></html>`).document
@@ -328,7 +332,7 @@ export function parseEllo(html: string, archiveUrl: string): SocialPost[] {
       title:
         Array.from(content.textContent.trim()).slice(0, 100).join("") ||
         `ello / ${date.toISOString().slice(0, 10)}`,
-      kind: images.length > 1 ? "photoset" : images.length ? "photo" : "entry",
+      kind: images.length ? "photo" : "entry",
       html: body,
       images,
       tags: [],
@@ -377,7 +381,7 @@ export function parseTweet(
       images
         .map((src) => `\n<p><img src="${escapeHTML(src)}" alt=""></p>`)
         .join(""),
-    kind: images.length > 1 ? "photoset" : images.length ? "photo" : "entry",
+    kind: images.length ? "photo" : "entry",
     images,
     tags: [],
   };
@@ -518,14 +522,15 @@ export function postMarkdown(
     throw new Error(`invalid source ID: ${post.id}`);
   publicURL(post.url);
   const date = sourceDate(post.date);
+  const kind = postKind(post.kind);
   const fields: Record<string, unknown> = {
-    title: post.title.trim() || `${post.kind} / ${date.date.slice(0, 10)}`,
+    title: post.title.trim() || `${kind} / ${date.date.slice(0, 10)}`,
     date: date.date,
     date_precision: date.precision,
     tags: postTags(post),
     permalink: `/post/${post.platform === "twitter" ? "" : `${post.platform}-`}${post.id}/`,
     source_id: post.id,
-    kind: post.kind,
+    kind,
   };
   if (post.platform !== "twitter") {
     fields.source_platform = post.platform;
