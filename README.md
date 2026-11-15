@@ -1,6 +1,6 @@
 # edwardsharp.org
 
-a Jekyll blog with a virtualized honeycomb feed; Node.js 22.18+.
+a Jekyll blog with a virtualized honeycomb feed and a infinite scroll post reader.
 
 ## develop
 

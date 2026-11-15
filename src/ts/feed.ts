@@ -461,7 +461,10 @@ function enhanceFeed(
   });
 }
 
-async function startFeed(shell: HTMLElement) {
+async function startFeed(
+  shell: HTMLElement,
+  dialog: ReturnType<typeof enhancePostDialog>,
+) {
   const grid = shell.querySelector<HTMLElement>(".honeycomb");
   const status = shell.querySelector<HTMLElement>(".feed-status");
   const more = shell.querySelector<HTMLButtonElement>(".feed-more");
@@ -499,15 +502,16 @@ async function startFeed(shell: HTMLElement) {
     more.hidden = false;
     more.disabled = false;
     more.textContent = "retry scrolling grid";
-    more.onclick = () => void startFeed(shell);
+    more.onclick = () => void startFeed(shell, dialog);
     return;
   }
   status.setAttribute("role", "status");
   enhanceFeed(shell, grid, status, more, posts, filterSelect);
+  dialog.setFeed(posts, filterSelect);
 }
 
 const shell = document.querySelector<HTMLElement>("[data-honeycomb]");
 if (shell) {
-  enhancePostDialog(shell);
-  void startFeed(shell);
+  const dialog = enhancePostDialog(shell);
+  void startFeed(shell, dialog);
 }

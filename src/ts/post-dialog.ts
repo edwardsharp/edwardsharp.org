@@ -1,4 +1,6 @@
-export function enhancePostDialog(shell: HTMLElement): void {
+import { createPostReader, type ReaderPost } from "./post-reader.ts";
+
+export function enhancePostDialog(shell: HTMLElement) {
   const dialog = shell.querySelector<HTMLDialogElement>(".post-dialog");
   const permalink = dialog?.querySelector<HTMLAnchorElement>(
     ".post-dialog__permalink",
@@ -12,6 +14,9 @@ export function enhancePostDialog(shell: HTMLElement): void {
 
   let request: AbortController | undefined;
   let opener: HTMLAnchorElement | undefined;
+  let feed: ReaderPost[] | undefined;
+  let feedFilter: HTMLSelectElement | undefined;
+  let reader: ReturnType<typeof createPostReader> | undefined;
 
   const clearContent = () => {
     for (const media of content.querySelectorAll<HTMLMediaElement>(
@@ -29,6 +34,26 @@ export function enhancePostDialog(shell: HTMLElement): void {
     retry.hidden = false;
   };
 
+  const loadPage = async (url: string, signal: AbortSignal) => {
+    if (new URL(url).origin !== location.origin)
+      throw new Error("posts must be on this site");
+    const response = await fetch(url, { signal });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    if (new URL(response.url).origin !== location.origin)
+      throw new Error("post redirected away from this site");
+    const page = new DOMParser().parseFromString(
+      await response.text(),
+      "text/html",
+    );
+    const prose = page.querySelector(".post > .prose");
+    const date = page.querySelector(".post > .page-heading > .eyebrow");
+    const tags = page.querySelector(".post > .post-navigation > .tags");
+    if (!prose || !date) throw new Error("post content or date is missing");
+    const fragment = document.createDocumentFragment();
+    fragment.append(date, ...prose.childNodes, ...(tags ? [tags] : []));
+    return fragment;
+  };
+
   const load = async (url: string) => {
     request?.abort();
     const controller = new AbortController();
@@ -39,26 +64,9 @@ export function enhancePostDialog(shell: HTMLElement): void {
     status.textContent = "loading post...";
     retry.hidden = true;
     try {
-      if (new URL(url).origin !== location.origin)
-        throw new Error("posts must be on this site");
-      const response = await fetch(url, { signal: controller.signal });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      if (new URL(response.url).origin !== location.origin)
-        throw new Error("post redirected away from this site");
-      const page = new DOMParser().parseFromString(
-        await response.text(),
-        "text/html",
-      );
+      const fragment = await loadPage(url, controller.signal);
       if (controller.signal.aborted || !dialog.open) return;
-      const prose = page.querySelector(".post > .prose");
-      const date = page.querySelector(".post > .page-heading > .eyebrow");
-      const tags = page.querySelector(".post > .post-navigation > .tags");
-      if (!prose || !date) throw new Error("post content or date is missing");
-      content.replaceChildren(
-        date,
-        ...prose.childNodes,
-        ...(tags ? [tags] : []),
-      );
+      content.replaceChildren(fragment);
       status.hidden = true;
     } catch (error) {
       if (!controller.signal.aborted) showError(error);
@@ -95,7 +103,19 @@ export function enhancePostDialog(shell: HTMLElement): void {
     permalink.href = link.href;
     dialog.showModal();
     document.documentElement.classList.add("post-dialog-open");
-    void load(link.href);
+    if (reader && feed && feedFilter) {
+      request?.abort();
+      status.hidden = true;
+      retry.hidden = true;
+      dialog.classList.add("is-reader");
+      try {
+        reader.open(link.href, feed, feedFilter);
+      } catch (error) {
+        reader.close();
+        dialog.classList.remove("is-reader");
+        showError(error);
+      }
+    } else void load(link.href);
   });
 
   close.addEventListener("click", () => dialog.close());
@@ -139,6 +159,8 @@ export function enhancePostDialog(shell: HTMLElement): void {
   );
   dialog.addEventListener("close", () => {
     request?.abort();
+    reader?.close();
+    dialog.classList.remove("is-reader");
     clearContent();
     document.documentElement.classList.remove("post-dialog-open");
     const target = opener?.isConnected
@@ -151,4 +173,28 @@ export function enhancePostDialog(shell: HTMLElement): void {
     );
     (target ?? fallback)?.focus({ preventScroll: true });
   });
+
+  return {
+    setFeed(posts: ReaderPost[], select: HTMLSelectElement) {
+      feed = posts;
+      feedFilter = select;
+      const form = dialog.querySelector<HTMLFormElement>(
+        ".post-dialog__filter",
+      );
+      const readerFilter = form?.querySelector<HTMLSelectElement>("select");
+      if (!form || !readerFilter) throw new Error("missing reader filter");
+      reader ??= createPostReader({
+        content,
+        form,
+        select: readerFilter,
+        status,
+        load: loadPage,
+        setActive(post) {
+          permalink.textContent = post.title;
+          permalink.href = post.url;
+          permalink.title = post.title;
+        },
+      });
+    },
+  };
 }

@@ -18,9 +18,12 @@ layout: default
     {% if page.tags.size > 0 %}
       <ul class="tags" aria-label="tags">
         {% for tag in page.tags %}
+          {% assign tag_label = tag | strip %}
+          {% assign tag_first_character = tag_label | slice: 0 %}
           <li>
             <a href="{{ '/' | relative_url }}?tag={{ tag | url_encode | escape }}">
-              {{- tag | escape }} ({{ tag | post_tag_count }})</a
+              {%- unless tag_first_character == '#' %}#{% endunless -%}
+              {{- tag_label | escape }} ({{ tag | post_tag_count }})</a
             >
           </li>
         {% endfor %}

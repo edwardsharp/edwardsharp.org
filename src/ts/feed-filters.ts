@@ -73,3 +73,21 @@ export function filterPosts<T extends FilterPost>(
   if (filter === "") return posts;
   throw new Error("invalid journal filter");
 }
+
+export function readerSelection<T extends FilterPost & { url: string }>(
+  posts: T[],
+  filter: string,
+  openingPost: T,
+  currentUrl = openingPost.url,
+) {
+  const matching = filterPosts(posts, filter || `type:${openingPost.kind}`);
+  return {
+    posts: matching,
+    index: matching.length
+      ? Math.max(
+          0,
+          matching.findIndex((post) => post.url === currentUrl),
+        )
+      : null,
+  };
+}

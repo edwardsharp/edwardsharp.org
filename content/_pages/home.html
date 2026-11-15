@@ -21,7 +21,11 @@ searchable: false
       <dialog class="post-dialog" aria-labelledby="post-dialog-title">
         <header class="post-dialog__toolbar">
           <h2><a id="post-dialog-title" class="post-dialog__permalink"></a></h2>
-          <button class="post-dialog__close" type="button" aria-label="close post" autofocus>
+          <form class="post-dialog__filter" hidden>
+            <label for="post-reader-filter" class="visually-hidden">filter reader</label>
+            <select id="post-reader-filter" name="filter"></select>
+          </form>
+          <button class="post-dialog__close" type="button" aria-label="close post">
             <svg
               width="20"
               height="20"
@@ -39,7 +43,7 @@ searchable: false
         </header>
         <p class="post-dialog__status" role="status"></p>
         <button class="post-dialog__retry" type="button" hidden>retry post</button>
-        <div class="post-dialog__content prose"></div>
+        <div class="post-dialog__content prose" tabindex="0" autofocus></div>
       </dialog>
     </div>
   {% else %}

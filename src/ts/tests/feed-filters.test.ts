@@ -2,7 +2,11 @@ import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
-import { filterChoices, filterPosts } from "../feed-filters.ts";
+import {
+  filterChoices,
+  filterPosts,
+  readerSelection,
+} from "../feed-filters.ts";
 
 const posts = [
   { id: 1, kind: "photo", tags: ["noise", "noise", "solo"] },
@@ -43,6 +47,46 @@ test("filtered views preserve order and support direct singleton tags and colon-
   assert.deepEqual(filterPosts(posts, "tag:missing"), []);
   assert.deepEqual(filterPosts(posts, "type:missing"), []);
   assert.throws(() => filterPosts(posts, "invalid"), /invalid journal filter/);
+});
+
+test("reader defaults to the opening kind but tag filters include every matching kind in date order", () => {
+  const feed = posts.map((post) => ({ ...post, url: `/post/${post.id}/` }));
+  const opening = feed[2]!;
+  const initial = readerSelection(feed, "", opening);
+  assert.deepEqual(
+    initial.posts.map((post) => post.id),
+    [1, 3],
+  );
+  assert.equal(initial.index, 1);
+  const tagged = readerSelection(feed, "tag:type:photo", opening);
+  assert.deepEqual(
+    tagged.posts.map((post) => post.id),
+    [2, 3],
+  );
+  assert.equal(tagged.index, 1);
+  assert.deepEqual(
+    feed.map((post) => post.id),
+    [1, 2, 3, 4],
+  );
+});
+
+test("reader filters keep a matching current post, otherwise start at the newest match", () => {
+  const feed = posts.map((post) => ({ ...post, url: `/post/${post.id}/` }));
+  const opening = feed[0]!;
+  const changed = readerSelection(feed, "tag:noise", opening, "/post/3/");
+  assert.deepEqual(
+    changed.posts.map((post) => post.id),
+    [1, 2],
+  );
+  assert.equal(changed.index, 0);
+  assert.equal(
+    readerSelection(feed, "tag:noise", opening, "/post/2/").index,
+    1,
+  );
+  assert.deepEqual(readerSelection(feed, "tag:missing", opening), {
+    posts: [],
+    index: null,
+  });
 });
 
 const aliases = [
@@ -105,6 +149,47 @@ test("tag choices sort by descending count, then alphabetical label; post types 
   assert.deepEqual(choices.types, [
     { value: "type:audio", label: "audio (1)" },
     { value: "type:photo", label: "photo (2)" },
+  ]);
+});
+
+test("post footer tags gain one display hash without changing their filter identities", () => {
+  const root = fileURLToPath(new URL("../../../", import.meta.url));
+  const result = spawnSync(
+    "bundle",
+    [
+      "exec",
+      "ruby",
+      "-EUTF-8:UTF-8",
+      "-rjekyll",
+      "-rjson",
+      "-rnokogiri",
+      "-e",
+      `
+        require File.join(ARGV.fetch(0), "src/_plugins/tag-counts.rb")
+        tags = ["noise", "#noise", " spaced "]
+        site = Jekyll::Site.new(Jekyll.configuration(
+          "source" => ARGV.fetch(0), "baseurl" => "/reader-test", "quiet" => true
+        ))
+        site.posts.docs << Struct.new(:data, :path).new({ "tags" => tags }, "fixture.md")
+        JournalTagCounts::Generator.new.generate(site)
+        source = File.read(File.join(ARGV.fetch(0), "src/_layouts/post.html"), encoding: "UTF-8")
+        html = Liquid::Template.parse(source).render!(
+          { "page" => { "title" => "fixture", "date" => "2026-11-15", "tags" => tags } },
+          registers: { site: site }
+        )
+        links = Nokogiri::HTML5.fragment(html).css(".tags a")
+        puts JSON.generate(links.map { |link| { label: link.text.strip, href: link["href"] } })
+      `,
+      root,
+    ],
+    { cwd: root, encoding: "utf8" },
+  );
+  assert.ifError(result.error);
+  assert.equal(result.status, 0, result.stderr);
+  assert.deepEqual(JSON.parse(result.stdout), [
+    { label: "#noise (1)", href: "/reader-test/?tag=noise" },
+    { label: "#noise (1)", href: "/reader-test/?tag=%23noise" },
+    { label: "#spaced (1)", href: "/reader-test/?tag=+spaced+" },
   ]);
 });
 

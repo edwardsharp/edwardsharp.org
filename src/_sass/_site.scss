@@ -336,7 +336,8 @@ h1 {
 }
 
 .archive-search input,
-.feed-filter select {
+.feed-filter select,
+.post-dialog__filter select {
   width: 100%;
   min-width: 0;
   padding: 0.75rem;
@@ -351,15 +352,20 @@ h1 {
   color: var(--muted);
 }
 
-.site-header .feed-filter {
+.site-header .feed-filter,
+.post-dialog__filter {
   position: relative;
-  flex: 1 1 0;
-  min-width: 6rem;
   max-width: 18rem;
   margin: 0;
 }
 
-.site-header .feed-filter::after {
+.site-header .feed-filter {
+  flex: 1 1 0;
+  min-width: 6rem;
+}
+
+.site-header .feed-filter::after,
+.post-dialog__filter::after {
   content: "";
   position: absolute;
   top: 50%;
@@ -372,14 +378,28 @@ h1 {
   pointer-events: none;
 }
 
-.site-header .feed-filter select {
+.site-header .feed-filter select,
+.post-dialog__filter select {
   appearance: none;
+  cursor: pointer;
   padding: 0.5rem 0.75rem;
   padding-inline-end: 2.5rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   background: transparent;
+}
+
+.site-header .feed-filter select:focus-visible,
+.post-dialog__filter select:focus-visible {
+  border-color: #ff00ff;
+}
+
+@media (hover: hover) {
+  .site-header .feed-filter select:hover,
+  .post-dialog__filter select:hover {
+    border-color: #ff00ff;
+  }
 }
 
 .archive-status,
@@ -686,6 +706,7 @@ html.post-dialog-open {
 }
 
 .post-dialog {
+  container-type: inline-size;
   inset: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px)
     env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
   width: min(
@@ -728,6 +749,24 @@ html.post-dialog-open {
   min-width: 0;
   margin: 0;
   font-size: 1.25rem;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+
+.post-dialog__toolbar .post-dialog__permalink,
+.post-reader__entry .post-reader__title a {
+  color: inherit;
+  text-decoration-line: none;
+}
+
+.post-dialog__toolbar .post-dialog__permalink:is(:hover, :focus-visible),
+.post-reader__entry .post-reader__title a:is(:hover, :focus-visible) {
+  text-decoration-line: underline;
 }
 
 .post-dialog__close {
@@ -743,9 +782,14 @@ html.post-dialog-open {
   display: block;
 }
 
-.post-dialog__close:hover,
 .post-dialog__close:focus-visible {
   color: var(--accent);
+}
+
+@media (hover: hover) {
+  .post-dialog__close:hover {
+    color: var(--accent);
+  }
 }
 
 .post-dialog__content,
@@ -755,6 +799,84 @@ html.post-dialog-open {
 
 .post-dialog__content {
   padding-bottom: 1rem;
+}
+
+.post-dialog.is-reader[open] {
+  display: flex;
+  flex-direction: column;
+  height: calc(
+    100svh -
+      2rem - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)
+  );
+  overflow: hidden;
+}
+
+.is-reader .post-dialog__toolbar {
+  flex: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 18rem) auto;
+  z-index: 2;
+}
+
+.post-dialog__filter {
+  min-width: 0;
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 100;
+}
+
+@container (max-width: 36rem) {
+  .is-reader .post-dialog__toolbar {
+    grid-template-columns: minmax(0, 1fr) 2.75rem auto;
+  }
+
+  .post-dialog__filter {
+    width: 2.75rem;
+  }
+
+  .post-dialog__filter select {
+    min-height: 2.75rem;
+    padding: 0.5rem;
+    color: transparent;
+    text-overflow: clip;
+  }
+
+  .post-dialog__filter::after {
+    inset-inline-end: calc(50% - 0.25rem);
+  }
+
+  .post-dialog__filter option,
+  .post-dialog__filter optgroup {
+    color: var(--text);
+    background: var(--background);
+  }
+}
+
+.is-reader .post-dialog__content {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  overflow-anchor: none;
+  overscroll-behavior: contain;
+  padding: 0;
+}
+
+.post-reader__track {
+  position: relative;
+  width: 100%;
+}
+
+.post-reader__entry {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.post-reader__entry .post-reader__title {
+  margin: 0 0 1.25rem;
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
 }
 
 .post-dialog__retry {
@@ -915,6 +1037,29 @@ pre code {
 
 .post-navigation .tags {
   margin: 0;
+}
+
+.post-navigation .tags a,
+.post-dialog__content .tags a {
+  font-style: italic;
+}
+
+.post-navigation a,
+.post-dialog__content .tags a {
+  color: var(--accent);
+  transition: color 150ms ease;
+}
+
+.post-navigation a:focus-visible,
+.post-dialog__content .tags a:focus-visible {
+  color: var(--text);
+}
+
+@media (hover: hover) {
+  .post-navigation a:hover,
+  .post-dialog__content .tags a:hover {
+    color: var(--text);
+  }
 }
 
 @media (max-width: 36rem) {
