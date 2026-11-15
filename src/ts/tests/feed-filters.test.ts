@@ -26,8 +26,78 @@ test("filter choices count posts, omit singleton tags, and retain every post typ
       { value: "tag:noise", label: "noise (2)" },
       { value: "tag:type:photo", label: "type:photo (2)" },
     ],
+    locations: [],
   });
   assert.deepEqual(filterChoices(posts.slice(0, 1)).tags, []);
+});
+
+test("location choices count posts once, include singletons, and preserve labels and punctuation", () => {
+  const feed = [
+    {
+      url: "/new",
+      kind: "photo",
+      tags: [],
+      locations: ["Venue A, City", " venue  a, city ", "Venue-A, City"],
+    },
+    { url: "/text", kind: "entry", tags: [], locations: ["VENUE A, CITY"] },
+    { url: "/old", kind: "photo", tags: [], locations: ["Other Place"] },
+    { url: "/none", kind: "photo", tags: [] },
+  ];
+  assert.deepEqual(filterChoices(feed).locations, [
+    { value: "location:venue a, city", label: "Venue A, City (2)" },
+    { value: "location:other place", label: "Other Place (1)" },
+    { value: "location:venue-a, city", label: "Venue-A, City (1)" },
+  ]);
+  assert.deepEqual(filterPosts(feed, "location: VENUE  A, CITY "), [
+    feed[0],
+    feed[1],
+  ]);
+  assert.deepEqual(filterPosts(feed, "location:Venue-A, City"), [feed[0]]);
+  assert.deepEqual(filterPosts(feed, "location:missing"), []);
+  assert.deepEqual(filterPosts(feed, "location:  "), []);
+  assert.deepEqual(
+    readerSelection(feed, "location:Venue A, City", feed[0]!, "/text"),
+    {
+      posts: [feed[0], feed[1]],
+      index: 1,
+    },
+  );
+});
+
+test("feed metadata includes single-post and photoset names but omits coordinate-only locations", () => {
+  const root = fileURLToPath(new URL("../../../", import.meta.url));
+  const result = spawnSync(
+    "bundle",
+    [
+      "exec",
+      "ruby",
+      "-EUTF-8:UTF-8",
+      "-rjekyll",
+      "-rjson",
+      "-e",
+      `
+      site = Jekyll::Site.new(Jekyll.configuration("source" => ARGV.fetch(0), "quiet" => true))
+      source = File.read(File.join(ARGV.fetch(0), "src/assets/feed.json.liquid"), encoding: "UTF-8").sub(/\\A---\\n.*?\\n---\\n/m, "")
+      posts = [
+        { "url" => "/named", "title" => "named", "date" => "2026-11-15", "tags" => [], "location_name" => "Venue, City",
+          "locations" => [{ "image" => "/one", "name" => "Venue, City" }, { "image" => "/two", "name" => "Other Place" }] },
+        { "url" => "/gps", "title" => "gps", "date" => "2026-11-15", "tags" => [], "locations" => [{ "latitude" => 1, "longitude" => 2 }] },
+        { "url" => "/none", "title" => "none", "date" => "2026-11-15", "tags" => [] }
+      ]
+      puts Liquid::Template.parse(source).render!({ "site" => { "posts" => posts } }, registers: { site: site })
+    `,
+      root,
+    ],
+    { cwd: root, encoding: "utf8" },
+  );
+  assert.ifError(result.error);
+  assert.equal(result.status, 0, result.stderr);
+  assert.deepEqual(
+    JSON.parse(result.stdout).map(
+      (post: { locations: string[] }) => post.locations,
+    ),
+    [["Venue, City", "Other Place"], [], []],
+  );
 });
 
 test("filtered views preserve order and support direct singleton tags and colon-containing names", () => {

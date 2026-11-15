@@ -5,6 +5,15 @@ layout: default
   <header class="page-heading">
     <p class="eyebrow">
       <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%B %-d, %Y' }}</time>
+      {% assign location_name = page.location_name | default: '' | strip %}
+      {% unless location_name == '' %}
+        <span class="post-location"
+          >&middot;
+          <a href="{{ '/' | relative_url }}?location={{ location_name | url_encode | escape }}">
+            {{- location_name | escape -}}
+          </a></span
+        >
+      {% endunless %}
     </p>
     <h1>{{ page.title | escape }}</h1>
   </header>

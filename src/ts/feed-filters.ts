@@ -1,38 +1,62 @@
 interface FilterPost {
   kind: string;
   tags: readonly string[];
+  locations?: readonly string[];
 }
 
 export function tagKey(tag: string): string {
   return tag.toLowerCase().replace(/[\s_-]+/g, "");
 }
 
+export function locationKey(location: string): string {
+  return location.trim().toLowerCase().replace(/\s+/g, " ");
+}
+
+function countValues<T>(
+  posts: readonly T[],
+  values: (post: T) => readonly string[],
+  keyFor: (value: string) => string,
+): Map<string, number> {
+  const counts = new Map<string, number>();
+  for (const post of posts) {
+    const seen = new Set<string>();
+    for (const value of values(post)) {
+      const key = keyFor(value);
+      if (!key || seen.has(key)) continue;
+      seen.add(key);
+      counts.set(key, (counts.get(key) ?? 0) + 1);
+    }
+  }
+  return counts;
+}
+
 export function countTags(
   posts: readonly Pick<FilterPost, "tags">[],
 ): Map<string, number> {
-  const tagCounts = new Map<string, number>();
-  for (const post of posts) {
-    const seen = new Set<string>();
-    for (const tag of post.tags) {
-      const key = tagKey(tag);
-      if (!key || seen.has(key)) continue;
-      seen.add(key);
-      tagCounts.set(key, (tagCounts.get(key) ?? 0) + 1);
-    }
-  }
-  return tagCounts;
+  return countValues(posts, (post) => post.tags, tagKey);
 }
 
 export function filterChoices(posts: readonly FilterPost[]) {
   const typeCounts = new Map<string, number>();
   const tagCounts = countTags(posts);
   const tagLabels = new Map<string, string>();
+  const locationCounts = countValues(
+    posts,
+    (post) => post.locations ?? [],
+    locationKey,
+  );
+  const locationLabels = new Map<string, string>();
   for (const post of posts) {
     typeCounts.set(post.kind, (typeCounts.get(post.kind) ?? 0) + 1);
     for (const tag of post.tags) {
       const key = tagKey(tag);
       if (key && !tagLabels.has(key))
         tagLabels.set(key, tag.trim().toLowerCase().replace(/\s+/g, " "));
+    }
+    for (const location of post.locations ?? []) {
+      const key = locationKey(location);
+      if (key && !locationLabels.has(key))
+        locationLabels.set(key, location.trim().replace(/\s+/g, " "));
     }
   }
   const choices = (
@@ -45,7 +69,7 @@ export function filterChoices(posts: readonly FilterPost[]) {
       .filter(([, count]) => count >= minimum)
       .sort(
         ([a, aCount], [b, bCount]) =>
-          (prefix === "tag" ? bCount - aCount : 0) ||
+          (prefix !== "type" ? bCount - aCount : 0) ||
           (labels?.get(a) ?? a).localeCompare(labels?.get(b) ?? b),
       )
       .map(([value, count]) => ({
@@ -55,6 +79,7 @@ export function filterChoices(posts: readonly FilterPost[]) {
   return {
     types: choices(typeCounts, "type", 1),
     tags: choices(tagCounts, "tag", 2, tagLabels),
+    locations: choices(locationCounts, "location", 1, locationLabels),
   };
 }
 
@@ -68,6 +93,14 @@ export function filterPosts<T extends FilterPost>(
     const key = tagKey(filter.slice(4));
     return posts.filter(
       (post) => key !== "" && post.tags.some((tag) => tagKey(tag) === key),
+    );
+  }
+  if (filter.startsWith("location:")) {
+    const key = locationKey(filter.slice(9));
+    return posts.filter(
+      (post) =>
+        key !== "" &&
+        post.locations?.some((location) => locationKey(location) === key),
     );
   }
   if (filter === "") return posts;

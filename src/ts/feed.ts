@@ -7,7 +7,12 @@ import {
   windowScroll,
 } from "@tanstack/virtual-core";
 import { buildRows, geometry, rowForIndex } from "./honeycomb.ts";
-import { filterChoices, filterPosts, tagKey } from "./feed-filters.ts";
+import {
+  filterChoices,
+  filterPosts,
+  locationKey,
+  tagKey,
+} from "./feed-filters.ts";
 import { enhancePostDialog } from "./post-dialog.ts";
 import { createTextBackdrop } from "./text-backdrop.ts";
 
@@ -22,6 +27,7 @@ interface PreviewPost {
   image: string | null;
   alt: string;
   tags: string[];
+  locations: string[];
 }
 
 function isPreviewPost(value: unknown): value is PreviewPost {
@@ -34,7 +40,10 @@ function isPreviewPost(value: unknown): value is PreviewPost {
     (value.image === null || typeof value.image === "string") &&
     "tags" in value &&
     Array.isArray(value.tags) &&
-    value.tags.every((tag: unknown) => typeof tag === "string")
+    value.tags.every((tag: unknown) => typeof tag === "string") &&
+    "locations" in value &&
+    Array.isArray(value.locations) &&
+    value.locations.every((location: unknown) => typeof location === "string")
   );
 }
 
@@ -129,15 +138,30 @@ function enhanceFeed(
   );
   if (tags.children.length)
     filterSelect.append(document.createElement("hr"), tags);
+  const locations = document.createElement("optgroup");
+  locations.label = "locationz";
+  for (const { label, value } of choices.locations)
+    locations.append(new Option(label, value));
+  if (locations.children.length)
+    filterSelect.append(document.createElement("hr"), locations);
   const readFilter = () => {
     const params = new URL(location.href).searchParams;
     const type = params.get("type");
     const tag = params.get("tag");
-    return type ? `type:${type}` : tag ? `tag:${tag}` : "";
+    const place = params.get("location");
+    return type
+      ? `type:${type}`
+      : tag
+        ? `tag:${tag}`
+        : place
+          ? `location:${place}`
+          : "";
   };
   const matchingPosts = (filter: string) => filterPosts(allPosts, filter);
   function selectFilter(filter: string) {
     if (filter.startsWith("tag:")) filter = `tag:${tagKey(filter.slice(4))}`;
+    if (filter.startsWith("location:"))
+      filter = `location:${locationKey(filter.slice(9))}`;
     filterSelect.querySelector("option[data-current-filter]")?.remove();
     if (
       filter &&
@@ -286,7 +310,9 @@ function enhanceFeed(
       ? ` tagged "${activeFilter.slice(4)}"`
       : activeFilter.startsWith("type:")
         ? ` of type "${activeFilter.slice(5)}"`
-        : "";
+        : activeFilter.startsWith("location:")
+          ? ` at "${activeFilter.slice(9)}"`
+          : "";
     const noun = posts.length === 1 ? "post" : "posts";
     status.classList.toggle("visually-hidden", posts.length > 0);
     status.textContent =
@@ -385,10 +411,13 @@ function enhanceFeed(
     const url = new URL(location.href);
     url.searchParams.delete("tag");
     url.searchParams.delete("type");
+    url.searchParams.delete("location");
     const filter = filterSelect.value;
     if (filter.startsWith("tag:")) url.searchParams.set("tag", filter.slice(4));
     else if (filter.startsWith("type:"))
       url.searchParams.set("type", filter.slice(5));
+    else if (filter.startsWith("location:"))
+      url.searchParams.set("location", filter.slice(9));
     history.replaceState(history.state, "", url);
     applyFilter(filter);
   });

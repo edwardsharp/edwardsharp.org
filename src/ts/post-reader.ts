@@ -5,13 +5,14 @@ import {
   observeElementOffset,
   observeElementRect,
 } from "@tanstack/virtual-core";
-import { readerSelection, tagKey } from "./feed-filters.ts";
+import { locationKey, readerSelection, tagKey } from "./feed-filters.ts";
 
 export interface ReaderPost {
   url: string;
   title: string;
   kind: string;
   tags: string[];
+  locations?: string[];
 }
 
 export function createPostReader(options: {
@@ -253,6 +254,8 @@ export function createPostReader(options: {
 
   const changeFilter = async (filter: string, currentUrl = active?.url) => {
     if (filter.startsWith("tag:")) filter = `tag:${tagKey(filter.slice(4))}`;
+    if (filter.startsWith("location:"))
+      filter = `location:${locationKey(filter.slice(9))}`;
     const version = ++transition;
     animation?.cancel();
     const motion = !matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -295,7 +298,9 @@ export function createPostReader(options: {
       !(event.target instanceof Element)
     )
       return;
-    const link = event.target.closest<HTMLAnchorElement>(".tags a");
+    const link = event.target.closest<HTMLAnchorElement>(
+      ".tags a, .post-location a",
+    );
     if (
       !link ||
       link.hasAttribute("download") ||
@@ -304,10 +309,11 @@ export function createPostReader(options: {
       return;
     const url = new URL(link.href);
     const tag = url.searchParams.get("tag");
-    if (!tag || url.origin !== location.origin) return;
+    const place = url.searchParams.get("location");
+    if ((!tag && !place) || url.origin !== location.origin) return;
     event.preventDefault();
     void changeFilter(
-      `tag:${tag}`,
+      tag ? `tag:${tag}` : `location:${place}`,
       link.closest<HTMLElement>(".post-reader__entry")?.dataset.postUrl,
     );
   });

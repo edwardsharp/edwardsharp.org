@@ -1,7 +1,56 @@
 import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import test from "node:test";
 import { parseHTML } from "linkedom";
 import { enhancePostDialog } from "../post-dialog.ts";
+
+test("post locations render after dates, escape markup, and omit empty names", () => {
+  const root = fileURLToPath(new URL("../../../", import.meta.url));
+  const result = spawnSync(
+    "bundle",
+    [
+      "exec",
+      "ruby",
+      "-EUTF-8:UTF-8",
+      "-rjekyll",
+      "-rjson",
+      "-rnokogiri",
+      "-e",
+      `
+      site = Jekyll::Site.new(Jekyll.configuration("source" => ARGV.fetch(0), "baseurl" => "/reader-test", "quiet" => true))
+      source = File.read(File.join(ARGV.fetch(0), "src/_layouts/post.html"), encoding: "UTF-8")
+      template = Liquid::Template.parse(source)
+      puts JSON.generate(["A <venue> & City", nil, "", "  "].map do |location|
+        html = template.render!(
+          { "page" => { "title" => "fixture", "date" => "2026-11-15", "tags" => [], "location_name" => location } },
+          registers: { site: site }
+        )
+        date = Nokogiri::HTML5.fragment(html).at_css(".eyebrow")
+        { text: date.text.gsub(/\\s+/, " ").strip, html: date.to_html, elements: date.element_children.map(&:name),
+          href: date.at_css(".post-location a")&.[]("href") }
+      end)
+    `,
+      root,
+    ],
+    { cwd: root, encoding: "utf8" },
+  );
+  assert.ifError(result.error);
+  assert.equal(result.status, 0, result.stderr);
+  const rendered = JSON.parse(result.stdout);
+  assert.equal(rendered[0].text, "November 15, 2026 \u00b7 A <venue> & City");
+  assert.deepEqual(rendered[0].elements, ["time", "span"]);
+  assert.match(rendered[0].html, /&lt;venue&gt; &amp; City/);
+  assert.equal(
+    rendered[0].href,
+    "/reader-test/?location=A+%3Cvenue%3E+%26+City",
+  );
+  for (const entry of rendered.slice(1)) {
+    assert.equal(entry.text, "November 15, 2026");
+    assert.deepEqual(entry.elements, ["time"]);
+    assert.equal(entry.href, null);
+  }
+});
 
 test("failed dialog images stay local to the asset; failed post requests still offer retry", async (t) => {
   const { document, window } = parseHTML(`<html><body>
@@ -38,7 +87,7 @@ test("failed dialog images stay local to the asset; failed post requests still o
       failRequest
         ? ""
         : `<html><body><article class="post">
-      <header class="page-heading"><p class="eyebrow">a date</p></header>
+      <header class="page-heading"><p class="eyebrow">a date <span class="post-location">&middot; <a href="https://example.test/?location=A+venue+%26+City">A venue &amp; City</a></span></p></header>
       <div class="prose"><p>the caption survives</p><img src="https://example.test/missing.jpg"><img src="https://example.test/working.jpg"></div>
     </article></body></html>`,
       { status: failRequest ? 503 : 200 },
@@ -63,6 +112,16 @@ test("failed dialog images stay local to the asset; failed post requests still o
   await new Promise((resolve) => setImmediate(resolve));
   const status = shell.querySelector<HTMLElement>(".post-dialog__status")!;
   assert.ok(status.hidden);
+  assert.equal(
+    shell.querySelector(".post-dialog__content .post-location")?.textContent,
+    "\u00b7 A venue & City",
+  );
+  assert.equal(
+    shell
+      .querySelector(".post-dialog__content .post-location a")
+      ?.getAttribute("href"),
+    "https://example.test/?location=A+venue+%26+City",
+  );
   // Linkedom requires bubbling to reach ancestor capture listeners.
   shell
     .querySelector("img")!
