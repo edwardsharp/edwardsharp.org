@@ -7,6 +7,7 @@ import {
   windowScroll,
 } from "@tanstack/virtual-core";
 import { buildRows, geometry, rowForIndex } from "./honeycomb.ts";
+import { filterChoices, filterPosts } from "./feed-filters.ts";
 
 interface PreviewPost {
   id: string;
@@ -18,6 +19,7 @@ interface PreviewPost {
   excerpt: string;
   image: string | null;
   alt: string;
+  tags: string[];
 }
 
 function isPreviewPost(value: unknown): value is PreviewPost {
@@ -27,7 +29,10 @@ function isPreviewPost(value: unknown): value is PreviewPost {
       (key) => key in value && typeof Reflect.get(value, key) === "string",
     ) &&
     "image" in value &&
-    (value.image === null || typeof value.image === "string")
+    (value.image === null || typeof value.image === "string") &&
+    "tags" in value &&
+    Array.isArray(value.tags) &&
+    value.tags.every((tag: unknown) => typeof tag === "string")
   );
 }
 
@@ -96,11 +101,59 @@ function enhanceFeed(
   grid: HTMLElement,
   status: HTMLElement,
   more: HTMLButtonElement,
-  posts: PreviewPost[],
+  allPosts: PreviewPost[],
+  filterSelect: HTMLSelectElement,
 ) {
-  const batchSize = 14;
+  const batchSize = 24;
   const controls = more.parentElement;
-  if (!controls) throw new Error("missing feed controls");
+  const filterForm = filterSelect.closest("form");
+  if (!controls || !filterForm) throw new Error("missing feed controls");
+  const choices = filterChoices(allPosts);
+  const types = document.createElement("optgroup");
+  types.label = "post types";
+  for (const { label, value } of choices.types)
+    types.append(new Option(label, value));
+  const tags = document.createElement("optgroup");
+  tags.label = "tags";
+  for (const { label, value } of choices.tags)
+    tags.append(new Option(label, value));
+  filterSelect.replaceChildren(
+    new Option(`all posts (${allPosts.length})`, ""),
+    types,
+  );
+  if (tags.children.length)
+    filterSelect.append(document.createElement("hr"), tags);
+  const readFilter = () => {
+    const params = new URL(location.href).searchParams;
+    const type = params.get("type");
+    const tag = params.get("tag");
+    return type ? `type:${type}` : tag ? `tag:${tag}` : "";
+  };
+  const matchingPosts = (filter: string) => filterPosts(allPosts, filter);
+  function selectFilter(filter: string) {
+    filterSelect.querySelector("option[data-current-filter]")?.remove();
+    if (
+      filter &&
+      !Array.from(filterSelect.options).some(
+        (option) => option.value === filter,
+      )
+    ) {
+      const label = filter.slice(filter.indexOf(":") + 1);
+      const option = new Option(
+        `${label} (${matchingPosts(filter).length})`,
+        filter,
+      );
+      option.hidden = true;
+      option.dataset.currentFilter = "";
+      filterSelect.add(option);
+    }
+    filterSelect.value = filter;
+  }
+  let activeFilter = readFilter();
+  selectFilter(activeFilter);
+  filterSelect.disabled = false;
+  filterForm.hidden = false;
+  let posts = matchingPosts(activeFilter);
   let loaded = Math.min(batchSize, posts.length);
   let shape = geometry(grid.clientWidth);
   let rows = buildRows(loaded, shape.columns);
@@ -110,7 +163,9 @@ function enhanceFeed(
   const mounted = new Map<number, HTMLElement>();
   const initialFocused = document.activeElement?.closest(".hex-card");
   if (initialFocused) {
-    focusedIndex = Array.from(grid.children).indexOf(initialFocused);
+    const url = initialFocused.querySelector("a")?.getAttribute("href");
+    const index = posts.findIndex((post) => post.url === url);
+    if (index >= 0) focusedIndex = index;
   }
   grid.replaceChildren();
   grid.classList.add("is-virtual");
@@ -126,7 +181,7 @@ function enhanceFeed(
     }
     grid.style.setProperty("--tile-width", `${shape.tileWidth}px`);
     grid.style.setProperty("--tile-height", `${shape.tileHeight}px`);
-    grid.style.height = `${virtualizer.getTotalSize() + shape.tileHeight - shape.pitch}px`;
+    grid.style.height = `${rows.length ? virtualizer.getTotalSize() + shape.tileHeight - shape.pitch : 0}px`;
     for (const [position, virtualRow] of visible.entries()) {
       const row = rows[virtualRow.index];
       if (!row) throw new Error("missing honeycomb row");
@@ -206,10 +261,18 @@ function enhanceFeed(
   }
 
   function updateStatus() {
+    const suffix = activeFilter.startsWith("tag:")
+      ? ` tagged "${activeFilter.slice(4)}"`
+      : activeFilter.startsWith("type:")
+        ? ` of type "${activeFilter.slice(5)}"`
+        : "";
+    const noun = posts.length === 1 ? "post" : "posts";
     status.textContent =
-      loaded === posts.length
-        ? `all ${posts.length} posts loaded`
-        : `${loaded} of ${posts.length} posts loaded`;
+      posts.length === 0
+        ? `no posts${suffix}. choose another filter or all posts.`
+        : loaded === posts.length
+          ? `all ${posts.length} ${noun}${suffix} loaded`
+          : `${loaded} of ${posts.length} ${noun}${suffix} loaded`;
     more.hidden = loaded === posts.length;
   }
 
@@ -275,6 +338,37 @@ function enhanceFeed(
       });
   }
 
+  function applyFilter(filter: string) {
+    activeFilter = filter;
+    selectFilter(filter);
+    posts = matchingPosts(filter);
+    loaded = Math.min(batchSize, posts.length);
+    focusedIndex = null;
+    rows = buildRows(loaded, shape.columns);
+    mounted.clear();
+    grid.replaceChildren();
+    updateOptions();
+    virtualizer.measure();
+    if (window.scrollY > margin) window.scrollTo(0, margin);
+    render();
+    updateStatus();
+    requestAnimationFrame(loadIfNearEnd);
+  }
+
+  filterSelect.addEventListener("change", () => {
+    const url = new URL(location.href);
+    url.searchParams.delete("tag");
+    url.searchParams.delete("type");
+    const filter = filterSelect.value;
+    if (filter.startsWith("tag:")) url.searchParams.set("tag", filter.slice(4));
+    else if (filter.startsWith("type:"))
+      url.searchParams.set("type", filter.slice(5));
+    history.replaceState(history.state, "", url);
+    applyFilter(filter);
+  });
+  filterForm.addEventListener("submit", (event) => event.preventDefault());
+  window.addEventListener("popstate", () => applyFilter(readFilter()));
+
   more.disabled = false;
   more.textContent = "load more posts";
   more.onclick = () => {
@@ -311,6 +405,7 @@ function enhanceFeed(
   });
   const resize = new ResizeObserver(updateGeometry);
   resize.observe(shell);
+  resize.observe(filterForm);
   for (const element of document.querySelectorAll(".site-header, .intro"))
     resize.observe(element);
   const intersection = new IntersectionObserver(loadIfNearEnd, {
@@ -337,7 +432,11 @@ async function startFeed(shell: HTMLElement) {
   const grid = shell.querySelector<HTMLElement>(".honeycomb");
   const status = shell.querySelector<HTMLElement>(".feed-status");
   const more = shell.querySelector<HTMLButtonElement>(".feed-more");
-  if (!grid || !status || !more) throw new Error("missing feed markup");
+  const filterSelect = shell.querySelector<HTMLSelectElement>(
+    ".feed-filter select",
+  );
+  if (!grid || !status || !more || !filterSelect)
+    throw new Error("missing feed markup");
   more.disabled = true;
   let posts: PreviewPost[];
   try {
@@ -367,7 +466,7 @@ async function startFeed(shell: HTMLElement) {
     return;
   }
   status.setAttribute("role", "status");
-  enhanceFeed(shell, grid, status, more, posts);
+  enhanceFeed(shell, grid, status, more, posts, filterSelect);
 }
 
 const shell = document.querySelector<HTMLElement>("[data-honeycomb]");

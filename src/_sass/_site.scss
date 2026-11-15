@@ -223,16 +223,19 @@ h1 {
   font-size: 1.125rem;
 }
 
-.archive-search {
+.archive-search,
+.feed-filter {
   margin-block: 1.5rem;
 }
 
-.archive-search label {
+.archive-search label,
+.feed-filter label {
   display: block;
   margin-bottom: 0.5rem;
 }
 
-.archive-search input {
+.archive-search input,
+.feed-filter select {
   width: 100%;
   min-width: 0;
   padding: 0.75rem;
@@ -245,6 +248,10 @@ h1 {
 
 .archive-search input::placeholder {
   color: var(--muted);
+}
+
+.feed-filter select {
+  max-width: 24rem;
 }
 
 .archive-status,
@@ -283,6 +290,10 @@ h1 {
 
 .home-page .site-shell {
   width: min(100% - 2rem, 88rem);
+}
+
+.home-page main {
+  padding-bottom: 0;
 }
 
 .home-page .intro {
@@ -327,6 +338,7 @@ h1 {
   margin: 0;
   clip-path: var(--hexagon);
   background: var(--line);
+  container: hex-card / inline-size;
 }
 
 .is-virtual .hex-card {
@@ -429,8 +441,28 @@ h1 {
 }
 
 .has-image .hex-card__excerpt,
-.hex-card[data-kind="quote"] .hex-card__excerpt {
+.hex-card[data-kind="quote"] .hex-card__excerpt,
+.hex-card__copy:has(.hex-card__notice) .hex-card__kind,
+.hex-card__copy:has(.hex-card__notice) .hex-card__excerpt {
   display: none;
+}
+
+@container hex-card (max-width: 210px) {
+  .hex-card__copy {
+    gap: 0.2rem;
+  }
+  .hex-card__title {
+    font-size: 1rem;
+  }
+  .hex-card__excerpt {
+    display: none;
+  }
+  .hex-card__kind,
+  time,
+  .hex-card__notice {
+    font-size: 0.625rem;
+    line-height: 1.15;
+  }
 }
 
 .feed-controls {
@@ -527,6 +559,7 @@ pre {
 }
 pre code {
   padding: 0;
+  font-size: inherit;
 }
 .prose table {
   display: block;
@@ -560,6 +593,10 @@ pre code {
 .site-footer {
   border-top: 1px solid var(--line);
   padding-block: 1.5rem;
+}
+
+.post-navigation .tags {
+  margin: 0;
 }
 
 @media (max-width: 36rem) {

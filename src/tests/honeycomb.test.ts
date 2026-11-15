@@ -12,7 +12,7 @@ test("regular hexagons interlock with equal gaps along each neighboring edge", (
 });
 
 test("staggered rows preserve chronological order without missing or duplicated tiles", () => {
-  for (const width of [320, 519, 520, 800, 1200, 1600]) {
+  for (const width of [240, 279, 280, 320, 520, 800, 1200, 1600]) {
     const { columns } = geometry(width);
     const rows = buildRows(105, columns);
     const indexes = rows.flatMap(({ start, end }, rowIndex) => {
@@ -29,10 +29,24 @@ test("staggered rows preserve chronological order without missing or duplicated 
 });
 
 test("narrow screens use non-overlapping readable tiles and empty feeds have no rows", () => {
-  const { columns, tileWidth, tileHeight, pitch } = geometry(343);
+  const { columns, tileWidth, tileHeight, pitch } = geometry(240);
   assert.equal(columns, 1);
-  assert.equal(tileWidth, 343);
+  assert.equal(tileWidth, 240);
   assert.ok(pitch > tileHeight);
   assert.deepEqual(buildRows(0, columns), []);
   assert.throws(() => geometry(0), RangeError);
+});
+
+test("phone grids stay two-wide until the smallest breakpoint", () => {
+  assert.equal(geometry(279).columns, 1);
+  for (const width of [280, 288, 343, 358, 398]) {
+    const shape = geometry(width);
+    assert.equal(shape.columns, 2);
+    assert.ok(shape.pitch < shape.tileHeight);
+    assert.deepEqual(
+      buildRows(6, shape.columns).map(({ start, end }) => end - start),
+      [2, 1, 2, 1],
+    );
+    assert.ok(Math.abs(shape.tileWidth * 2 + shape.gap - width) < 0.0001);
+  }
 });

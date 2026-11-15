@@ -25,8 +25,14 @@ searchable: false
   </header>
   {% if site.posts.size > 0 %}
     <div class="honeycomb-shell" data-honeycomb data-feed-url="{{ '/feed.json' | relative_url }}">
+      <form class="feed-filter" hidden>
+        <label for="feed-filter">filter journal</label>
+        <select id="feed-filter" name="filter" disabled>
+          <option value="">all posts</option>
+        </select>
+      </form>
       <div class="honeycomb" role="list" aria-label="post previews">
-        {% for post in site.posts limit: 14 %}
+        {% for post in site.posts limit: 24 %}
           {% include feed-card.html post=post %}
         {% endfor %}
       </div>

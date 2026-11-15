@@ -9,7 +9,7 @@ permalink: /search.json
 {% for entry in entries %}
   {% assign title = entry.preview_title | default: entry.title %}
   {% if title == 'no title' %}
-    {% capture title %}{{ entry.tumblr_type | default: 'post' }} / {{ entry.date | date: '%Y-%m-%d' }}{% endcapture %}
+    {% capture title %}{{ entry.kind | default: 'post' }} / {{ entry.date | date: '%Y-%m-%d' }}{% endcapture %}
   {% endif %}
   { "url": {{ entry.url | relative_url | jsonify }}, "title": {{ title | jsonify }}, "text":
   {{ entry.content | strip_html | normalize_whitespace | jsonify }}, "tags": [

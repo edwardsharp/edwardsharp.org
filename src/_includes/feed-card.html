@@ -1,12 +1,12 @@
 {% assign post = include.post %}
 {% assign title = post.preview_title | default: post.title %}
 {% if title == 'no title' %}
-  {% capture title %}{{ post.tumblr_type | default: 'post' }} / {{ post.date | date: '%Y-%m-%d' }}{% endcapture %}
+  {% capture title %}{{ post.kind | default: 'post' }} / {{ post.date | date: '%Y-%m-%d' }}{% endcapture %}
 {% endif %}
 <article
   class="hex-card{% if post.preview_image %} has-image{% endif %}"
   role="listitem"
-  data-kind="{{ post.tumblr_type | default: 'entry' | escape }}"
+  data-kind="{{ post.kind | default: 'entry' | escape }}"
 >
   <a class="hex-card__link" href="{{ post.url | relative_url }}">
     <div class="hex-card__body">
@@ -20,7 +20,7 @@
         >
       {% endif %}
       <div class="hex-card__copy">
-        <span class="hex-card__kind">{{ post.tumblr_type | default: 'entry' | escape }}</span>
+        <span class="hex-card__kind">{{ post.kind | default: 'entry' | escape }}</span>
         <h3 class="hex-card__title">{{ title | escape }}</h3>
         <p class="hex-card__excerpt">{{ post.content | strip_html | normalize_whitespace | truncate: 180 | escape }}</p>
         <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%Y-%m-%d' }}</time>

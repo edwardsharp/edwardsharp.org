@@ -16,6 +16,12 @@
       <link rel="canonical" href="{{ page.url | absolute_url }}" />
     {% endif %}
     <link rel="stylesheet" href="{{ '/assets/site.css' | relative_url }}" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="{{ site.title | escape }}"
+      href="{{ '/feed.xml' | relative_url }}"
+    />
   </head>
   <body
     {% if page.feed %}
@@ -26,10 +32,12 @@
     <div class="site-shell">
       {% include header.html %}
       <main id="main" tabindex="-1">{{ content }}</main>
-      <footer class="site-footer">
-        <span>{{ site.time | date: '%Y' }}</span>
-        <span>made with 💖 in NYC</span>
-      </footer>
+      {% unless page.feed %}
+        <footer class="site-footer">
+          <span>{{ site.time | date: '%Y' }}</span>
+          <span>made with 💖 in NYC</span>
+        </footer>
+      {% endunless %}
     </div>
     {% if page.feed %}
       <script type="module" src="{{ '/src/assets/feed.bundle.js' | relative_url }}"></script>

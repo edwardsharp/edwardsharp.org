@@ -3,13 +3,14 @@ title: carbon copy hear(t)
 date: '2014-05-11T02:03:59-04:00'
 tags: []
 permalink: "/post/85394243377/"
-tumblr_id: '85394243377'
-tumblr_type: entry
-tumblr_url: http://edwardsharp.org/post/85394243377/carbon-copy-heart
+source_id: '85394243377'
+kind: entry
+source_url: http://edwardsharp.org/post/85394243377/carbon-copy-heart
 redirect_from:
 - "/post/85394243377/carbon-copy-heart/"
 ---
-<pre>obscure root 
+```
+obscure root 
 executable header 
 the problem with universals 
 anti-forensics 
@@ -19,7 +20,7 @@ slamming our doors
 trapped under the rubble pile 
 the boundaries 
 as my own emotion 
-rocks &amp; dust on my face 
+rocks & dust on my face 
 and where i sleep at night 
 my own private achromatic prison 
 dark alleyways and elevators 
@@ -90,12 +91,13 @@ like K-shaped lines over the matte image of memory
 
 recumbent growth is to be excepted and anticipation is anguish 
 even though the winters are worse, they say 
-it’s both coming soon: salvation &amp; destruction 
+it’s both coming soon: salvation & destruction 
 recumbent growth is to be excepted and anticipation is anguish 
 even though the winters are worse. 
-coming soon: salvation &amp; destruction 
+coming soon: salvation & destruction 
 turbulent youth diaries are like clouds 
 they were talking to each other 
 but mouths werenot moving 
 
-it’s handheld</pre>
+it’s handheld
+```

@@ -1,7 +1,7 @@
 title: 3dwardsharp
 description: a personal blog. notes, experiments, and things worth keeping.
 lang: en
-url: ""
+url: "https://edwardsharp.org"
 baseurl: ""
 timezone: America/New_York
 
@@ -53,6 +53,7 @@ exclude:
   - src/prettier.config.mjs
   - src/tests
   - src/assets/feed.ts
+  - src/assets/feed-filters.ts
   - src/assets/honeycomb.ts
   - src/assets/archive.ts
   - src/assets/search.ts

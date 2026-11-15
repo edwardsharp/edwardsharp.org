@@ -4,7 +4,7 @@ export function geometry(width: number) {
   }
   const gap = 12;
   const columns =
-    width < 520 ? 1 : Math.min(5, Math.max(2, Math.floor((width + gap) / 252)));
+    width < 280 ? 1 : Math.min(5, Math.max(2, Math.floor((width + gap) / 252)));
   const tileWidth = (width - (columns - 1) * gap) / columns;
   const tileHeight = (tileWidth * 2) / Math.sqrt(3);
   const pitch =
