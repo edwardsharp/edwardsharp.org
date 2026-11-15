@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / gvL3brcf"
+title: "a tic-tac-toe winner check"
+description: "an experiment in checking rows and columns for a winner on a tic-tac-toe board."
 date: "2018-07-11T19:28:15.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","javascript"]

@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / v8k4wbjn"
+title: "animated svg dividers"
+description: "thin svg lines slide into place at different speeds, making a shifting banner divider."
 date: "2019-03-19T02:47:58.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html","css","svg","animation"]

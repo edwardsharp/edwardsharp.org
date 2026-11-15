@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / mdxejn65"
+title: "a sphere meets a wireframe"
+description: "a moving sphere pushes vertices out of a wireframe plane in a three.js collision experiment."
 date: "2018-06-17T22:06:00.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html","css","javascript"]

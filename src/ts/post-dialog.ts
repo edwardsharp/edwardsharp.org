@@ -123,8 +123,17 @@ export function enhancePostDialog(shell: HTMLElement): void {
       if (
         event.target instanceof HTMLImageElement ||
         event.target instanceof HTMLMediaElement
-      )
-        showError(new Error(`unavailable asset: ${event.target.src}`));
+      ) {
+        console.warn("could not load post asset", event.target.src);
+        const notice = document.createElement("span");
+        notice.className = "asset-notice";
+        notice.setAttribute("role", "status");
+        notice.textContent =
+          event.target instanceof HTMLImageElement
+            ? "this image is unavailable."
+            : "this audio or video is unavailable.";
+        event.target.replaceWith(notice);
+      }
     },
     true,
   );

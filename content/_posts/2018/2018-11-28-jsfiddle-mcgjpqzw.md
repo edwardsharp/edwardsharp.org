@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / mcgjpqzw"
+title: "clipped text"
+description: "a little overflow test, squeezing a long paragraph into a very small box."
 date: "2018-11-28T20:51:09.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html","css"]

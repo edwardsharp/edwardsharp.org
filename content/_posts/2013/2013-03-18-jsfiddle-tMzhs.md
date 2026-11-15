@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / tMzhs"
+title: "a sortable list with fixed headers"
+description: "list items can be dragged around while disabled header rows stay put."
 date: "2013-03-18T21:42:42.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","jquery","html","css","javascript"]

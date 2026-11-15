@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / 8gn5vg8h"
+title: "wrapping a selection in bbcode"
+description: "a button wraps selected text in bbcode tags while keeping the original text selected."
 date: "2016-08-02T07:40:13.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html","javascript"]

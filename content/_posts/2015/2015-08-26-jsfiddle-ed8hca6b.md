@@ -1,5 +1,6 @@
 ---
 title: "collapse table col"
+description: "clicking a table heading toggles the visibility of the cells in that column."
 date: "2015-08-26T05:41:52.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","jquery","html","javascript"]

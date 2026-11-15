@@ -1,5 +1,6 @@
 ---
 title: "Material Floating Labels"
+description: "form labels float above their fields on focus and stay there when the fields contain text."
 date: "2016-09-20T20:45:25.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","jquery","html","css","javascript"]

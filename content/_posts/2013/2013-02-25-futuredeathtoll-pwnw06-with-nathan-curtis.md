@@ -1,5 +1,5 @@
 ---
-title: no title
+title: "pwnw06 with nathan curtis warner"
 date: '2013-02-25T14:35:10-05:00'
 tags: []
 permalink: /post/43998473751/

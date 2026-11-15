@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / gm4jno57"
+title: "an angular jsonp callback"
+description: "a small angular experiment requesting wordpress posts through a jsonp callback."
 date: "2015-02-09T03:39:38.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","angularjs","html","javascript"]

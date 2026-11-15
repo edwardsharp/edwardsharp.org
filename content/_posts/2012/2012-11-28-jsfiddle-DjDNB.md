@@ -1,5 +1,6 @@
 ---
 title: "D3 Force Graph"
+description: "a force-directed d3 graph lets branches of a nested dataset expand and collapse when clicked."
 date: "2012-11-28T01:17:36.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","jquery","html","javascript","svg"]

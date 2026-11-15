@@ -1,5 +1,6 @@
 ---
 title: "chat window thing"
+description: "a compact chat-window mockup, pinned to the corner with a header, message area, and text box."
 date: "2017-06-21T05:59:06.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","jquery","html","css"]

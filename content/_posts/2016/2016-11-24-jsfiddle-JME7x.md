@@ -1,5 +1,6 @@
 ---
 title: "JQuery UI Buttonset"
+description: "two radio inputs become a jquery button set, with a small check for whether it is initialized."
 date: "2016-11-24T16:27:37.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","jquery","html","javascript"]

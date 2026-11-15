@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / gPPNc"
+title: "looping audio with soundjs"
+description: "a preloaded audio loop gets a simple pair of play and stop buttons."
 date: "2013-11-29T01:20:37.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","jquery","html","javascript"]

@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / FYLHp"
+title: "a mobile news reader"
+description: "a jquery mobile news reader fetches headlines, updates an item count, and offers a refresh button."
 date: "2012-09-06T20:39:49.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","jquery","html","css","javascript","animation"]

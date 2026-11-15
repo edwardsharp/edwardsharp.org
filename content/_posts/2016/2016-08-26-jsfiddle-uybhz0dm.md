@@ -1,5 +1,6 @@
 ---
 title: "ribbon corner"
+description: "a diagonal css ribbon sits across the corner of the window."
 date: "2016-08-26T07:08:55.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html","css"]

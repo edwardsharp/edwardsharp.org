@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / 58xwq4ty"
+title: "a searchable video transcript"
+description: "a video player paired with a searchable caption transcript and controls for stepping through matches."
 date: "2018-07-03T16:52:31.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html","css","javascript"]

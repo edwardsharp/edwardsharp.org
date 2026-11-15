@@ -1,5 +1,6 @@
 ---
 title: "lorumipsum glitch"
+description: "a canvas-based glitch transition breaks up the change between two blocks of placeholder text."
 date: "2013-12-29T05:27:10.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","jquery","html","javascript","svg","canvas","processing","synthesizer","animation"]

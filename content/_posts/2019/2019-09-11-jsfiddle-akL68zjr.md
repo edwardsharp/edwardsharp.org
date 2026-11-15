@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / akL68zjr"
+title: "a tab between two letters"
+description: "two letters and a tab character, left as a tiny html spacing experiment."
 date: "2019-09-11T20:31:37.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html"]

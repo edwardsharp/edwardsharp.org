@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / q08vofwu"
+title: "a box plot study"
+description: "an early d3 box-plot study, starting with sample timings grouped by list."
 date: "2018-10-01T14:28:29.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html","css","javascript","svg"]

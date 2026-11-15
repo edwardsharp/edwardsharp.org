@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / kv56pxba"
+title: "fetching a little json"
+description: "a small async fetch experiment that puts a field from a json response into the page."
 date: "2020-05-12T16:40:15.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html","javascript"]

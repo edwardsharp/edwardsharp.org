@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / TxUKU"
+title: "a coffee consumption chart"
+description: "a google charts experiment queries a fusion table for yearly coffee consumption by country."
 date: "2013-10-12T06:30:39.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","jquery","html","javascript"]

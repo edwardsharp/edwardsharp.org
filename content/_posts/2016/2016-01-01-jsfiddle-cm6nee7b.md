@@ -1,5 +1,6 @@
 ---
 title: "Angular Sortable Demo"
+description: "an angular sortable list logs its item order during dragging and again when sorting stops."
 date: "2016-01-01T05:39:28.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","angularjs","html","css","javascript","jquery"]

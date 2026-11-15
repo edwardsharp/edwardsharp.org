@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / a8greenx"
+title: "outlined text"
+description: "large letters lose their fill and keep a thin white outline against black."
 date: "2016-10-22T08:21:00.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html","css"]

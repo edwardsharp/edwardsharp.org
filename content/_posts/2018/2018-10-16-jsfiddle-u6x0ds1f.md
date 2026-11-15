@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / u6x0ds1f"
+title: "drawing svg letters"
+description: "svg letter outlines draw and erase themselves in a staggered loop with anime.js."
 date: "2018-10-16T01:24:22.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html","javascript","svg"]

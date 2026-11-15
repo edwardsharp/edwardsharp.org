@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / d4bf12cj"
+title: "an a-player embed"
+description: "a custom video-player element supplied with a stream, a poster image, and a caption file."
 date: "2018-07-06T20:35:01.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html","css"]

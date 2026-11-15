@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / Atz5v"
+title: "zooming through a hex grid"
+description: "a d3 view glides back and forth between two circles on a hexagonal grid."
 date: "2012-11-24T23:43:08.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","mootools","html","css","javascript","svg"]

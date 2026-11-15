@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / qzkvscho"
+title: "sick2death playlist"
+description: "an apple music playlist tucked into a responsive iframe."
 date: "2020-03-15T01:03:31.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html"]

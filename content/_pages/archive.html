@@ -6,6 +6,8 @@ searchable: false
 ---
 {% assign page_collection = site.collections | where: 'label', 'pages' | first %}
 {% assign archive_pages = page_collection.docs | where_exp: 'entry', 'entry.searchable != false' | sort: 'title' %}
+{% assign post_years = site.posts | group_by_exp: 'post', "post.date | date: '%Y'" %}
+{% assign current_year = site.time | date: '%Y' %}
 <section class="archive" data-archive data-search-url="{{ '/search.json' | relative_url }}">
   <p>all pagez && postsz</p>
   <form class="archive-search" role="search" hidden>
@@ -16,12 +18,35 @@ searchable: false
   <p class="archive-status" role="status" aria-live="polite">
     {{ site.posts.size | plus: archive_pages.size }} entries
   </p>
-  <ul class="archive-list">
-    {% for entry in archive_pages %}
-      {% include archive-entry.html entry=entry %}
+  <div class="archive-results">
+    {% if archive_pages.size > 0 %}
+      <ul class="archive-list">
+        {% for entry in archive_pages %}
+          {% include archive-entry.html entry=entry %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% for year in post_years %}
+      <details
+        class="archive-year"
+        data-year="{{ year.name }}"
+        {% if year.name == current_year %}
+          open
+        {% endif %}
+      >
+        <summary>
+          {{ year.name }}
+          <span class="archive-year__count">
+            {{- year.items.size }}
+            {% if year.items.size == 1 %}post{% else %}posts{% endif -%}
+          </span>
+        </summary>
+        <ul class="archive-list">
+          {% for entry in year.items %}
+            {% include archive-entry.html entry=entry %}
+          {% endfor %}
+        </ul>
+      </details>
     {% endfor %}
-    {% for entry in site.posts %}
-      {% include archive-entry.html entry=entry %}
-    {% endfor %}
-  </ul>
+  </div>
 </section>

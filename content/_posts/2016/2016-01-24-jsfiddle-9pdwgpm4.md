@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / 9pdwgpm4"
+title: "drag-to-paint boxes"
+description: "a row of small boxes turns green as the pointer crosses them with the mouse button held down."
 date: "2016-01-24T05:23:23.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html","css","javascript"]

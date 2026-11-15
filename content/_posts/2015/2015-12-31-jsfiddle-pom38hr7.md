@@ -1,5 +1,6 @@
 ---
 title: "sortable portlet2"
+description: "another sortable dashboard layout, with connected columns and collapsible panel bodies."
 date: "2015-12-31T11:22:07.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","jquery","html","css","javascript"]

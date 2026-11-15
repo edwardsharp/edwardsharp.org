@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / kLx1oemf"
+title: "an inline svg drawing"
+description: "an inline svg drawing built from grouped paths and transforms."
 date: "2017-11-06T07:24:43.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html","svg"]

@@ -10,9 +10,9 @@ source_platform: "ello"
 source_url: "https://ello.co/3dwardsharp/post/vp5dq7dzbqmnzzt3gvnnmg"
 archive_url: "https://web.archive.org/web/20210614012230id_/https://ello.co/3dwardsharp"
 ---
-<img src="https://assets2.ello.co/uploads/asset/attachment/7431991/ello-hdpi-86abc2a5.jpg" alt="">
+<span data-import-note="" class="asset-notice">image unavailable in the recovered archive.</span>
 
 
 <p><a href="https://github.com/edwardsharp/puredata/blob/master/noise_wash_mod.pd">https://github.com/edwardsharp/puredata/blob/master/noise_wash_mod.pd</a> </p>
-<p data-import-note>image could not be archived; <a href="https://assets2.ello.co/uploads/asset/attachment/7431991/ello-hdpi-86abc2a5.jpg">original image</a>.</p>
+
 <p><a href="https://ello.co/3dwardsharp/post/vp5dq7dzbqmnzzt3gvnnmg">original ello post</a> · <a href="https://web.archive.org/web/20210614012230id_/https://ello.co/3dwardsharp">archived post</a></p>

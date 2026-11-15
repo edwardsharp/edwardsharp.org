@@ -1,5 +1,6 @@
 ---
 title: "React"
+description: "a tiny react counter, with an increment button and a look at how state updates reach the console."
 date: "2020-04-21T04:55:42.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html","css","javascript","react"]

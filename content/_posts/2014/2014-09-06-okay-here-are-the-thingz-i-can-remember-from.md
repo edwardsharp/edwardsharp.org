@@ -1,5 +1,5 @@
 ---
-title: no title
+title: "an evening of channel surfing"
 date: '2014-09-06T00:52:46-04:00'
 tags: []
 permalink: /post/96761823577/

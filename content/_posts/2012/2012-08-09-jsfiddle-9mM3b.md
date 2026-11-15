@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / 9mM3b"
+title: "a popcorn video sequence"
+description: "popcorn.js joins short video excerpts into a sequence with a timed footnote and callback."
 date: "2012-08-09T06:13:29.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","jquery","html","javascript"]

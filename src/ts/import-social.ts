@@ -283,6 +283,21 @@ export function cleanHTML(html: string, base: string): string {
     .replaceAll("}", "&#125;");
 }
 
+export function replaceUnavailableImage(html: string, url: string): string {
+  const { document } = parseHTML(`<html><body>${html}</body></html>`);
+  const images = [...document.querySelectorAll("img[src]")].filter(
+    (image) => image.getAttribute("src") === url,
+  );
+  const notice = document.createElement("span");
+  notice.className = "asset-notice";
+  notice.setAttribute("data-import-note", "");
+  notice.textContent = "image unavailable in the recovered archive.";
+  if (images.length) {
+    for (const image of images) image.replaceWith(notice.cloneNode(true));
+  } else document.body.append(notice);
+  return document.body.innerHTML;
+}
+
 export function parseEllo(html: string, archiveUrl: string): SocialPost[] {
   const { document } = parseHTML(html);
   return [...document.querySelectorAll("article")].map((article) => {
@@ -504,7 +519,7 @@ export function postMarkdown(
   publicURL(post.url);
   const date = sourceDate(post.date);
   const fields: Record<string, unknown> = {
-    title: post.title,
+    title: post.title.trim() || `${post.kind} / ${date.date.slice(0, 10)}`,
     date: date.date,
     date_precision: date.precision,
     tags: postTags(post),
@@ -623,7 +638,7 @@ export async function importPosts(
             image: url,
             error: message,
           });
-          html += `\n<p data-import-note>image could not be archived; <a href="${escapeHTML(url)}">original image</a>.</p>`;
+          html = replaceUnavailableImage(html, url);
         }
       }
       let demoPath: string | undefined;

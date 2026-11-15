@@ -1,5 +1,6 @@
 ---
 title: "canvg playground"
+description: "a canvg experiment that draws an svg map of the united states onto a canvas."
 date: "2018-06-14T23:42:42.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html","javascript","svg","canvas"]

@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / NWgCN"
+title: "isometric zoom"
+description: "an isometric css layout experiments with clickable panels and animated zooming."
 date: "2012-11-25T00:48:56.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","jquery","html","css","javascript"]

@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / 25s6dLfy"
+title: "clickable traffic lights"
+description: "two little traffic lights cycle through red, green, and yellow when their lamps are clicked."
 date: "2018-07-12T19:07:31.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html","css","javascript"]

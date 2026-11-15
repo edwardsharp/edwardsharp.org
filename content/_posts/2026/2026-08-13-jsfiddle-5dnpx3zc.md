@@ -1,5 +1,6 @@
 ---
 title: "pointer info"
+description: "a little pointer-event inspector for watching coordinates, pressure, and other input details as they happen."
 date: "2026-08-13T16:19:23.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html","css","javascript","processing"]

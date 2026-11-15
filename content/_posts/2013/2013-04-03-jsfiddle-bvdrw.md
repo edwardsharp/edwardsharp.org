@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / bvdrw"
+title: "an embedded post"
+description: "an early embed test, wrapping a short post about making hyperlinks easier to read."
 date: "2013-04-03T18:10:29.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html"]

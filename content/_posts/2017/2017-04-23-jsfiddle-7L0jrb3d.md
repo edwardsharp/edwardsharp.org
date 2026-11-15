@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / 7L0jrb3d"
+title: "diagonal stripes"
+description: "red, gold, and green stripes run diagonally behind a circle in a simple css composition."
 date: "2017-04-23T08:39:37.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html","css"]

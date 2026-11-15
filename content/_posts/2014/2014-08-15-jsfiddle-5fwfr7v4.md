@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / 5fwfr7v4"
+title: "the trust button"
+description: "an orange trust button scatters shuffled words across the page each time it is pressed."
 date: "2014-08-15T06:00:12.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html","css","javascript"]

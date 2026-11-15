@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / CRdJa"
+title: "a key-icon login button"
+description: "a large key icon and stacked text share a css-styled login button."
 date: "2013-06-27T19:41:31.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html","css"]

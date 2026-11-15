@@ -22,6 +22,7 @@ import {
   postMarkdown,
   postHTML,
   postTags,
+  replaceUnavailableImage,
   sourceDate,
   type SocialPost,
 } from "../import-social.ts";
@@ -69,6 +70,10 @@ test("imported code remains literal while local media keeps baseurl-aware URLs",
     "javascript",
   ]);
   assert.equal(escapeHTML("<&{{"), "&lt;&amp;&#123;&#123;");
+  assert.match(
+    postMarkdown({ ...post, title: " " }, post.html),
+    /title: "code \/ 2014-06-01"/,
+  );
 });
 
 test("archived HTML keeps public links and captions without executable markup", () => {
@@ -89,6 +94,24 @@ test("Ello imports use post publication dates rather than snapshot dates", () =>
   assert.equal(parsed?.date, "2018-07-26T21:07:10.000Z");
   assert.equal(parsed?.kind, "photo");
   assert.doesNotMatch(parsed!.html, /likes/);
+});
+
+test("unavailable archived images become notices without removing captions or working images", () => {
+  const html = replaceUnavailableImage(
+    '<p>a caption</p><img src="https://example.com/missing.jpg"><img src="/content/media/working.jpg">',
+    "https://example.com/missing.jpg",
+  );
+  assert.doesNotMatch(html, /missing\.jpg/);
+  assert.match(html, /image unavailable in the recovered archive/);
+  assert.match(html, /a caption/);
+  assert.match(html, /src="\/content\/media\/working.jpg"/);
+  assert.match(
+    replaceUnavailableImage(
+      "<p>caption without a preview</p>",
+      "https://example.com/preview.jpg",
+    ),
+    /caption without a preview.*image unavailable/s,
+  );
 });
 
 test("Twitter imports check ownership and recover the original instant from its source ID", () => {

@@ -1,5 +1,6 @@
 ---
 title: "youtube segment player"
+description: "a youtube-player experiment built around very short segments from different points in one video."
 date: "2015-12-29T12:26:27.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html","css","javascript"]

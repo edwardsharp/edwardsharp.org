@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / mg3ab5nk"
+title: "nurbs surface controls"
+description: "an orbitable three.js surface with sliders for moving its control points."
 date: "2018-11-06T17:22:19.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html","javascript"]

@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / tfuj5bcp"
+title: "list timing box plots"
+description: "a d3 box-plot experiment for comparing the time that cards spend in different lists."
 date: "2018-10-01T16:04:26.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html","css","javascript","svg"]

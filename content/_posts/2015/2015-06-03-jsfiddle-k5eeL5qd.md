@@ -1,5 +1,6 @@
 ---
 title: "Angular Sortable Demo"
+description: "an angular list keeps its array in step with drag-and-drop sorting and newly added items."
 date: "2015-06-03T02:49:57.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","jquery","html","css","javascript"]

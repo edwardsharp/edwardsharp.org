@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / kx2r1yf6"
+title: "a custom checkbox"
+description: "a simple checkbox dressed up with a drawn box, a cross, and a neatly aligned label."
 date: "2020-08-07T03:35:41.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html","css"]

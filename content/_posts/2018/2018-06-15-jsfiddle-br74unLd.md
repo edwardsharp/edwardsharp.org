@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / br74unLd"
+title: "an svg state map"
+description: "an svg map highlights states under the pointer and shows their abbreviations beside it."
 date: "2018-06-15T01:31:04.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","svg.js","html","css","javascript","svg"]

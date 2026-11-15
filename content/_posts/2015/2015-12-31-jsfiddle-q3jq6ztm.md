@@ -1,5 +1,6 @@
 ---
 title: "tubeslide"
+description: "a sideways strip of sortable cards grows one letter at a time and scrolls to each new card."
 date: "2015-12-31T10:46:55.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","jquery","html","css","javascript"]

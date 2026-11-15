@@ -1,5 +1,6 @@
 ---
 title: "simple angular json request"
+description: "an angular request tester with selectable methods, sample endpoints, and a view of the response."
 date: "2015-03-10T19:12:49.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","angularjs","html","javascript"]

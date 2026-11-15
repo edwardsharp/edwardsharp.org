@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / 5ph3j5ve"
+title: "checkerboard drag and drop"
+description: "a javascript checkerboard experiment with alternating squares and draggable pieces."
 date: "2017-04-12T13:31:40.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html","css","javascript","jquery"]

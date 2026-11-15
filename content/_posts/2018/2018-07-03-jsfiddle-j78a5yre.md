@@ -1,5 +1,6 @@
 ---
 title: "slim.js web component"
+description: "a minimal slim.js custom element that renders a short greeting from its own template."
 date: "2018-07-03T17:31:41.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html","javascript"]

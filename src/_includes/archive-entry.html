@@ -1,16 +1,26 @@
 {% assign entry = include.entry %}
-{% assign title = entry.preview_title | default: entry.title %}
-{% if title == 'no title' %}
-  {% capture title %}{{ entry.kind | default: 'post' }} / {{ entry.date | date: '%Y-%m-%d' }}{% endcapture %}
+{% assign title = entry.preview_title | default: '' | strip %}
+{% if title == '' %}
+  {% assign title = entry.title | default: '' | strip %}
+{% endif %}
+{% assign normalized_title = title | downcase %}
+{% if title == '' or normalized_title == 'no title' or normalized_title == 'untitled' %}
+  {% if entry.collection == 'posts' %}
+    {% capture title %}{{ entry.kind | default: 'post' }} / {{ entry.date | date: '%Y-%m-%d' }}{% endcapture %}
+  {% else %}
+    {% assign title = entry.url %}
+  {% endif %}
 {% endif %}
 <li>
   {% if entry.collection == 'posts' %}
-    <span class="archive-label">
-      <time datetime="{{ entry.date | date: '%Y-%m-%d' }}">{{ entry.date | date: '%Y-%m-%d' }}</time>
-      <span class="archive-kind">{{ entry.kind | default: 'entry' | escape }}</span>
-    </span>
+    <time class="archive-label" datetime="{{ entry.date | date: '%Y-%m-%d' }}">
+      {{- entry.date | date: '%Y-%m-%d' -}}
+    </time>
   {% else %}
     <span class="archive-label">page</span>
   {% endif %}
-  <a href="{{ entry.url | relative_url }}">{{ title | escape }}</a>
+  <a href="{{ entry.url | relative_url }}" title="{{ title | escape }}">{{ title | escape }}</a>
+  {% if entry.collection == 'posts' %}
+    <span class="archive-kind">{{ entry.kind | default: 'entry' | escape }}</span>
+  {% endif %}
 </li>

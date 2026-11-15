@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / u0dg6cwt"
+title: "a little beta-label animation"
+description: "a beta label flips into place beside a site name when the page is marked as loaded."
 date: "2016-09-20T07:23:26.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","jquery","html","css","javascript"]

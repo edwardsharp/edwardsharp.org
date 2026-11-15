@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / abx9m4ph"
+title: "a calendar layout"
+description: "a calendar mockup with a prominent selected date and a compact month grid."
 date: "2016-11-26T10:42:51.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html","css"]

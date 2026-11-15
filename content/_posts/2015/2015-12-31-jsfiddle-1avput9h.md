@@ -1,5 +1,6 @@
 ---
 title: "3sort"
+description: "three separate jquery sortable lists let their items be rearranged in place."
 date: "2015-12-31T11:21:34.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","jquery","html","css","javascript"]

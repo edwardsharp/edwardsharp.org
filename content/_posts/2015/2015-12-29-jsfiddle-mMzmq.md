@@ -1,5 +1,6 @@
 ---
 title: "jQuery UI Slider - Multiple sliders"
+description: "a horizontal master slider sits above a bank of vertical sliders styled like an equalizer."
 date: "2015-12-29T12:28:30.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","jquery","html","css","javascript"]

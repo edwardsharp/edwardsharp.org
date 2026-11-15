@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / g86Lov9q"
+title: "finding an object with reduce"
+description: "a small array-reduce experiment that picks out an object with a matching property."
 date: "2019-08-27T18:34:45.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","javascript"]

@@ -1,5 +1,6 @@
 ---
-title: "jsfiddle / pjsdh7qb"
+title: "search help for emergency index"
+description: "a search-help layout for emergency index, with examples arranged beside oversized query symbols."
 date: "2020-08-06T03:28:44.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html","css","noise"]

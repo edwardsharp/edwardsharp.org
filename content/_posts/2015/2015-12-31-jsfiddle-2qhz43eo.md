@@ -1,5 +1,6 @@
 ---
 title: "get selected input text"
+description: "a button reports the selected part of a text area, or lets you know when nothing is selected."
 date: "2015-12-31T08:58:47.000Z"
 date_precision: "second"
 tags: ["jsfiddle","code","html","javascript"]
