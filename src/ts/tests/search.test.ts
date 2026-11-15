@@ -10,6 +10,7 @@ const documents: SearchDocument[] = [
     text: "notes about radio",
     tags: [],
     date: "2015-06-29",
+    kind: "entry",
   },
   {
     url: "/post/2/",
@@ -17,6 +18,7 @@ const documents: SearchDocument[] = [
     text: `${"an introduction. ".repeat(30)}a signal from migrating birds`,
     tags: ["fieldwork"],
     date: "2012-11-15",
+    kind: "photo",
   },
   {
     url: "/about/",
@@ -24,6 +26,7 @@ const documents: SearchDocument[] = [
     text: "listening for birds",
     tags: [],
     date: null,
+    kind: null,
   },
 ];
 
@@ -57,6 +60,8 @@ test("search index validation rejects malformed, unsafe, and duplicate entries",
     [documents[0], documents[0]],
     [{ ...documents[0], tags: null }],
     [{ ...documents[0], text: 42 }],
+    [{ ...documents[0], kind: 42 }],
+    [{ ...documents[0], kind: "" }],
     [{ ...documents[0], url: "javascript:alert(1)" }],
     [{ ...documents[0], url: "//example.com/" }],
     [{ ...documents[0], url: "/\\example.com/" }],

@@ -5,7 +5,10 @@
 {% endif %}
 <li>
   {% if entry.collection == 'posts' %}
-    <time datetime="{{ entry.date | date: '%Y-%m-%d' }}">{{ entry.date | date: '%Y-%m-%d' }}</time>
+    <span class="archive-label">
+      <time datetime="{{ entry.date | date: '%Y-%m-%d' }}">{{ entry.date | date: '%Y-%m-%d' }}</time>
+      <span class="archive-kind">{{ entry.kind | default: 'entry' | escape }}</span>
+    </span>
   {% else %}
     <span class="archive-label">page</span>
   {% endif %}

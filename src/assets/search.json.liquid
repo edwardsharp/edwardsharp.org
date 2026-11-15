@@ -17,7 +17,7 @@ permalink: /search.json
     {{- tag | jsonify -}}
     {%- unless forloop.last %},{% endunless -%}
   {%- endfor -%}
-  ], "date":
+  ], "kind": {% if entry.collection == 'posts' %}{{ entry.kind | default: 'entry' | jsonify }}{% else %}null{% endif %}, "date":
   {% if entry.collection == 'posts' %}{{ entry.date | date: '%Y-%m-%d' | jsonify }}{% else %}null{% endif %} }
   {%- unless forloop.last %},{% endunless %}
 {% endfor %}

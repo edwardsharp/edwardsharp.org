@@ -372,6 +372,12 @@ h1 {
   padding: 0;
 }
 
+.archive-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
 .archive-list li {
   display: grid;
   grid-template-columns: 6rem minmax(0, 1fr);
@@ -760,6 +766,36 @@ pre code {
   padding: 0;
   font-size: inherit;
 }
+.highlight .c,
+.highlight .c1,
+.highlight .cm,
+.highlight .cp,
+.highlight .cs,
+.highlight .m,
+.highlight .mi,
+.highlight .mf,
+.highlight .mh {
+  color: var(--muted);
+}
+.highlight .k,
+.highlight .kd,
+.highlight .kn,
+.highlight .kp,
+.highlight .kr,
+.highlight .kt,
+.highlight .nt,
+.highlight .o,
+.highlight .ow {
+  color: var(--accent);
+}
+.highlight .nf,
+.highlight .nc,
+.highlight .na {
+  font-weight: 700;
+}
+.highlight .err {
+  text-decoration: underline wavy var(--accent);
+}
 .prose table {
   display: block;
   overflow-x: auto;
@@ -811,5 +847,9 @@ pre code {
   .archive-list li {
     grid-template-columns: 1fr;
     gap: 0.15rem;
+  }
+  .archive-label {
+    flex-direction: row;
+    gap: 0.65rem;
   }
 }

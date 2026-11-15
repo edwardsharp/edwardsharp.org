@@ -6,6 +6,7 @@
     "node": ">=22.18.0"
   },
   "scripts": {
+    "import:social": "node src/ts/import-social.ts",
     "build": "npm run typecheck && node src/ts/esbuild.config.ts",
     "typecheck": "tsc --project src/tsconfig.json",
     "test": "node --test src/ts/tests/*.test.ts",
@@ -22,6 +23,7 @@
     "@types/lunr": "^2.3.7",
     "@types/node": "^24.19.2",
     "esbuild": "0.28.2",
+    "linkedom": "0.18.15",
     "prettier": "3.10.1",
     "typescript": "^7.0.2"
   }

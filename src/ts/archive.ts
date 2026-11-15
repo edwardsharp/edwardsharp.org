@@ -3,15 +3,23 @@ import type { SearchDocument } from "./search.ts";
 
 function createEntry(entry: SearchDocument): HTMLLIElement {
   const item = document.createElement("li");
+  const metadata = document.createElement("span");
+  metadata.className = "archive-label";
   const label = document.createElement(entry.date ? "time" : "span");
   if (label instanceof HTMLTimeElement && entry.date)
     label.dateTime = entry.date;
-  label.className = "archive-label";
   label.textContent = entry.date ?? "page";
+  metadata.append(label);
+  if (entry.kind) {
+    const kind = document.createElement("span");
+    kind.className = "archive-kind";
+    kind.textContent = entry.kind;
+    metadata.append(kind);
+  }
   const link = document.createElement("a");
   link.href = entry.url;
   link.textContent = entry.title;
-  item.append(label, link);
+  item.append(metadata, link);
   return item;
 }
 

@@ -7,6 +7,7 @@ export interface SearchDocument {
   text: string;
   tags: string[];
   date: string | null;
+  kind: string | null;
 }
 
 export function parseDocuments(value: unknown): SearchDocument[] {
@@ -28,6 +29,9 @@ export function parseDocuments(value: unknown): SearchDocument[] {
         "tags" in entry &&
         Array.isArray(entry.tags) &&
         entry.tags.every((tag: unknown) => typeof tag === "string") &&
+        "kind" in entry &&
+        (entry.kind === null ||
+          (typeof entry.kind === "string" && entry.kind.length > 0)) &&
         "date" in entry &&
         (entry.date === null ||
           (typeof entry.date === "string" &&

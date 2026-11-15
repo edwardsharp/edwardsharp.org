@@ -11,7 +11,7 @@ permalink: /feed.json
   { "id": {{ post.url | jsonify }}, "url": {{ post.url | relative_url | jsonify }}, "title": {{ title | jsonify }},
   "kind": {{ post.kind | default: 'entry' | jsonify }}, "date": {{ post.date | date_to_xmlschema | jsonify }}, "label":
   {{ post.date | date: '%Y-%m-%d' | jsonify }}, "excerpt":
-  {{ post.content | strip_html | normalize_whitespace | truncate: 180 | jsonify }}, "image":
+  {{ post.description | default: post.content | strip_html | normalize_whitespace | truncate: 180 | jsonify }}, "image":
   {% if post.preview_image %}{{ post.preview_image | relative_url | jsonify }}{% else %}null{% endif %}, "alt":
   {{ post.preview_alt | default: '' | jsonify }}, "tags": [
   {%- for tag in post.tags -%}

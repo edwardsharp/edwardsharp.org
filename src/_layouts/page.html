@@ -3,7 +3,9 @@ layout: default
 ---
 <article class="page">
   <header class="page-heading">
-    <p class="eyebrow">edwardsharp.org</p>
+    {% unless page.archive %}
+      <p class="eyebrow">edwardsharp.org</p>
+    {% endunless %}
     <h1>{{ page.title | escape }}</h1>
   </header>
   <div class="prose">{{ content }}</div>
