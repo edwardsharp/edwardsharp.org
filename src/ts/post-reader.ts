@@ -220,7 +220,14 @@ export function createPostReader(options: {
       initialOffset: selection.index * estimate,
       paddingEnd: estimate,
       overscan: 1,
-      observeElementRect,
+      // Virtual offsets start below the overlapping toolbar, not at its top.
+      observeElementRect: (instance, callback) =>
+        observeElementRect(instance, (rect) =>
+          callback({
+            ...rect,
+            height: Math.max(0, rect.height - toolbarHeight),
+          }),
+        ),
       observeElementOffset,
       scrollToFn: elementScroll,
       rangeExtractor: (range) => {
