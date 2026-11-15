@@ -25,11 +25,11 @@ jobs:
         with:
           node-version: "24"
           cache: npm
-      - run: npm ci && npm test && npm run build
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.3"
           bundler-cache: true
+      - run: npm ci && npm test && npm run build
       - name: configure Pages
         id: pages
         uses: actions/configure-pages@v5
