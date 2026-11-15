@@ -144,6 +144,12 @@ a:hover {
   inset-inline: calc((100% - 100vw) / 2);
 }
 
+@media (prefers-color-scheme: light) {
+  .post-dialog__toolbar::before {
+    background: color-mix(in srgb, var(--background) 75%, transparent);
+  }
+}
+
 .wordmark {
   flex-shrink: 0;
   margin-inline-end: auto;

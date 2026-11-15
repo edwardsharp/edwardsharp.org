@@ -49,7 +49,7 @@ npm run import:photos -- "/path/to/Photos exports"
 npm run import:photos -- "/path/to/Photos exports" --photoset "one set" --library "/path/to/Photos Library.photoslibrary"
 ```
 
-photos: export original filenames with metadata. only the chosen folder is imported. output: `content/_posts/` and `content/media/`, grouped by year. unmatched/ambiguous files stop the batch; `--dry-run` writes nothing. captions/tags/full cached place names become public; gps is stripped, missing names omitted. reruns and exact standalone-image duplicates are skipped; resized/recompressed copies may not match. dry runs do not check converted-image duplicates.
+photos: keep original filenames. output: `content/_posts/` and `content/media/`, grouped by year. timestamp fallbacks warn and set `needs_review: true`; file creation time may be the export date. bad files are skipped; `--dry-run` writes nothing. captions/tags/cached place names become public; gps is stripped, missing names reported, no network lookup. reruns/exact standalone-image duplicates are skipped; resized/recompressed copies may not match. dry runs do not check converted-image duplicates.
 
 ---
 

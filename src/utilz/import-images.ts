@@ -36,6 +36,7 @@ export interface PhotosMetadata {
   tags: string[];
   place: string | null;
   last_modified: string | null;
+  needs_review?: boolean;
 }
 interface Asset {
   filename: string;
@@ -309,10 +310,21 @@ async function collect(
       }
       if (set && video)
         throw new Error(`photo set contains a video: ${filename}`);
-      const exif = video ? {} : readExif(filename);
       const photos = options.photosMetadata?.get(filename);
-      if (options.photosMetadata && !photos)
-        throw new Error(`missing Photos metadata: ${filename}`);
+      if (options.photosMetadata && !photos) {
+        console.warn(
+          `skipping image without prepared Photos metadata: ${filename}`,
+        );
+        continue;
+      }
+      let exif: Exif;
+      try {
+        exif = video ? {} : readExif(filename);
+      } catch (error) {
+        if (!options.photosMetadata) throw error;
+        console.error(`SKIPPING unreadable Photos image: ${filename}`, error);
+        continue;
+      }
       if (
         !video &&
         !photos &&
@@ -346,13 +358,20 @@ async function collect(
     }
   }
   await walk(directory);
-  for (const group of groups) {
+  const ready = groups.filter((group) => {
+    if (!group.assets.length && options.photosMetadata) {
+      console.warn(`skipping photoset with no usable images: ${group.title}`);
+      return false;
+    }
+    return true;
+  });
+  for (const group of ready) {
     if (!group.assets.length) throw new Error(`empty photoset: ${group.title}`);
     group.assets.sort(
       (a, b) => a.date.localeCompare(b.date) || a.title.localeCompare(b.title),
     );
   }
-  return groups;
+  return ready;
 }
 
 export async function importImages(
@@ -360,6 +379,8 @@ export async function importImages(
   root = fileURLToPath(new URL("../../", import.meta.url)),
 ): Promise<{ imported: number; skipped: number }> {
   const groups = await collect(options);
+  if (options.photosMetadata && !groups.length)
+    throw new Error("no usable Photos images; no posts written");
   const historyFile = join(root, "src", "utilz", "image-import-history.jsonl");
   const history = new Set<string>();
   for (const line of (await optionalText(historyFile))
@@ -439,6 +460,7 @@ export async function importImages(
   }
   let imported = 0;
   let skipped = 0;
+  let failedConversions = 0;
   for (const group of groups) {
     const video = group.assets[0]!.video;
     const kind = video ? "video" : "photo";
@@ -480,6 +502,7 @@ export async function importImages(
       ? `${readableName.slice(0, -3)}-${digest.slice(0, 12)}.md`
       : readableName;
     const temporary = await mkdtemp(join(tmpdir(), "blog-images-"));
+    let conversionComplete = false;
     try {
       const outputs: { local: string; url: string }[] = [];
       const locations: ({ image: string } & Coordinates)[] = [];
@@ -572,6 +595,12 @@ export async function importImages(
         if (asset.location) locations.push({ image: url, ...asset.location });
         outputs.push({ local, url });
       }
+      for (const output of outputs)
+        if ((await stat(output.local)).size >= 100_000_000)
+          throw new Error(
+            `converted file exceeds GitHub's 100 MB limit: ${output.local}`,
+          );
+      conversionComplete = true;
       if (!group.set && !video) {
         const duplicate = (await existingImages()).get(
           await hashFile(outputs[0]!.local),
@@ -615,6 +644,8 @@ export async function importImages(
         if (group.set) fields.locations = places;
         else fields.location_name = places[0]!.name;
       }
+      if (group.assets.some((asset) => asset.photos?.needs_review))
+        fields.needs_review = true;
       const modified = group.assets
         .flatMap((asset) =>
           asset.photos?.last_modified ? [asset.photos.last_modified] : [],
@@ -622,10 +653,6 @@ export async function importImages(
         .sort();
       if (modified.length) fields.last_modified = modified.at(-1)!;
       for (const output of outputs) {
-        if ((await stat(output.local)).size >= 100_000_000)
-          throw new Error(
-            `converted file exceeds GitHub's 100 MB limit: ${output.local}`,
-          );
         const destination = join(root, output.url.slice(1));
         await mkdir(dirname(destination), { recursive: true });
         try {
@@ -659,13 +686,23 @@ export async function importImages(
         for (const output of outputs)
           publishedImages.set(await hashFile(output.local), output.url);
       imported++;
+    } catch (error) {
+      if (!options.photosMetadata || conversionComplete) throw error;
+      console.error(
+        `SKIPPING Photos group "${group.title}": image conversion failed`,
+        error,
+      );
+      skipped++;
+      failedConversions++;
     } finally {
       await rm(temporary, { recursive: true });
     }
   }
   console.info(
-    `${imported} imported, ${skipped} skipped${options.dryRun ? " (dry run)" : ""}`,
+    `${imported} imported, ${skipped} skipped${failedConversions ? ` (${failedConversions} failed conversions)` : ""}${options.dryRun ? " (dry run)" : ""}`,
   );
+  if (failedConversions && !imported)
+    throw new Error("no posts imported; see Photos conversion failures above");
   return { imported, skipped };
 }
 
@@ -699,6 +736,7 @@ export async function readPhotosMetadata(
       !("last_modified" in value) ||
       (value.last_modified !== null &&
         typeof value.last_modified !== "string") ||
+      ("needs_review" in value && typeof value.needs_review !== "boolean") ||
       resolve(path) !== path
     )
       throw new Error(`invalid Photos metadata: ${path}`);
@@ -716,6 +754,7 @@ export async function readPhotosMetadata(
       tags: value.tags,
       place: value.place,
       last_modified: modified?.date ?? null,
+      ...("needs_review" in value ? { needs_review: value.needs_review } : {}),
     });
   }
   return result;

@@ -46,8 +46,12 @@ def matching_photos(filename, captured, candidates):
             continue
         if captured is None:
             original = Path(photo.path) if photo.path else None
-            if original and original.is_file() and file_hash(filename) == file_hash(original):
-                matches[photo.uuid] = photo
+            if original and original.is_file():
+                try:
+                    if file_hash(filename) == file_hash(original):
+                        matches[photo.uuid] = photo
+                except OSError as error:
+                    print(f"cannot compare Photos original for {filename}: {error}", file=sys.stderr)
             continue
         for date in (photo.date_original, photo.date):
             if captured.tzinfo is None:
@@ -65,16 +69,82 @@ def file_hash(path):
         return hashlib.file_digest(file, "sha256").hexdigest()
 
 
-def metadata(photo):
+def cached_place_name(photo):
     place = photo.place
+    if not place:
+        return None
+    names = getattr(place, "names", None)
+    address = getattr(place, "address", None)
+    parts = []
+    for field, address_field in (
+        ("area_of_interest", None),
+        ("additional_city_info", "sub_locality"),
+        ("region", None),
+        ("city", "city"),
+        ("state_province", "state_province"),
+        ("country", "country"),
+        ("inland_water", None),
+        ("ocean", None),
+    ):
+        values = getattr(names, field, []) if names else []
+        value = values[0] if values else None
+        if not value and address_field:
+            value = getattr(address, address_field, None)
+        if value and value.strip() and value.strip().casefold() not in {part.casefold() for part in parts}:
+            parts.append(value.strip())
+    if parts:
+        return ", ".join(parts)
+    return (place.name.strip() or None) if place.name else None
+
+
+def metadata(photo):
     return {
         "date": photo.date.isoformat(),
         "title": photo.title or "",
         "description": photo.description or "",
         "tags": photo.keywords or [],
-        "place": place.name if place else None,
+        "place": cached_place_name(photo),
         "last_modified": photo.date_modified.isoformat() if photo.date_modified else None,
     }
+
+
+def prepare_photo(filename, candidates):
+    try:
+        captured = capture_time(filename)
+    except ValueError as error:
+        print(f"WARNING: invalid capture metadata for {filename}: {error}; trying timestamp fallbacks", file=sys.stderr)
+        captured = None
+    matches = matching_photos(filename, captured, candidates)
+    source = "Photos date (exact original match)"
+    if captured is None and not matches and len(candidates) == 1:
+        matches = candidates
+        source = "Photos date (unique filename match)"
+    matched = matches[0] if len(matches) == 1 else None
+    if matched:
+        record = metadata(matched)
+    else:
+        if captured is not None:
+            date = captured.astimezone().isoformat()
+            zone = "machine timezone" if captured.tzinfo is None else "embedded timezone"
+            source = f"EXIF capture date ({zone}); Photos match unavailable/ambiguous"
+        else:
+            created = getattr(filename.stat(), "st_birthtime", None)
+            if created is None or created <= 0:
+                raise ValueError(f"file creation timestamp unavailable: {filename}")
+            date = datetime.fromtimestamp(created).astimezone().isoformat()
+            source = "file creation time; this may be the export date"
+        record = {
+            "date": date, "title": "", "description": "", "tags": [],
+            "place": None, "last_modified": None,
+        }
+    record["needs_review"] = captured is None or matched is None
+    if record["needs_review"]:
+        print(
+            f"!!! WARNING: FALLBACK TIMESTAMP: {filename}\n"
+            f"    {record['date']} ({source}); needs_review: true",
+            file=sys.stderr,
+        )
+    return record, matched
 
 
 def images(directory):
@@ -119,27 +189,31 @@ def main():
         for name in {Path(photo.original_filename).stem.casefold(), Path(photo.filename).stem.casefold()} & wanted:
             by_name.setdefault(name, []).append(photo)
     records = {}
-    errors = []
+    skipped = 0
+    named = 0
+    gps_without_name = 0
+    unavailable_location = 0
     for file in files:
         try:
-            captured = capture_time(file)
-            matches = matching_photos(file, captured, by_name.get(file.stem.casefold(), []))
-            if len(matches) != 1:
-                if captured is None:
-                    raise ValueError(f"no EXIF capture date and no unique exact-original match: {file}")
-                raise ValueError(f"{len(matches)} library matches for {file}; cannot safely identify this export")
-            if captured is None:
-                print(f"matched {file.name} by exact original-file hash; using its Photos capture date")
-            record = metadata(matches[0])
-            if not record["place"]:
-                print(f"no cached place name for {file}; importing without a location", file=sys.stderr)
+            record, matched = prepare_photo(file, by_name.get(file.stem.casefold(), []))
+            if record["place"]:
+                named += 1
+            elif matched and all(value is not None for value in matched.location):
+                gps_without_name += 1
+                print(f"GPS present but no cached place name: {file}; importing without a location (no network lookup)", file=sys.stderr)
+            else:
+                unavailable_location += 1
+                reason = "no GPS or cached place name" if matched else "no unique Photos match for cached location"
+                print(f"{reason}: {file}; importing without a location", file=sys.stderr)
             records[str(file)] = record
-        except (ValueError, subprocess.CalledProcessError) as error:
-            errors.append(str(error))
-    if errors:
-        for error in errors:
-            print(error, file=sys.stderr)
-        raise ValueError("unmatched/ambiguous exports; no posts written. Keep original filenames and capture metadata.")
+        except (OSError, ValueError, subprocess.CalledProcessError) as error:
+            skipped += 1
+            print(f"SKIPPING {file}: {error}", file=sys.stderr)
+            if isinstance(error, subprocess.CalledProcessError) and error.stderr:
+                print(error.stderr.strip(), file=sys.stderr)
+    print(f"Prepared {len(records)} images; skipped {skipped}. Cached place names: {named}; GPS without names: {gps_without_name}; location unavailable: {unavailable_location}.")
+    if not records:
+        raise ValueError("no usable images; no posts written (see skipped-file warnings)")
     print("Full cached place names, captions, and keywords will be public; raw GPS is not copied.", file=sys.stderr)
     with tempfile.TemporaryDirectory(prefix="photos-metadata-") as temporary:
         filename = Path(temporary) / "metadata.json"

@@ -38,6 +38,9 @@ test(
     const image = join(source, "IMG_1208.png");
     const made = spawnSync("magick", ["-size", "8x8", "xc:red", image]);
     assert.equal(made.status, 0, made.stderr.toString());
+    await writeFile(join(source, "unmatched.png"), "not an image");
+    const corrupt = join(source, "corrupt.png");
+    await writeFile(corrupt, "not an image either");
     const file = join(temporary, "metadata.json");
     const record = {
       date: "2020-06-01T12:00:01-04:00",
@@ -46,8 +49,12 @@ test(
       description: "a caption",
       tags: ["noise", "NOISE", "photo"],
       place: "A venue, Brooklyn, New York, United States",
+      needs_review: true,
     };
-    await writeFile(file, JSON.stringify({ [image]: record }));
+    await writeFile(
+      file,
+      JSON.stringify({ [image]: record, [corrupt]: record }),
+    );
     const photosMetadata = await readPhotosMetadata(file);
     await importImages(
       {
@@ -67,6 +74,7 @@ test(
     );
     assert.match(output, /date: "2020-06-01T16:00:01.000Z"/);
     assert.match(output, /last_modified: "2020-07-01T16:00:01.000Z"/);
+    assert.match(output, /^needs_review: true$/m);
     assert.match(output, /tags: \["photo","noise"\]/);
     assert.match(
       output,
@@ -80,6 +88,70 @@ test(
       JSON.stringify({ [image]: { ...record, date: "2020-06-01" } }),
     );
     await assert.rejects(readPhotosMetadata(file), /timestamp/);
+    await writeFile(
+      file,
+      JSON.stringify({ [image]: { ...record, needs_review: "yes" } }),
+    );
+    await assert.rejects(readPhotosMetadata(file), /invalid Photos metadata/);
+  },
+);
+
+test(
+  "Photos imports skip unusable sets and mark mixed sets for review",
+  {
+    skip: spawnSync("magick", ["-version"]).error
+      ? "requires ImageMagick"
+      : false,
+  },
+  async (t) => {
+    const temporary = await mkdtemp(join(tmpdir(), "photos-sets-test-"));
+    t.after(() => rm(temporary, { recursive: true, force: true }));
+    const source = join(temporary, "source");
+    const root = join(temporary, "site");
+    await mkdir(join(source, "mixed"), { recursive: true });
+    await mkdir(join(source, "empty"));
+    const image = join(source, "mixed", "good.png");
+    const made = spawnSync("magick", ["-size", "8x8", "xc:red", image]);
+    assert.equal(made.status, 0, made.stderr.toString());
+    await writeFile(join(source, "mixed", "bad.png"), "broken");
+    await writeFile(join(source, "empty", "bad.png"), "broken");
+    const photosMetadata = new Map([
+      [
+        image,
+        {
+          date: "2020-06-01T16:00:01.000Z",
+          last_modified: null,
+          title: "good",
+          description: "",
+          tags: [],
+          place: null,
+          needs_review: true,
+        },
+      ],
+    ]);
+    const options = {
+      directory: source,
+      dateSource: "exif" as const,
+      photosets: ["mixed", "empty"],
+      location: false,
+      videos: false,
+      dryRun: false,
+      photosMetadata,
+    };
+    assert.deepEqual(await importImages(options, root), {
+      imported: 1,
+      skipped: 0,
+    });
+    const output = await readFile(
+      join(root, "content/_posts/2020/2020-06-01-photo-mixed.md"),
+      "utf8",
+    );
+    assert.match(output, /^needs_review: true$/m);
+    assert.equal(output.match(/^!\[/gm)?.length, 1);
+    await assert.rejects(
+      importImages({ ...options, photosMetadata: new Map() }, root),
+      /no usable Photos images/,
+    );
   },
 );
 
