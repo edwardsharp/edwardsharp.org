@@ -16,13 +16,7 @@ npm run build && JEKYLL_ENV=production bundle exec jekyll build
 
 font: `Fraunces` header/headings at 100, bold at 800; license in `src/assets/fonts/OFL.txt`.
 
-## extract stuff from the social media corpz.
-
-`npm run import:social -- capture.json report.json` accepts normalized `SocialPost[]` records (see [the importer](src/utilz/import-social.ts)).
-
-imports are append-only: existing posts and their media are left alone. commit `src/utilz/social-import-history.jsonl` and `src/utilz/image-import-history.jsonl` with imported content; their source IDs prevent renamed or deleted posts from being reimported. unavailable images leave an inline notice; the rest of the post remains readable.
-
-## local utilz/
+## /utilz/
 
 scripts/tests: `src/utilz/`. browser code: `src/ts/`. requires python 3.11+, imagemagick, and full disk access for your terminal/editor; notes also needs automation permission.
 
@@ -34,6 +28,14 @@ git clone --depth 1 --branch v1.5.0 https://github.com/storizzi/notes-exporter.g
 ```
 
 the [notes exporter](https://github.com/storizzi/notes-exporter) installs its dependencies on first use. tools/environments stay out of git and the site.
+
+extract stuff from the social media corpz (accepts normalized `SocialPost[]` records (see [the importer](src/utilz/import-social.ts)))
+
+```sh
+npm run import:social -- capture.json report.json`
+```
+
+imports are append-only: existing posts and their media are left alone. commit `src/utilz/social-import-history.jsonl` and `src/utilz/image-import-history.jsonl` with imported content; their source IDs prevent renamed or deleted posts from being reimported. unavailable images leave an inline notice; the rest of the post remains readable.
 
 ```sh
 npm run export:notes -- "$HOME/Desktop/all-notes-review"
@@ -50,6 +52,20 @@ npm run import:photos -- "/path/to/Photos exports" --photoset "one set" --librar
 ```
 
 photos: keep original filenames. output: `content/_posts/` and `content/media/`, grouped by year. timestamp fallbacks warn and set `needs_review: true`; file creation time may be the export date. bad files are skipped; `--dry-run` writes nothing. captions/tags/cached place names become public; gps is stripped, missing names reported, no network lookup. reruns/exact standalone-image duplicates are skipped; resized/recompressed copies may not match. dry runs do not check converted-image duplicates.
+
+```sh
+npm run convert:webp -- --dry-run
+npm run convert:webp
+```
+
+webp: max 4096px, quality 90; gifs stay unchanged.
+
+```sh
+npm run update:dates -- --dry-run
+npm run update:dates
+```
+
+dates: repairs git-diff date edits; keeps `needs_review`.
 
 ---
 

@@ -10,6 +10,8 @@
     "import:images": "node src/utilz/import-images.ts",
     "export:notes": "python3 src/utilz/export-notes.py",
     "import:photos": "src/utilz/.venv/bin/python src/utilz/import-photos.py",
+    "convert:webp": "ruby src/utilz/convert-webp.rb",
+    "update:dates": "ruby src/utilz/update-post-dates.rb",
     "build": "npm run typecheck && node src/ts/esbuild.config.ts",
     "typecheck": "tsc --project src/tsconfig.json",
     "test": "node --test src/ts/tests/*.test.ts src/utilz/tests/*.test.ts && python3 -m unittest discover -s src/utilz/tests -p '*_test.py'",
