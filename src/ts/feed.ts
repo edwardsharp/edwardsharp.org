@@ -136,14 +136,14 @@ function enhanceFeed(
     new Option(`all posts (${allPosts.length})`, ""),
     types,
   );
-  if (tags.children.length)
-    filterSelect.append(document.createElement("hr"), tags);
   const locations = document.createElement("optgroup");
   locations.label = "locationz";
   for (const { label, value } of choices.locations)
     locations.append(new Option(label, value));
   if (locations.children.length)
     filterSelect.append(document.createElement("hr"), locations);
+  if (tags.children.length)
+    filterSelect.append(document.createElement("hr"), tags);
   const readFilter = () => {
     const params = new URL(location.href).searchParams;
     const type = params.get("type");
