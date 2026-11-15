@@ -1,4 +1,4 @@
-/*! @tanstack/virtual-core is MIT licensed; see tanstack-virtual-LICENSE.txt. */
+/*! @tanstack/virtual-core is MIT licensed; see ../src/assets/tanstack-virtual-LICENSE.txt. */
 import {
   Virtualizer,
   defaultRangeExtractor,
@@ -8,6 +8,7 @@ import {
 } from "@tanstack/virtual-core";
 import { buildRows, geometry, rowForIndex } from "./honeycomb.ts";
 import { filterChoices, filterPosts } from "./feed-filters.ts";
+import { enhanceMedia, isMediaKind } from "./media.ts";
 
 interface PreviewPost {
   id: string;
@@ -20,6 +21,7 @@ interface PreviewPost {
   image: string | null;
   alt: string;
   tags: string[];
+  link: string | null;
 }
 
 function isPreviewPost(value: unknown): value is PreviewPost {
@@ -32,7 +34,12 @@ function isPreviewPost(value: unknown): value is PreviewPost {
     (value.image === null || typeof value.image === "string") &&
     "tags" in value &&
     Array.isArray(value.tags) &&
-    value.tags.every((tag: unknown) => typeof tag === "string")
+    value.tags.every((tag: unknown) => typeof tag === "string") &&
+    "kind" in value &&
+    "link" in value &&
+    (value.kind === "link"
+      ? typeof value.link === "string" && /^https?:\/\//i.test(value.link)
+      : value.link === null)
   );
 }
 
@@ -55,9 +62,11 @@ function createCard(post: PreviewPost, index: number, total: number) {
   card.setAttribute("aria-setsize", String(total));
   card.dataset.index = String(index);
   card.dataset.kind = post.kind;
+  card.dataset.postUrl = post.url;
   const link = document.createElement("a");
   link.className = "hex-card__link";
-  link.href = post.url;
+  link.href = post.kind === "link" && post.link ? post.link : post.url;
+  if (isMediaKind(post.kind)) link.setAttribute("aria-haspopup", "dialog");
   const body = document.createElement("div");
   body.className = "hex-card__body";
   const copy = document.createElement("div");
@@ -66,7 +75,7 @@ function createCard(post: PreviewPost, index: number, total: number) {
   date.dateTime = post.date;
   copy.append(
     textElement("span", "hex-card__kind", post.kind),
-    textElement("h3", "hex-card__title", post.title),
+    textElement("h2", "hex-card__title", post.title),
     textElement("p", "hex-card__excerpt", post.excerpt),
     date,
   );
@@ -107,7 +116,9 @@ function enhanceFeed(
   const batchSize = 24;
   const controls = more.parentElement;
   const filterForm = filterSelect.closest("form");
-  if (!controls || !filterForm) throw new Error("missing feed controls");
+  const header = filterForm?.closest<HTMLElement>(".site-header");
+  if (!controls || !filterForm || !header)
+    throw new Error("missing feed controls");
   const choices = filterChoices(allPosts);
   const types = document.createElement("optgroup");
   types.label = "post types";
@@ -156,6 +167,7 @@ function enhanceFeed(
   let posts = matchingPosts(activeFilter);
   let loaded = Math.min(batchSize, posts.length);
   let shape = geometry(grid.clientWidth);
+  let headerHeight = header.getBoundingClientRect().height;
   let rows = buildRows(loaded, shape.columns);
   let margin = grid.getBoundingClientRect().top + window.scrollY;
   let focusedIndex: number | null = null;
@@ -163,7 +175,7 @@ function enhanceFeed(
   const mounted = new Map<number, HTMLElement>();
   const initialFocused = document.activeElement?.closest(".hex-card");
   if (initialFocused) {
-    const url = initialFocused.querySelector("a")?.getAttribute("href");
+    const url = initialFocused.getAttribute("data-post-url");
     const index = posts.findIndex((post) => post.url === url);
     if (index >= 0) focusedIndex = index;
   }
@@ -232,6 +244,7 @@ function enhanceFeed(
     observeElementOffset: observeWindowOffset,
     scrollToFn: windowScroll,
     scrollMargin: margin,
+    scrollPaddingStart: headerHeight + 16,
     scrollPaddingEnd: Math.max(0, shape.tileHeight - shape.pitch) + 16,
     overscan: 2,
     onChange: scheduleRender,
@@ -245,6 +258,7 @@ function enhanceFeed(
       count: rows.length,
       estimateSize: () => shape.pitch,
       scrollMargin: margin,
+      scrollPaddingStart: headerHeight + 16,
       scrollPaddingEnd: Math.max(0, shape.tileHeight - shape.pitch) + 16,
       rangeExtractor: (range) => {
         const indexes = defaultRangeExtractor(range);
@@ -267,6 +281,7 @@ function enhanceFeed(
         ? ` of type "${activeFilter.slice(5)}"`
         : "";
     const noun = posts.length === 1 ? "post" : "posts";
+    status.classList.toggle("visually-hidden", posts.length > 0);
     status.textContent =
       posts.length === 0
         ? `no posts${suffix}. choose another filter or all posts.`
@@ -310,15 +325,17 @@ function enhanceFeed(
     });
   }
 
-  function updateGeometry() {
+  const updateGeometry = () => {
     const width = grid.clientWidth;
     const nextMargin = grid.getBoundingClientRect().top + window.scrollY;
+    const nextHeaderHeight = header.getBoundingClientRect().height;
     if (
       Math.abs(
         width -
           (shape.tileWidth * shape.columns + shape.gap * (shape.columns - 1)),
       ) < 1 &&
-      Math.abs(nextMargin - margin) < 1
+      Math.abs(nextMargin - margin) < 1 &&
+      Math.abs(nextHeaderHeight - headerHeight) < 1
     )
       return;
     const anchor = rows[virtualizer.range?.startIndex ?? 0]?.start ?? 0;
@@ -326,6 +343,7 @@ function enhanceFeed(
     shape = geometry(width);
     rows = buildRows(loaded, shape.columns);
     margin = nextMargin;
+    headerHeight = nextHeaderHeight;
     mounted.clear();
     grid.replaceChildren();
     updateOptions();
@@ -336,7 +354,7 @@ function enhanceFeed(
       virtualizer.scrollToIndex(rowForIndex(anchor, shape.columns), {
         align: "start",
       });
-  }
+  };
 
   function applyFilter(filter: string) {
     activeFilter = filter;
@@ -349,7 +367,8 @@ function enhanceFeed(
     grid.replaceChildren();
     updateOptions();
     virtualizer.measure();
-    if (window.scrollY > margin) window.scrollTo(0, margin);
+    const top = Math.max(0, margin - headerHeight - 16);
+    if (window.scrollY > top) window.scrollTo(0, top);
     render();
     updateStatus();
     requestAnimationFrame(loadIfNearEnd);
@@ -406,8 +425,7 @@ function enhanceFeed(
   const resize = new ResizeObserver(updateGeometry);
   resize.observe(shell);
   resize.observe(filterForm);
-  for (const element of document.querySelectorAll(".site-header, .intro"))
-    resize.observe(element);
+  resize.observe(header);
   const intersection = new IntersectionObserver(loadIfNearEnd, {
     rootMargin: "600px",
   });
@@ -432,11 +450,14 @@ async function startFeed(shell: HTMLElement) {
   const grid = shell.querySelector<HTMLElement>(".honeycomb");
   const status = shell.querySelector<HTMLElement>(".feed-status");
   const more = shell.querySelector<HTMLButtonElement>(".feed-more");
-  const filterSelect = shell.querySelector<HTMLSelectElement>(
-    ".feed-filter select",
+  const filterSelect = document.querySelector<HTMLSelectElement>(
+    ".site-header .feed-filter select",
   );
   if (!grid || !status || !more || !filterSelect)
     throw new Error("missing feed markup");
+  status.classList.add("visually-hidden");
+  status.setAttribute("role", "status");
+  status.textContent = "";
   more.disabled = true;
   let posts: PreviewPost[];
   try {
@@ -457,6 +478,7 @@ async function startFeed(shell: HTMLElement) {
     posts = payload;
   } catch (error) {
     console.error("could not load the scrolling grid", error);
+    status.classList.remove("visually-hidden");
     status.setAttribute("role", "alert");
     status.textContent = `could not load the scrolling grid (${error instanceof Error ? error.message : "unknown error"}). static previews are still available.`;
     more.hidden = false;
@@ -470,4 +492,7 @@ async function startFeed(shell: HTMLElement) {
 }
 
 const shell = document.querySelector<HTMLElement>("[data-honeycomb]");
-if (shell) void startFeed(shell);
+if (shell) {
+  enhanceMedia(shell);
+  void startFeed(shell);
+}

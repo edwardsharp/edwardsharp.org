@@ -5,6 +5,7 @@ tags: []
 permalink: "/post/122747979167/"
 source_id: '122747979167'
 kind: link
+link_url: https://medium.com/@3dwardsharp/http-lacuna-club-2b563331702e
 source_url: http://edwardsharp.org/post/122747979167/httplacunaclub
 redirect_from:
 - "/post/122747979167/httplacunaclub/"

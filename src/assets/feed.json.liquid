@@ -18,6 +18,7 @@ permalink: /feed.json
     {{- tag | jsonify -}}
     {%- unless forloop.last %},{% endunless -%}
   {%- endfor -%}
-  ] }{% unless forloop.last %},{% endunless %}
+  ], "link": {% if post.kind == 'link' %}{{ post.link_url | jsonify }}{% else %}null{% endif %} }
+  {%- unless forloop.last %},{% endunless %}
 {% endfor %}
 ]

@@ -5,5 +5,5 @@
 /.bundle/
 /vendor/
 /node_modules/
-/src/assets/*.bundle.js
+/assets/site.js
 .DS_Store

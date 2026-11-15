@@ -1,5 +1,5 @@
 ../content/_posts/
 ../content/media/
-assets/*.bundle.js
+../assets/site.js
 assets/fonts/
 ../package-lock.json

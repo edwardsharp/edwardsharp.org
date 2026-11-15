@@ -51,12 +51,7 @@ exclude:
   - node_modules
   - src/tsconfig.json
   - src/prettier.config.mjs
-  - src/tests
-  - src/assets/feed.ts
-  - src/assets/feed-filters.ts
-  - src/assets/honeycomb.ts
-  - src/assets/archive.ts
-  - src/assets/search.ts
+  - src/ts
   - vendor
   - .bundle
   - .github

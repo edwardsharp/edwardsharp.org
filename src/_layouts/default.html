@@ -39,11 +39,6 @@
         </footer>
       {% endunless %}
     </div>
-    {% if page.feed %}
-      <script type="module" src="{{ '/src/assets/feed.bundle.js' | relative_url }}"></script>
-    {% endif %}
-    {% if page.archive %}
-      <script type="module" src="{{ '/src/assets/archive.bundle.js' | relative_url }}"></script>
-    {% endif %}
+    <script type="module" src="{{ '/assets/site.js' | relative_url }}"></script>
   </body>
 </html>

@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "rootDir": ".",
+    "rootDir": "ts",
     "outDir": "../dist",
     "target": "ES2022",
     "module": "ESNext",
@@ -18,5 +18,5 @@
     "noEmit": true,
     "skipLibCheck": true
   },
-  "include": ["assets/**/*.ts", "tests/**/*.ts"]
+  "include": ["ts/**/*.ts"]
 }

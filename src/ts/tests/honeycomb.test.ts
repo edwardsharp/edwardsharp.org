@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { buildRows, geometry, rowForIndex } from "../assets/honeycomb.ts";
+import { buildRows, geometry, rowForIndex } from "../honeycomb.ts";
 
 test("regular hexagons interlock with equal gaps along each neighboring edge", () => {
   const { columns, tileWidth, tileHeight, gap, pitch } = geometry(1200);

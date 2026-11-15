@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { createSearch, parseDocuments } from "../assets/search.ts";
-import type { SearchDocument } from "../assets/search.ts";
+import { createSearch, parseDocuments } from "../search.ts";
+import type { SearchDocument } from "../search.ts";
 
 const documents: SearchDocument[] = [
   {

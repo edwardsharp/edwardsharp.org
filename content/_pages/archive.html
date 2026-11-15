@@ -7,20 +7,20 @@ searchable: false
 {% assign page_collection = site.collections | where: 'label', 'pages' | first %}
 {% assign archive_pages = page_collection.docs | where_exp: 'entry', 'entry.searchable != false' | sort: 'title' %}
 <section class="archive" data-archive data-search-url="{{ '/search.json' | relative_url }}">
-  <p>all posts, newest first, followed by pages.</p>
+  <p>all pagez && postsz</p>
   <form class="archive-search" role="search" hidden>
     <label for="archive-query">search the archive</label>
-    <input id="archive-query" name="q" type="search" placeholder="titles, tags, and full text" disabled />
+    <input id="archive-query" name="q" type="search" placeholder="search titles, tags, and full text" disabled />
   </form>
   <button class="archive-retry" type="button" hidden>retry search</button>
   <p class="archive-status" role="status" aria-live="polite">
     {{ site.posts.size | plus: archive_pages.size }} entries
   </p>
   <ul class="archive-list">
-    {% for entry in site.posts %}
+    {% for entry in archive_pages %}
       {% include archive-entry.html entry=entry %}
     {% endfor %}
-    {% for entry in archive_pages %}
+    {% for entry in site.posts %}
       {% include archive-entry.html entry=entry %}
     {% endfor %}
   </ul>

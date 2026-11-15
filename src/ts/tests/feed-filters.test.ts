@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { filterChoices, filterPosts } from "../assets/feed-filters.ts";
+import { filterChoices, filterPosts } from "../feed-filters.ts";
 
 const posts = [
   { id: 1, kind: "photo", tags: ["noise", "noise", "solo"] },

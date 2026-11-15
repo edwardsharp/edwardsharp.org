@@ -6,9 +6,9 @@
     "node": ">=22.18.0"
   },
   "scripts": {
-    "build": "npm run typecheck && esbuild src/assets/feed.ts src/assets/archive.ts --bundle --format=esm --target=es2022 --minify --outdir=src/assets --out-extension:.js=.bundle.js",
+    "build": "npm run typecheck && node src/ts/esbuild.config.ts",
     "typecheck": "tsc --project src/tsconfig.json",
-    "test": "node --test src/tests/*.test.ts",
+    "test": "node --test src/ts/tests/*.test.ts",
     "format": "prettier . --write --ignore-unknown --ignore-path .gitignore --ignore-path src/.prettierignore",
     "format:check": "prettier . --check --ignore-unknown --ignore-path .gitignore --ignore-path src/.prettierignore"
   },

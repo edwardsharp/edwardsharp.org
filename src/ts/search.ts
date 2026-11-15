@@ -1,4 +1,4 @@
-/*! Lunr is MIT licensed; see lunr-LICENSE.txt. */
+/*! Lunr is MIT licensed; see ../src/assets/lunr-LICENSE.txt. */
 import lunr from "lunr";
 
 export interface SearchDocument {

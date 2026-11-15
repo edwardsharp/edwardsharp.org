@@ -7,8 +7,12 @@
   class="hex-card{% if post.preview_image %} has-image{% endif %}"
   role="listitem"
   data-kind="{{ post.kind | default: 'entry' | escape }}"
+  data-post-url="{{ post.url | relative_url }}"
 >
-  <a class="hex-card__link" href="{{ post.url | relative_url }}">
+  <a
+    class="hex-card__link"
+    href="{% if post.kind == 'link' %}{{ post.link_url | escape }}{% else %}{{ post.url | relative_url }}{% endif %}"
+  >
     <div class="hex-card__body">
       {% if post.preview_image %}
         <img
@@ -21,7 +25,7 @@
       {% endif %}
       <div class="hex-card__copy">
         <span class="hex-card__kind">{{ post.kind | default: 'entry' | escape }}</span>
-        <h3 class="hex-card__title">{{ title | escape }}</h3>
+        <h2 class="hex-card__title">{{ title | escape }}</h2>
         <p class="hex-card__excerpt">{{ post.content | strip_html | normalize_whitespace | truncate: 180 | escape }}</p>
         <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%Y-%m-%d' }}</time>
       </div>

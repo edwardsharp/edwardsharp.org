@@ -7,7 +7,25 @@
     {% endif %}
     >edwardsharp<span>.org</span></a
   >
-  <nav aria-label="main navigation">
+  {% if page.feed and site.posts.size > 0 %}
+    <form class="feed-filter" hidden>
+      <label for="feed-filter" class="visually-hidden">filter journal</label>
+      <select id="feed-filter" name="filter" disabled>
+        <option value="">all posts</option>
+      </select>
+    </form>
+  {% endif %}
+  <button
+    class="header-toggle"
+    type="button"
+    aria-controls="site-navigation"
+    aria-expanded="false"
+    aria-label="open navigation"
+    hidden
+  >
+    <span class="menu-icon" aria-hidden="true"></span>
+  </button>
+  <nav id="site-navigation" aria-label="main navigation">
     <a
       href="{{ '/' | relative_url }}"
       {% if page.url == '/' %}
