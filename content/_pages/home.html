@@ -1,0 +1,22 @@
+---
+title: home
+layout: default
+permalink: /
+---
+
+<section class="intro" aria-labelledby="intro-title">
+  <p class="eyebrow">a personal corner of the web</p>
+  <h1 id="intro-title">3dwardsharp<span class="accent">.</span></h1>
+  <p class="intro-description">notes, experiments, and things worth keeping.</p>
+</section>
+
+<section class="journal" aria-labelledby="journal-title">
+  <header class="section-heading">
+    <h2 id="journal-title">journal</h2>
+    <span class="eyebrow">
+      {{- site.posts.size }} {% if site.posts.size == 1 %}entry{% else
+      %}entries{% endif -%}
+    </span>
+  </header>
+  {% include post-list.html %}
+</section>

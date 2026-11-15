@@ -1,0 +1,48 @@
+title: 3dwardsharp
+description: a personal blog. notes, experiments, and things worth keeping.
+lang: en
+url: ""
+baseurl: ""
+timezone: America/New_York
+
+collections_dir: content
+collections:
+  pages:
+    output: true
+    permalink: /:path/
+
+layouts_dir: src/_layouts
+includes_dir: src/_includes
+sass:
+  sass_dir: src/_sass
+  style: compressed
+  sourcemap: never
+
+permalink: /post/:title/
+defaults:
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: page
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+
+markdown: kramdown
+kramdown:
+  input: GFM
+strict_front_matter: true
+liquid:
+  error_mode: strict
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - run-dev.sh
+  - vendor
+  - .bundle
+  - .github

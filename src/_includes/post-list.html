@@ -1,0 +1,15 @@
+{% if site.posts.size > 0 %}
+  <ol class="post-list">
+    {% for post in site.posts %}
+      <li>
+        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%Y-%m-%d' }}</time>
+        <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+      </li>
+    {% endfor %}
+  </ol>
+{% else %}
+  <div class="empty-state">
+    <p>no posts here yet.</p>
+    <p>the next chapter starts here.</p>
+  </div>
+{% endif %}
