@@ -1,5 +1,15 @@
 {% assign post = include.post %}
 {% assign title = post.preview_title | default: post.title %}
+{% assign doodle_image = false %}
+{% if post.kind == 'entry' %}
+  {% for tag in post.tags %}
+    {% assign tag_label = tag | strip | downcase %}
+    {% if tag_label == 'doodle' %}
+      {% assign doodle_image = true %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
 {% if title == 'no title' %}
   {% capture title %}{{ post.kind | default: 'post' }} / {{ post.date | date: '%Y-%m-%d' }}{% endcapture %}
 {% endif %}
@@ -13,7 +23,7 @@
     <div class="hex-card__body">
       {% if post.preview_image %}
         <img
-          class="hex-card__image"
+          class="hex-card__image{% if doodle_image %} doodle-image{% endif %}"
           src="{{ post.preview_image | relative_url }}"
           alt="{{ post.preview_alt | default: '' | escape }}"
           loading="lazy"

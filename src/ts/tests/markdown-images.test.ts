@@ -4,6 +4,55 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 import { parseHTML } from "linkedom";
 
+test("only entry images tagged doodle receive a marker in post bodies and static tiles", () => {
+  const root = fileURLToPath(new URL("../../../", import.meta.url));
+  const result = spawnSync(
+    "bundle",
+    [
+      "exec",
+      "ruby",
+      "-EUTF-8:UTF-8",
+      "-rjekyll",
+      "-rjson",
+      "-e",
+      `
+      require File.join(ARGV.fetch(0), "src/_plugins/markdown-images.rb")
+      site = Jekyll::Site.new(Jekyll.configuration("source" => ARGV.fetch(0), "quiet" => true))
+      converter = site.find_converter_instance(Jekyll::Converters::Markdown)
+      card = Liquid::Template.parse(File.read(File.join(ARGV.fetch(0), "src/_includes/feed-card.html"), encoding: "UTF-8"))
+      puts JSON.generate([
+        { "kind" => "entry", "tags" => ["doodle"] },
+        { "kind" => "entry", "tags" => [" Doodle "] },
+        { "kind" => "photo", "tags" => ["doodle"] },
+        { "kind" => "entry", "tags" => ["other"] }
+      ].map do |data|
+        post = Struct.new(:data, :content, :site).new(data, "![drawing](/content/media/2026/drawing.png)", site)
+        MarkdownImages.prepare(post)
+        post.content = converter.convert(post.content)
+        MarkdownImages.rewrite(post)
+        preview = data.merge("title" => "drawing", "url" => "/post/drawing/", "date" => "2026-11-15",
+          "preview_image" => "/content/media/2026/drawing.png", "content" => post.content)
+        { html: post.content, card: card.render!({ "include" => { "post" => preview } }, registers: { site: site }) }
+      end)
+    `,
+      root,
+    ],
+    { cwd: root, encoding: "utf8" },
+  );
+  assert.ifError(result.error);
+  assert.equal(result.status, 0, result.stderr);
+  const results: { html: string; card: string }[] = JSON.parse(result.stdout);
+  for (const [index, result] of results.entries()) {
+    for (const html of [result.html, result.card]) {
+      const { document } = parseHTML(html);
+      assert.equal(
+        document.querySelector("img")?.classList.contains("doodle-image"),
+        index < 2,
+      );
+    }
+  }
+});
+
 test("Markdown media images gain deployment URLs without rewriting code, remote images, or existing HTML", () => {
   const source = [
     '![a "quote" & caf\u00e9](/content/media/2026/one.png)',

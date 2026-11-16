@@ -88,7 +88,7 @@ test("failed dialog images stay local to the asset; failed post requests still o
         ? ""
         : `<html><body><article class="post">
       <header class="page-heading"><p class="eyebrow">a date <span class="post-location">&middot; <a href="https://example.test/?location=A+venue+%26+City">A venue &amp; City</a></span></p></header>
-      <div class="prose"><p>the caption survives</p><img src="https://example.test/missing.jpg"><img src="https://example.test/working.jpg"></div>
+      <div class="prose"><p>the caption survives</p><img src="https://example.test/missing.jpg"><img class="doodle-image" src="https://example.test/working.jpg"></div>
     </article></body></html>`,
       { status: failRequest ? 503 : 200 },
     );
@@ -112,6 +112,7 @@ test("failed dialog images stay local to the asset; failed post requests still o
   await new Promise((resolve) => setImmediate(resolve));
   const status = shell.querySelector<HTMLElement>(".post-dialog__status")!;
   assert.ok(status.hidden);
+  assert.ok(shell.querySelector(".post-dialog__content img.doodle-image"));
   assert.equal(
     shell.querySelector(".post-dialog__content .post-location")?.textContent,
     "\u00b7 A venue & City",

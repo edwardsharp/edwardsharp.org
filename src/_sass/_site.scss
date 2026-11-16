@@ -30,6 +30,12 @@
   }
 }
 
+@media (prefers-color-scheme: dark) {
+  .doodle-image {
+    filter: invert(1) hue-rotate(180deg);
+  }
+}
+
 * {
   box-sizing: border-box;
 }
@@ -974,6 +980,12 @@ html.post-dialog-open {
 }
 .prose img,
 .prose video {
+  height: auto;
+}
+.post-dialog__content img.doodle-image,
+.prose img.doodle-image {
+  max-height: none;
+  max-width: 100%;
   height: auto;
 }
 .prose figure {

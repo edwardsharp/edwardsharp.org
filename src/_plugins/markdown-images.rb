@@ -34,12 +34,14 @@ module MarkdownImages
 
     fragment = Nokogiri::HTML5.fragment(post.content, "UTF-8")
     urls = UrlFilter.new(post.site)
+    doodle = post.data["kind"] == "entry" && post.data.fetch("tags", []).any? { |tag| tag.strip.downcase == "doodle" }
     fragment.css("img").each do |image|
       next unless paths.include?(image["src"])
 
       image["src"] = urls.relative_url(image["src"])
       image["loading"] ||= "lazy"
       image["decoding"] ||= "async"
+      image["class"] = [image["class"], "doodle-image"].compact.join(" ") if doodle
     end
     post.content = fragment.to_html
   end
