@@ -181,6 +181,7 @@ test("new posts copy and strip images, preserve alt text, choose the first previ
       "private metadata",
       filename,
     ]);
+    assert.ifError(made.error);
     assert.equal(made.status, 0, made.stderr.toString());
   }
   const originals = await Promise.all(
@@ -218,6 +219,7 @@ test("new posts copy and strip images, preserve alt text, choose the first previ
       ["identify", "-verbose", join(root, link.slice(1))],
       { encoding: "utf8" },
     );
+    assert.ifError(checked.error);
     assert.equal(checked.status, 0, checked.stderr);
     assert.doesNotMatch(checked.stdout, /private metadata|Profiles:|exif:/);
   }
@@ -243,6 +245,7 @@ test("failed image preparation publishes nothing and pasted paths are expanded w
   const good = join(temporary, "good.png");
   const bad = join(temporary, "bad.png");
   const made = spawnSync("magick", ["-size", "8x8", "xc:red", good]);
+  assert.ifError(made.error);
   assert.equal(made.status, 0, made.stderr.toString());
   await writeFile(bad, "broken image");
   await assert.rejects(

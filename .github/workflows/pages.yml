@@ -29,6 +29,11 @@ jobs:
         with:
           ruby-version: "3.3"
           bundler-cache: true
+      - name: install ImageMagick 7
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends imagemagick-7.q16
+          magick -version
       - run: npm ci && npm test && npm run build
       - name: configure Pages
         id: pages
