@@ -1,0 +1,566 @@
+---
+title: "yoke"
+date: "2020-01-15T21:23:05-05:00"
+last_modified: "2026-10-31T19:17:14-04:00"
+kind: "entry"
+tags: ["karaoke","youoke"]
+date_precision: "second"
+render_with_liquid: false
+permalink: "/post/2020-01-15-entry-yoke/"
+---
+
+nin We're In This Together
+
+iggy & debbie well did you evah
+
+Vindicated dashboard
+
+Suicide Is Painless (Theme M-A-S-H)
+
+physical olivia newton
+
+pet shop I Don't Know What You Want But I Can't Give It Anymore
+
+white stripes  I Just Don't Know What To Do With Myself
+
+missy Hot Boyz
+
+inxs  Suicide Blonde
+
+bowie Rock 'N' Roll Suicide
+
+firestarter -- prodigy
+
+Cowboys From Hell pantera
+
+incubus warning
+
+Night Swimming rem
+
+nitzer ebb
+
+everyone i love is dead -- type o
+
+i don't want to be me -- type o negative
+
+angry inch (hedwig)
+
+shout at the devil -- motley crue
+
+yeah yeah yeahs -- mysteries
+
+yeah yeah yeahs -- black tongue
+
+pj harvey
+
+men's recovery project -- frank talk about mutantz
+
+barry manilow -- mandy
+
+war all the time -- thursday
+
+send the pain below -- chevelle
+
+i hate everything about you -- three days grace
+
+fuckin go away -- godsmack
+
+the package -- a perfect circle
+
+pleasure seekers -- what a way to die
+
+deftones -- bored
+
+bright eyes -- first day of your life
+
+judas priest -- breaking the law
+
+heavy duty
+
+hell bent for leather
+
+soft cell -- persuasion
+
+marc almond -- sleaze
+
+i lost my heart to a starship trooper
+
+d4l -- laffy taffy
+
+marilyn manson -- lunchbox
+
+primus -- my name is mud
+
+duran duran -- come undone
+
+ordinary world
+
+september -- cry for you
+
+sia -- candeliere
+
+george jones -- choices
+
+what a girl wants
+
+freedom george michael
+
+may25 noah bday
+
+angel of death
+
+raining blood
+
+god i hate shakespear
+
+precious things tori amos
+
+enormous penis
+
+o’ sailor finona
+
+something i can never have nin
+
+all in the family korn
+
+heads will roll yeah yeah yeahz
+
+knock em dead motley crue
+
+prison song soad
+
+please please please let me get what i want
+
+ultraviolence
+
+from the inside linking park
+
+somewhere i belong
+
+this time i almost made it tammy
+
+oct24 lichen
+
+duranduran come undone
+
+satisfaction benny benassi
+
+black sabbath fairies wear boots
+
+devo girl u want
+
+hey man nice shot
+
+turbo lover
+
+joy division (shadow play?)
+
+everyday is halloween
+
+incubus megalomaniac
+
+esnet yoke
+
+**yoke**
+
+omen the produgy
+
+kiss from a rose
+
+playhouses
+
+gin blossoms - jealously
+
+soft cell
+
+i would die 4 u
+
+maneater nelly furtado
+
+where did our love go?
+
+being boiled - the human league
+
+duran duran wild boys
+
+type o negative
+
+judas priest hell bent 4 leather
+
+perfect circle judith
+
+pantera cowboyz from hell
+
+alice in chains rooster / them bones
+
+deftones
+
+nin deep
+
+me myself and i
+
+every rose has its thorn
+
+butthole surfers i don't mind the sunsometimez song
+
+soulja boy crank that
+
+beck loser
+
+garbage stupid girl
+
+hole
+
+pet shop boys
+
+andrew wk
+
+emf
+
+en vouge/salt-n-peppa whatta man
+
+biz markie just a friend
+
+filter hey man nice shot
+
+like a virgin - madonna
+
+still the one - shania
+
+elliott smith
+
+velvet underground i'm waiting for my man
+
+black flag -- nervous breakdown
+
+vanity 6 nasty girl
+
+it's raining men
+
+hawthorn heights ohio is for lovers
+
+my chemical romance helena
+
+taking back sunday  set phasors to stun
+
+fall out boy grand theft autumn
+
+ramones beat on the brat /
+
+rancid
+
+sex pistols
+
+american hi-fi flavour of the week
+
+godsmack
+
+dead kennedys
+
+afi silver and cold / girl's not gray poop
+
+sum 41
+
+a newfound glory - all downhill from here
+
+simple plan perfect
+
+joan jett bad reputation  / dirty deeds (for noah
+
+SIOUXSIE & THE BANSHEES
+
+box car racer
+
+the hives walk idiot walk
+
+beastie boys
+
+good charlotte  the anthem / lifestyles of the rich and famous / little things (april little things)
+
+eve 6 inside out
+
+new order
+
+depeche mode question of time
+
+joy division
+
+the cure
+
+bobby brown
+
+gary numan
+
+u2 mysterious ways
+
+mudvayne  world so cold
+
+cyndi lauper
+
+yeah yeah yeahs gold lion
+
+brandy i wanna be down
+
+korn blind
+
+massive attack
+
+david bowie modern love / rock'n'roll suicide
+
+creep
+
+shania twain
+
+sublime santeria
+
+goo goo dols iris
+
+stone temple pilots interstate love song
+
+torn natalie
+
+fastball
+
+aerosmith
+
+metallica seek & destroy / master of puppets
+
+g'n'r november rain
+
+linkin park
+
+ugly kid joe
+
+john denver
+
+wham! last chritsmas
+
+what a feeling
+
+call me maybe
+
+dashboard confessional
+
+hmm
+
+seek& destroy
+
+joy division
+
+gary numan metal
+
+joy division love will tear us apart
+
+aerosmith dude looks like a lady
+
+ninja we're in this together
+
+nin the becoming
+
+godsmack
+
+the faint
+
+devine you think youre a man
+
+let your body learn
+
+da ya think i'm sexy
+
+hotline bling
+
+pimp juice
+
+big eyed bugs from venus
+
+mega c - fischerspooner
+
+staind it's been awhile
+
+what a way to die
+
+fascist pig
+
+drinkin beer talking to god
+
+blue monday
+
+meds
+
+frankie teardrop
+
+nitty gritty dirt band  fishing in the dark
+
+mack 10 mack 10
+
+bonnie raitt i can't make you love me
+
+when the president talks to god
+
+placebo pure morning
+
+my united states of whatever
+
+simple plan perfect
+
+ween strap on that there jimmy pack
+
+wham - last xmas
+
+madonna - ray of light
+
+smiths heaven knows im miserable now
+
+death cab - i will follow you into the dark
+
+proud mary tina turner version (maybe)
+
+meatloaf i would do anything for love
+
+pat benatar we belong
+
+balls to the wall accept
+
+faith no more - epic
+
+danzig mother
+
+alice in chains dirt or here comes the rooster
+
+type o love you to death
+
+bright eyes lua
+
+msi - shut me up
+
+rapid roy that stock car boy
+
+nin terrible lie
+
+ministry every day is halloween
+
+placebo pure morning
+
+deftones passenger or change (iiii watched u change)
+
+piss up a rope ween
+
+bella lagosi
+
+sic transit gloria
+
+baby bitch ween
+
+ninja sex party danny don't you know
+
+deceptacon
+
+dig mudvayne
+
+head on jeans an mary chain
+
+i was a teenage anarchistic against me!
+
+redneck lamb of god
+
+stupify disturbed
+
+soft cell torch
+
+pet shop always on my mind
+
+keep feeling fascination human league
+
+anyone who had a heart - linda rhondstat
+
+aug 2025
+
+sin nin
+
+worlds collide pm5k
+
+angel of death
+
+sleaford mods
+
+better days (and the bottom drops out) nye
+
+lenord cohen the future
+
+nin non entity
+
+placebo one of a kind, in the cold light of morning, one of a kind
+
+elvis everywheregratitude beastie boyz
+
+doenloading porn with daveo
+
+countin’ flowers on the wall (that don’t bother me at all)
+
+little black backpack stroke 9
+
+🦔🦫🦦🐁
+
+and the sign said long hair freaky ppl need not apply ; signs five man electrical band
+
+billy idol eyes without a facetravis tritt here’s a quarter call someone who cares
+
+brooks & dunn - neon moon
+
+frank black - los angeleswheetus — teenage dirtbag
+
+bootz & boyz - ke$hafuck the pain away - peaches
+
+vengaboys we like to party
+
+gloomy sunday
+
+missy rain
+
+november rain
+
+rod stew have u ever seen the rain
+
+fire and rain james taylor
+
+it’s raining men
+
+kiss me in the rain - babz
+
+temptations i wish it would rain
+
+alice in chains rain when i die
+
+raindrops and sun
+
+showers smashing pumpkins
+
+prayers for rain the cure
+
+sit down stand up radiohead
+
+i can be your hero baby …i will take yr breath away
+
+don’t rock the jukebox sara evans i could not ask for more
+
+words f.r. david
+
+break my stride
+
+mary jane girls in my house
+
+you’ll dance to anything (instant club hit)- dead milkmen
+
+she works hard for the money
+
+too shy (shshy shy shy)
+
+the safety dance
+
+o micky u so fine
+
+oh cheri cheri lady
+
+hit the road to dreamland dean martin
+
+my friend goo

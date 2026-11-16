@@ -1,0 +1,44 @@
+---
+title: "# summon"
+date: "2022-03-31T23:31:05-04:00"
+last_modified: "2022-04-03T21:38:49-04:00"
+kind: "entry"
+tags: ["poemz"]
+date_precision: "second"
+render_with_liquid: false
+permalink: "/post/2022-03-31-entry-summon/"
+---
+
+# # summon
+
+or like, we all get together and try to summon the dead
+
+but, like, not the actually dead
+
+just, like, the recently-dead-to-me
+
+u know, like, somebody u used 2 know
+
+we can do it, baby
+
+out here on the dance floor (we can make sand_wich_es) \*COPYRIGHT\* #TODO: delete this
+
+then i just growl into the microphone for a while
+
+ppl seem to get it
+
+like, gututterance
+
+it came from my gut
+
+so u gotta know it's substantial
+
+\*\*okay timeout\*\*
+
+substantial is a ridiculous term we invented
+
+when we're like: this is right
+
+see: check it out: it's right
+
+{ double-colon: &quotand quoted value, and callback to .md file extensionz" }
