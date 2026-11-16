@@ -25,7 +25,7 @@ make post  # new post
 
 system pickers on macOS, or typed paths. dates accept text/iso/partial dates; preview + confirmation required. `today` defaults to the current minute; month/year-only dates use their first day. images are copied with metadata stripped; originals stay untouched.
 
-scripts/tests: `src/utilz/`. browser code: `src/ts/`. requires python 3.11+, imagemagick, and full disk access for your terminal/editor; notes also needs automation permission.
+scripts/tests: `src/utilz/`. browser code: `src/ts/`. requires python 3.11+, imagemagick, and full disk access for your terminal/editor; notes also needs automation permission: `python3 src/utilz/.tools/notes-exporter/notes_permission.py --ask`
 
 ```sh
 python3 -m venv src/utilz/.venv
