@@ -288,6 +288,62 @@ test("date repair covers staged and unstaged dates, moves media and preserves re
   );
 });
 
+test("date repair retains compatible partial/minute precision and corrects incompatible values", async (t) => {
+  const root = await mkdtemp(join(tmpdir(), "blog-dates-precision-"));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  const cases = [
+    ["year", "2021-01-01", "year"],
+    ["month", "2021-06-01", "month"],
+    ["minute", "2021-06-01T13:45:00Z", "minute"],
+    ["year", "2021-06-01", "day"],
+    ["month", "2021-06-02", "day"],
+    ["minute", "2021-06-01T13:45:23Z", "second"],
+  ];
+  const fixtures: {
+    path: string;
+    edited: string;
+    day: string;
+    expected: string;
+    id: string;
+  }[] = [];
+  for (const [index, [precision, date, expected]] of cases.entries()) {
+    assert.ok(precision && date && expected);
+    const id = `precision-${index}`;
+    const original = post(id, `/content/media/2020/${id}.jpg`).replace(
+      'date_precision: "second"',
+      `date_precision: "${precision}"`,
+    );
+    const path = await file(
+      root,
+      `content/_posts/2020/2020-03-01-${id}.md`,
+      original,
+    );
+    await file(root, `content/media/2020/${id}.jpg`, "image");
+    fixtures.push({
+      path,
+      edited: original.replace("2020-03-01T10:00:00.000Z", date),
+      day: date.slice(0, 10),
+      expected,
+      id,
+    });
+  }
+  commit(root);
+  for (const fixture of fixtures) await writeFile(fixture.path, fixture.edited);
+  const result = utility(root, "dates");
+  assert.equal(result.status, 0, result.stderr);
+  for (const { day, expected, id } of fixtures) {
+    const output = await readFile(
+      join(root, `content/_posts/2021/${day}-${id}.md`),
+      "utf8",
+    );
+    assert.match(output, new RegExp(`^date_precision: "${expected}"$`, "m"));
+    assert.equal(
+      await readFile(join(root, `content/media/2021/${id}.jpg`), "utf8"),
+      "image",
+    );
+  }
+});
+
 test("body-only edits are ignored and staged renames retain the edited slug", async (t) => {
   const root = await mkdtemp(join(tmpdir(), "blog-dates-rename-"));
   t.after(() => rm(root, { recursive: true, force: true }));

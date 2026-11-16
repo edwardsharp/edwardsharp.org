@@ -12,6 +12,7 @@
     "import:photos": "src/utilz/.venv/bin/python src/utilz/import-photos.py",
     "convert:webp": "ruby src/utilz/convert-webp.rb",
     "update:dates": "ruby src/utilz/update-post-dates.rb",
+    "utilz": "node src/utilz/tui.ts",
     "build": "npm run typecheck && node src/ts/esbuild.config.ts",
     "typecheck": "tsc --project src/tsconfig.json",
     "test": "node --test src/ts/tests/*.test.ts src/utilz/tests/*.test.ts && python3 -m unittest discover -s src/utilz/tests -p '*_test.py'",
@@ -24,12 +25,16 @@
     "lunr": "2.3.9"
   },
   "devDependencies": {
+    "@inquirer/core": "^12.1.0",
+    "@inquirer/prompts": "^8.8.0",
     "@shopify/prettier-plugin-liquid": "1.11.4",
     "@types/lunr": "^2.3.7",
     "@types/node": "^24.19.2",
+    "chrono-node": "^2.10.3",
     "esbuild": "0.28.2",
     "linkedom": "0.18.15",
     "prettier": "3.10.1",
-    "typescript": "^7.0.2"
+    "typescript": "^7.0.2",
+    "yaml": "^2.9.1"
   }
 }

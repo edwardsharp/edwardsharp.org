@@ -67,6 +67,17 @@ module UpdatePostDates
       end
       date, precision = normalized_date(line)
       header, body = front_matter(text)
+      precision_line = header.lines.find { |field| field.start_with?("date_precision:") }
+      if precision_line
+        previous_precision = YAML.safe_load(precision_line.split(":", 2).last)
+        compatible = case previous_precision
+        when "year" then precision == "day" && date.end_with?("-01-01")
+        when "month" then precision == "day" && date.end_with?("-01")
+        when "minute" then precision == "second" && date.end_with?(":00.000Z")
+        else false
+        end
+        precision = previous_precision if compatible
+      end
       header = set_field(set_field(header, "date", date), "date_precision", precision)
       overrides[path] = "---\n#{header}---\n#{body}"
       day = date[0, 10]

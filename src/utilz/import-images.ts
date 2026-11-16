@@ -53,7 +53,7 @@ interface ImageGroup {
   set: boolean;
 }
 
-const imageExtensions = new Set([
+export const imageExtensions: ReadonlySet<string> = new Set([
   ".jpg",
   ".jpeg",
   ".png",
@@ -228,8 +228,14 @@ export function imagePostFilename(
   ].join("-");
   const label =
     kind === "photo" && /^screen\s*shot\b/i.test(title) ? "screenshot" : kind;
+  const stem = titleSlug(
+    title.replace(/^screen\s*(?:shot|recording) \d{4}-\d{2}-\d{2} at /i, ""),
+  );
+  return `${day}-${label}-${stem}.md`;
+}
+
+export function titleSlug(title: string): string {
   const stem = title
-    .replace(/^screen\s*(?:shot|recording) \d{4}-\d{2}-\d{2} at /i, "")
     .normalize("NFKD")
     .replace(/\p{M}/gu, "")
     .toLowerCase()
@@ -237,7 +243,16 @@ export function imagePostFilename(
     .replace(/^-|-$/g, "")
     .slice(0, 60);
   if (!stem) throw new Error(`post title needs a usable filename: ${title}`);
-  return `${day}-${label}-${stem}.md`;
+  return stem;
+}
+
+export function imageOutputExtension(filename: string): string {
+  const extension = extname(filename).toLowerCase();
+  if (!imageExtensions.has(extension))
+    throw new Error(`unsupported image: ${filename}`);
+  if ([".heic", ".heif", ".tif", ".tiff", ".jpeg"].includes(extension))
+    return ".jpg";
+  return extension === ".bmp" ? ".png" : extension;
 }
 
 async function hashFile(filename: string): Promise<string> {
@@ -256,7 +271,7 @@ async function optionalText(filename: string): Promise<string> {
   }
 }
 
-function stripImage(input: string, output: string): void {
+export function stripImage(input: string, output: string): void {
   run("magick", [
     input,
     "-auto-orient",
@@ -563,16 +578,7 @@ export async function importImages(
       const body: string[] = [];
       let preview = "";
       for (const [index, asset] of group.assets.entries()) {
-        const sourceExtension = extname(asset.filename).toLowerCase();
-        const extension = video
-          ? ".mp4"
-          : [".heic", ".heif", ".tif", ".tiff", ".jpeg"].includes(
-                sourceExtension,
-              )
-            ? ".jpg"
-            : sourceExtension === ".bmp"
-              ? ".png"
-              : sourceExtension;
+        const extension = video ? ".mp4" : imageOutputExtension(asset.filename);
         const name = `${id}-${index + 1}${extension}`;
         const local = join(temporary, name);
         const url = `/content/media/${year}/${name}`;

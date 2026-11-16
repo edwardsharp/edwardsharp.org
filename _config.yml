@@ -43,6 +43,7 @@ plugins:
   - jekyll-redirect-from
 
 exclude:
+  - Makefile
   - README.md
   - Gemfile
   - Gemfile.lock
