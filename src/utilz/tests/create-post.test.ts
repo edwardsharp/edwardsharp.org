@@ -164,7 +164,7 @@ test("post catalog reads YAML, singleton tags, and named locations while merging
   await assert.rejects(readPostCatalog(root), /unique|duplicate/i);
 });
 
-test("new posts copy and strip images, preserve alt text, choose the first preview, and never overwrite posts", async (t) => {
+test("new posts convert images to WebP, strip metadata, preserve alt text, and never overwrite posts", async (t) => {
   const temporary = await mkdtemp(join(tmpdir(), "create-post-"));
   t.after(() => rm(temporary, { recursive: true, force: true }));
   const root = join(temporary, "site");
@@ -225,7 +225,7 @@ test("new posts copy and strip images, preserve alt text, choose the first previ
     (match) => match[1],
   );
   assert.equal(header.preview_image, links[0]);
-  assert.ok(links[1]?.endsWith(".jpg"));
+  assert.ok(links.every((link) => link?.endsWith(".webp")));
   for (const link of links) {
     assert.ok(link);
     const checked = spawnSync(
@@ -235,6 +235,7 @@ test("new posts copy and strip images, preserve alt text, choose the first previ
     );
     assert.ifError(checked.error);
     assert.equal(checked.status, 0, checked.stderr);
+    assert.match(checked.stdout, /Format: WEBP/);
     assert.doesNotMatch(checked.stdout, /private metadata|Profiles:|exif:/);
   }
   assert.deepEqual(await readFile(first), originals[0]);
@@ -253,6 +254,69 @@ test("new posts copy and strip images, preserve alt text, choose the first previ
   );
   assert.equal(otherHeader.permalink, undefined);
   assert.equal(otherHeader.preview_image, undefined);
+});
+
+test("WebP post images preserve animation and transparency without modifying originals", async (t) => {
+  const temporary = await mkdtemp(join(tmpdir(), "create-post-animation-"));
+  t.after(() => rm(temporary, { recursive: true, force: true }));
+  const root = join(temporary, "site");
+  await mkdir(root);
+  const original = join(temporary, "animation.gif");
+  const made = spawnSync("magick", [
+    "-delay",
+    "12",
+    "-size",
+    "8x8",
+    "xc:none",
+    "-fill",
+    "red",
+    "-draw",
+    "rectangle 2,2 5,5",
+    "-delay",
+    "25",
+    "(",
+    "-size",
+    "8x8",
+    "xc:none",
+    "-fill",
+    "blue",
+    "-draw",
+    "rectangle 2,2 5,5",
+    ")",
+    "-loop",
+    "0",
+    original,
+  ]);
+  assert.ifError(made.error);
+  assert.equal(made.status, 0, made.stderr.toString());
+  const bytes = await readFile(original);
+  const filename = await createPost(root, {
+    title: "animation",
+    kind: "photo",
+    date: parsePostDate("2026-03-20"),
+    tags: [],
+    images: [{ filename: original, alt: "animated shapes" }],
+  });
+  const header = parse(
+    (await readFile(filename, "utf8")).split("---")[1] ?? "",
+  );
+  const checked = spawnSync(
+    "magick",
+    [
+      "identify",
+      "-format",
+      "%m %T %[fx:p{0,0}.a]\n",
+      join(root, header.preview_image.slice(1)),
+    ],
+    { encoding: "utf8" },
+  );
+  assert.ifError(checked.error);
+  assert.equal(checked.status, 0, checked.stderr);
+  assert.deepEqual(checked.stdout.trim().split("\n"), [
+    "WEBP 12 0",
+    "WEBP 25 0",
+  ]);
+  assert.deepEqual(await readFile(original), bytes);
 });
 
 test("generated filenames stay short without changing titles; doodle wins over screenshot tags", async (t) => {

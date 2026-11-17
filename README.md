@@ -10,7 +10,7 @@ a jekyll blog with a virtualized honeycomb feed and a infinite scroll post reade
 bundle install      # run once
 npm ci              # run once
 
-./run-dev.sh        # incremental watch mode
+make dev            # incremental watch mode
 
 # or do a full build
 npm run build && JEKYLL_ENV=production bundle exec jekyll build
@@ -23,7 +23,7 @@ make post  # new post interactive tui
 make       # interactive tui utilz menu
 ```
 
-uses [@inquirer npm package](https://npmjs.com/package/inquirer) for interactive tui; with system file pickers on macOS, or typed paths for file paths; dates accept text/iso/partial dates; `today` defaults to the current minute, month/year-only dates use their first day; images are copied with metadata stripped; originals stay untouched.
+uses [@inquirer npm package](https://npmjs.com/package/inquirer) for interactive tui; with system file pickers on macOS, or typed paths for file paths; dates accept text/iso/partial dates; `today` defaults to the current minute, month/year-only dates use their first day; images are converted to WebP with metadata stripped; originals stay untouched.
 
 requires python 3.11+, imagemagick, and full disk access for your terminal/editor; notes.app scriptz also needs automation permission: `python3 src/utilz/.tools/notes-exporter/notes_permission.py --ask`
 

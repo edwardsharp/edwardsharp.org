@@ -31,7 +31,7 @@ test("filter choices count posts, omit singleton tags, and retain every post typ
   assert.deepEqual(filterChoices(posts.slice(0, 1)).tags, []);
 });
 
-test("location choices count posts once, include singletons, and preserve labels and punctuation", () => {
+test("location choices count posts once and hide singletons without disabling their direct filters", () => {
   const feed = [
     {
       url: "/new",
@@ -45,14 +45,13 @@ test("location choices count posts once, include singletons, and preserve labels
   ];
   assert.deepEqual(filterChoices(feed).locations, [
     { value: "location:venue a, city", label: "Venue A, City (2)" },
-    { value: "location:other place", label: "Other Place (1)" },
-    { value: "location:venue-a, city", label: "Venue-A, City (1)" },
   ]);
   assert.deepEqual(filterPosts(feed, "location: VENUE  A, CITY "), [
     feed[0],
     feed[1],
   ]);
   assert.deepEqual(filterPosts(feed, "location:Venue-A, City"), [feed[0]]);
+  assert.deepEqual(filterPosts(feed, "location:Other Place"), [feed[2]]);
   assert.deepEqual(filterPosts(feed, "location:missing"), []);
   assert.deepEqual(filterPosts(feed, "location:  "), []);
   assert.deepEqual(
@@ -197,9 +196,9 @@ const aliases = [
 test("tag groups merge case and separator variants without double-counting posts", () => {
   const original = structuredClone(aliases);
   assert.deepEqual(filterChoices(aliases).tags, [
-    { value: "tag:pdx", label: "pdx (3)" },
     { value: "tag:futuredeathtoll", label: "future death toll (2)" },
     { value: "tag:futuredeath.agency", label: "futuredeath.agency (2)" },
+    { value: "tag:pdx", label: "pdx (3)" },
   ]);
   assert.deepEqual(aliases, original);
 });
@@ -225,16 +224,62 @@ test("existing tag links match grouped aliases while other punctuation stays mea
   assert.deepEqual(filterPosts(aliases, "tag: _- "), []);
 });
 
-test("tag choices sort by descending count, then alphabetical label; post types stay alphabetical", () => {
+test("tag and location choices sort by descending tens bands, alphabetically within each band", () => {
+  const counts = [
+    ["zeta", 59],
+    ["alpha", 50],
+    ["charlie", 20],
+    ["bravo", 29],
+    ["echo", 11],
+    ["delta", 19],
+    ["golf", 10],
+    ["foxtrot", 2],
+    ["singleton", 1],
+  ] as const;
+  const feed = Array.from({ length: 59 }, (_, index) => {
+    const labels = counts
+      .filter(([, count]) => index < count)
+      .map(([label]) => label);
+    return {
+      kind: index % 2 === 0 ? "photo" : "audio",
+      tags: labels,
+      locations: labels,
+    };
+  });
+  const choices = filterChoices(feed);
+  assert.deepEqual(choices.tags, [
+    { value: "tag:alpha", label: "alpha (50)" },
+    { value: "tag:zeta", label: "zeta (59)" },
+    { value: "tag:bravo", label: "bravo (29)" },
+    { value: "tag:charlie", label: "charlie (20)" },
+    { value: "tag:delta", label: "delta (19)" },
+    { value: "tag:echo", label: "echo (11)" },
+    { value: "tag:foxtrot", label: "foxtrot (2)" },
+    { value: "tag:golf", label: "golf (10)" },
+  ]);
+  assert.deepEqual(
+    choices.locations,
+    choices.tags.map(({ value, label }) => ({
+      value: value.replace(/^tag:/, "location:"),
+      label,
+    })),
+  );
+  assert.deepEqual(choices.types, [
+    { value: "type:audio", label: "audio (29)" },
+    { value: "type:photo", label: "photo (30)" },
+  ]);
+});
+
+test("low-count tags sort alphabetically regardless of their individual counts", () => {
   const choices = filterChoices([
     { kind: "photo", tags: ["zeta", "beta", "alpha"] },
     { kind: "photo", tags: ["zeta", "beta", "alpha"] },
     { kind: "audio", tags: ["zeta"] },
   ]);
   assert.deepEqual(choices.tags, [
-    { value: "tag:zeta", label: "zeta (3)" },
     { value: "tag:alpha", label: "alpha (2)" },
     { value: "tag:beta", label: "beta (2)" },
+    { value: "tag:zeta", label: "zeta (3)" },
   ]);
   assert.deepEqual(choices.types, [
     { value: "type:audio", label: "audio (1)" },

@@ -259,12 +259,17 @@ async function optionalText(filename: string): Promise<string> {
 }
 
 export function stripImage(input: string, output: string): void {
+  const convertingToWebp =
+    extname(output).toLowerCase() === ".webp" &&
+    extname(input).toLowerCase() !== ".webp";
   run("magick", [
     input,
+    ...(convertingToWebp ? ["-coalesce"] : []),
     "-auto-orient",
     "-strip",
     "-define",
     "png:exclude-chunks=all",
+    ...(convertingToWebp ? ["-quality", "90", "-define", "webp:method=6"] : []),
     output,
   ]);
   if (

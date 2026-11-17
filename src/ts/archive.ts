@@ -152,6 +152,7 @@ async function startArchive(root: HTMLElement): Promise<void> {
       !Array.from(filter.options).some((option) => option.value === value)
     ) {
       const option = new Option(value.slice(value.indexOf(":") + 1), value);
+      option.hidden = true;
       option.dataset.currentFilter = "";
       filter.append(option);
     }

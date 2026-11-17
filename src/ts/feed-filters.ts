@@ -60,6 +60,8 @@ export function filterChoices(posts: readonly FilterPost[]) {
         locationLabels.set(key, location.trim().replace(/\s+/g, " "));
     }
   }
+  const countBand = (count: number) =>
+    count <= 10 ? 0 : Math.floor(count / 10);
   const choices = (
     counts: Map<string, number>,
     prefix: string,
@@ -70,7 +72,7 @@ export function filterChoices(posts: readonly FilterPost[]) {
       .filter(([, count]) => count >= minimum)
       .sort(
         ([a, aCount], [b, bCount]) =>
-          (prefix !== "type" ? bCount - aCount : 0) ||
+          (prefix !== "type" ? countBand(bCount) - countBand(aCount) : 0) ||
           (labels?.get(a) ?? a).localeCompare(labels?.get(b) ?? b),
       )
       .map(([value, count]) => ({
@@ -80,7 +82,7 @@ export function filterChoices(posts: readonly FilterPost[]) {
   return {
     types: choices(typeCounts, "type", 1),
     tags: choices(tagCounts, "tag", 2, tagLabels),
-    locations: choices(locationCounts, "location", 1, locationLabels),
+    locations: choices(locationCounts, "location", 2, locationLabels),
   };
 }
 

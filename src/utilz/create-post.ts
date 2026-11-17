@@ -325,7 +325,8 @@ export async function createPost(root: string, post: NewPost): Promise<string> {
         throw new Error(
           `image must be an existing absolute file path: ${image.filename}`,
         );
-      const name = `${basename}${post.images.length > 1 ? `-image-${index + 1}` : ""}${imageOutputExtension(image.filename)}`;
+      imageOutputExtension(image.filename);
+      const name = `${basename}${post.images.length > 1 ? `-image-${index + 1}` : ""}.webp`;
       const filename = join(temporary, name);
       stripImage(image.filename, filename);
       if ((await stat(filename)).size >= 100_000_000)

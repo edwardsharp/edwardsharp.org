@@ -51,7 +51,6 @@ exclude:
   - Gemfile.lock
   - package.json
   - package-lock.json
-  - run-dev.sh
   - node_modules
   - src/tsconfig.json
   - src/prettier.config.mjs
