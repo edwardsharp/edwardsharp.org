@@ -41,4 +41,4 @@ when we're like: this is right
 
 see: check it out: it's right
 
-{ double-colon: &quotand quoted value, and callback to .md file extensionz" }
+{ double-colon: "and quoted value, and callback to .md file extensionz" }

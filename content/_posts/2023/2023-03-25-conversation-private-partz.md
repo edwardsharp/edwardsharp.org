@@ -47,7 +47,7 @@ could people find each other in a group?
 
 another (or further?) line of inquiry:
 
-...maybe an extension of &quotdo you like holding hands?"
+...maybe an extension of "do you like holding hands?"
 
 how do you hold (hands) together with your community?
 

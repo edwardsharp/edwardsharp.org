@@ -69,7 +69,7 @@ on relative structure: watch out for recursion
 
 and again, on what to do: «…»
 
-&quotso, whose perceptual problem is this?"
+"so, whose perceptual problem is this?"
 
 or also i’m like, nah, imma see old 1. (a) list (for)
 
@@ -117,4 +117,4 @@ on relative structure: watch out for recursion
 
 and again, on what to do: «…»
 
-&quotso, whose perceptual problem is this?"
+"so, whose perceptual problem is this?"

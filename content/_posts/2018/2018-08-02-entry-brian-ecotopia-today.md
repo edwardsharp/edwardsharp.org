@@ -80,7 +80,7 @@ ah yes! well, i wonder if helps to make the buttons more button-like? refresh h
 
 i feel ya on the popup. another thing i've been thinking is that instead of having the nav buttons on the map: the legend section could be the legend area by default but then also be a static place to display what is currently displaying in the map popup box? then the map would not need to shift when a thing is clicked and the pop up content will always be in the same, predictable place...
 
-for the layer changing buttons (currently &quotLegacy", &quotPlumes", & &quotMissoula floods" i was thinking about having this hang off the menu as another menu fly-out. as i dig into operlayer map component more it'll make more sense to me how to add buttons over the map.
+for the layer changing buttons (currently "Legacy", "Plumes", & "Missoula floods" i was thinking about having this hang off the menu as another menu fly-out. as i dig into operlayer map component more it'll make more sense to me how to add buttons over the map.
 
 no need to send any tile images; i can (probably) get them from your server. will be able to shave some MBs off the geojson files by minifying them. i also wonder about the compression level of your .png tile images-- ~50GB seems like maybe a lot. like how many individual files are we talkin'?
 
@@ -120,16 +120,16 @@ cheerz!
 
 cors
 
-curl -H &quotOrigin: https://mississippi.ecotopia.today" \
+curl -H "Origin: https://mississippi.ecotopia.today" \
 
--H &quotAccess-Control-Request-Method: POST" \
+-H "Access-Control-Request-Method: POST" \
 
--H &quotAccess-Control-Request-Headers: X-Requested-With" \
+-H "Access-Control-Request-Headers: X-Requested-With" \
 
 -X OPTIONS --verbose \
 
 https://api.ecotopia.today/api/v2/Brian/datasets/demo/places
 
-https://accounts.google.com/o/oauth2/auth?scope=openid+email+profile&ampstate=q1PDA0lgkD1vygv2nM3VKoNPHvSqcUbE&ampredirect\_uri=http://api:8010/api/v2/users/complete/google-oauth2/&ampresponse\_type=code&ampclient\_id=513129951319-3fsarg6867ala3bo65atiaj7s2v1ftm2.apps.googleusercontent.com
+https://accounts.google.com/o/oauth2/auth?scope=openid+email+profile&state=q1PDA0lgkD1vygv2nM3VKoNPHvSqcUbE&redirect\_uri=http://api:8010/api/v2/users/complete/google-oauth2/&response\_type=code&client\_id=513129951319-3fsarg6867ala3bo65atiaj7s2v1ftm2.apps.googleusercontent.com
 
-note the `comand` for the web (3dwardsharp/nginx-certbot) instance in `docker-compose.yml`: `command: /bin/bash -c &quotenvsubst '$${BASE\_SERVER},$${ADMIN\_SERVER}' < /etc/nginx/conf.d/nginx.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"` you need to explicitly tell `envsubst` about the variables to substitute like `'$${BASE\_SERVER},$${ADMIN\_SERVER}'` note the `$$`. otherwise envsubst will replace other `$` variables in nginx.template with blank strings.
+note the `comand` for the web (3dwardsharp/nginx-certbot) instance in `docker-compose.yml`: `command: /bin/bash -c "envsubst '$${BASE\_SERVER},$${ADMIN\_SERVER}' < /etc/nginx/conf.d/nginx.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"` you need to explicitly tell `envsubst` about the variables to substitute like `'$${BASE\_SERVER},$${ADMIN\_SERVER}'` note the `$$`. otherwise envsubst will replace other `$` variables in nginx.template with blank strings.

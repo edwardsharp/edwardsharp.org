@@ -10,7 +10,7 @@ source_platform: "archive"
 source_url: "https://archive.org/details/future_death_agency__black_tapez__zip"
 ---
 
-**future_death_agency&#160;**
+**future_death_agency**
 
 **black_tapez**
 

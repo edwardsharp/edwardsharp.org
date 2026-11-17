@@ -12,4 +12,4 @@ preview_alt: "😻<<GREASE TRAPZ CLEANED>> 😼"
 
 ![😻<<GREASE TRAPZ CLEANED>> 😼](/content/media/2019/2019-05-22-photo-18068132185037501-1.webp)
 
-😻<&lt;GREASE TRAPZ CLEANED>&gt; 😼
+😻<\<GREASE TRAPZ CLEANED>\> 😼

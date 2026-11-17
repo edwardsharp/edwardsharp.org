@@ -49,7 +49,7 @@ sierra: climate change is bad. what does it even mean? what does good or bad eve
 
 how do we define our language around these ideaz
 
-lorene: innovation, &quotspace hotel on the moon" zomg can we just get healthcare. before that, define what's good and bad. what happens in the world over time (like climate change) then why are you so connected this thing you thought was a good idea
+lorene: innovation, "space hotel on the moon" zomg can we just get healthcare. before that, define what's good and bad. what happens in the world over time (like climate change) then why are you so connected this thing you thought was a good idea
 
 sierra: underlying systems and values. we can measure how bad it is.
 

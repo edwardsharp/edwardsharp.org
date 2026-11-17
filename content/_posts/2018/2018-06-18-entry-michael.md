@@ -59,7 +59,7 @@ background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.4) 77%, rgba(0,
 
 IE11 :(
 
-&ltscript src=&quothttps://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.js" crossorigin=&quotanonymous"></script>
+`<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.js" crossorigin="anonymous"></script>`
 
 https://edwardsharp.github.io/a-player/ie.html
 

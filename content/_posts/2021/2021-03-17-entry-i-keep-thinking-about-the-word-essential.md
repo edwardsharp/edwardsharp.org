@@ -19,6 +19,6 @@ https://www.oclc.org/content/dam/research/publications/library/2008/2008-05.pdf
 
 https://archive.org/details/UnjustBestPractices
 
-https://digitalcommons.liu.edu/cgi/viewcontent.cgi?article=1007&ampcontext=brooklyn\_libfacpubs
+https://digitalcommons.liu.edu/cgi/viewcontent.cgi?article=1007&context=brooklyn\_libfacpubs
 
 https://archive.org/details/personalarchivepublicactionIII

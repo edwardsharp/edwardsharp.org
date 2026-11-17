@@ -85,7 +85,7 @@ push playlistz into own repo. make a cli thing for collecting songs into a stand
 <div slot=“playlist-json”>
 {
     title: “triphobia mixtape”,
-    description: “+ ppl we know && &lt3”,
+    description: “+ ppl we know && <3”,
     songs: [{ title: “bonez song”, artist: “triphobia”, album: “a side” }, { … }],
 }
 </div>
@@ -114,7 +114,7 @@ https://edwardsharp.github.io/peedeeeff/really-simple-container.html
 
 https://www.npmjs.com/package/@edwardsharp/pee-dee-eff
 
-https://www.youtube.com/playlist?list=PLTdfhpDttnE5Y-ZY\_91nSEVmnL59HocsW&ampjct=W45zqnWpmR4zqvWEORXt\_g
+https://www.youtube.com/playlist?list=PLTdfhpDttnE5Y-ZY\_91nSEVmnL59HocsW&jct=W45zqnWpmR4zqvWEORXt\_g
 
 https://www.youtube.com/watch?v=ndSqfRiBaXk
 

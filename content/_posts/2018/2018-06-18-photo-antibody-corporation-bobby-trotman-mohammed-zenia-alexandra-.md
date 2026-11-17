@@ -12,4 +12,4 @@ preview_alt: "Antibody Corporation; Bobby trotman Mohammed zenia; Alexandra Sull
 
 ![Antibody Corporation; Bobby trotman Mohammed zenia; Alexandra Sullivan performing @Panoply Performance Laborat](/content/media/2018/2018-06-18-photo-17876243467244983-1.webp)
 
-Antibody Corporation; Bobby trotman Mohammed zenia; Alexandra Sullivan performing @Panoply Performance Laboratory! gonna be hottt&#160;☀&#160;but we got chill bevzzz!&#160;🥫
+Antibody Corporation; Bobby trotman Mohammed zenia; Alexandra Sullivan performing @Panoply Performance Laboratory! gonna be hottt ☀ but we got chill bevzzz! 🥫

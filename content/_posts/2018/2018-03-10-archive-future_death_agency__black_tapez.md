@@ -13,7 +13,7 @@ preview_image: "/content/media/2018/2018-03-10-archive-future_death_agency__blac
 
 <iframe title="future_death_agency black_tapez" width="100%" height="400" loading="lazy" src="https://archive.org/embed/future_death_agency__black_tapez?playlist=1"></iframe>
 
-**future_death_agency&#160;**
+**future_death_agency**
 
 **black_tapez**
 

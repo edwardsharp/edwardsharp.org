@@ -39,7 +39,7 @@ some kind of notebook based thing that’s basically an opinionated text-editor 
 
 md + yaml front---matter pretty-print
 
-editable &ltdiv> && local css stylez
+editable \<div> && local css stylez
 
 git submodule update --remote
 

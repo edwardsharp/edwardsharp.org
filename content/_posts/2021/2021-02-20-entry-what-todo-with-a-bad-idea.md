@@ -21,6 +21,6 @@ like how many ppl on a video call before it's not really a discussion? 4, 6? 10?
 
 what about: a panel discussion?
 
-IRC pretty much figured this out: #lobby main room, the entrance, the host greetz you and helpz direct to a diff #room to ppl who might not know where they're going. #subtopic can be &quotmemorialized"? or maybe all chat is ephemeral.
+IRC pretty much figured this out: #lobby main room, the entrance, the host greetz you and helpz direct to a diff #room to ppl who might not know where they're going. #subtopic can be "memorialized"? or maybe all chat is ephemeral.
 
 genealogical exploration, like the history (see nietzsche)

@@ -23,7 +23,7 @@ like,
 
 any they're are all, like: 'lolol zomg where u at, bruh 🤣'
 
-and then i'm, like: <&lt...>>
+and then i'm, like: <\<...>>
 
 whatthefuck even is ekphrasis
 

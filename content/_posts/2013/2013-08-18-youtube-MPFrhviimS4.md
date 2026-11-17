@@ -19,7 +19,7 @@ SATURDAY, AUGUST 31ST
 7PM READING  
 8PM PERFORMING
 
-&amp;&amp;
+&&
 
 SUNDAY, SEPTEMBER 1ST  
 1PM READING  
@@ -38,6 +38,6 @@ keyon gaskin,
 jin camou,  
 danielle ross,  
 nathanael thayer moss,  
-&amp; many excellent readers.
+& many excellent readers.
 
 [original youtube post](https://www.youtube.com/watch?v=MPFrhviimS4)

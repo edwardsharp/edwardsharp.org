@@ -89,7 +89,7 @@ DONE!
 
 ^CTraceback (most recent call last):
 
-File "/Users/edwardsharp/Desktop/carp-sanctuary/buchy.ifitis.org/matrix-bot/./buchy-websocket.py", line 62, in &ltmodule>
+File "/Users/edwardsharp/Desktop/carp-sanctuary/buchy.ifitis.org/matrix-bot/./buchy-websocket.py", line 62, in \<module>
 
 asyncio.run(main())
 
@@ -173,7 +173,7 @@ SEND MESSAGE l 5
 
 DONE!
 
-GOT MESSAGE: Does evolution make organisms &quotbetter"?
+GOT MESSAGE: Does evolution make organisms "better"?
 
 SEND MESSAGE l 0
 
@@ -239,7 +239,7 @@ DONE!
 
 ^[[C^CTraceback (most recent call last):
 
-File "/Users/edwardsharp/Desktop/carp-sanctuary/buchy.ifitis.org/matrix-bot/./buchy-websocket.py", line 62, in &ltmodule>
+File "/Users/edwardsharp/Desktop/carp-sanctuary/buchy.ifitis.org/matrix-bot/./buchy-websocket.py", line 62, in \<module>
 
 asyncio.run(main())
 
@@ -373,7 +373,7 @@ DONE!
 
 ^CTraceback (most recent call last):
 
-File "/Users/edwardsharp/Desktop/carp-sanctuary/buchy.ifitis.org/matrix-bot/./buchy-websocket.py", line 62, in &ltmodule>
+File "/Users/edwardsharp/Desktop/carp-sanctuary/buchy.ifitis.org/matrix-bot/./buchy-websocket.py", line 62, in \<module>
 
 asyncio.run(main())
 
@@ -525,7 +525,7 @@ DONE!
 
 ^CTraceback (most recent call last):
 
-File "/Users/edwardsharp/Desktop/carp-sanctuary/buchy.ifitis.org/matrix-bot/./buchy-websocket.py", line 62, in &ltmodule>
+File "/Users/edwardsharp/Desktop/carp-sanctuary/buchy.ifitis.org/matrix-bot/./buchy-websocket.py", line 62, in \<module>
 
 asyncio.run(main())
 
@@ -557,7 +557,7 @@ edwardsharp@eeddee matrix-bot % ./buchy-websocket.py
 
 READY!
 
-GOT MESSAGE: is &quotnature" &quotharmonious"?
+GOT MESSAGE: is "nature" "harmonious"?
 
 SEND MESSAGE l 0
 
@@ -653,7 +653,7 @@ SEND MESSAGE l 5
 
 DONE!
 
-GOT MESSAGE: does conciousness have any &quotlaws" of physics?
+GOT MESSAGE: does conciousness have any "laws" of physics?
 
 SEND MESSAGE l 0
 
@@ -783,7 +783,7 @@ DONE!
 
 ^CTraceback (most recent call last):
 
-File "/Users/edwardsharp/Desktop/carp-sanctuary/buchy.ifitis.org/matrix-bot/./buchy-websocket.py", line 62, in &ltmodule>
+File "/Users/edwardsharp/Desktop/carp-sanctuary/buchy.ifitis.org/matrix-bot/./buchy-websocket.py", line 62, in \<module>
 
 asyncio.run(main())
 
@@ -865,7 +865,7 @@ await self.ws_handler(self)
 
 File "/Users/edwardsharp/Desktop/carp-sanctuary/buchy.ifitis.org/matrix-bot/./buchy-websocket.py", line 52, in buchymsg
 
-await websocket.send("&quot.join(outmsg))
+await websocket.send("".join(outmsg))
 
 File "/Users/edwardsharp/.pyenv/versions/3.10.10/lib/python3.10/site-packages/websockets/legacy/protocol.py", line 647, in send
 
@@ -1029,7 +1029,7 @@ SEND MESSAGE l 5
 
 DONE!
 
-GOT MESSAGE: what am I actually doing (with my body-brain) when I &quotthink"?
+GOT MESSAGE: what am I actually doing (with my body-brain) when I "think"?
 
 SEND MESSAGE l 0
 

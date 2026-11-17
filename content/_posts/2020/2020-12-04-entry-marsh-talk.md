@@ -59,7 +59,7 @@ note to say: square inventory doesn't handle fractional units: so keeping track 
 
 so where to go from here:
 
-hasura graphQL server and shift more db &quotmodeling" to client-side JS
+hasura graphQL server and shift more db "modeling" to client-side JS
 
 try to remove sorta-cart-server or make it really simple
 
@@ -75,7 +75,7 @@ still pondering auth0
 
 move members table into square users?
 
-also explore &quotsaved carts" for quicker checkout:
+also explore "saved carts" for quicker checkout:
 
 this could also encourage repeat checkoutz for like, when members collaborate on group orders.
 
@@ -100,18 +100,18 @@ maybe verify email first?
 * saved payment source?
 
 - better mobile table (like fix position add-to-cart button when overflowing; make description own row)
-- admin member edit, turn &quotcreate user" checkbox into a button if no user assoc exists.
+- admin member edit, turn "create user" checkbox into a button if no user assoc exists.
 - bundle google font css
 - favicon
 - add to cart snackbar pop instead of opening cart.
 
-* also include &quotcontinue shopping" button to close cart
+* also include "continue shopping" button to close cart
 
 - announcements thingy that uses pages proto and displays a popup on sorta-cart landing page once to user
 - admin dashboard:
 
 * recent orders limit by date range, like past 1 or 2 weeks then maybe 50 or so.
-* use moment or some &quotfrom now" date lib to format dates.
+* use moment or some "from now" date lib to format dates.
 
 - fix sort order for users My Orders list (use date-fns or something)
 - inventory
@@ -136,12 +136,12 @@ maybe verify email first?
 
 - or just don't validate or make stock movements for CS units :hmm:
 
-* admin order edits && on_hand_count changes -> move &quotremove line item" x, and store credit buttons into menu and also add &quotadd stock movement button" which would move amount of count_on_hand into &quoton_hand" status line item (duplicate line item or create a new one?) and then decrement product count_on_hand ORRRR one button next to &quotBackorder" heading that submits the order, save, and then calculates and available stock movements and moves to &quoton_hand" status
+* admin order edits && on_hand_count changes -> move "remove line item" x, and store credit buttons into menu and also add "add stock movement button" which would move amount of count_on_hand into "on_hand" status line item (duplicate line item or create a new one?) and then decrement product count_on_hand ORRRR one button next to "Backorder" heading that submits the order, save, and then calculates and available stock movements and moves to "on_hand" status
 
 - HANDLE THIS MANUALLY FOR NOW
 - add count_on_hand to admin edit autocomplete search menu
 
-* some kind of front-end view for count_on_hand in products table. maybe just a boolean & filter where &quotcount_on_hand > 0" or somesuch
+* some kind of front-end view for count_on_hand in products table. maybe just a boolean & filter where "count_on_hand > 0" or somesuch
 * VALIDATE selected_unit === 'CS' unit types (qty \* pk multiplier)
 * only update cart quantity if no_backorder (think this is the case, need to double check)
 * handle empty unf values
@@ -162,7 +162,7 @@ maybe verify email first?
 * some kind of stats thingy that represents propensity to buy the same thing again
 * this could result in useful UI for user: recammondations (eek)
 * this could also be UI on the admin dashboard? maybe just a report, tho.
-* like: a &quotshopping list" that's a list of search queries to quickly &quotadd to cart"
+* like: a "shopping list" that's a list of search queries to quickly "add to cart"
 
 ## GRAPHQL thotz:
 
@@ -178,12 +178,12 @@ maybe verify email first?
 
 - figure out how to coalesce square inventory items into graphQL data
 
-* just add a fucking on_hand col :/ (deal with square inventory later, just generate a .csv with mapped cols for any &quoton hand" items? or just all the products)
+* just add a fucking on_hand col :/ (deal with square inventory later, just generate a .csv with mapped cols for any "on hand" items? or just all the products)
 
 ## other stuff:
 
 - on-hand pick up fulfillment time windows estimates?
-- &quotready to pickup" email when status changes. might need more statuses like &quotpartial pickup ready" ???
+- "ready to pickup" email when status changes. might need more statuses like "partial pickup ready" ???
 - twillo SMS thingy?
 - explore pending wholesale orders-- esp partial cases
 - user email update? like a preferences page for user to update email and change password
@@ -196,17 +196,17 @@ alter Products table:
 
 ```sql
 
-ALTER TABLE &quotpublic&quot.&quotProducts"
+ALTER TABLE "public"."Products"
 
-ADD COLUMN &quotcount\_on\_hand" integer,
+ADD COLUMN "count\_on\_hand" integer,
 
-ADD COLUMN &quotno\_backorder" boolean;
+ADD COLUMN "no\_backorder" boolean;
 
-CREATE INDEX &quotproducts\_count\_on\_hand" ON &quotpublic&quot.&quotProducts"(&quotcount\_on\_hand");
+CREATE INDEX "products\_count\_on\_hand" ON "public"."Products"("count\_on\_hand");
 
-CREATE UNIQUE INDEX &quotproducts\_uniq\_id" ON &quotpublic&quot.&quotProducts"(&quotunf",&quotupc\_code");
+CREATE UNIQUE INDEX "products\_uniq\_id" ON "public"."Products"("unf","upc\_code");
 
-ALTER TABLE &quotpublic&quot.&quotOrderLineItems" ADD COLUMN &quotstatus" character varying(255);
+ALTER TABLE "public"."OrderLineItems" ADD COLUMN "status" character varying(255);
 
 ```
 
@@ -214,11 +214,11 @@ check distinct:
 
 ```sql
 
-SELECT &quotunf", &quotupc\_code", COUNT(\*) FROM &quotProducts" GROUP BY &quotunf", &quotupc\_code" HAVING COUNT(\*) > 1;
+SELECT "unf", "upc\_code", COUNT(\*) FROM "Products" GROUP BY "unf", "upc\_code" HAVING COUNT(\*) > 1;
 
 ```
 
-SELECT \* FROM &quotProducts" WHERE &quotupc_code" IN ('903188', '903187', '903186', '903183', '903182', '902303', '902045', '10101');
+SELECT \* FROM "Products" WHERE "upc_code" IN ('903188', '903187', '903186', '903183', '903182', '902303', '902045', '10101');
 
 deployment #TODO:
 

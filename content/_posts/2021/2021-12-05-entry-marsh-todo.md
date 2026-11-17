@@ -16,7 +16,7 @@ permalink: "/post/2021-12-05-entry-marsh-todo/"
 1. consider supabase.io for PG SQL database (and auth!)
 1. vercel.com nextJS for
 
-1. sorta_cart_server and &quotserver side" api parts (mostly sorta-cart-server/src/controllers/\* and sorta-cart-server/src/services/\*)
+1. sorta_cart_server and "server side" api parts (mostly sorta-cart-server/src/controllers/\* and sorta-cart-server/src/services/\*)
 1. figure out order emails
 1. convert handlebars stuff into jsx template
 1. front-end stuff?
@@ -34,11 +34,11 @@ permalink: "/post/2021-12-05-entry-marsh-todo/"
 1. BACK CATALOGUE 📦
 
 1. try to consume all products from vendor sheets for historical data (like price)
-1. maintain &quotedits" and like a smaller sub-set of products that have their descriptions and data improved as well as having a smaller set of products to view.
+1. maintain "edits" and like a smaller sub-set of products that have their descriptions and data improved as well as having a smaller set of products to view.
 
 1. WHOLESALE ORDERS 🚛
 
-1. make these more &quoteditable" or like easy to edit when changes happen, like e.g. items not available when submitting to vendor
+1. make these more "editable" or like easy to edit when changes happen, like e.g. items not available when submitting to vendor
 1. output square inventory import (like start with .csv export and then look into api automation)
 
 1. INFINITE SCROLL DATA GRID 📜

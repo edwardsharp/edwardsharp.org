@@ -156,7 +156,7 @@ X google api keyz need to not be synced to public settings couchdb.
 
 https://github.com/pouchdb/pouchdb-server
 
-`sched\_admin` <&ltTA-DA!>> -> sched_screenprinting
+`sched\_admin` <\<TA-DA!>> -> sched_screenprinting
 
 sched_accounts, sched_accounts, sched_accounts, okay okay okay
 

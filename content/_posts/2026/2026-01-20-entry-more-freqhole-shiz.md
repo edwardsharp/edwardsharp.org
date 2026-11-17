@@ -29,7 +29,7 @@ scan music probably needs to work harder for song artist name and album name. ca
 
 oh. also double click or play icon click of song on artist detail doesn't start playing anything (whole album is queued tho)
 
-also, need to handle the case for compilation albums, there would be different artist and &quotalbum artist" metadata on the mp3 (song file). in this case, i don't really want to show these artists in the /artists route (so probably don't create artist table records? but show this somewhere?). look at legacylib/
+also, need to handle the case for compilation albums, there would be different artist and "album artist" metadata on the mp3 (song file). in this case, i don't really want to show these artists in the /artists route (so probably don't create artist table records? but show this somewhere?). look at legacylib/
 
 queue history tab for play history. also, since we're creating api cache for queued songs, i guess we should just create local indexed db records for this music?
 
@@ -37,9 +37,9 @@ mild interest in just using opfs and no api cache, but need to think carefully.
 
 topnav should show storage use (not a lot of open space, so keep it compact). also be nice to show the remote server image (if there is one).
 
-add some recent playlists in top nav (order by updated_at). for sure local playlists, but wondering, how complex it would be to show remote playlists that the user has created? or maybe this should be contextual to the selected remote-- maybe that's a good way to start anyway. &quotview all" and "+ create" buttons should be wired up.
+add some recent playlists in top nav (order by updated_at). for sure local playlists, but wondering, how complex it would be to show remote playlists that the user has created? or maybe this should be contextual to the selected remote-- maybe that's a good way to start anyway. "view all" and "+ create" buttons should be wired up.
 
-album and artist detail page should also have &quotshuffle" and "+ queue" (or &quotadd to queue", the "+queue" text is gonna be useful for narrow/mobile view when space starts getting tight) buttons. probably should add a new presentational component that wraps all these buttons? album and artist don't need &quotARTIST" and &quotABLUM" in the top of the header section. also need an edit button (only if user can edit tho, local always, remote should have proper role).
+album and artist detail page should also have "shuffle" and "+ queue" (or "add to queue", the "+queue" text is gonna be useful for narrow/mobile view when space starts getting tight) buttons. probably should add a new presentational component that wraps all these buttons? album and artist don't need "ARTIST" and "ABLUM" in the top of the header section. also need an edit button (only if user can edit tho, local always, remote should have proper role).
 
 artist A-Z nav index needs to be wired up.
 
@@ -59,7 +59,7 @@ track currently playing song so we can show either a pink triangle or some other
 
 narrow mobile views? how to do this better? previous isMobile ran into some trouble. will be single column layout. would be nice if it didn't do touch detection, and could do responsive stuff instead so desktop can also render a narrow view.
 
-route transitions and more `loading...` ui (but only after &gt1second of loading time (maybe could pull it down to 750ms or 500ms)). should be able to tap into tanstack query more. also probably need more ETag handlers so we can handle better when new data is added to remote.
+route transitions and more `loading...` ui (but only after \>1second of loading time (maybe could pull it down to 750ms or 500ms)). should be able to tap into tanstack query more. also probably need more ETag handlers so we can handle better when new data is added to remote.
 
 artist/album detail grid (in genres) needs some size (and maybe responsive) tweaking
 
