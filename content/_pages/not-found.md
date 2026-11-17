@@ -6,4 +6,4 @@ searchable: false
 
 this page is missing, or hasn't made it here yet. #sorry
 
-[back to the journal]({{ '/' | relative_url }}).
+[back to the landing page.]({{ '/' | relative_url }}).
