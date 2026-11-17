@@ -16,4 +16,4 @@ Genome MIDI Sequencer by White Noise Audio Software
 
 <https://itunes.apple.com/us/app/quantum-sequencer/id1207932898?mt=8>
 
-![](/content/media/2017/2017-11-19-genome-midi-sequencer-by-white-noise-audio-software.webp)
+![](/content/media/2017/2017-11-19-genome-midi-sequencer-by-white-noise-audio-software.webp){: .invert-in-dark }

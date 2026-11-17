@@ -10,4 +10,4 @@ preview_alt: ""
 tags: []
 ---
 
-![](/content/media/2023/2023-10-22-new-triphobia-note.webp)
+![](/content/media/2023/2023-10-22-new-triphobia-note.webp){: .invert-in-dark }

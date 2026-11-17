@@ -10,24 +10,4 @@ preview_alt: ""
 tags: []
 ---
 
-# PO
-
-# WER
-
-#
-
-# SL
-
-# ID
-
-# E
-
-# ’
-
-# r
-
-#
-
-#
-
-![](/content/media/2023/2023-12-30-power-slide-r.webp)
+![](/content/media/2023/2023-12-30-power-slide-r.webp){: .invert-in-dark }

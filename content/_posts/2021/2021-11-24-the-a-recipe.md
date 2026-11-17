@@ -10,4 +10,4 @@ preview_alt: ""
 tags: []
 ---
 
-![](/content/media/2021/2021-11-24-the-a-recipe.webp)
+![](/content/media/2021/2021-11-24-the-a-recipe.webp){: .invert-in-dark }

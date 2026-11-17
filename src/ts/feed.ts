@@ -25,6 +25,7 @@ interface PreviewPost {
   label: string;
   excerpt: string;
   image: string | null;
+  invert_in_dark: boolean;
   alt: string;
   tags: string[];
   locations: string[];
@@ -38,6 +39,8 @@ function isPreviewPost(value: unknown): value is PreviewPost {
     ) &&
     "image" in value &&
     (value.image === null || typeof value.image === "string") &&
+    "invert_in_dark" in value &&
+    typeof value.invert_in_dark === "boolean" &&
     "tags" in value &&
     Array.isArray(value.tags) &&
     value.tags.every((tag: unknown) => typeof tag === "string") &&
@@ -87,6 +90,7 @@ function createCard(post: PreviewPost, index: number, total: number) {
     const image = document.createElement("img");
     image.className = "hex-card__image";
     if (post.kind === "doodle") image.classList.add("doodle-image");
+    if (post.invert_in_dark) image.classList.add("invert-in-dark");
     image.src = post.image;
     image.alt = post.alt;
     image.loading = "lazy";

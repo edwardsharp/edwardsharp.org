@@ -13,6 +13,18 @@ module MarkdownImages
     end
   end
 
+  module Filters
+    include Jekyll::Filters::URLFilters
+
+    def preview_inverts_in_dark(post)
+      return false unless post["preview_image"]
+
+      url = relative_url(post["preview_image"])
+      fragment = Nokogiri::HTML5.fragment(post["content"].to_s, "UTF-8")
+      fragment.css("img.invert-in-dark").any? { |image| image["src"] == url }
+    end
+  end
+
   def self.prepare(post)
     post.data[KEY] = []
     return unless post.content.match?(%r{(?:\]\(\s*|\]:\s*)<?/content/media/})
@@ -46,6 +58,8 @@ module MarkdownImages
     post.content = fragment.to_html
   end
 end
+
+Liquid::Template.register_filter(MarkdownImages::Filters)
 
 Jekyll::Hooks.register(:posts, :pre_render) do |post, _payload|
   MarkdownImages.prepare(post)

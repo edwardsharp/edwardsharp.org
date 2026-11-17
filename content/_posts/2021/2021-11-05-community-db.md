@@ -10,4 +10,4 @@ preview_alt: ""
 tags: []
 ---
 
-![](/content/media/2021/2021-11-05-community-db.webp)
+![](/content/media/2021/2021-11-05-community-db.webp){: .invert-in-dark }

@@ -10,4 +10,4 @@ preview_alt: ""
 tags: ["midi"]
 ---
 
-![](/content/media/2018/2018-12-26-midi-scale.webp)
+![](/content/media/2018/2018-12-26-midi-scale.webp){: .invert-in-dark }

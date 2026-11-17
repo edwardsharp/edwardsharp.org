@@ -10,4 +10,4 @@ preview_alt: ""
 tags: []
 ---
 
-![](/content/media/2022/2022-01-15-so-like-we-can-t-use.webp)
+![](/content/media/2022/2022-01-15-so-like-we-can-t-use.webp){: .invert-in-dark }

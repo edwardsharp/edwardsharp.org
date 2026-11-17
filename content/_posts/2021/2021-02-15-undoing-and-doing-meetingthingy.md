@@ -10,4 +10,4 @@ preview_alt: ""
 tags: ["undoing&doing"]
 ---
 
-![](/content/media/2021/2021-02-15-undoing-and-doing-meetingthingy.webp)
+![](/content/media/2021/2021-02-15-undoing-and-doing-meetingthingy.webp){: .invert-in-dark }

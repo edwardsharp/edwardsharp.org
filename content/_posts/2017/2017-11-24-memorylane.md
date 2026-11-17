@@ -10,4 +10,4 @@ preview_alt: ""
 tags: ["panoplylab"]
 ---
 
-![](/content/media/2017/2017-11-24-memorylane.webp)
+![](/content/media/2017/2017-11-24-memorylane.webp){: .invert-in-dark }

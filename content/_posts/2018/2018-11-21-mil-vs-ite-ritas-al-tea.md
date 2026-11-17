@@ -10,4 +10,4 @@ preview_alt: ""
 tags: ["thotz"]
 ---
 
-![](/content/media/2018/2018-11-21-mil-vs-ite-ritas-al-tea.webp)
+![](/content/media/2018/2018-11-21-mil-vs-ite-ritas-al-tea.webp){: .invert-in-dark }

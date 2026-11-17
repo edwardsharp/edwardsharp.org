@@ -10,18 +10,4 @@ preview_alt: ""
 tags: []
 ---
 
-# in
-
-# dex
-
-# th
-
-# ei
-
-# nde
-
-# x
-
-#
-
-![](/content/media/2023/2023-10-22-indextheindex.webp)
+![](/content/media/2023/2023-10-22-indextheindex.webp){: .invert-in-dark }

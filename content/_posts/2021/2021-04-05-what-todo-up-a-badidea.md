@@ -10,4 +10,4 @@ preview_alt: ""
 tags: []
 ---
 
-![](/content/media/2021/2021-04-05-what-todo-up-a-badidea.webp)
+![](/content/media/2021/2021-04-05-what-todo-up-a-badidea.webp){: .invert-in-dark }

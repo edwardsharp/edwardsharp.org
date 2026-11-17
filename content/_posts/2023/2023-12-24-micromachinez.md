@@ -10,8 +10,6 @@ preview_alt: ""
 tags: []
 ---
 
-# micromachinez
-
-![](/content/media/2023/2023-12-24-micromachinez.webp)
+![](/content/media/2023/2023-12-24-micromachinez.webp){: .invert-in-dark }
 
 #

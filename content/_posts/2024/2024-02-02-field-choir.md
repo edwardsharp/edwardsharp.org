@@ -10,18 +10,4 @@ preview_alt: ""
 tags: []
 ---
 
-# f
-
-# ie
-
-# ld
-
-# ch
-
-# oir
-
-#
-
-#
-
-![](/content/media/2024/2024-02-02-field-choir.webp)
+![](/content/media/2024/2024-02-02-field-choir.webp){: .invert-in-dark }

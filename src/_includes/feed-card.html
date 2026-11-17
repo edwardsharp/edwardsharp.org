@@ -1,5 +1,6 @@
 {% assign post = include.post %}
 {% assign title = post.preview_title | default: post.title %}
+{% assign invert_in_dark = post | preview_inverts_in_dark %}
 {% assign doodle_image = false %}
 {% if post.kind == 'doodle' %}
   {% assign doodle_image = true %}
@@ -17,7 +18,7 @@
     <div class="hex-card__body">
       {% if post.preview_image %}
         <img
-          class="hex-card__image{% if doodle_image %} doodle-image{% endif %}"
+          class="hex-card__image{% if doodle_image %} doodle-image{% endif %}{% if invert_in_dark %} invert-in-dark{% endif %}"
           src="{{ post.preview_image | relative_url }}"
           alt="{{ post.preview_alt | default: '' | escape }}"
           loading="lazy"

@@ -10,4 +10,4 @@ preview_alt: ""
 tags: []
 ---
 
-![](/content/media/2019/2019-03-30-herringbone.webp)
+![](/content/media/2019/2019-03-30-herringbone.webp){: .invert-in-dark }

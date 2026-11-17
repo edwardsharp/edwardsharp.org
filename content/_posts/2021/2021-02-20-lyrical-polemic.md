@@ -10,4 +10,4 @@ preview_alt: ""
 tags: ["poemz"]
 ---
 
-![](/content/media/2021/2021-02-20-lyrical-polemic.webp)
+![](/content/media/2021/2021-02-20-lyrical-polemic.webp){: .invert-in-dark }

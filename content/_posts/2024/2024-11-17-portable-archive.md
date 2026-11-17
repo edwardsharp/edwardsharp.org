@@ -10,4 +10,4 @@ preview_alt: ""
 tags: []
 ---
 
-![](/content/media/2024/2024-11-17-portable-archive.webp)
+![](/content/media/2024/2024-11-17-portable-archive.webp){: .invert-in-dark }

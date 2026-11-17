@@ -10,4 +10,4 @@ preview_alt: ""
 tags: ["marsh","diagram"]
 ---
 
-![](/content/media/2020/2020-04-20-marshcoop-org-name-cheap-com.webp)
+![](/content/media/2020/2020-04-20-marshcoop-org-name-cheap-com.webp){: .invert-in-dark }

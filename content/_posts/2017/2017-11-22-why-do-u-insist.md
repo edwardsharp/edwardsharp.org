@@ -12,7 +12,7 @@ tags: ["poemz","herringbone"]
 
 why do u insist?
 
-![](/content/media/2017/2017-11-22-why-do-u-insist.webp)
+![](/content/media/2017/2017-11-22-why-do-u-insist.webp){: .invert-in-dark }
 
 - uh, dupe?
 - this world is \_\_\_\_\_\_\_\_\_\_\_
