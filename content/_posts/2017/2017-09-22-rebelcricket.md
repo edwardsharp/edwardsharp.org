@@ -46,11 +46,11 @@ height = 2048 / 300 = 6.83 inches
 
 eeddee [4943bd0b@gateway/web/freenode/ip.73.67.189.11] has joined #couchdb
 
-[20:43] <eeddee> hi! i'm trying to follow the external os processes guide, however, i can't seem to get the couch_httpd_proxy config to work... when i use the google.com example from the doc i still get "Database does not exist" error when i try to visit [http://localhost:5984/_google](http://localhost:5984/_google)
+[20:43] <eeddee> hi! i'm trying to follow the external os processes guide, however, i can't seem to get the couch_httpd_proxy config to work... when i use the google.com example from the doc i still get "Database does not exist" error when i try to visit http://localhost:5984/\_google
 
-[20:43] <eeddee> doc ref: [http://docs.couchdb.org/en/2.1.0/config/proxying.html?highlight=httpd_global_handlers](http://docs.couchdb.org/en/2.1.0/config/proxying.html?highlight=httpd_global_handlers)
+[20:43] <eeddee> doc ref: http://docs.couchdb.org/en/2.1.0/config/proxying.html?highlight=httpd\_global\_handlers
 
-[20:43] <eeddee> \_google = {couch_httpd_proxy, handle_proxy_req, <<"[http://www.google.com](http://www.google.com)">>}
+[20:43] <eeddee> \_google = {couch_httpd_proxy, handle_proxy_req, <<"http://www.google.com">>}
 
 [20:43] <eeddee> in my [httpd\_global\_handlers]
 

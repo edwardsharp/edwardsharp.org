@@ -187,4 +187,3 @@ export function postFrontMatter(fields: Record<string, unknown>): string {
     .map((key) => `${key}: ${JSON.stringify(fields[key])}`)
     .join("\n")}\n---\n`;
 }
-
