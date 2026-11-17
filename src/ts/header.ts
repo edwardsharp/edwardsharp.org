@@ -1,5 +1,16 @@
 import { needsMenu } from "./header-layout.ts";
 
+for (const toggle of document.querySelectorAll<HTMLButtonElement>(
+  "[data-bio-photo-toggle]",
+)) {
+  toggle.addEventListener("click", () => {
+    toggle.setAttribute(
+      "aria-pressed",
+      String(toggle.getAttribute("aria-pressed") !== "true"),
+    );
+  });
+}
+
 function enhanceHeader(header: HTMLElement) {
   const wordmark = header.querySelector<HTMLElement>(".wordmark");
   const navigation = header.querySelector<HTMLElement>("nav");

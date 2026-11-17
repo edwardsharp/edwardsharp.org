@@ -43,15 +43,28 @@ test("bio image and home links render on archive, home, and standalone pages wit
   assert.ifError(result.error);
   assert.equal(result.status, 0, result.stderr);
   const pages: string[] = JSON.parse(result.stdout);
-  for (const html of pages) {
+  for (const [index, html] of pages.entries()) {
     const { document } = parseHTML(html);
     const bio =
       document.querySelector("#bio-panel") ?? document.querySelector("main");
     assert.ok(bio);
     assert.equal(
-      bio.querySelector("img")?.getAttribute("src"),
+      bio.querySelector("img.bio-photo")?.getAttribute("src"),
       "/journal/portrait.jpg",
     );
+    const content = bio.querySelector(".bio-content");
+    assert.ok(content);
+    assert.deepEqual(
+      [...content.children].slice(0, 3).map((element) => element.tagName),
+      ["P", "H1", "H2"],
+    );
+    assert.ok(content.querySelector(":scope > .bio-portrait img.bio-photo"));
+    assert.ok(
+      [...content.children].some((element) =>
+        element.textContent.includes("see also:"),
+      ),
+    );
+    assert.ok(!content.querySelector("[data-bio-home]"));
     assert.equal(
       bio.querySelector("[data-bio-home]")?.getAttribute("href"),
       "/journal/",
@@ -61,5 +74,27 @@ test("bio image and home links render on archive, home, and standalone pages wit
       document.body.classList.contains("home-page"),
     );
     assert.ok(!bio.innerHTML.includes("{{"));
+    assert.equal(document.body.classList.contains("archive-page"), index === 0);
   }
+});
+
+test("the bio photo can be tapped or activated again to restore its cutout", async (t) => {
+  const { document } = parseHTML(
+    '<html><body><button data-bio-photo-toggle aria-pressed="false"><img class="bio-photo"></button></body></html>',
+  );
+  const previous = Object.getOwnPropertyDescriptor(globalThis, "document");
+  Object.defineProperty(globalThis, "document", {
+    value: document,
+    configurable: true,
+  });
+  t.after(() => {
+    if (previous) Object.defineProperty(globalThis, "document", previous);
+    else Reflect.deleteProperty(globalThis, "document");
+  });
+  await import("../header.ts");
+  const toggle = document.querySelector("button")!;
+  toggle.click();
+  assert.equal(toggle.getAttribute("aria-pressed"), "true");
+  toggle.click();
+  assert.equal(toggle.getAttribute("aria-pressed"), "false");
 });

@@ -1,18 +1,31 @@
-<p>
-  <img
-    src="{{ include.bio.image | relative_url }}"
-    alt="{{ include.bio.image_alt | escape }}"
-    title="{{ include.bio.image_alt | escape }}"
-  />
-</p>
+<div class="bio-content">
+  <p class="bio-portrait">
+    <button
+      class="bio-photo-toggle"
+      type="button"
+      data-bio-photo-toggle
+      aria-label="show full bio photo"
+      aria-pressed="false"
+    >
+      <img
+        class="bio-photo"
+        src="{{ include.bio.image | relative_url }}"
+        alt="{{ include.bio.image_alt | escape }}"
+        title="{{ include.bio.image_alt | escape }}"
+      />
+    </button>
+  </p>
 
-{{ include.body | markdownify }}
+  {{ include.body | markdownify }}
+</div>
 
 <a
   class="bio-home"
   href="{{ '/' | relative_url }}"
   data-bio-home
-  {% if page.url == '/' %}hidden{% endif %}
+  {% if page.url == '/' %}
+    hidden
+  {% endif %}
 >
   <svg
     viewBox="0 0 24 24"
