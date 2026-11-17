@@ -29,58 +29,58 @@ checkitout! just a little prototype that uses tiny-slider ([http://ganlanyuan.gi
 <div class="carousel" tabindex="0">
   <div class="item">
     <img
-      src="//source.unsplash.com/collection/993239/600x320"
-      width="600"
-      height="320"
-      alt=""
+      src="../2026/2026-03-20-photo.webp"
+      width="1284"
+      height="1989"
+      alt="a cat cutout on a black background"
     />
   </div>
   <div class="item">
     <img
-      src="//source.unsplash.com/collection/1673600/500x300"
-      width="500"
-      height="300"
-      alt=""
+      src="../2026/2026-10-06-hello-world.webp"
+      width="4032"
+      height="3024"
+      alt="hello world printed on a small paper roll"
     />
   </div>
   <div class="item">
     <img
-      src="//source.unsplash.com/collection/1513994/200x310"
-      width="200"
-      height="310"
-      alt=""
+      src="../2026/2026-10-10-coming-soon.webp"
+      width="4032"
+      height="3024"
+      alt="a spirit halloween coming soon banner on a city street"
     />
   </div>
   <div class="item">
     <img
-      src="//source.unsplash.com/collection/502925/400x330"
-      width="400"
-      height="330"
-      alt=""
+      src="../2026/2026-10-27-photo.webp"
+      width="4032"
+      height="3024"
+      alt="a homemade electronic instrument with a knob and display"
     />
   </div>
   <div class="item">
     <img
-      src="//source.unsplash.com/collection/1891993/640x300"
-      width="640"
-      height="300"
-      alt=""
+      src="../2026/2026-10-30-fuzzy-fren.webp"
+      width="3024"
+      height="4032"
+      alt="a fuzzy black caterpillar among leaves"
     />
   </div>
   <div class="item">
     <img
-      src="//source.unsplash.com/collection/1103088/360x240"
-      width="360"
-      height="240"
-      alt=""
+      src="../2026/2026-11-03-freqh6le.webp"
+      width="4032"
+      height="3024"
+      alt="a raspberry pi in a pink case with a green knob"
     />
   </div>
   <div class="item">
     <img
-      src="//source.unsplash.com/collection/548245/460x280"
-      width="460"
-      height="280"
-      alt=""
+      src="../2026/2026-11-07-apc.webp"
+      width="4096"
+      height="3072"
+      alt="a circular mark on a sidewalk beside fallen leaves"
     />
   </div>
 </div>
