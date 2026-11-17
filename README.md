@@ -7,12 +7,12 @@ a jekyll blog with a virtualized honeycomb feed and a infinite scroll post reade
 ## devel
 
 ```sh
-bundle install
-npm ci
-./run-dev.sh
-```
+bundle install      # run once
+npm ci              # run once
 
-```sh
+./run-dev.sh        # incremental watch mode
+
+# or do a full build
 npm run build && JEKYLL_ENV=production bundle exec jekyll build
 ```
 
@@ -37,12 +37,14 @@ git clone --depth 1 --branch v1.5.0 https://github.com/storizzi/notes-exporter.g
 the [notes exporter](https://github.com/storizzi/notes-exporter) installs its dependencies on first use. extract stuff from the social media corpz (accepts normalized `SocialPost[]` records (see [the importer](src/utilz/import-social.ts)))
 
 ```sh
-npm run import:social -- capture.json report.json`
+# for example:
+npm run import:social -- capture.json report.json
 ```
 
-imports are append-only: existing posts and their media are left alone. commit `src/utilz/social-import-history.jsonl` and `src/utilz/image-import-history.jsonl` with imported content; their source IDs prevent renamed or deleted posts from being reimported. unavailable images leave an inline notice; the rest of the post remains readable.
+_imports are append-only:_ existing posts and their media are left alone. commit `src/utilz/social-import-history.jsonl` and `src/utilz/image-import-history.jsonl` with imported content; their source IDs prevent renamed or deleted posts from being reimported. unavailable images leave an inline notice; the rest of the post remains readable.
 
 ```sh
+# for example:
 npm run export:notes -- "$HOME/Desktop/all-notes-review"
 npm run export:notes -- "$HOME/Desktop/notes-review" --since 2020
 npm run export:notes -- "$HOME/Desktop/recent-notes-review" --since 2020-06-15 --since-field modified --tags
@@ -51,6 +53,7 @@ npm run export:notes -- "$HOME/Desktop/recent-notes-review" --since 2020-06-15 -
 _notes:_ choose a new/empty private folder outside this repo. `raw/`: upstream export. `notes/`: markdown/images. `report.json`: skips/errors. preserves `date` and `last_modified`; drawings get `kind: doodle`. `--since`: year, year-month, or year-month-day, inclusive, using creation dates unless `--since-field modified`. raw includes all accessible notes; locked notes/non-image attachments are excluded.
 
 ```sh
+# for example:
 npm run import:photos -- "/path/to/Photos exports" --dry-run
 npm run import:photos -- "/path/to/Photos exports"
 npm run import:photos -- "/path/to/Photos exports" --photoset "one set" --library "/path/to/Photos Library.photoslibrary"
