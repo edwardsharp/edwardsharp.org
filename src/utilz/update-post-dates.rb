@@ -42,7 +42,20 @@ module UpdatePostDates
     header.match?(pattern) ? header.sub(pattern, line) : "#{header}#{line}"
   end
 
+  def self.calendar_day(date, timezone)
+    return date if date.match?(/\A\d{4}-\d{2}-\d{2}\z/)
+    previous = ENV["TZ"]
+    begin
+      ENV["TZ"] = timezone || "UTC"
+      Time.iso8601(date).getlocal.strftime("%F")
+    ensure
+      ENV["TZ"] = previous
+    end
+  end
+
   def self.run(root, dry_run: false)
+    config_path = File.join(root, "_config.yml")
+    config = File.file?(config_path) ? YAML.safe_load(File.read(config_path)) : {}
     output, error, status = Open3.capture3(
       "git", "-C", root, "diff", "HEAD", "--find-renames", "--name-status", "-z", "--diff-filter=AMR", "--", "content/_posts"
     )
@@ -60,6 +73,7 @@ module UpdatePostDates
       path = File.join(root, relative)
       text = File.read(path, encoding: "UTF-8")
       line = date_line(text)
+      old = nil
       unless kind == "A"
         old, error, status = Open3.capture3("git", "-C", root, "show", "HEAD:#{previous}")
         raise "cannot read original post: #{error.strip}" unless status.success?
@@ -80,17 +94,29 @@ module UpdatePostDates
       end
       header = set_field(set_field(header, "date", date), "date_precision", precision)
       overrides[path] = "---\n#{header}---\n#{body}"
-      day = date[0, 10]
+      day = calendar_day(date, config["timezone"])
       name = File.basename(path)
       raise "post filename needs a date prefix: #{relative}" unless name.match?(/\A\d{4}-\d{2}-\d{2}-/)
       destination = File.join(root, "content", "_posts", day[0, 4], "#{day}#{name[10..]}")
       moves[path] = destination if path != destination
+      if old && config["permalink"] == "/post/:year-:month-:day-:title/"
+        old_header, = front_matter(old)
+        old_data = YAML.safe_load(old_header, permitted_classes: [Date, Time])
+        unless old_data.key?("permalink")
+          old_date, = normalized_date(date_line(old))
+          old_day = calendar_day(old_date, config["timezone"])
+          old_slug = File.basename(previous, ".md")[11..]
+          new_slug = File.basename(destination, ".md")[11..]
+          mapping["/post/#{old_day}-#{old_slug}/"] = "/post/#{day}-#{new_slug}/"
+        end
+      end
       text.scan(%r{/content/media/[^\s"'<>()\[\]{}?#]+}).uniq.each do |url|
         media = File.expand_path(URI::DEFAULT_PARSER.unescape(url).delete_prefix("/"), root)
         base = File.join(root, "content", "media")
         raise "media reference leaves its directory: #{url}" unless media.start_with?("#{base}/")
         relative_media = Pathname.new(media).relative_path_from(Pathname.new(base)).to_s
         tail = relative_media.sub(/\A\d{4}\//, "")
+        tail = tail.sub(/\A#{Regexp.escape(name[0, 10])}-/, "#{day}-")
         target = File.join(base, day[0, 4], tail)
         next if target == media
         raise "shared media has conflicting destination years: #{url}" if moves.key?(media) && moves[media] != target

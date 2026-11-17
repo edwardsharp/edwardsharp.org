@@ -335,10 +335,7 @@ test(
       photosMetadata,
     };
     assert.equal((await importImages(options, root)).imported, 1);
-    const originalPost = join(
-      root,
-      "content/_posts/2020/2020-06-01-old.md",
-    );
+    const originalPost = join(root, "content/_posts/2020/2020-06-01-old.md");
     const edited = `${await readFile(originalPost, "utf8")}\nuser edit\n`;
     await writeFile(originalPost, edited);
     await add("new-one", "green", 14);
@@ -373,6 +370,18 @@ test("post filenames distinguish screenshots and photos without repeating captur
   assert.equal(
     imagePostFilename("Screen Recording 2026-01-06 at 15.35.19", date, "video"),
     "2026-01-06-video.md",
+  );
+  assert.equal(
+    imagePostFilename("photo / 2026-01-06", date, "photo"),
+    "2026-01-06-photo.md",
+  );
+  assert.equal(
+    imagePostFilename("ello / 2026-01-06", date, "photo"),
+    "2026-01-06-photo.md",
+  );
+  assert.equal(
+    imagePostFilename("video / 2026-01-06, part one", date, "video"),
+    "2026-01-06-video-part-one.md",
   );
 });
 

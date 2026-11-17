@@ -638,7 +638,12 @@ export async function importPosts(
       );
       const stem = await availablePostStem(
         root,
-        postStem(post.title, day, classification.kind, post.id),
+        postStem(
+          post.title,
+          day,
+          classification.kind,
+          post.platform === "archive" ? undefined : post.id,
+        ),
       );
       const filename = join(postDir, `${stem}.md`);
       const formatted =

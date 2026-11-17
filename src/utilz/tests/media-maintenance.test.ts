@@ -288,6 +288,53 @@ test("date repair covers staged and unstaged dates, moves media and preserves re
   );
 });
 
+test("date repair keeps readable media and generated post links aligned with the site timezone", async (t) => {
+  const root = await mkdtemp(join(tmpdir(), "blog-readable-dates-"));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  await file(
+    root,
+    "_config.yml",
+    "timezone: America/New_York\npermalink: /post/:year-:month-:day-:title/\n",
+  );
+  const path = await file(
+    root,
+    "content/_posts/2020/2020-03-01-one.md",
+    '---\nkind: photo\ntitle: one\ndate: "2020-03-01T10:00:00.000Z"\ndate_precision: second\npreview_image: "/content/media/2020/2020-03-01-one.webp"\ntags: []\n---\n![one](/content/media/2020/2020-03-01-one.webp)\n',
+  );
+  await file(root, "content/media/2020/2020-03-01-one.webp", "unchanged bytes");
+  const reference = await file(
+    root,
+    "content/reference.md",
+    "[one](/post/2020-03-01-one/?view=1)",
+  );
+  commit(root);
+  await writeFile(
+    path,
+    (await readFile(path, "utf8")).replace(
+      "2020-03-01T10:00:00.000Z",
+      "2021-01-01T01:00:00.000Z",
+    ),
+  );
+  const result = utility(root, "dates");
+  assert.equal(result.status, 0, result.stderr);
+  const output = await readFile(
+    join(root, "content/_posts/2020/2020-12-31-one.md"),
+    "utf8",
+  );
+  assert.match(output, /\/content\/media\/2020\/2020-12-31-one.webp/);
+  assert.equal(
+    await readFile(
+      join(root, "content/media/2020/2020-12-31-one.webp"),
+      "utf8",
+    ),
+    "unchanged bytes",
+  );
+  assert.equal(
+    await readFile(reference, "utf8"),
+    "[one](/post/2020-12-31-one/?view=1)",
+  );
+});
+
 test("date repair retains compatible partial/minute precision and corrects incompatible values", async (t) => {
   const root = await mkdtemp(join(tmpdir(), "blog-dates-precision-"));
   t.after(() => rm(root, { recursive: true, force: true }));

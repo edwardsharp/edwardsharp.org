@@ -73,7 +73,7 @@ export function classifyPost(
   else if (
     kind === "screenshot" ||
     labels.includes("screenshot") ||
-    /^screen\s*shot\b/i.test(title)
+    /(?:^|\s)screen\s*shot\b/i.test(title)
   )
     kind = "screenshot";
   return {
@@ -113,10 +113,22 @@ export function postStem(
     .replace(/https?:\/\/\S+/gi, "")
     .trim();
   if (sourceId) label = label.replaceAll(sourceId, "").trim();
+  label = label
+    .replace(
+      /^(?:post|photo|video|entry|link|audio|code|screenshot|doodle|ello|instagram|twitter|tumblr|youtube|vimeo|flickr|jsfiddle)\s*\/\s*\d{4}-\d{2}-\d{2},?\s*/i,
+      `${kind} `,
+    )
+    .replace(
+      /(?:^|\s)screen\s*(?:shot|recording)\s+\d{4}[- _]\d{2}[- _]\d{2}\s+at\s+[\d.: ]+(?:am|pm)?$/i,
+      "",
+    )
+    .trim();
   const generated =
     /^(?:(?:img|dsc[nf]?|image|photo|video|pxl|fullsizerender)[\s_.(-]*[\d\s_().:TZ-]+|screen\s*(?:shot|recording)[\s_().:-]*[\d\s_().:TZ-]+(?:\s*(?:at|am|pm)[\d\s_().:-]*)*)(?:\.(?:jpe?g|png|heic|mov|mp4))?$/i;
   if (
     generated.test(label) ||
+    /^(?:temp|tmp)\d+.*\.(?:jpe?g|png|gif)$/i.test(label) ||
+    /^https?(?:www)?(?:youtube|youtu\.?be|vimeo|jsfiddle)/i.test(label) ||
     /^(?:youtube|vimeo|flickr|jsfiddle|instagram|twitter|ello|untitled|no title)$/i.test(
       label,
     ) ||
@@ -175,3 +187,4 @@ export function postFrontMatter(fields: Record<string, unknown>): string {
     .map((key) => `${key}: ${JSON.stringify(fields[key])}`)
     .join("\n")}\n---\n`;
 }
+
