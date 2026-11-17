@@ -4,7 +4,7 @@ title: "pwnw06 with nathan curtis warner"
 date: "2013-02-25T14:35:10-05:00"
 date_precision: "second"
 preview_image: "https://i.ytimg.com/vi/svfpokt__GM/mqdefault.jpg"
-tags: []
+tags: ["pwnw"]
 ---
 <div class="video-embed" style="aspect-ratio: 400 / 225">
   <iframe src="https://www.youtube-nocookie.com/embed/svfpokt__GM" title="video / 2013-02-25" loading="lazy" allowfullscreen></iframe>
