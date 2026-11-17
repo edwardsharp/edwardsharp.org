@@ -8,7 +8,7 @@ import {
 } from "@tanstack/virtual-core";
 import { buildRows, geometry, rowForIndex } from "./honeycomb.ts";
 import {
-  filterChoices,
+  populateFilter,
   filterPosts,
   locationKey,
   tagKey,
@@ -128,27 +128,7 @@ function enhanceFeed(
   const header = filterForm?.closest<HTMLElement>(".site-header");
   if (!controls || !filterForm || !header)
     throw new Error("missing feed controls");
-  const choices = filterChoices(allPosts);
-  const types = document.createElement("optgroup");
-  types.label = "post typez";
-  for (const { label, value } of choices.types)
-    types.append(new Option(label, value));
-  const tags = document.createElement("optgroup");
-  tags.label = "tagz";
-  for (const { label, value } of choices.tags)
-    tags.append(new Option(label, value));
-  filterSelect.replaceChildren(
-    new Option(`all posts (${allPosts.length})`, ""),
-    types,
-  );
-  const locations = document.createElement("optgroup");
-  locations.label = "locationz";
-  for (const { label, value } of choices.locations)
-    locations.append(new Option(label, value));
-  if (locations.children.length)
-    filterSelect.append(document.createElement("hr"), locations);
-  if (tags.children.length)
-    filterSelect.append(document.createElement("hr"), tags);
+  populateFilter(filterSelect, allPosts);
   const readFilter = () => {
     const params = new URL(location.href).searchParams;
     const type = params.get("type");
@@ -163,6 +143,9 @@ function enhanceFeed(
           : "";
   };
   const matchingPosts = (filter: string) => filterPosts(allPosts, filter);
+  const bioHome = document.querySelector<HTMLAnchorElement>(
+    "#bio-panel [data-bio-home]",
+  );
   function selectFilter(filter: string) {
     if (filter.startsWith("tag:")) filter = `tag:${tagKey(filter.slice(4))}`;
     if (filter.startsWith("location:"))
@@ -184,6 +167,7 @@ function enhanceFeed(
       filterSelect.add(option);
     }
     filterSelect.value = filter;
+    if (bioHome) bioHome.hidden = !filter;
   }
   let activeFilter = readFilter();
   selectFilter(activeFilter);
@@ -467,6 +451,8 @@ function enhanceFeed(
   resize.observe(shell);
   resize.observe(filterForm);
   resize.observe(header);
+  const siteShell = header.parentElement;
+  siteShell?.addEventListener("bio-layout", updateGeometry);
   const intersection = new IntersectionObserver(loadIfNearEnd, {
     rootMargin: "600px",
   });
@@ -489,6 +475,7 @@ function enhanceFeed(
     if (!event.persisted) {
       cleanup();
       resize.disconnect();
+      siteShell?.removeEventListener("bio-layout", updateGeometry);
       intersection.disconnect();
       cancelAnimationFrame(pendingFrame);
     }

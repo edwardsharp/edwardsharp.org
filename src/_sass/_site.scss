@@ -13,6 +13,8 @@
   --text: #ededed;
   --muted: #b0b0b0;
   --accent: #ff00ff;
+  --link-hover: #ff99e5;
+  --link-visited: #bb9ee8;
   --line: #59304e;
   --tile-image-shade: color-mix(in srgb, var(--background) 78%, transparent);
 }
@@ -25,6 +27,8 @@
     --text: #222222;
     --muted: #606060;
     --accent: #a000a0;
+    --link-hover: #700056;
+    --link-visited: #6e518b;
     --line: #d7abc7;
     --tile-image-shade: color-mix(in srgb, var(--background) 84%, transparent);
   }
@@ -58,13 +62,17 @@ body {
 }
 
 a {
-  color: inherit;
+  color: var(--link-color, inherit);
   text-underline-offset: 0.22em;
   text-decoration-thickness: 1px;
 }
 
-a:hover {
-  color: var(--accent);
+a:visited {
+  color: var(--link-visited);
+}
+
+a:is(:hover, :focus-visible) {
+  color: var(--link-hover);
 }
 
 :focus-visible {
@@ -91,8 +99,8 @@ a:hover {
   top: calc(0.75rem + env(safe-area-inset-top, 0px));
   left: calc(1rem + env(safe-area-inset-left, 0px));
   padding: 0.5rem 1rem;
-  background: var(--text);
-  color: var(--background);
+  --link-color: var(--text);
+  background: var(--surface);
   transform: translateY(-200%);
 }
 
@@ -169,17 +177,16 @@ a:hover {
   color: var(--accent);
 }
 
-.wordmark:hover {
-  color: var(--text);
-}
-
-.wordmark:hover span,
-.wordmark:focus-visible span {
-  color: var(--muted);
+.wordmark:is(:hover, :focus-visible) span {
+  color: inherit;
 }
 
 .site-header a {
   text-decoration: none;
+}
+
+.site-header a:is(:hover, :focus-visible) {
+  text-decoration-line: underline;
 }
 
 .site-header nav {
@@ -195,7 +202,7 @@ a:hover {
   align-items: center;
   flex-shrink: 0;
   white-space: nowrap;
-  color: var(--muted);
+  --link-color: var(--muted);
 }
 
 .navigation-icon {
@@ -216,9 +223,20 @@ a:hover {
   column-gap: 0.75rem;
 }
 
-.site-header nav a:hover,
+.site-header.has-icon-navigation nav a {
+  position: relative;
+}
+
+.site-header.has-icon-navigation nav a:is(:hover, :focus-visible)::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: -0.22em;
+  border-bottom: 1px solid currentColor;
+}
+
 .site-header nav a[aria-current] {
-  color: var(--accent);
+  --link-color: var(--accent);
 }
 
 .header-toggle {
@@ -485,11 +503,90 @@ h1 {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  color: var(--text);
 }
 
-.archive-list a:hover {
-  color: var(--accent);
+.archive-snippet {
+  grid-column: 2 / -1;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.archive mark {
+  background: var(--accent);
+  color: var(--background);
+}
+
+.bio-panel:not([hidden]) {
+  display: block;
+  height: 0;
+  visibility: hidden;
+  overflow: clip;
+}
+
+.bio-panel__inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.bio-panel__content {
+  height: max(0px, calc(100dvh - var(--header-height, 5rem)));
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: safe center;
+  align-items: flex-start;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-block: clamp(0.75rem, 3dvh, 2rem);
+}
+
+.bio-panel__content > * {
+  flex-shrink: 0;
+}
+
+.bio-panel__content img {
+  display: block;
+  width: min(45vw, 15rem, 25dvh);
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.bio-panel__content.prose h1 {
+  margin-block: 0.5rem 1rem;
+  font-size: clamp(2rem, min(7vw, 8dvh), 4.5rem);
+}
+
+.bio-panel__content.prose h2 {
+  margin-block: 0.5rem;
+  font-size: clamp(1.25rem, min(4vw, 4dvh), 1.5rem);
+}
+
+.bio-panel__content p {
+  max-width: 42rem;
+  margin-block: 0 1rem;
+}
+
+.bio-home:not([hidden]) {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bio-home svg {
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.bio-panel__content .bio-home {
+  margin-block-start: auto;
+  padding-block-start: 1.5rem;
+}
+
+.is-bio-open .bio-panel {
+  height: auto;
+  visibility: visible;
 }
 
 .home-page .site-shell {
@@ -548,7 +645,7 @@ h1 {
 .hex-card__link {
   position: absolute;
   inset: 0;
-  color: var(--text);
+  --link-color: var(--text);
   text-decoration: none;
 }
 
@@ -615,7 +712,7 @@ h1 {
   -webkit-line-clamp: 2;
   overflow: hidden;
   margin: 0;
-  color: var(--text);
+  color: inherit;
   font-size: 1.5rem;
   line-height: 1.3;
 }
@@ -800,7 +897,7 @@ html.post-dialog-open {
 
 .post-dialog__toolbar .post-dialog__permalink,
 .post-reader__entry .post-reader__title a {
-  color: inherit;
+  --link-color: var(--text);
   text-decoration-line: none;
 }
 
@@ -966,7 +1063,7 @@ html.post-dialog-open {
   font-size: 1.0625rem;
 }
 .prose a {
-  color: var(--accent);
+  --link-color: var(--accent);
 }
 .prose h2,
 .prose h3 {
@@ -1111,20 +1208,7 @@ pre code {
 
 .post-navigation a,
 .post-dialog__content .tags a {
-  color: var(--accent);
-  transition: color 150ms ease;
-}
-
-.post-navigation a:focus-visible,
-.post-dialog__content .tags a:focus-visible {
-  color: var(--text);
-}
-
-@media (hover: hover) {
-  .post-navigation a:hover,
-  .post-dialog__content .tags a:hover {
-    color: var(--text);
-  }
+  --link-color: var(--accent);
 }
 
 @media (max-width: 36rem) {

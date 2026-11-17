@@ -20,6 +20,17 @@
   >
     <a class="skip-link" href="#main">skip to content</a>
     <div class="site-shell">
+      {% unless page.bio %}
+        {% assign page_collection = site.collections | where: 'label', 'pages' | first %}
+        {% assign bio = page_collection.docs | where: 'url', '/bio/' | first %}
+        {% if bio %}
+        <section id="bio-panel" class="bio-panel" aria-label="bio" hidden>
+          <div class="bio-panel__inner">
+            <div class="bio-panel__content prose" tabindex="-1">{% include bio.html bio=bio body=bio.content %}</div>
+          </div>
+        </section>
+        {% endif %}
+      {% endunless %}
       {% include header.html %}
       <main id="main" tabindex="-1">{{ content }}</main>
       {% unless page.feed %}

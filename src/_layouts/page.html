@@ -8,5 +8,11 @@ layout: default
     {% endunless %}
     <h1>{{ page.title | escape }}</h1>
   </header>
-  <div class="prose">{{ content }}</div>
+  <div class="prose">
+    {% if page.bio %}
+      {% include bio.html bio=page body=content %}
+    {% else %}
+      {{ content }}
+    {% endif %}
+  </div>
 </article>

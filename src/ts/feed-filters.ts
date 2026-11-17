@@ -1,5 +1,5 @@
 interface FilterPost {
-  kind: string;
+  kind: string | null;
   tags: readonly string[];
   locations?: readonly string[];
 }
@@ -47,7 +47,8 @@ export function filterChoices(posts: readonly FilterPost[]) {
   );
   const locationLabels = new Map<string, string>();
   for (const post of posts) {
-    typeCounts.set(post.kind, (typeCounts.get(post.kind) ?? 0) + 1);
+    if (post.kind)
+      typeCounts.set(post.kind, (typeCounts.get(post.kind) ?? 0) + 1);
     for (const tag of post.tags) {
       const key = tagKey(tag);
       if (key && !tagLabels.has(key))
@@ -81,6 +82,27 @@ export function filterChoices(posts: readonly FilterPost[]) {
     tags: choices(tagCounts, "tag", 2, tagLabels),
     locations: choices(locationCounts, "location", 1, locationLabels),
   };
+}
+
+export function populateFilter(
+  select: HTMLSelectElement,
+  posts: readonly FilterPost[],
+) {
+  const choices = filterChoices(posts);
+  select.replaceChildren(new Option(`all posts (${posts.length})`, ""));
+  for (const [label, values] of [
+    ["post typez", choices.types],
+    ["locationz", choices.locations],
+    ["tagz", choices.tags],
+  ] as const) {
+    if (!values.length) continue;
+    const group = document.createElement("optgroup");
+    group.label = label;
+    for (const { label, value } of values)
+      group.append(new Option(label, value));
+    if (select.children.length > 1) select.append(document.createElement("hr"));
+    select.append(group);
+  }
 }
 
 export function filterPosts<T extends FilterPost>(

@@ -18,6 +18,7 @@ searchable: false
   <p class="archive-status" role="status" aria-live="polite">
     {{ site.posts.size | plus: archive_pages.size }} entries
   </p>
+  <p><a class="archive-clear-filter" href="{{ '/archive/' | relative_url }}" hidden>clear the selected filter</a></p>
   <div class="archive-results">
     {% if archive_pages.size > 0 %}
       <ul class="archive-list">

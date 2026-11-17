@@ -1,6 +1,12 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { createSearch, parseDocuments } from "../search.ts";
+import {
+  createSearch,
+  createSearchIndex,
+  parseDocuments,
+  searchFragment,
+} from "../search.ts";
+import { filterPosts } from "../feed-filters.ts";
 import type { SearchDocument } from "../search.ts";
 
 const documents: SearchDocument[] = [
@@ -50,6 +56,51 @@ test("plain-text queries do not interpret malformed Lunr query syntax", () => {
   assert.deepEqual(createSearch([])("anything"), []);
 });
 
+test("word prefixes and single-character typos match while every query word remains required", () => {
+  const search = createSearch(documents);
+  assert.deepEqual(search("sig bir"), [documents[1]]);
+  assert.deepEqual(search("siganl"), [documents[0], documents[1]]);
+  assert.deepEqual(search("fieldwor"), [documents[1]]);
+  assert.deepEqual(search("sig nonexistent"), []);
+  assert.equal(search("signal")[0], documents[0]);
+  assert.deepEqual(search("*"), []);
+});
+
+test("match positions support title highlights, fuzzy body excerpts, and tag-only matches", () => {
+  const search = createSearchIndex(documents);
+  const titleHit = search("sig").find(({ entry }) => entry.url === "/post/1/")!;
+  assert.ok(
+    titleHit.matches.title.some(
+      ([offset, length]) =>
+        titleHit.entry.title.slice(offset, offset + length) === "signal",
+    ),
+  );
+  const bodyHit = search("migarting")[0]!;
+  assert.equal(bodyHit.entry, documents[1]);
+  const fragment = searchFragment(bodyHit.entry.text, bodyHit.matches.text);
+  assert.ok(fragment.text.startsWith("…"));
+  assert.ok(fragment.text.length <= 182);
+  assert.ok(
+    fragment.matches.some(
+      ([offset, length]) =>
+        fragment.text.slice(offset, offset + length) === "migrating",
+    ),
+  );
+  const tagHit = search("field")[0]!;
+  assert.deepEqual(tagHit.matches.title, []);
+  assert.deepEqual(tagHit.matches.text, []);
+  assert.ok(tagHit.matches.tags.length > 0);
+});
+
+test("archive filters and full-text results intersect without admitting unrelated pages", () => {
+  const scoped = filterPosts(documents, "tag:fieldwork");
+  assert.deepEqual(createSearch(scoped)("sig"), [documents[1]]);
+  assert.deepEqual(createSearch(scoped)("radio"), []);
+  assert.deepEqual(createSearch(filterPosts(documents, "type:photo"))(""), [
+    documents[1],
+  ]);
+});
+
 test("search index validation rejects malformed, unsafe, and duplicate entries", () => {
   assert.deepEqual(parseDocuments(documents), documents);
   assert.deepEqual(parseDocuments([]), []);
@@ -62,6 +113,7 @@ test("search index validation rejects malformed, unsafe, and duplicate entries",
     [{ ...documents[0], text: 42 }],
     [{ ...documents[0], kind: 42 }],
     [{ ...documents[0], kind: "" }],
+    [{ ...documents[0], locations: [12] }],
     [{ ...documents[0], url: "javascript:alert(1)" }],
     [{ ...documents[0], url: "//example.com/" }],
     [{ ...documents[0], url: "/\\example.com/" }],
