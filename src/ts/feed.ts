@@ -86,11 +86,7 @@ function createCard(post: PreviewPost, index: number, total: number) {
   if (post.image) {
     const image = document.createElement("img");
     image.className = "hex-card__image";
-    if (
-      post.kind === "entry" &&
-      post.tags.some((tag) => tag.trim().toLowerCase() === "doodle")
-    )
-      image.classList.add("doodle-image");
+    if (post.kind === "doodle") image.classList.add("doodle-image");
     image.src = post.image;
     image.alt = post.alt;
     image.loading = "lazy";

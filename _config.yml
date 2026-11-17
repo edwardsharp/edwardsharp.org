@@ -19,7 +19,7 @@ sass:
   style: compressed
   sourcemap: never
 
-permalink: /post/:title/
+permalink: /post/:year-:month-:day-:title/
 defaults:
   - scope:
       path: ""

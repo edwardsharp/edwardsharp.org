@@ -1,4 +1,3 @@
-import { createHash } from "node:crypto";
 import { spawnSync } from "node:child_process";
 import {
   appendFile,
@@ -12,6 +11,15 @@ import { basename, dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseHTML } from "linkedom";
 import { format } from "prettier";
+import {
+  availablePostStem,
+  classifyPost,
+  postDay,
+  postFrontMatter,
+  postStem,
+  siteTimezone,
+  sourceURL,
+} from "./post-format.ts";
 
 const platforms = [
   "instagram",
@@ -30,6 +38,7 @@ type Platform = (typeof platforms)[number];
 const kinds = [
   "entry",
   "doodle",
+  "screenshot",
   "photo",
   "photoset",
   "audio",
@@ -245,7 +254,8 @@ export function postHTML(
     }
     return document.body.innerHTML;
   }
-  return `${html}\n<p><a href="${escapeHTML(post.url)}">original ${post.platform} post</a>${post.archiveUrl ? ` · <a href="${escapeHTML(post.archiveUrl)}">archived post</a>` : ""}</p>`;
+  if (!sourceURL(post.url)) return html;
+  return `${html}\n<p><a href="${escapeHTML(post.url)}">original ${post.platform} post</a></p>`;
 }
 
 const allowedTags = new Set([
@@ -447,11 +457,6 @@ async function imageFile(
   archiveUrl?: string,
 ): Promise<string> {
   publicURL(url);
-  const hash = createHash("sha256").update(url).digest("hex").slice(0, 10);
-  const existing = (await readdir(directory)).find((name) =>
-    name.startsWith(`${stem}-${hash}.`),
-  );
-  if (existing) return existing;
   let response: Response;
   try {
     response = await fetch(url, { signal: AbortSignal.timeout(10000) });
@@ -478,7 +483,7 @@ async function imageFile(
   };
   const extension = type && extensions[type];
   if (!extension) throw new Error(`unexpected image type ${type}: ${url}`);
-  const filename = `${stem}-${hash}.${extension}`;
+  const filename = `${stem}.${extension}`;
   const bytes = new Uint8Array(await response.arrayBuffer());
   if (bytes.length < 16) throw new Error(`empty image: ${url}`);
   await writeFile(join(directory, filename), bytes, { flag: "wx" });
@@ -542,21 +547,16 @@ export function postMarkdown(
   publicURL(post.url);
   const date = sourceDate(post.date);
   const kind = postKind(post.kind);
+  const classified = classifyPost(kind, postTags(post), post.title);
   const fields: Record<string, unknown> = {
     title: post.title.trim() || `${kind} / ${date.date.slice(0, 10)}`,
     date: date.date,
     date_precision: date.precision,
-    tags: postTags(post),
-    permalink: `/post/${post.platform === "twitter" ? "" : `${post.platform}-`}${post.id}/`,
-    source_id: post.id,
-    kind,
+    tags: classified.tags,
+    kind: classified.kind,
   };
-  if (post.platform !== "twitter") {
-    fields.source_platform = post.platform;
-    fields.source_url = post.url;
-    if (post.archiveUrl) fields.archive_url = publicURL(post.archiveUrl).href;
-  }
-  if (post.revision !== undefined) fields.source_revision = post.revision;
+  const source = sourceURL(post.url);
+  if (source) fields.source = source;
   if (preview) fields.preview_image = preview;
   html = html
     .replaceAll("{", "&#123;")
@@ -570,9 +570,7 @@ export function postMarkdown(
       /href="\/\?tag=([^"]*)"/g,
       "href=\"{{ '/' | relative_url }}?tag=$1\"",
     );
-  return `---\n${Object.entries(fields)
-    .map(([key, value]) => `${key}: ${JSON.stringify(value)}`)
-    .join("\n")}\n---\n${html.trim()}\n`;
+  return `${postFrontMatter(fields)}${html.trim()}\n`;
 }
 
 export async function importPosts(
@@ -583,6 +581,7 @@ export async function importPosts(
   const data: unknown = JSON.parse(await readFile(input, "utf8"));
   if (!Array.isArray(data) || !data.every(isSocialPost))
     throw new Error("expected an array of SocialPost records");
+  const timezone = await siteTimezone(root);
   const historyFile = join(root, "src", "utilz", "social-import-history.jsonl");
   const history = await importHistory(historyFile);
   await mkdir(dirname(historyFile), { recursive: true });
@@ -620,18 +619,28 @@ export async function importPosts(
       const { date } = sourceDate(post.date);
       if (!/^[\w-]+$/.test(post.id))
         throw new Error(`invalid source ID: ${post.id}`);
-      const year = date.slice(0, 4);
-      const stem = `${date.slice(0, 10)}-${post.platform === "twitter" ? "entry" : post.platform}-${post.id}`;
+      const day = postDay(date, timezone);
+      const year = day.slice(0, 4);
       const mediaDir = join(root, "content", "media", year);
       const postDir = join(root, "content", "_posts", year);
-      const filename = join(postDir, `${stem}.md`);
-      if (await existingFile(filename)) {
+      const legacy = `${date.slice(0, 10)}-${post.platform === "twitter" ? "entry" : post.platform}-${post.id}`;
+      if (await existingFile(join(postDir, `${legacy}.md`))) {
         await remember(identity);
         report.skipped.push(post.url);
         continue;
       }
       await mkdir(mediaDir, { recursive: true });
       await mkdir(postDir, { recursive: true });
+      const classification = classifyPost(
+        postKind(post.kind),
+        postTags(post),
+        post.title,
+      );
+      const stem = await availablePostStem(
+        root,
+        postStem(post.title, day, classification.kind, post.id),
+      );
+      const filename = join(postDir, `${stem}.md`);
       const formatted =
         post.platform === "jsfiddle"
           ? await formatSnippets(post.html)
@@ -642,11 +651,12 @@ export async function importPosts(
       }
       let html = formatted.html;
       let preview: string | undefined;
-      for (const url of new Set(post.images)) {
+      const imageURLs = [...new Set(post.images)];
+      for (const [index, url] of imageURLs.entries()) {
         try {
           const filename = await imageFile(
             url,
-            stem,
+            imageURLs.length > 1 ? `${stem}-image-${index + 1}` : stem,
             mediaDir,
             post.archiveUrl,
           );

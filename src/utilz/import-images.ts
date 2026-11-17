@@ -17,6 +17,15 @@ import { basename, dirname, extname, join, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
 import { escapeHTML, sourceDate } from "./import-social.ts";
+import {
+  availablePostStem,
+  classifyPost,
+  postDay,
+  postFrontMatter,
+  postStem,
+  siteTimezone,
+} from "./post-format.ts";
+export { titleSlug } from "./post-format.ts";
 
 type Exif = Record<string, string>;
 type Coordinates = { latitude: number; longitude: number };
@@ -83,9 +92,10 @@ Requires ImageMagick (magick); --videos also requires ffmpeg.
   --dry-run                   Show planned posts without writing anything.
   --help                      Show this help.
 
-Titles preserve filename stems; set titles use folder names. Screenshot files
-receive the screenshot tag and screenshot-prefixed Markdown filenames; other
-posts use photo/video prefixes with readable filename stems. Originals are
+Titles preserve filename stems; set titles use folder names. Screenshots and
+doodles have their own kinds, without redundant tags. Posts and media use
+dated, readable names; generated camera/date titles use the kind as the slug.
+Originals are
 never modified. Copied images are
 auto-oriented and stripped of profiles/EXIF, including GPS; BMP becomes PNG,
 HEIC/TIFF becomes JPEG. Videos are limited to 1920px wide and must fit GitHub's
@@ -93,7 +103,7 @@ HEIC/TIFF becomes JPEG. Videos are limited to 1920px wide and must fit GitHub's
 
 Content-based history protects edited, renamed, and deleted posts on reruns.
 Changing a file or a set's membership creates a new post, never an update.
-Filename collisions receive a short content-hash suffix, never an overwrite.
+Filename collisions receive numbered suffixes, never an overwrite.
 `;
 
 function run(command: string, args: string[]): string {
@@ -216,34 +226,11 @@ export function imageLocation(exif: Exif): Coordinates | undefined {
 export function imagePostFilename(
   title: string,
   date: string,
-  kind: "photo" | "video",
+  kind: string,
+  timezone?: string,
 ): string {
-  const timestamp = new Date(date);
-  if (!Number.isFinite(timestamp.getTime()))
-    throw new Error(`invalid post date: ${date}`);
-  const day = [
-    timestamp.getFullYear(),
-    String(timestamp.getMonth() + 1).padStart(2, "0"),
-    String(timestamp.getDate()).padStart(2, "0"),
-  ].join("-");
-  const label =
-    kind === "photo" && /^screen\s*shot\b/i.test(title) ? "screenshot" : kind;
-  const stem = titleSlug(
-    title.replace(/^screen\s*(?:shot|recording) \d{4}-\d{2}-\d{2} at /i, ""),
-  );
-  return `${day}-${label}-${stem}.md`;
-}
-
-export function titleSlug(title: string): string {
-  const stem = title
-    .normalize("NFKD")
-    .replace(/\p{M}/gu, "")
-    .toLowerCase()
-    .replace(/[^\p{L}\p{N}]+/gu, "-")
-    .replace(/^-|-$/g, "")
-    .slice(0, 60);
-  if (!stem) throw new Error(`post title needs a usable filename: ${title}`);
-  return stem;
+  const classified = classifyPost(kind, [], title);
+  return `${postStem(title, postDay(date, timezone), classified.kind)}.md`;
 }
 
 export function imageOutputExtension(filename: string): string {
@@ -400,6 +387,7 @@ export async function importImages(
   root = fileURLToPath(new URL("../../", import.meta.url)),
 ): Promise<{ imported: number; skipped: number }> {
   const groups = await collect(options);
+  const timezone = await siteTimezone(root);
   if (options.photosMetadata && !groups.length)
     throw new Error("no usable Photos images; no posts written");
   const historyFile = join(root, "src", "utilz", "image-import-history.jsonl");
@@ -531,7 +519,19 @@ export async function importImages(
   }
   for (const group of groups) {
     const video = group.assets[0]!.video;
-    const kind = video ? "video" : "photo";
+    const baseKind = video ? "video" : "photo";
+    const rawTags = [baseKind];
+    if (group.assets.some((asset) => /^screen\s*shot\b/i.test(asset.title)))
+      rawTags.push("screenshot");
+    for (const asset of group.assets)
+      for (const tag of asset.photos?.tags ?? [])
+        if (
+          !rawTags.some(
+            (existing) => existing.toLowerCase() === tag.trim().toLowerCase(),
+          )
+        )
+          rawTags.push(tag.trim());
+    const { kind, tags } = classifyPost(baseKind, rawTags, group.title);
     const digest = group.set
       ? createHash("sha256")
           .update(
@@ -542,7 +542,7 @@ export async function importImages(
           )
           .digest("hex")
       : group.assets[0]!.hash;
-    const id = `local-${group.set ? "set" : kind}-${digest}`;
+    const id = `local-${group.set ? "set" : baseKind}-${digest}`;
     const duplicate =
       !group.set && !video && !history.has(id)
         ? (await existingImages()).get(group.assets[0]!.hash)
@@ -564,11 +564,10 @@ export async function importImages(
       await remember(id);
       continue;
     }
-    const readableName = imagePostFilename(group.title, date, kind);
+    const readableName = imagePostFilename(group.title, date, kind, timezone);
     const year = readableName.slice(0, 4);
-    const postName = postFiles.includes(join(year, readableName))
-      ? `${readableName.slice(0, -3)}-${digest.slice(0, 12)}.md`
-      : readableName;
+    const stem = await availablePostStem(root, readableName.slice(0, -3));
+    const postName = `${stem}.md`;
     const temporary = await mkdtemp(join(tmpdir(), "blog-images-"));
     let conversionComplete = false;
     try {
@@ -579,7 +578,7 @@ export async function importImages(
       let preview = "";
       for (const [index, asset] of group.assets.entries()) {
         const extension = video ? ".mp4" : imageOutputExtension(asset.filename);
-        const name = `${id}-${index + 1}${extension}`;
+        const name = `${stem}${group.assets.length > 1 ? `-image-${index + 1}` : ""}${extension}`;
         const local = join(temporary, name);
         const url = `/content/media/${year}/${name}`;
         const liquidURL = (path: string) => `{{ '${path}' | relative_url }}`;
@@ -619,7 +618,7 @@ export async function importImages(
             "+faststart",
             local,
           ]);
-          const poster = join(temporary, `${id}-poster.jpg`);
+          const poster = join(temporary, `${stem}-poster.jpg`);
           const rawPoster = join(temporary, "poster.jpg");
           run("ffmpeg", [
             "-nostdin",
@@ -673,24 +672,11 @@ export async function importImages(
           continue;
         }
       }
-      const tags = [kind];
-      if (group.assets.some((asset) => /^screen\s*shot\b/i.test(asset.title)))
-        tags.push("screenshot");
-      for (const asset of group.assets)
-        for (const tag of asset.photos?.tags ?? [])
-          if (
-            !tags.some(
-              (existing) => existing.toLowerCase() === tag.trim().toLowerCase(),
-            )
-          )
-            tags.push(tag.trim());
       const fields: Record<string, unknown> = {
         title: group.title,
         date,
         date_precision: "second",
         tags,
-        permalink: `/post/${id}/`,
-        source_id: id,
         kind,
         preview_image: preview,
         preview_alt: group.title,
@@ -734,9 +720,7 @@ export async function importImages(
       await mkdir(dirname(postFile), { recursive: true });
       await writeFile(
         postFile,
-        `---\n${Object.entries(fields)
-          .map(([key, value]) => `${key}: ${JSON.stringify(value)}`)
-          .join("\n")}\n---\n${body.join("\n\n")}\n`,
+        `${postFrontMatter(fields)}${body.join("\n\n")}\n`,
         { flag: "wx" },
       );
       postFiles.push(join(year, postName));

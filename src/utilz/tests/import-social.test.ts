@@ -12,6 +12,8 @@ import {
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { parseHTML } from "linkedom";
+import { parse } from "yaml";
+import { postDay } from "../post-format.ts";
 import {
   cleanHTML,
   escapeHTML,
@@ -96,6 +98,30 @@ test("imports preserve source instants and mark date-only sources without assumi
   });
   assert.throws(() => sourceDate("2014-06-01 10:20:30"), /timezone/);
   assert.throws(() => sourceDate("2014-02-31"), /invalid/);
+  assert.equal(
+    postDay("2014-06-01T01:00:00Z", "America/New_York"),
+    "2014-05-31",
+  );
+  assert.equal(postDay("2014-06-01", "America/New_York"), "2014-06-01");
+});
+
+test("source metadata keeps active services but omits retired profile provenance", () => {
+  for (const [platform, url] of [
+    ["youtube", "https://www.youtube.com/watch?v=example"],
+    ["instagram", "https://www.instagram.com/p/example/"],
+    ["ello", "https://ello.co/owner/post/example"],
+  ] as const) {
+    const captured: SocialPost = { ...post, platform, url };
+    const text = postMarkdown(captured, postHTML(captured, "<p>caption</p>"));
+    const header = parse(text.split("---")[1] ?? "");
+    assert.equal(header.source, platform === "youtube" ? url : undefined);
+    assert.equal(text.includes("original "), platform === "youtube");
+    assert.equal(Object.keys(header).at(-1), "tags");
+    assert.doesNotMatch(
+      text,
+      /^(?:source_id|source_platform|source_url|permalink):/m,
+    );
+  }
 });
 
 test("imported code remains literal while local media keeps baseurl-aware URLs", () => {
@@ -108,7 +134,8 @@ test("imported code remains literal while local media keeps baseurl-aware URLs",
     markdown,
     /src="{{ '\/content\/media\/2014\/example.jpg' \| relative_url }}"/,
   );
-  assert.match(markdown, /permalink: "\/post\/jsfiddle-example\/"/);
+  assert.match(markdown, /^source: "https:\/\/jsfiddle.net\/example\/1\/"$/m);
+  assert.doesNotMatch(markdown, /^(?:permalink|source_id|source_platform):/m);
   assert.deepEqual(postTags(post), [
     "jsfiddle",
     "code",
@@ -232,7 +259,7 @@ test("extracted entries omit platform branding and turn hashtag links into local
     markdown,
     /twitter|web\.archive|source_url|source_platform/i,
   );
-  assert.match(markdown, /permalink: "\/post\/1212440717953556482\/"/);
+  assert.doesNotMatch(markdown, /^(?:permalink|source):/m);
   assert.match(markdown, /href="{{ '\/' \| relative_url }}\?tag=hodgepodge"/);
 });
 
@@ -267,7 +294,7 @@ test("code imports normalize both displayed includes and saved demo resources", 
   await importPosts(input, report, root);
   assert.equal(JSON.parse(await readFile(report, "utf8")).failures.length, 0);
   const markdown = await readFile(
-    join(root, "content/_posts/2014/2014-06-01-jsfiddle-example.md"),
+    join(root, "content/_posts/2014/2014-06-01-canvas-test.md"),
     "utf8",
   );
   const body = markdown.slice(markdown.indexOf("\n---\n") + 5);
@@ -277,7 +304,7 @@ test("code imports normalize both displayed includes and saved demo resources", 
   assert.match(code.textContent, /src="\/\/example\.test\/library\.js"/);
   assert.match(code.textContent, /xmlns="http:\/\/www\.w3\.org\/2000\/svg"/);
   const demo = await readFile(
-    join(root, "content/media/2014/2014-06-01-jsfiddle-example-demo.html"),
+    join(root, "content/media/2014/2014-06-01-canvas-test-demo.html"),
     "utf8",
   );
   assert.match(demo, /href="\/\/example\.test\/style\.css"/);
@@ -299,10 +326,7 @@ test("import history skips edited, renamed, and deleted posts but admits new sou
   };
   await writeFile(input, JSON.stringify([original]));
   await importPosts(input, report, root);
-  const filename = join(
-    root,
-    "content/_posts/2014/2014-06-01-youtube-example.md",
-  );
+  const filename = join(root, "content/_posts/2014/2014-06-01-canvas-test.md");
   const moved = join(root, "content/_posts/2014/2014-06-01-my-edited-title.md");
   await rename(filename, moved);
   await writeFile(moved, "my edited post\n");
@@ -396,11 +420,11 @@ test("Flickr, Archive.org, and Bandcamp captures keep dates, project tags, sourc
   await writeFile(input, JSON.stringify(sources));
   await importPosts(input, report, root);
   assert.equal(JSON.parse(await readFile(report, "utf8")).imported.length, 3);
-  for (const source of sources) {
+  for (const [index, source] of sources.entries()) {
     const markdown = await readFile(
       join(
         root,
-        `content/_posts/2014/2014-06-01-${source.platform}-${source.id}.md`,
+        `content/_posts/2014/2014-06-01-canvas-test${index ? `-${index + 1}` : ""}.md`,
       ),
       "utf8",
     );

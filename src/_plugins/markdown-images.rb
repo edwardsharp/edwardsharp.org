@@ -34,7 +34,7 @@ module MarkdownImages
 
     fragment = Nokogiri::HTML5.fragment(post.content, "UTF-8")
     urls = UrlFilter.new(post.site)
-    doodle = post.data["kind"] == "entry" && post.data.fetch("tags", []).any? { |tag| tag.strip.downcase == "doodle" }
+    doodle = post.data["kind"] == "doodle"
     fragment.css("img").each do |image|
       next unless paths.include?(image["src"])
 

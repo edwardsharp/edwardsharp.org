@@ -1,4 +1,3 @@
-import { randomUUID } from "node:crypto";
 import { constants } from "node:fs";
 import {
   copyFile,
@@ -24,6 +23,14 @@ import {
   titleSlug,
 } from "./import-images.ts";
 import { escapeHTML, sourceDate } from "./import-social.ts";
+import {
+  availablePostStem,
+  classifyPost,
+  postDay,
+  postFrontMatter,
+  postStem,
+  siteTimezone,
+} from "./post-format.ts";
 
 export interface PostDate {
   date: string;
@@ -273,8 +280,8 @@ export interface NewPost {
 export async function createPost(root: string, post: NewPost): Promise<string> {
   const title = post.title.trim();
   const kind = post.kind.trim();
-  const slug = titleSlug(title);
-  const kindSlug = titleSlug(kind);
+  titleSlug(title);
+  titleSlug(kind);
   const normalized = sourceDate(post.date.date);
   const timed =
     post.date.precision === "second" || post.date.precision === "minute";
@@ -300,10 +307,14 @@ export async function createPost(root: string, post: NewPost): Promise<string> {
     throw new Error("month-precision dates must use the first day");
   if (post.date.precision === "year" && day.slice(5) !== "01-01")
     throw new Error("year-precision dates must use January 1");
-  const year = day.slice(0, 4);
-  const id = `manual-${randomUUID()}`;
+  const filenameDay = postDay(normalized.date, await siteTimezone(root));
+  const year = filenameDay.slice(0, 4);
   const directory = join(root, "content/_posts", year);
-  const basename = `${day}-${kindSlug}-${slug}`;
+  const classified = classifyPost(kind, post.tags, title);
+  const basename = await availablePostStem(
+    root,
+    postStem(title, filenameDay, classified.kind),
+  );
   const temporary = await mkdtemp(join(tmpdir(), "journal-post-"));
   const published: string[] = [];
   let written = false;
@@ -314,7 +325,7 @@ export async function createPost(root: string, post: NewPost): Promise<string> {
         throw new Error(
           `image must be an existing absolute file path: ${image.filename}`,
         );
-      const name = `${id}-${index + 1}${imageOutputExtension(image.filename)}`;
+      const name = `${basename}${post.images.length > 1 ? `-image-${index + 1}` : ""}${imageOutputExtension(image.filename)}`;
       const filename = join(temporary, name);
       stripImage(image.filename, filename);
       if ((await stat(filename)).size >= 100_000_000)
@@ -331,12 +342,12 @@ export async function createPost(root: string, post: NewPost): Promise<string> {
       title,
       date: normalized.date,
       date_precision: post.date.precision,
-      kind,
+      kind: classified.kind,
       tags: [
-        ...new Map(post.tags.map((tag) => [tagKey(tag), tag.trim()])).values(),
+        ...new Map(
+          classified.tags.map((tag) => [tagKey(tag), tag.trim()]),
+        ).values(),
       ],
-      permalink: `/post/${id}/`,
-      source_id: id,
     };
     if (post.location_name?.trim())
       fields.location_name = post.location_name.trim();
@@ -367,22 +378,9 @@ export async function createPost(root: string, post: NewPost): Promise<string> {
       !(await realpath(directory)).startsWith(`${await realpath(root)}${sep}`)
     )
       throw new Error("post destination leaves the repository");
-    const content = `---\n${Object.entries(fields)
-      .map(([key, value]) => `${key}: ${JSON.stringify(value)}`)
-      .join("\n")}\n---\n${body}\n`;
-    let destination = join(directory, `${basename}.md`);
-    try {
-      await writeFile(destination, content, { flag: "wx" });
-    } catch (error) {
-      if (!(
-        error instanceof Error &&
-        "code" in error &&
-        error.code === "EEXIST"
-      ))
-        throw error;
-      destination = join(directory, `${basename}-${id.slice(-12)}.md`);
-      await writeFile(destination, content, { flag: "wx" });
-    }
+    const content = `${postFrontMatter(fields)}${body}\n`;
+    const destination = join(directory, `${basename}.md`);
+    await writeFile(destination, content, { flag: "wx" });
     written = true;
     return destination;
   } finally {

@@ -4,7 +4,7 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 import { parseHTML } from "linkedom";
 
-test("only entry images tagged doodle receive a marker in post bodies and static tiles", () => {
+test("doodle kind controls image markers in post bodies and static tiles without a tag", () => {
   const root = fileURLToPath(new URL("../../../", import.meta.url));
   const result = spawnSync(
     "bundle",
@@ -21,10 +21,11 @@ test("only entry images tagged doodle receive a marker in post bodies and static
       converter = site.find_converter_instance(Jekyll::Converters::Markdown)
       card = Liquid::Template.parse(File.read(File.join(ARGV.fetch(0), "src/_includes/feed-card.html"), encoding: "UTF-8"))
       puts JSON.generate([
-        { "kind" => "entry", "tags" => ["doodle"] },
-        { "kind" => "entry", "tags" => [" Doodle "] },
+        { "kind" => "doodle", "tags" => [] },
+        { "kind" => "doodle", "tags" => ["other"] },
         { "kind" => "photo", "tags" => ["doodle"] },
-        { "kind" => "entry", "tags" => ["other"] }
+        { "kind" => "entry", "tags" => ["doodle"] },
+        { "kind" => "screenshot", "tags" => [] }
       ].map do |data|
         post = Struct.new(:data, :content, :site).new(data, "![drawing](/content/media/2026/drawing.png)", site)
         MarkdownImages.prepare(post)

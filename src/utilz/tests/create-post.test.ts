@@ -204,6 +204,20 @@ test("new posts copy and strip images, preserve alt text, choose the first previ
   assert.equal(header.date, "2014-09-01");
   assert.equal(header.date_precision, "month");
   assert.equal(header.location_name, "pdx");
+  assert.equal(
+    filename,
+    join(root, "content/_posts/2014/2014-09-01-test-thing.md"),
+  );
+  assert.deepEqual(Object.keys(header).slice(0, 5), [
+    "kind",
+    "title",
+    "date",
+    "date_precision",
+    "preview_image",
+  ]);
+  assert.equal(Object.keys(header).at(-1), "tags");
+  assert.equal(header.source_id, undefined);
+  assert.equal(header.permalink, undefined);
   assert.match(text, /^!\[first \\\[alt\\\] &amp; &quot;quoted&quot;\]/m);
   assert.equal(text.match(/^!\[/gm)?.length, 2);
   assert.equal(header.preview_alt, 'first [alt] & "quoted"');
@@ -233,8 +247,34 @@ test("new posts copy and strip images, preserve alt text, choose the first previ
   const otherHeader: Record<string, unknown> = parse(
     (await readFile(other, "utf8")).split("---")[1] ?? "",
   );
-  assert.notEqual(otherHeader.permalink, header.permalink);
+  assert.equal(
+    other,
+    join(root, "content/_posts/2014/2014-09-01-test-thing-2.md"),
+  );
+  assert.equal(otherHeader.permalink, undefined);
   assert.equal(otherHeader.preview_image, undefined);
+});
+
+test("generated filenames stay short without changing titles; doodle wins over screenshot tags", async (t) => {
+  const root = await mkdtemp(join(tmpdir(), "post-kinds-"));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  const filename = await createPost(root, {
+    title: "image (2026-03-20 180643)",
+    kind: "photo",
+    date: parsePostDate("2026-03-20"),
+    tags: ["screenshot", "doodle", "drawing"],
+    images: [],
+  });
+  assert.equal(
+    filename,
+    join(root, "content/_posts/2026/2026-03-20-doodle.md"),
+  );
+  const header = parse(
+    (await readFile(filename, "utf8")).split("---")[1] ?? "",
+  );
+  assert.equal(header.title, "image (2026-03-20 180643)");
+  assert.equal(header.kind, "doodle");
+  assert.deepEqual(header.tags, ["drawing"]);
 });
 
 test("failed image preparation publishes nothing and pasted paths are expanded without shell evaluation", async (t) => {

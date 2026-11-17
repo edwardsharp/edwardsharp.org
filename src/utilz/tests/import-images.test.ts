@@ -70,7 +70,7 @@ test(
       root,
     );
     const output = await readFile(
-      join(root, "content/_posts/2020/2020-06-01-photo-performance.md"),
+      join(root, "content/_posts/2020/2020-06-01-performance.md"),
       "utf8",
     );
     assert.match(output, /date: "2020-06-01T16:00:01.000Z"/);
@@ -144,7 +144,7 @@ test(
       skipped: 0,
     });
     const output = await readFile(
-      join(root, "content/_posts/2020/2020-06-01-photo-mixed.md"),
+      join(root, "content/_posts/2020/2020-06-01-mixed.md"),
       "utf8",
     );
     assert.match(output, /^needs_review: true$/m);
@@ -337,7 +337,7 @@ test(
     assert.equal((await importImages(options, root)).imported, 1);
     const originalPost = join(
       root,
-      "content/_posts/2020/2020-06-01-photo-old.md",
+      "content/_posts/2020/2020-06-01-old.md",
     );
     const edited = `${await readFile(originalPost, "utf8")}\nuser edit\n`;
     await writeFile(originalPost, edited);
@@ -360,19 +360,19 @@ test("post filenames distinguish screenshots and photos without repeating captur
   const date = new Date(2026, 0, 6, 15, 35, 19).toISOString();
   assert.equal(
     imagePostFilename("Screenshot 2026-01-06 at 15.35.19", date, "photo"),
-    "2026-01-06-screenshot-15-35-19.md",
+    "2026-01-06-screenshot.md",
   );
   assert.equal(
     imagePostFilename("IMG_1208", date, "photo"),
-    "2026-01-06-photo-img-1208.md",
+    "2026-01-06-photo.md",
   );
   assert.equal(
     imagePostFilename("f-dt misc", date, "photo"),
-    "2026-01-06-photo-f-dt-misc.md",
+    "2026-01-06-f-dt-misc.md",
   );
   assert.equal(
     imagePostFilename("Screen Recording 2026-01-06 at 15.35.19", date, "video"),
-    "2026-01-06-video-15-35-19.md",
+    "2026-01-06-video.md",
   );
 });
 
@@ -577,7 +577,7 @@ test(
       await assert.rejects(readdir(root), { code: "ENOENT" });
       const collision = join(
         root,
-        "content/_posts/2025/2025-01-02-screenshot-03-04-05.md",
+        "content/_posts/2025/2025-01-02-screenshot.md",
       );
       await mkdir(join(root, "content/_posts/2025"), { recursive: true });
       await writeFile(collision, "existing authored post\n");
@@ -596,12 +596,13 @@ test(
       const screenshot = contents.findIndex((text) =>
         text.includes('title: "Screenshot'),
       );
-      assert.match(files[screenshot]!, /screenshot-03-04-05-[a-f0-9]{12}\.md$/);
+      assert.match(files[screenshot]!, /screenshot-2\.md$/);
       assert.equal(
         await readFile(collision, "utf8"),
         "existing authored post\n",
       );
-      assert.match(contents[screenshot]!, /tags: \["photo","screenshot"\]/);
+      assert.match(contents[screenshot]!, /^kind: "screenshot"$/m);
+      assert.match(contents[screenshot]!, /tags: \["photo"\]/);
       const set = contents.find((text) => text.includes('title: "set"'))!;
       assert.equal((set.match(/^!\[/gm) ?? []).length, 2);
       assert.match(set, /kind: "photo"/);

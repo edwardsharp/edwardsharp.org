@@ -1,14 +1,8 @@
 {% assign post = include.post %}
 {% assign title = post.preview_title | default: post.title %}
 {% assign doodle_image = false %}
-{% if post.kind == 'entry' %}
-  {% for tag in post.tags %}
-    {% assign tag_label = tag | strip | downcase %}
-    {% if tag_label == 'doodle' %}
-      {% assign doodle_image = true %}
-      {% break %}
-    {% endif %}
-  {% endfor %}
+{% if post.kind == 'doodle' %}
+  {% assign doodle_image = true %}
 {% endif %}
 {% if title == 'no title' %}
   {% capture title %}{{ post.kind | default: 'post' }} / {{ post.date | date: '%Y-%m-%d' }}{% endcapture %}
