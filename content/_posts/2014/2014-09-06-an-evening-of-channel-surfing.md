@@ -1,0 +1,10 @@
+---
+kind: "entry"
+title: "an evening of channel surfing"
+date: "2014-09-06T00:52:46-04:00"
+date_precision: "second"
+tags: []
+---
+okay, here are the thingz i can remember from watching on the TV yesterday:
+
+like started with 03, dialed down, #goto top, and was like 500-something. then move back and up through 01 02 03 and it’s local TV, yeah, like about the school shooting here in PDX, and mom&son people lost/drown, the new high school football turf, zomg okay more local yadda yadda. public access, like so many channels of this power pressure one-button-cooks-anything magic counter-top machine. for fuckz sake! rugratz, golden girls, grandma made something weird, rose just came home and got the job but blanch (& everyone) didn’t think she’d get the job. a sleep number that heatz/coolz. cash4gold. more power pressure cooker. cops, bad boyz bad boyz, more like white copz white copz, warrant arrest of this black guy who grabbed a woman’s “butt & breast at the club”, cop arrests guys outside, cop goes in, cuts to coming out with phone, cop holds up phone to guy’s ear in handcuffz, cop unlockz cuffz so guy can get little girl out of bathtub, cut to white woman coming over, fury, hugs, off to jail, stupid commercials, crazy driving, insane commercials, cops pull a guy out from hiding in an attic under some furniture, arrests woman for lying to the copz, guy begs the cops not to, off to jail, park rangers and cops chase this truck, bridge is out, guy pulls over and tries to run, taser, arm/leg cuffz, 4-cop carry away saying “kill me” & “i’m already dead”, buncha copz pull up to a guy bangin’ a prostitute in a stolen car, he tries to get away, sort of crunches up the car, i guess the cop was standing there so assault of officer charges, gunz, older white-guy-cop seyz to the naked guy in the back of the cop car: “he’s all tat’d up!”, god channels, dildo ads, porno, cisgender swinger couple fucking another girl, golf in australia, ufc fighting, top 10 funniest drunk bloopers which is mostly white male violence. you’ve got mail, a ton of PPV fights/races/sportsball/porno, CSPAN, telemundo, TMC, WTF… 

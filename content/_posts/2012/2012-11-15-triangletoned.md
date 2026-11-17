@@ -1,20 +1,11 @@
 ---
-title: triangletoned
-date: '2012-11-15T22:22:00-05:00'
-tags:
-- blaze orange
-- triangle
-- terence mckenna
-- bill
-- broom
-permalink: /post/35819206446/
-source_id: '35819206446'
-kind: photo
-preview_image: /content/media/2012/2012-11-15-triangletoned.webp
-preview_alt: triangletoned
-source_url: http://edwardsharp.org/post/35819206446/triangletoned
-redirect_from:
-- /post/35819206446/triangletoned/
+kind: "photo"
+title: "triangletoned"
+date: "2012-11-15T22:22:00-05:00"
+date_precision: "second"
+preview_image: "/content/media/2012/2012-11-15-triangletoned.webp"
+preview_alt: "triangletoned"
+tags: ["blaze orange","triangle","terence mckenna","bill","broom"]
 ---
 ![triangletoned](/content/media/2012/2012-11-15-triangletoned.webp)
 

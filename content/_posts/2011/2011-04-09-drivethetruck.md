@@ -1,0 +1,22 @@
+---
+kind: "audio"
+title: "drivethetruck"
+date: "2011-04-09T20:46:42.000Z"
+date_precision: "second"
+preview_image: "/content/media/2011/2011-04-09-drivethetruck.webp"
+source: "https://soundcloud.com/sharpedward/drivethetruck"
+tags: ["soundcloud","audio","dronecore","throbbdub","PUMPWAVE","touchrock","pitchtrip"]
+---
+
+<iframe title="drivethetruck" width="100%" height="166" loading="lazy" src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F13330947&amp;auto_play=false"></iframe>
+
+wake up.  
+drive the truck. wake up.  
+drive the truck.  
+have it all, set some goalz, wake up.  
+drive the truck. projectorz in the back.  
+drive the truck. projectorz in the back.  
+triangle breeze.  
+wake up. drive the truck. projectorz in the back.
+
+[original soundcloud post](https://soundcloud.com/sharpedward/drivethetruck)

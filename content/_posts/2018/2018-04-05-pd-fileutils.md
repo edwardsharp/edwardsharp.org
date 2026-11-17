@@ -1,0 +1,38 @@
+---
+kind: "code"
+title: "pd-fileutils"
+date: "2018-04-06T03:32:06.000Z"
+date_precision: "second"
+source: "https://jsfiddle.net/edwardsharp/7bs4e22t/7/"
+tags: ["jsfiddle","code","jquery","html","javascript","svg","canvas","pure data"]
+---
+
+<iframe class="code-demo" src="{{ '/content/media/2018/2018-04-05-pd-fileutils-demo.html' | relative_url }}" title="pd-fileutils" width="100%" height="480" loading="lazy" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe>
+
+pd -> svg
+
+## html
+
+```html
+<script src="//cdn.jsdelivr.net/npm/pd-fileutils@0.3.5/dist/pd-fileutils-latest.min.js"></script>
+<div id="svg"></div>
+```
+
+## javascript
+
+```javascript
+// see: https://github.com/sebpiq/pd-fileutils
+var patch_url =
+  "https://raw.githubusercontent.com/edwardsharp/puredata/master/noise_wash_mod.pd";
+/* var demo_patch = '#N canvas 778 17 450 300 10;\n#X obj 14 13 loadbang;\n#X obj 14 34 print bla;\n#X connect 0 0 1 0;'; */
+
+$.get(patch_url, function (patchStr) {
+  var patch = pdfu.parse(patchStr);
+  var rendered = pdfu.renderSvg(patch, { svgFile: false });
+  $("#svg").html(rendered);
+});
+```
+
+<p data-import-note="">this demo preserves the compiled output and may depend on external libraries or services that are no longer available.</p>
+
+[original jsfiddle post](https://jsfiddle.net/edwardsharp/7bs4e22t/7/)

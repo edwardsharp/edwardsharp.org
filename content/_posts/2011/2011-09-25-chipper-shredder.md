@@ -1,0 +1,23 @@
+---
+kind: "audio"
+title: "chipper__shredder"
+date: "2011-09-26T01:51:01.000Z"
+date_precision: "second"
+preview_image: "/content/media/2011/2011-09-25-chipper-shredder.webp"
+source: "https://soundcloud.com/futuredeathtoll/chipper-shredder"
+tags: ["soundcloud","audio","futuredeathtoll","glitchcraft","modpitchmod","tonebass","loopcore","noise"]
+---
+
+<iframe title="chipper__shredder" width="100%" height="166" loading="lazy" src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F24159380&amp;auto_play=false"></iframe>
+
+CHIPPER__SHREDDER: AN EVENT OF INDUSTRIAL INVOLUTION.  
+FUTURE DEATH TOLL IS A THROBBING MESS OF NOISE THAT CASTS BODY PARTS, FEEDS LIMBS THROUGH A GAS POWERED CHIPPER SHREDDER, AND STARTS FIRES. TRAUMATIC RITUAL (THE EVENT) PROVIDES ACTION TO THE SCULPTURAL OBJECT, RESULTING IN A MUTATED FORM. SPECTATOR PROVOKES DESTRUCTION IN AN OTHERWISE PRODUCTIVE PRAXIS.
+
+cast the body, night has fallen.  
+filter'd downward,  
+through steel and cavern.  
+flywheel grinding  
+limbs hide.  
+shred the body, night has fallen.
+
+[original soundcloud post](https://soundcloud.com/futuredeathtoll/chipper-shredder)

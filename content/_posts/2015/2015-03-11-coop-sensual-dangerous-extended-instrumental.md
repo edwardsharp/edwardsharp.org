@@ -1,0 +1,13 @@
+---
+kind: "audio"
+title: "coop (sensual & dangerous extended instrumental)"
+date: "2015-03-11T20:38:01.000Z"
+date_precision: "second"
+preview_image: "/content/media/2015/2015-03-11-coop-sensual-dangerous-extended-instrumental.webp"
+source: "https://soundcloud.com/sharpedward/coop-sensual-dangerous-extended-instrumental"
+tags: ["soundcloud","audio"]
+---
+
+<iframe title="coop (sensual &amp; dangerous extended instrumental)" width="100%" height="166" loading="lazy" src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F195399713&amp;auto_play=false"></iframe>
+
+[original soundcloud post](https://soundcloud.com/sharpedward/coop-sensual-dangerous-extended-instrumental)

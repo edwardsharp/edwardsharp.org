@@ -1,0 +1,21 @@
+---
+kind: "audio"
+title: "struggle_bar"
+date: "2009-12-15"
+date_precision: "day"
+preview_image: "/content/media/2009/2009-12-15-struggle-bar.webp"
+source: "https://futuredeathtoll.bandcamp.com/album/struggle-bar"
+tags: ["bandcamp","audio","futuredeathtoll","album","electronic","easy listening","noise","portland","New York"]
+---
+
+<iframe title="struggle_bar" width="100%" height="472" loading="lazy" src="https://bandcamp.com/EmbeddedPlayer/album=1963144450/size=large/bgcol=000000/linkcol=ff00ff/artwork=none/transparent=false/"></iframe>
+
+1.  [combodet](https://futuredeathtoll.bandcamp.com/track/combodet)
+2.  [ASOL (jimmie leggs extended mix)](https://futuredeathtoll.bandcamp.com/track/asol-jimmie-leggs-extended-mix)
+3.  [name7355_face7355](https://futuredeathtoll.bandcamp.com/track/name7355-face7355)
+4.  [pln+crsh](https://futuredeathtoll.bandcamp.com/track/pln-crsh)
+5.  [riddled_with_glitchez](https://futuredeathtoll.bandcamp.com/track/riddled-with-glitchez)
+6.  [supernova_fallout](https://futuredeathtoll.bandcamp.com/track/supernova-fallout)
+7.  [L0g_JAMMM](https://futuredeathtoll.bandcamp.com/track/l0g-jammm)
+
+[original bandcamp post](https://futuredeathtoll.bandcamp.com/album/struggle-bar)

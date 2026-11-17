@@ -1,0 +1,257 @@
+---
+kind: "code"
+title: "checkerboard drag and drop"
+date: "2017-04-12T13:31:40.000Z"
+date_precision: "second"
+description: "a javascript checkerboard experiment with alternating squares and draggable pieces."
+source: "https://jsfiddle.net/edwardsharp/5ph3j5ve/5/"
+tags: ["jsfiddle","code","html","css","javascript","jquery"]
+---
+
+<iframe class="code-demo" src="{{ '/content/media/2017/2017-04-12-checkerboard-drag-and-drop-demo.html' | relative_url }}" title="jsfiddle / 5ph3j5ve" width="100%" height="480" loading="lazy" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe>
+
+## html
+
+```html
+<div id="board"></div>
+<div id="info"></div>
+```
+
+## css
+
+```css
+square {
+  height: 25px;
+  width: 25px;
+  display: inline-block;
+}
+piece {
+  display: inline-block;
+  height: 15px;
+  width: 15px;
+  margin: 5px;
+  border-radius: 999px;
+}
+piece:hover {
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+}
+piece.grabbing {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+}
+.row {
+  height: 25px;
+}
+.red {
+  background-color: red;
+}
+.black {
+  background-color: black;
+}
+.white {
+  background-color: white;
+}
+.highlight {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+```
+
+## javascript
+
+```javascript
+//utility each method.
+var forEach = function (array, callback, scope) {
+  for (var i = 0; i < array.length; i++) {
+    callback.call(scope, i, array[i]);
+  }
+};
+
+var checkerz = {
+  /*
+   * board is an 2d array, so basically just a placeholder ([[]])
+   * here until we use 2 loops to initialize it, we'll be able to reference
+   * each square of the board with 2 integers (a column and a row)
+   * for example: checkerz.board[0,0] would be the square in the top-left corner
+   * and would have a color property like such: board[0,0].color == 'red'
+   */
+  board: [[]],
+  /*
+   * so i looked at another javascript checkerz script and found this neat trick:
+   * if you add the column & row, and if that can be evenly divided by 2, then it's red,
+   * otherwise black.
+   */
+  color: function (col, row) {
+    return (col + row) % 2 == 0 ? "red" : "black";
+  },
+  setup: function () {
+    for (var c = 0; c < 8; c++) {
+      this.board[c] = new Array(8);
+      for (var r = 0; r < 8; r++) {
+        this.board[c][r] = { color: this.color(c, r) };
+
+        if (this.color(c, r) == "black") {
+          if (c >= 0 && c < 3) {
+            this.board[c][r].piece = { color: "red", king: false };
+          }
+          if (c > 4) {
+            this.board[c][r].piece = { color: "white", king: false };
+          }
+        }
+      }
+    } //end col for
+    // console.log('setup board:',this.board);
+    this.drawBoard();
+
+    //note, mouseup getz lost if mouse moves away from the element that caused the mousedown event. so a catch all here:
+    // #TODO: touch eventz.
+    window.addEventListener("mouseup", checkerz.pieceDown);
+  },
+  /*
+   * instead of using jQuery's $('board') we can use this.boardElement()
+   */
+  boardElement: function () {
+    return document.getElementById("board");
+  },
+  infoElement: function () {
+    return document.getElementById("info");
+  },
+  /*
+   * click handler for when a <piece> is clicked. mousedown.
+   * note: mousedown is desktop browsers only.
+   */
+  pieceUp: function (e) {
+    var piece = e.target;
+    var square = e.target.parentElement;
+    checkerz.infoElement().innerHTML =
+      piece.getAttribute("data-color") +
+      " [" +
+      square.getAttribute("data-col") +
+      ", " +
+      square.getAttribute("data-row") +
+      "]";
+
+    piece.classList.add("grabbing");
+    checkerz.removeClass("highlight");
+    checkerz.getAvailableMovez({
+      color: piece.getAttribute("data-color"),
+      col: square.getAttribute("data-col"),
+      row: square.getAttribute("data-row"),
+    });
+  },
+  /*
+   * event handler for when a piece has moved. mouseup.
+   * #TODO: determine what square, if it's available,
+   *   if there's any jumpz, & then update the
+   *   checkerz.board piecez and redraw.
+   */
+  pieceDown: function (e) {
+    console.log("pieceDown e:", e);
+    checkerz.infoElement().innerHTML = "";
+    checkerz.removeClass("grabbing");
+    checkerz.removeClass("highlight");
+  },
+  /*
+   * draw the contents of the board data.
+   * using non-traditional elements <square> and <piece> (could use span or div or whatever).
+   * set the column & row number for later use.
+   */
+  drawBoard: function () {
+    this.boardElement().innerHTML = "";
+    for (var c = 0; c < 8; c++) {
+      var row = document.createElement("div");
+      row.classList.add("row");
+      for (var r = 0; r < 8; r++) {
+        var square = document.createElement("square");
+        square.setAttribute("data-col", c);
+        square.setAttribute("data-row", r);
+        square.classList.add(this.board[c][r].color);
+        if (this.board[c][r].piece != undefined) {
+          var piece = document.createElement("piece");
+          piece.classList.add(this.board[c][r].piece.color);
+          piece.setAttribute("data-color", this.board[c][r].piece.color);
+          // #TODO: touch eventz.
+          piece.addEventListener("mousedown", this.pieceUp, false);
+          square.appendChild(piece);
+        }
+        row.appendChild(square);
+      }
+      this.boardElement().appendChild(row);
+    }
+  },
+  /* 
+  notez for opening movez, assuming no kingz:
+	[col,row] -> [col,row], [col,row]
+	red back row (pieces in the way)
+	[0,1] -> [1,0], [1,2]
+	[0,3] -> [1,2], [1,4]
+	[0,5] -> [1,4], [1,6]
+	[0,7] -> [1,6]
+
+	red front row
+	[2,1] -> [3,0], [3,2]
+	[2,3] -> [3,2], [3,4]
+	[2,5] -> [3,4], [3,6]
+	[2,7] -> [3,6]
+
+	white back row (pieces in the way)
+	[7,0] -> [6,1]
+	[7,2] -> [6,1], [6,3]
+	[7,4] -> [6,3], [6,5]
+	[7,6] -> [6,5], [6,7]
+
+	white front row
+	[5,0] -> [4,1]
+	[5,2] -> [4,1], [4,3]
+	[5,4] -> [4,3], [4,5]
+	[5,6] -> [4,5], [4,7]
+  
+  so if a red piece at square [col,row] wantz to move, 
+  the 2 possible squarez would be [col+1,row-1] and [col+1,row+1], 
+  given these two squarez are both on the board and not currently occupied with a piece.
+	*/
+  getAvailableMovez: function (options) {
+    console.log("getAvailableMovez options:", options);
+    options.col = parseInt(options.col);
+    options.row = parseInt(options.row);
+    if (options.color == "red") {
+      this.highlightSquare(options.col + 1, options.row - 1);
+      this.highlightSquare(options.col + 1, options.row + 1);
+    } else {
+      this.highlightSquare(options.col - 1, options.row - 1);
+      this.highlightSquare(options.col - 1, options.row + 1);
+    }
+  },
+  highlightSquare: function (col, row, isKing) {
+    //console.log('highlightSquare!');
+    //check if col & row exist on the board and if there's currently a piece in the square
+    if (
+      checkerz.board[col] &&
+      checkerz.board[col][row] &&
+      checkerz.board[col][row].piece == undefined
+    ) {
+      var _square = document.querySelector(
+        '[data-col="' + col + '"][data-row="' + row + '"]',
+      );
+      //console.log('_square? ',_square);
+      _square.classList.add("highlight");
+    }
+  },
+  /*
+   * handy utility for removing classes from any element that currently has that class.
+   */
+  removeClass: function (className) {
+    forEach(document.querySelectorAll("." + className), function (idx, elem) {
+      elem.classList.remove(className);
+    });
+  },
+};
+
+checkerz.setup();
+```
+
+<p data-import-note="">this demo preserves the compiled output and may depend on external libraries or services that are no longer available.</p>
+
+[original jsfiddle post](https://jsfiddle.net/edwardsharp/5ph3j5ve/5/)

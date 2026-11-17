@@ -1,13 +1,9 @@
 ---
-title: nonprocedurally (locust)—
-date: '2015-10-11T01:01:41-04:00'
+kind: "entry"
+title: "nonprocedurally (locust)—"
+date: "2015-10-11T01:01:41-04:00"
+date_precision: "second"
 tags: []
-permalink: /post/130927295917/
-source_id: '130927295917'
-kind: entry
-source_url: http://edwardsharp.org/post/130927295917/nonprocedurally-locust
-redirect_from:
-- /post/130927295917/nonprocedurally-locust/
 ---
 movementz on thematic spoof, within goingz, anywhere
 

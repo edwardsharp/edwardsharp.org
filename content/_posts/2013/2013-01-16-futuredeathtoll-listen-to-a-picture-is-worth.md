@@ -1,15 +1,11 @@
 ---
-title: futuredeathtoll listen to a picture is worth
-date: '2013-01-16T01:42:26-05:00'
+kind: "photo"
+title: "futuredeathtoll listen to a picture is worth"
+date: "2013-01-16T01:42:26-05:00"
+date_precision: "second"
+preview_image: "/content/media/2013/2013-01-16-futuredeathtoll-listen-to-a-picture-is-worth.webp"
+preview_alt: "futuredeathtoll listen to a picture is worth"
 tags: []
-permalink: /post/40667353939/
-source_id: '40667353939'
-kind: photo
-preview_image: /content/media/2013/2013-01-16-futuredeathtoll-listen-to-a-picture-is-worth.webp
-preview_alt: futuredeathtoll listen to a picture is worth
-source_url: http://edwardsharp.org/post/40667353939/futuredeathtoll-listen-to-a-picture-is-worth
-redirect_from:
-- /post/40667353939/futuredeathtoll-listen-to-a-picture-is-worth/
 ---
 ![futuredeathtoll listen to a picture is worth](/content/media/2013/2013-01-16-futuredeathtoll-listen-to-a-picture-is-worth.webp)
 

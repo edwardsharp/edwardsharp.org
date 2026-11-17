@@ -1,0 +1,252 @@
+---
+kind: "code"
+title: "video upload thing"
+date: "2018-03-11T22:34:27.000Z"
+date_precision: "second"
+source: "https://jsfiddle.net/edwardsharp/wpsj7p7e/27/"
+tags: ["jsfiddle","code","html","css","javascript"]
+---
+
+<iframe class="code-demo" src="{{ '/content/media/2018/2018-03-11-video-upload-thing-demo.html' | relative_url }}" title="video upload thing" width="100%" height="480" loading="lazy" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe>
+
+browser video record & upload
+
+## html
+
+```html
+<h1>videoCAPTURE</h1>
+<h2 id="allowHint" class="hidden">
+  you need to allow your browser to access your webcam &amp; microphone.
+</h2>
+<h2 id="hint" class="hidden">
+  hint: use the Chrome or FireFox browser to record video on this page using
+  your webcam. otherwise, select a video file to upload.
+</h2>
+<div id="streamContainer" class="hidden">
+  source:
+  <select id="audioSource"></select>
+  <label for="audioSource">audio</label>
+  <select id="videoSource"></select>
+  <label for="videoSource">video</label>
+  <br />
+  <video id="live" width="320"></video>
+  <div id="livePreview">live preview</div>
+  <div class="buttonContainer">
+    <button id="record" class="hidden">record</button>
+    <button id="stop" class="hidden">stop</button>
+  </div>
+  <br />
+  <video id="recording" controls width="320"></video>
+  <br />
+  <div id="recordedClip">recorded clip</div>
+  <div class="buttonContainer">
+    <button id="uploadStreamButton" class="hidden">upload</button>
+  </div>
+</div>
+<input
+  id="upload"
+  class="hidden"
+  type="file"
+  accept="video/*;capture=camcorder"
+/>
+```
+
+## css
+
+```css
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  color: white;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 320px;
+}
+
+* {
+  font-weight: 100;
+  color: white;
+  background-color: black;
+}
+
+button {
+  font-size: 2em;
+  padding: 0.5em;
+  border: none;
+  background-color: #666;
+}
+
+.hidden {
+  display: none;
+}
+
+.buttonContainer {
+  text-align: center;
+}
+
+#record {
+  background-color: red;
+  border-radius: 10px;
+}
+
+#record:hover {
+  background-color: #990000;
+}
+
+#stop:hover {
+  background-color: #ddd;
+}
+
+#livePreview,
+#recordedClip,
+#hint,
+#allowHint {
+  width: 320px;
+}
+```
+
+## javascript
+
+```javascript
+var recordButton, stopButton, recorder, liveStream, constraints;
+var audioSelect,
+  videoSelect,
+  livePreview,
+  upload,
+  streamContainer,
+  uploadStreamButton,
+  hint,
+  liveVideo,
+  video;
+
+window.onload = function () {
+  audioSelect = document.querySelector("select#audioSource");
+  videoSelect = document.querySelector("select#videoSource");
+  livePreview = document.querySelector("#livePreview");
+  upload = document.querySelector("#upload");
+  streamContainer = document.querySelector("#streamContainer");
+  uploadStreamButton = document.querySelector("#uploadStreamButton");
+  hint = document.querySelector("#hint");
+  liveVideo = document.getElementById("live");
+  video = document.getElementById("recording");
+  recordButton = document.getElementById("record");
+  stopButton = document.getElementById("stop");
+
+  if (window.MediaRecorder) {
+    navigator.mediaDevices
+      .enumerateDevices()
+      .then(gotDevices)
+      .then(getStream)
+      .catch(handleError);
+
+    audioSelect.onchange = getStream;
+    videoSelect.onchange = getStream;
+  } else {
+    hint.classList.remove("hidden");
+    upload.classList.remove("hidden");
+  }
+};
+
+function gotDevices(deviceInfos) {
+  for (var i = 0; i !== deviceInfos.length; ++i) {
+    var deviceInfo = deviceInfos[i];
+    var option = document.createElement("option");
+    option.value = deviceInfo.deviceId;
+    if (deviceInfo.kind === "audioinput") {
+      option.text =
+        deviceInfo.label || "microphone " + (audioSelect.length + 1);
+      audioSelect.appendChild(option);
+    } else if (deviceInfo.kind === "videoinput") {
+      option.text = deviceInfo.label || "camera " + (videoSelect.length + 1);
+      videoSelect.appendChild(option);
+    }
+  }
+}
+
+function getStream() {
+  if (liveStream) {
+    liveStream.getTracks().forEach(function (track) {
+      track.stop();
+    });
+  }
+
+  constraints = {
+    audio: {
+      deviceId: {
+        exact: audioSelect.value,
+      },
+    },
+    video: {
+      deviceId: {
+        exact: videoSelect.value,
+      },
+    },
+  };
+
+  navigator.mediaDevices
+    .getUserMedia(constraints)
+    .then(gotStream)
+    .catch(handleError);
+}
+
+function gotStream(stream) {
+  liveStream = stream;
+  // liveVideo.src = URL.createObjectURL(stream);
+  liveVideo.srcObject = stream;
+  liveVideo.play();
+  streamContainer.classList.remove("hidden");
+  recordButton.classList.remove("hidden");
+  recordButton.addEventListener("click", startRecording);
+  stopButton.addEventListener("click", stopRecording);
+}
+
+function handleError(error) {
+  console.error("Error: ", error);
+  if (error.name == "NotAllowedError") {
+    document.querySelector("#allowHint").classList.remove("hidden");
+  }
+  upload.classList.remove("hidden");
+  hint.classList.remove("hidden");
+}
+
+function startRecording() {
+  try {
+    recorder = new MediaRecorder(liveStream);
+    recorder.addEventListener("dataavailable", onRecordingReady);
+    livePreview.innerHTML = "RECORDING!";
+    recordButton.classList.add("hidden");
+    stopButton.classList.remove("hidden");
+    uploadStreamButton.classList.add("hidden");
+    recorder.start();
+  } catch (err) {
+    console.log("could not start recording!");
+  }
+}
+
+function stopRecording() {
+  recordButton.classList.remove("hidden");
+  stopButton.classList.add("hidden");
+  livePreview.innerHTML = "live preview";
+  uploadStreamButton.classList.remove("hidden");
+  // stopping the recorder will eventually trigger the 'dataavailable' event
+  recorder.stop();
+  uploadStreamButton.scrollIntoView();
+}
+
+function onRecordingReady(e) {
+  // e.data contains a blob representing the recording
+  video.src = URL.createObjectURL(e.data);
+  video.play();
+}
+```
+
+<p data-import-note="">this demo preserves the compiled output and may depend on external libraries or services that are no longer available.</p>
+
+[original jsfiddle post](https://jsfiddle.net/edwardsharp/wpsj7p7e/27/)

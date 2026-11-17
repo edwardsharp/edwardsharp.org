@@ -1,19 +1,9 @@
 ---
-title: DORKBOT OPENMICSURGERY
+kind: "entry"
+title: "DORKBOT OPENMICSURGERY"
 date: "2012-12-24T16:07:00-05:00"
-tags:
-  - dorkbotpdx
-  - open mic surgery
-  - someday lounge
-  - portland
-  - pd-extended
-  - processing
-permalink: /post/38741311514/
-source_id: "38741311514"
-kind: entry
-source_url: http://edwardsharp.org/post/38741311514/dorkbot-openmicsurgery
-redirect_from:
-  - /post/38741311514/dorkbot-openmicsurgery/
+date_precision: "second"
+tags: ["dorkbotpdx","open mic surgery","someday lounge","portland","pd-extended","processing"]
 ---
 
 <div class="video-embed" style="aspect-ratio: 212 / 120">

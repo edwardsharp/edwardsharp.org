@@ -1,13 +1,9 @@
 ---
-title: projectwestford
-date: '2014-01-21T22:51:00-05:00'
+kind: "entry"
+title: "projectwestford"
+date: "2014-01-21T22:51:00-05:00"
+date_precision: "second"
 tags: []
-permalink: /post/74135567055/
-source_id: '74135567055'
-kind: entry
-source_url: http://edwardsharp.org/post/74135567055/projectwestford
-redirect_from:
-- /post/74135567055/projectwestford/
 ---
 centimeter long lengths of  
 copper wire  

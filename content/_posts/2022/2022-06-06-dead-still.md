@@ -1,0 +1,61 @@
+---
+kind: "audio"
+title: "dead still"
+date: "2022-06-06"
+date_precision: "day"
+preview_image: "/content/media/2022/2022-06-06-dead-still.webp"
+source: "https://futuredeathtoll.bandcamp.com/album/dead-still"
+tags: ["bandcamp","audio","futuredeathtoll","album","electronic","diy or die","easy listening","noise","New York"]
+---
+
+<iframe title="dead still" width="100%" height="472" loading="lazy" src="https://bandcamp.com/EmbeddedPlayer/album=1756242508/size=large/bgcol=000000/linkcol=ff00ff/artwork=none/transparent=false/"></iframe>
+
+what doudo when:
+
+u reach a limit with someone; like a line getz crossed, something so foul arisez that you must re-navigate; a path to (or of) avoidance
+
+yr expectationz are confirmed  
+yr expectationz are rejected
+
+u hold up  
+u hold out
+
+u don't care  
+u run out of time
+
+u don't know who to trust
+
+[# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #]  
+[1 2 3 4 5 6 2 2 3 4 5 6 3 2 3 4 5 6 4 2 3 4 5 6 5 2 3 4 5 6 6 2 3 4 5 6 ]
+
+k n o w i n g h o w t o :  
+s p e n d t i m e  
+s p e n d m o n e y  
+b u y t i m e  
+b u y m o r e m o n e y  
+t r a d e t i m e f o r $ _ _ _ _ _ $  
+___\_\_\_\_\_\_\_\_\_\_\_\_\_\_ [1 2 3 4 5 6]
+
+just leave a lil space to do  
+u kno, whatever u like to do
+
+F-DT is:  
+3dwardsharp  
+april vendetta  
+twon moss
+
+1.  [hottttttbreatttttth](https://futuredeathtoll.bandcamp.com/track/hottttttbreatttttth)
+2.  [THIS IS A DANCE WITH A CAN OF SAUCE](https://futuredeathtoll.bandcamp.com/track/this-is-a-dance-with-a-can-of-sauce)
+3.  [coop](https://futuredeathtoll.bandcamp.com/track/coop)
+4.  [what's left 2 kill](https://futuredeathtoll.bandcamp.com/track/whats-left-2-kill)
+5.  [GHOST_RIDER_2099](https://futuredeathtoll.bandcamp.com/track/ghost-rider-2099)
+6.  [fire_in_the_cockloft](https://futuredeathtoll.bandcamp.com/track/fire-in-the-cockloft)
+7.  [deady guy](https://futuredeathtoll.bandcamp.com/track/deady-guy)
+8.  [Vrwr80st\[](https://futuredeathtoll.bandcamp.com/track/vrwr80st)
+9.  [d.i.y. t.r.a.i.l. m.i.x.](https://futuredeathtoll.bandcamp.com/track/d-i-y-t-r-a-i-l-m-i-x)
+10. [slightly obfuscated](https://futuredeathtoll.bandcamp.com/track/slightly-obfuscated)
+11. [gottamove](https://futuredeathtoll.bandcamp.com/track/gottamove)
+12. [show_me_yr_unstable](https://futuredeathtoll.bandcamp.com/track/show-me-yr-unstable)
+13. [a guise job is crush the parasite](https://futuredeathtoll.bandcamp.com/track/a-guise-job-is-crush-the-parasite)
+
+[original bandcamp post](https://futuredeathtoll.bandcamp.com/album/dead-still)

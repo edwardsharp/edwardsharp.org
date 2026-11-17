@@ -1,0 +1,20 @@
+---
+kind: "audio"
+title: "beatz_swamp"
+date: "2011-05-06T06:02:50.000Z"
+date_precision: "second"
+preview_image: "/content/media/2011/2011-05-06-beatz-swamp.webp"
+source: "https://soundcloud.com/sharpedward/beatz_swamp"
+tags: ["soundcloud","audio","easycore","easystreet","easyjazz","easypeazy","easypeasy","easybeat","easyrock","throbbing","throbcore","thrustparty","thrustbuster","thrustTV","grinding","grime","glitch"]
+---
+
+<iframe title="beatz_swamp" width="100%" height="166" loading="lazy" src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F14777341&amp;auto_play=false"></iframe>
+
+you can not ezcape you  
+you cannot ezcape you  
+youcannonezcape you  
+youcannotexcapeyou
+
+y o u c a n n o t e s c a p e y o u
+
+[original soundcloud post](https://soundcloud.com/sharpedward/beatz_swamp)

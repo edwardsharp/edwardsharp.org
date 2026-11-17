@@ -1,0 +1,15 @@
+---
+kind: "video"
+title: "northscituate01"
+date: "2014-06-16T18:29:06.000Z"
+date_precision: "second"
+preview_image: "/content/media/2014/2014-06-16-northscituate01.webp"
+source: "https://www.youtube.com/watch?v=LAtWbfEIJPk"
+tags: ["youtube","video","futuredeathtoll","noise","throbbing","electronic"]
+---
+
+<div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/LAtWbfEIJPk" title="northscituate01" loading="lazy" allowfullscreen></iframe></div>
+
+6/14/14 with TWON
+
+[original youtube post](https://www.youtube.com/watch?v=LAtWbfEIJPk)
