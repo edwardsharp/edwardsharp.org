@@ -23,9 +23,9 @@ make post  # new post interactive tui
 make       # interactive tui utilz menu
 ```
 
-system pickers on macOS, or typed paths. dates accept text/iso/partial dates; preview + confirmation required. `today` defaults to the current minute; month/year-only dates use their first day. images are copied with metadata stripped; originals stay untouched.
+uses [@inquirer npm package](https://npmjs.com/package/inquirer) for interactive tui; with system file pickers on macOS, or typed paths for file paths; dates accept text/iso/partial dates; `today` defaults to the current minute, month/year-only dates use their first day; images are copied with metadata stripped; originals stay untouched.
 
-scripts/tests: `src/utilz/`. browser code: `src/ts/`. requires python 3.11+, imagemagick, and full disk access for your terminal/editor; notes also needs automation permission: `python3 src/utilz/.tools/notes-exporter/notes_permission.py --ask`
+requires python 3.11+, imagemagick, and full disk access for your terminal/editor; notes.app scriptz also needs automation permission: `python3 src/utilz/.tools/notes-exporter/notes_permission.py --ask`
 
 ```sh
 python3 -m venv src/utilz/.venv
@@ -34,9 +34,7 @@ mkdir -p src/utilz/.tools
 git clone --depth 1 --branch v1.5.0 https://github.com/storizzi/notes-exporter.git src/utilz/.tools/notes-exporter
 ```
 
-the [notes exporter](https://github.com/storizzi/notes-exporter) installs its dependencies on first use.
-
-extract stuff from the social media corpz (accepts normalized `SocialPost[]` records (see [the importer](src/utilz/import-social.ts)))
+the [notes exporter](https://github.com/storizzi/notes-exporter) installs its dependencies on first use. extract stuff from the social media corpz (accepts normalized `SocialPost[]` records (see [the importer](src/utilz/import-social.ts)))
 
 ```sh
 npm run import:social -- capture.json report.json`
