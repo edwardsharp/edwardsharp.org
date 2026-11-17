@@ -4,6 +4,79 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 import { parseHTML } from "linkedom";
 
+test("Markdown images default titles to nonempty alt text while preserving explicit titles and raw HTML", () => {
+  const source = [
+    '![a "quote" & caf\u00e9](/content/media/2026/one.png)',
+    "![remote](https://example.test/image.png)",
+    "![relative](../picture.webp)",
+    "![reference][picture]",
+    "[picture]: /images/reference.webp",
+    '![explicit](/images/explicit.webp "Written tooltip")',
+    '![empty title](/images/empty-title.webp){: title=""}',
+    '![attribute](/images/attribute.webp){: title="Attribute tooltip"}',
+    "![](/images/decorative.webp)",
+    "![   ](/images/whitespace.webp)",
+    '<img src="/content/media/raw.png" alt="raw HTML">',
+    "```markdown\n![example](/images/fenced.webp)\n```",
+  ].join("\n\n");
+  const root = fileURLToPath(new URL("../../../", import.meta.url));
+  const result = spawnSync(
+    "bundle",
+    [
+      "exec",
+      "ruby",
+      "-EUTF-8:UTF-8",
+      "-rjekyll",
+      "-rjson",
+      "-e",
+      `
+      require File.join(ARGV.fetch(0), "src/_plugins/markdown-images.rb")
+      site = Jekyll::Site.new(Jekyll.configuration("source" => ARGV.fetch(0), "quiet" => true))
+      source = STDIN.read
+      converter = site.find_converter_instance(Jekyll::Converters::Markdown)
+      markdownify = Liquid::Template.parse("{{ source | markdownify }}")
+      puts JSON.generate([
+        converter.convert(source),
+        markdownify.render!({ "source" => source }, registers: { site: site })
+      ])
+      `,
+      root,
+    ],
+    { cwd: root, encoding: "utf8", input: source },
+  );
+  assert.ifError(result.error);
+  assert.equal(result.status, 0, result.stderr);
+  const results: string[] = JSON.parse(result.stdout);
+  for (const html of results) {
+    const { document } = parseHTML(html);
+    assert.deepEqual(
+      [...document.querySelectorAll("img")].map((image) =>
+        image.getAttribute("title"),
+      ),
+      [
+        'a "quote" & caf\u00e9',
+        "remote",
+        "relative",
+        "reference",
+        "Written tooltip",
+        "",
+        "Attribute tooltip",
+        null,
+        null,
+        null,
+      ],
+    );
+    assert.equal(
+      document.querySelector("img")?.getAttribute("alt"),
+      'a "quote" & caf\u00e9',
+    );
+    assert.equal(
+      document.querySelector("pre code")?.textContent,
+      "![example](/images/fenced.webp)\n",
+    );
+  }
+});
+
 test("doodle kind controls full-height image markers in post bodies and static tiles without a tag", () => {
   const root = fileURLToPath(new URL("../../../", import.meta.url));
   const result = spawnSync(

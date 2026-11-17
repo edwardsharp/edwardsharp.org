@@ -1,9 +1,18 @@
 require "kramdown"
+require "kramdown/converter/html"
 require "kramdown-parser-gfm"
 require "nokogiri"
 
 module MarkdownImages
   KEY = "_markdown_image_paths"
+
+  module ImageTitles
+    def convert_img(element, indent)
+      alt = element.attr["alt"]
+      element.attr["title"] ||= alt unless alt.to_s.strip.empty?
+      super
+    end
+  end
 
   class UrlFilter
     include Jekyll::Filters::URLFilters
@@ -58,6 +67,8 @@ module MarkdownImages
     post.content = fragment.to_html
   end
 end
+
+Kramdown::Converter::Html.prepend(MarkdownImages::ImageTitles)
 
 Liquid::Template.register_filter(MarkdownImages::Filters)
 
