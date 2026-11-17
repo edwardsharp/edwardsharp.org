@@ -166,7 +166,8 @@ export function createPostReader(options: {
         mounted.set(row.index, item);
         void fill(row.index, item, row.size);
       }
-      item.node.style.transform = `translateY(${row.start}px)`;
+      // Transforms offset sticky controls from the reader's scrollport.
+      item.node.style.top = `${row.start}px`;
       const next = previous ? previous.nextSibling : track.firstChild;
       if (next !== item.node) track.insertBefore(item.node, next);
       previous = item.node;

@@ -11,15 +11,21 @@
     {% assign title = entry.url %}
   {% endif %}
 {% endif %}
+{% assign link_title = title %}
+{% if entry.collection == 'posts' %}
+  {% capture date_title %}{% include post-date.html post=entry %}{% endcapture %}
+  {% capture link_title %}{{ title }} / {{ date_title }}{% endcapture %}
+{% endif %}
 <li>
   {% if entry.collection == 'posts' %}
-    <time class="archive-label" datetime="{{ entry.date | date: '%Y-%m-%d' }}">
-      {{- entry.date | date: '%Y-%m-%d' -}}
+    <time class="archive-label" datetime="{{ entry.date | date: '%Y-%m-%d' }}" title="{{ date_title | escape }}">
+      <span class="archive-date-wide">{% include post-date.html post=entry compact=true %}</span>
+      <span class="archive-date-narrow">{% include post-date.html post=entry narrow=true %}</span>
     </time>
   {% else %}
     <span class="archive-label">page</span>
   {% endif %}
-  <a href="{{ entry.url | relative_url }}" title="{{ title | escape }}">{{ title | escape }}</a>
+  <a href="{{ entry.url | relative_url }}" title="{{ link_title | escape }}">{{ title | escape }}</a>
   {% if entry.collection == 'posts' %}
     <span class="archive-kind">{{ entry.kind | default: 'entry' | escape }}</span>
   {% endif %}

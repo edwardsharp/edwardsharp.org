@@ -15,3 +15,4 @@ image_alt: it's the top of my face on a sunny day
 <br/>
 
 **see also:** | [edwardsharp.net](https://edwardsharp.net) | [edwardsharp.com](https://edwardsharp.com)
+{: .bio-see-also }

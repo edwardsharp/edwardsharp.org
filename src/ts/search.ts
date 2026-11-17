@@ -7,6 +7,9 @@ export interface SearchDocument {
   text: string;
   tags: string[];
   date: string | null;
+  date_title?: string | null;
+  date_label?: string | null;
+  date_short_label?: string | null;
   kind: string | null;
   locations?: string[];
 }
@@ -41,7 +44,19 @@ export function parseDocuments(value: unknown): SearchDocument[] {
         "date" in entry &&
         (entry.date === null ||
           (typeof entry.date === "string" &&
-            /^\d{4}-\d{2}-\d{2}$/.test(entry.date))),
+            /^\d{4}-\d{2}-\d{2}$/.test(entry.date))) &&
+        (!("date_label" in entry) ||
+          entry.date_label === null ||
+          (typeof entry.date_label === "string" &&
+            entry.date_label.length > 0)) &&
+        (!("date_short_label" in entry) ||
+          entry.date_short_label === null ||
+          (typeof entry.date_short_label === "string" &&
+            entry.date_short_label.length > 0)) &&
+        (!("date_title" in entry) ||
+          entry.date_title === null ||
+          (typeof entry.date_title === "string" &&
+            entry.date_title.length > 0)),
     ) ||
     new Set(value.map((entry) => entry.url)).size !== value.length
   ) {

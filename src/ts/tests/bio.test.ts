@@ -47,6 +47,11 @@ test("bio image and home links render on all page types without relying on colle
   const pages: string[] = JSON.parse(result.stdout);
   for (const [index, html] of pages.entries()) {
     const { document } = parseHTML(html);
+    assert.ok(
+      [...document.querySelectorAll(".eyebrow")].every(
+        (element) => element.textContent.trim() !== "",
+      ),
+    );
     const bio =
       document.querySelector("#bio-panel") ?? document.querySelector("main");
     assert.ok(bio);

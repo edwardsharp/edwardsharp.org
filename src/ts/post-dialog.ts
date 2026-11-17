@@ -1,4 +1,5 @@
 import { createPostReader, type ReaderPost } from "./post-reader.ts";
+import { enhanceCodeBlocks } from "./code-blocks.ts";
 
 export function enhancePostDialog(shell: HTMLElement) {
   const dialog = shell.querySelector<HTMLDialogElement>(".post-dialog");
@@ -49,6 +50,7 @@ export function enhancePostDialog(shell: HTMLElement) {
     const date = page.querySelector(".post > .page-heading > .eyebrow");
     const tags = page.querySelector(".post > .post-navigation > .tags");
     if (!prose || !date) throw new Error("post content or date is missing");
+    if (prose.parentElement?.dataset.kind === "code") enhanceCodeBlocks(prose);
     const fragment = document.createDocumentFragment();
     fragment.append(date, ...prose.childNodes, ...(tags ? [tags] : []));
     return fragment;

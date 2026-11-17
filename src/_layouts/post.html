@@ -1,18 +1,30 @@
 ---
 layout: default
 ---
-<article class="post">
+<article class="post" data-kind="{{ page.kind | default: 'entry' | escape }}">
   <header class="page-heading">
     <p class="eyebrow">
-      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%B %-d, %Y' }}</time>
+      <time datetime="{{ page.date | date_to_xmlschema }}">{% include post-date.html post=page %}</time>
       {% assign location_name = page.location_name | default: '' | strip %}
       {% unless location_name == '' %}
-        <span class="post-location"
-          >&middot;
+        <span class="post-location">
           <a href="{{ '/' | relative_url }}?location={{ location_name | url_encode | escape }}">
-            {{- location_name | escape -}}
-          </a></span
-        >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"></path>
+              <circle cx="12" cy="10" r="2.5"></circle>
+            </svg>
+            {{ location_name | escape }}
+          </a>
+        </span>
       {% endunless %}
     </p>
     <h1>{{ page.title | escape }}</h1>

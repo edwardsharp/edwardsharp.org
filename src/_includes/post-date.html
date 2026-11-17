@@ -1,0 +1,27 @@
+{%- case include.post.date_precision -%}
+  {%- when 'year' -%}
+    {{- include.post.date | date: '%Y' -}}
+  {%- when 'month' -%}
+    {%- if include.compact or include.narrow -%}
+      {{- include.post.date | date: '%b' -}}
+    {%- else -%}
+      {{- include.post.date | date: '%B %Y' -}}
+    {%- endif -%}
+  {%- else -%}
+    {%- if include.narrow -%}
+      {{- include.post.date | date: '%b %-d' -}}
+    {%- elsif include.compact -%}
+      {{- include.post.date | date: '%a, %b %-d' -}}
+    {%- else -%}
+      {{- include.post.date | date: '%A, %B %-d, %Y' -}}
+    {%- endif -%}
+{%- endcase -%}
+{%- unless include.narrow -%}
+  {%- if include.post.date_precision == 'minute' or include.post.date_precision == 'second' -%}
+    {%- if include.compact -%}
+      {{- include.post.date | date: ', %-I%P' | remove: 'm' -}}
+    {%- else -%}
+      {{- include.post.date | date: ' at %-I:%M %P' -}}
+    {%- endif -%}
+  {%- endif -%}
+{%- endunless -%}

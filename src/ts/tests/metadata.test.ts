@@ -22,7 +22,7 @@ test("all layouts render escaped link previews with absolute deployment URLs and
           Dir.mktmpdir("journal-metadata-") do |source|
             FileUtils.mkdir_p(File.join(source, "src/_includes"))
             FileUtils.cp_r(File.join(ARGV.fetch(0), "src/_layouts"), File.join(source, "src"))
-            %w[metadata.html bio.html].each do |name|
+            %w[metadata.html bio.html post-date.html].each do |name|
               FileUtils.cp(File.join(ARGV.fetch(0), "src/_includes", name), File.join(source, "src/_includes"))
             end
             File.write(File.join(source, "src/_includes/header.html"), "")

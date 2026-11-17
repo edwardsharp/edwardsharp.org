@@ -29,7 +29,29 @@ permalink: /search.json
   {% assign locations = entry.locations | map: 'name' | push: entry.location_name | compact | uniq %}
   "locations": {{ locations | jsonify }}, "kind":
   {% if entry.collection == 'posts' %}{{ entry.kind | default: 'entry' | jsonify }}{% else %}null{% endif %}, "date":
-  {% if entry.collection == 'posts' %}{{ entry.date | date: '%Y-%m-%d' | jsonify }}{% else %}null{% endif %} }
+  {% if entry.collection == 'posts' %}{{ entry.date | date: '%Y-%m-%d' | jsonify }}{% else %}null{% endif %},
+  "date_label":
+  {% if entry.collection == 'posts' %}
+    {% capture date_label %}{% include post-date.html post=entry compact=true %}{% endcapture %}
+    {{ date_label | jsonify }}
+  {% else -%}
+    null
+  {%- endif -%}
+  , "date_short_label":
+  {% if entry.collection == 'posts' %}
+    {% capture date_short_label %}{% include post-date.html post=entry narrow=true %}{% endcapture %}
+    {{ date_short_label | jsonify }}
+  {% else -%}
+    null
+  {%- endif -%}
+  , "date_title":
+  {% if entry.collection == 'posts' %}
+    {% capture date_title %}{% include post-date.html post=entry %}{% endcapture %}
+    {{ date_title | jsonify }}
+  {% else -%}
+    null
+  {%- endif %}
+  }
   {%- unless forloop.last %},{% endunless %}
 {% endfor %}
 ]

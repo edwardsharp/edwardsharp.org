@@ -28,7 +28,8 @@ test("post locations render after dates, escape markup, and omit empty names", (
         )
         date = Nokogiri::HTML5.fragment(html).at_css(".eyebrow")
         { text: date.text.gsub(/\\s+/, " ").strip, html: date.to_html, elements: date.element_children.map(&:name),
-          href: date.at_css(".post-location a")&.[]("href") }
+          href: date.at_css(".post-location a")&.[]("href"),
+          pin: date.at_css(".post-location svg")&.attributes&.transform_values(&:value) }
       end)
     `,
       root,
@@ -38,17 +39,21 @@ test("post locations render after dates, escape markup, and omit empty names", (
   assert.ifError(result.error);
   assert.equal(result.status, 0, result.stderr);
   const rendered = JSON.parse(result.stdout);
-  assert.equal(rendered[0].text, "November 15, 2026 \u00b7 A <venue> & City");
+  assert.equal(rendered[0].text, "Sunday, November 15, 2026 A <venue> & City");
   assert.deepEqual(rendered[0].elements, ["time", "span"]);
   assert.match(rendered[0].html, /&lt;venue&gt; &amp; City/);
   assert.equal(
     rendered[0].href,
     "/reader-test/?location=A+%3Cvenue%3E+%26+City",
   );
+  assert.equal(rendered[0].pin["aria-hidden"], "true");
+  assert.equal(rendered[0].pin.focusable, "false");
+  assert.equal(rendered[0].pin.viewBox, "0 0 24 24");
   for (const entry of rendered.slice(1)) {
-    assert.equal(entry.text, "November 15, 2026");
+    assert.equal(entry.text, "Sunday, November 15, 2026");
     assert.deepEqual(entry.elements, ["time"]);
     assert.equal(entry.href, null);
+    assert.equal(entry.pin, null);
   }
 });
 
@@ -86,9 +91,9 @@ test("failed dialog images stay local to the asset; failed post requests still o
     const response = new Response(
       failRequest
         ? ""
-        : `<html><body><article class="post">
-      <header class="page-heading"><p class="eyebrow">a date <span class="post-location">&middot; <a href="https://example.test/?location=A+venue+%26+City">A venue &amp; City</a></span></p></header>
-      <div class="prose"><p>the caption survives</p><img src="https://example.test/missing.jpg"><img class="doodle-image" src="https://example.test/working.jpg"></div>
+        : `<html><body><article class="post" data-kind="code">
+      <header class="page-heading"><p class="eyebrow">a date <span class="post-location"><a href="https://example.test/?location=A+venue+%26+City"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"></path></svg> A venue &amp; City</a></span></p></header>
+      <div class="prose"><p>the caption survives</p><img src="https://example.test/missing.jpg"><img class="doodle-image" src="https://example.test/working.jpg"><pre><code>${Array.from({ length: 11 }, (_, i) => `line ${i + 1}`).join("\n")}</code></pre></div>
     </article></body></html>`,
       { status: failRequest ? 503 : 200 },
     );
@@ -114,9 +119,18 @@ test("failed dialog images stay local to the asset; failed post requests still o
   assert.ok(status.hidden);
   assert.ok(shell.querySelector(".post-dialog__content img.doodle-image"));
   assert.equal(
-    shell.querySelector(".post-dialog__content .post-location")?.textContent,
-    "\u00b7 A venue & City",
+    shell
+      .querySelector(".post-dialog__content .code-snippet__toggle")
+      ?.getAttribute("aria-expanded"),
+    "false",
   );
+  assert.equal(
+    shell
+      .querySelector(".post-dialog__content .post-location")
+      ?.textContent.trim(),
+    "A venue & City",
+  );
+  assert.ok(shell.querySelector(".post-dialog__content .post-location svg"));
   assert.equal(
     shell
       .querySelector(".post-dialog__content .post-location a")

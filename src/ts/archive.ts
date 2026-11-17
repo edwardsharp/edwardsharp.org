@@ -29,7 +29,21 @@ function createEntry(entry: SearchDocument, hit?: SearchHit): HTMLLIElement {
   label.className = "archive-label";
   if (label instanceof HTMLTimeElement && entry.date)
     label.dateTime = entry.date;
-  label.textContent = entry.date ?? "page";
+  if (entry.date) {
+    for (const { className, text } of [
+      { className: "archive-date-wide", text: entry.date_label ?? entry.date },
+      {
+        className: "archive-date-narrow",
+        text: entry.date_short_label ?? entry.date,
+      },
+    ]) {
+      const span = document.createElement("span");
+      span.className = className;
+      span.textContent = text;
+      label.append(span);
+    }
+  } else label.textContent = "page";
+  if (entry.date_title) label.title = entry.date_title;
   const link = document.createElement("a");
   link.href = entry.url;
   const title = archiveTitle(entry);
@@ -38,7 +52,7 @@ function createEntry(entry: SearchDocument, hit?: SearchHit): HTMLLIElement {
     title,
     title === entry.title ? (hit?.matches.title ?? []) : [],
   );
-  link.title = title;
+  link.title = entry.date_title ? `${title} / ${entry.date_title}` : title;
   item.append(label, link);
   if (entry.kind) {
     const kind = document.createElement("span");
