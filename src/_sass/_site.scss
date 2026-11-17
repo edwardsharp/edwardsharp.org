@@ -86,7 +86,7 @@ a:is(:hover, :focus-visible) {
 }
 
 .site-shell {
-  width: min(100% - 3rem, 64rem);
+  width: min(100% - 2rem, 88rem);
   min-height: 100svh;
   margin-inline: auto;
   display: flex;
@@ -655,15 +655,19 @@ h1 {
   visibility: visible;
 }
 
-.home-page .site-shell,
-.archive-page .site-shell {
-  width: min(100% - 2rem, 88rem);
-}
-
-.archive-page main,
-.archive-page .site-footer {
+.site-shell > main,
+.site-shell > .site-footer {
   width: min(100% - 1rem, 64rem);
   margin-inline: auto;
+}
+
+.home-page .site-shell > main,
+.bio-page .site-shell > main {
+  width: 100%;
+}
+
+.bio-page .page {
+  max-width: none;
 }
 
 .home-page main {

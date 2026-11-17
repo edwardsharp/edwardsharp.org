@@ -4,7 +4,7 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 import { parseHTML } from "linkedom";
 
-test("bio image and home links render on archive, home, and standalone pages without relying on collection render order", () => {
+test("bio image and home links render on all page types without relying on collection render order", () => {
   const root = fileURLToPath(new URL("../../../", import.meta.url));
   const result = spawnSync(
     "bundle",
@@ -25,7 +25,9 @@ test("bio image and home links render on archive, home, and standalone pages wit
       pages = [
         { "url" => "/archive/", "title" => "archive", "archive" => true },
         { "url" => "/", "feed" => true },
-        { "url" => "/bio/", "title" => "bio", "bio" => true }
+        { "url" => "/bio/", "title" => "bio", "bio" => true },
+        { "url" => "/post/example/", "title" => "example", "layout" => "post" },
+        { "url" => "/404.html", "title" => "not found", "layout" => "page" }
       ]
       puts JSON.generate(pages.map do |page|
         payload = { "site" => site.site_payload["site"], "page" => page["bio"] ? bio.data.merge(page) : page, "content" => "" }
@@ -71,10 +73,20 @@ test("bio image and home links render on archive, home, and standalone pages wit
     );
     assert.equal(
       bio.querySelector("[data-bio-home]")?.hasAttribute("hidden"),
-      document.body.classList.contains("home-page"),
+      document.body.classList.contains("home-page") ||
+        document.body.classList.contains("bio-page"),
     );
+    const wordmark = document.querySelector(".wordmark");
+    const standaloneBio = document.body.classList.contains("bio-page");
+    assert.equal(
+      wordmark?.getAttribute("href"),
+      standaloneBio ? "/journal/" : "/journal/bio/",
+    );
+    assert.equal(wordmark?.hasAttribute("aria-controls"), !standaloneBio);
     assert.ok(!bio.innerHTML.includes("{{"));
     assert.equal(document.body.classList.contains("archive-page"), index === 0);
+    assert.equal(document.body.classList.contains("post-page"), index === 3);
+    assert.equal(document.body.classList.contains("bio-page"), index === 2);
   }
 });
 

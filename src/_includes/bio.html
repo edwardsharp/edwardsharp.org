@@ -23,7 +23,7 @@
   class="bio-home"
   href="{{ '/' | relative_url }}"
   data-bio-home
-  {% if page.url == '/' %}
+  {% if page.url == '/' or page.bio %}
     hidden
   {% endif %}
 >

@@ -1,7 +1,7 @@
 <header class="site-header">
   <a
     class="wordmark"
-    href="{{ '/bio/' | relative_url }}"
+    href="{% if page.bio %}{{ '/' | relative_url }}{% else %}{{ '/bio/' | relative_url }}{% endif %}"
     {% unless page.bio %}
       aria-controls="bio-panel"
       aria-expanded="false"

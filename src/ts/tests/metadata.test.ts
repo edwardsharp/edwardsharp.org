@@ -18,15 +18,18 @@ test("all layouts render escaped link previews with absolute deployment URLs and
       "-rfileutils",
       "-e",
       `
-        results = ["", "/blog"].flat_map do |baseurl|
+        results = ["", "/blog"].product([false, true]).flat_map do |baseurl, fallback|
           Dir.mktmpdir("journal-metadata-") do |source|
             FileUtils.mkdir_p(File.join(source, "src/_includes"))
             FileUtils.cp_r(File.join(ARGV.fetch(0), "src/_layouts"), File.join(source, "src"))
-            FileUtils.cp(File.join(ARGV.fetch(0), "src/_includes/metadata.html"), File.join(source, "src/_includes"))
+            %w[metadata.html bio.html].each do |name|
+              FileUtils.cp(File.join(ARGV.fetch(0), "src/_includes", name), File.join(source, "src/_includes"))
+            end
             File.write(File.join(source, "src/_includes/header.html"), "")
             pages = [
               ["home", { "title" => "home", "layout" => "default", "permalink" => "/" }, "home body"],
-              ["archive", { "title" => "archive", "layout" => "page", "permalink" => "/archive/" }, "archive body"]
+              ["archive", { "title" => "archive", "layout" => "page", "permalink" => "/archive/" }, "archive body"],
+              ["bio", { "title" => "bio", "layout" => "page", "permalink" => "/bio/", "bio" => true, "image" => "/portrait.jpeg" }, "bio body"]
             ]
             posts = [
               ["photo", {
@@ -37,7 +40,7 @@ test("all layouts render escaped link previews with absolute deployment URLs and
                 "redirect_from" => "/legacy/photo/",
                 "last_modified" => "2020-06-02T12:00:00Z"
               }, "photo body"],
-              ["text", { "title" => "words" }, "a **bold** paragraph & an [example](https://example.test).\\n\\nnext paragraph."],
+              ["text", { "title" => "words", "preview_alt" => "an unrelated old image" }, "a **bold** paragraph & an [example](https://example.test).\\n\\nnext paragraph."],
               ["remote", { "title" => "remote", "preview_image" => "https://images.example.test/photo.jpg" }, "remote image"],
               ["empty", { "title" => "no title", "kind" => "photo" }, '<img src="/content/media/2020/photo.webp">']
             ]
@@ -60,13 +63,15 @@ test("all layouts render escaped link previews with absolute deployment URLs and
               "layouts_dir" => "src/_layouts", "includes_dir" => "src/_includes",
               "url" => "https://example.test", "baseurl" => baseurl,
               "title" => 'journal & "stuff"', "description" => "site fallback",
+              "preview_image" => fallback ? "/src/assets/bio-preview.jpeg" : nil,
+              "preview_alt" => "a hexagonal portrait on a black background",
               "plugins" => ["jekyll-redirect-from"],
               "timezone" => "UTC", "quiet" => true, "strict_front_matter" => true,
               "liquid" => { "error_mode" => "strict" }, "exclude" => ["src"]
             ))
             site.process
             (site.collections.fetch("pages").docs + site.posts.docs + site.pages.select { |page| page.data.key?("redirect") }).map do |document|
-              { baseurl: baseurl, url: document.url, html: document.output }
+              { baseurl: baseurl, fallback: fallback, url: document.url, html: document.output }
             end
           end
         end
@@ -78,11 +83,14 @@ test("all layouts render escaped link previews with absolute deployment URLs and
   );
   assert.ifError(result.error);
   assert.equal(result.status, 0, result.stderr);
-  const results: { baseurl: string; url: string; html: string }[] = JSON.parse(
-    result.stdout,
-  );
-  assert.equal(results.length, 14);
-  for (const { baseurl, url, html } of results) {
+  const results: {
+    baseurl: string;
+    fallback: boolean;
+    url: string;
+    html: string;
+  }[] = JSON.parse(result.stdout);
+  assert.equal(results.length, 32);
+  for (const { baseurl, fallback, url, html } of results) {
     const { document } = parseHTML(html);
     const meta = (key: string) =>
       document
@@ -131,8 +139,22 @@ test("all layouts render escaped link previews with absolute deployment URLs and
       assert.equal(meta("og:image"), "https://images.example.test/photo.jpg");
       assert.equal(meta("og:image:alt"), "remote");
     } else {
-      assert.equal(meta("twitter:card"), "summary");
-      assert.equal(meta("og:image"), undefined);
+      if (fallback) {
+        assert.equal(meta("twitter:card"), "summary_large_image");
+        assert.equal(
+          meta("og:image"),
+          `https://example.test${baseurl}/src/assets/bio-preview.jpeg`,
+        );
+        assert.equal(
+          meta("og:image:alt"),
+          "a hexagonal portrait on a black background",
+        );
+        assert.equal(meta("twitter:image"), meta("og:image"));
+        assert.equal(meta("twitter:image:alt"), meta("og:image:alt"));
+      } else {
+        assert.equal(meta("twitter:card"), "summary");
+        assert.equal(meta("og:image"), undefined);
+      }
       assert.equal(
         meta("og:description"),
         url === "/posts/text/"

@@ -4,6 +4,8 @@ lang: en
 url: "https://edwardsharp.org"
 baseurl: ""
 timezone: America/New_York
+preview_image: /src/assets/bio-preview.jpeg
+preview_alt: a hexagonal portrait on a black background
 
 collections_dir: content
 collections:

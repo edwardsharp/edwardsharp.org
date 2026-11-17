@@ -18,6 +18,10 @@
       class="home-page"
     {% elsif page.archive %}
       class="archive-page"
+    {% elsif page.layout == 'post' %}
+      class="post-page"
+    {% elsif page.bio %}
+      class="bio-page"
     {% endif %}
   >
     <a class="skip-link" href="#main">skip to content</a>

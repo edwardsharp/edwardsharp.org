@@ -17,8 +17,12 @@
 {% endif %}
 {% assign metadata_description = metadata_description | truncate: 180 %}
 {% assign metadata_url = include.url | default: metadata_entry.url | absolute_url %}
-{% assign metadata_image = metadata_entry.preview_image | default: site.preview_image | default: '' | strip %}
-{% assign metadata_alt = metadata_entry.preview_alt | default: site.preview_alt | default: metadata_title %}
+{% assign metadata_image = metadata_entry.preview_image | default: '' | strip %}
+{% assign metadata_alt = metadata_entry.preview_alt | default: metadata_title %}
+{% if metadata_image == '' %}
+  {% assign metadata_image = site.preview_image | default: '' | strip %}
+  {% assign metadata_alt = site.preview_alt | default: metadata_title %}
+{% endif %}
 <title>
   {% if metadata_title != site.title %}{{ metadata_title | escape }} / {% endif %}
   {{ site.title | escape }}
