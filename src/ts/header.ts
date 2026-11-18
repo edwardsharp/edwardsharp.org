@@ -1,4 +1,53 @@
 import { needsMenu } from "./header-layout.ts";
+import { createJudyCursor } from "./judy-cursor.ts";
+
+export function enhanceJudyCursor(root: Document = document) {
+  const judy = root.defaultView?.matchMedia?.("(any-pointer: coarse)").matches
+    ? createJudyCursor(root)
+    : undefined;
+  try {
+    root.documentElement.classList.toggle(
+      "has-judy-cursor",
+      localStorage.getItem("judy-cursor") === "true",
+    );
+  } catch (error) {
+    if (!(error instanceof DOMException) || error.name !== "SecurityError")
+      throw error;
+    console.warn("could not restore Judy cursor preference", error);
+  }
+  judy?.setEnabled(root.documentElement.classList.contains("has-judy-cursor"));
+  for (const trigger of root.querySelectorAll<HTMLAnchorElement>(
+    ".judy-cursor-trigger",
+  )) {
+    trigger.addEventListener("click", (event) => {
+      if (
+        event.defaultPrevented ||
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey
+      )
+        return;
+      event.preventDefault();
+      const enabled = root.documentElement.classList.toggle("has-judy-cursor");
+      judy?.setEnabled(enabled);
+      if (enabled) void judy?.requestMotion();
+      try {
+        localStorage.setItem("judy-cursor", String(enabled));
+      } catch (error) {
+        if (
+          !(error instanceof DOMException) ||
+          !["SecurityError", "QuotaExceededError"].includes(error.name)
+        )
+          throw error;
+        console.warn("could not save Judy cursor preference", error);
+      }
+    });
+  }
+}
+
+enhanceJudyCursor();
 
 for (const toggle of document.querySelectorAll<HTMLButtonElement>(
   "[data-bio-photo-toggle]",

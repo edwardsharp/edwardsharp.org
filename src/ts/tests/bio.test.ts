@@ -61,6 +61,8 @@ test("bio image and home links render on all page types without relying on colle
     );
     const content = bio.querySelector(".bio-content");
     assert.ok(content);
+    const judyCursor = content.querySelector(".judy-cursor-trigger");
+    assert.equal(judyCursor?.textContent, "sysadminwitch");
     assert.deepEqual(
       [...content.children].slice(0, 3).map((element) => element.tagName),
       ["P", "H1", "H2"],
@@ -95,11 +97,23 @@ test("bio image and home links render on all page types without relying on colle
   }
 });
 
-test("the bio photo can be tapped or activated again to restore its cutout", async (t) => {
-  const { document } = parseHTML(
-    '<html><body><button data-bio-photo-toggle aria-pressed="false"><img class="bio-photo"></button></body></html>',
+test("the Judy cursor toggles, restores its saved state, and leaves photo and modified clicks alone", async (t) => {
+  const { document, window } = parseHTML(
+    '<html><body><button data-bio-photo-toggle aria-pressed="false"><img class="bio-photo"></button><a class="judy-cursor-trigger" href="https://github.com/edwardsharp/">sysadminwitch</a></body></html>',
   );
   const previous = Object.getOwnPropertyDescriptor(globalThis, "document");
+  const previousStorage = Object.getOwnPropertyDescriptor(
+    globalThis,
+    "localStorage",
+  );
+  const saved = new Map<string, string>();
+  Object.defineProperty(globalThis, "localStorage", {
+    value: {
+      getItem: (key: string) => saved.get(key) ?? null,
+      setItem: (key: string, value: string) => saved.set(key, value),
+    },
+    configurable: true,
+  });
   Object.defineProperty(globalThis, "document", {
     value: document,
     configurable: true,
@@ -107,11 +121,73 @@ test("the bio photo can be tapped or activated again to restore its cutout", asy
   t.after(() => {
     if (previous) Object.defineProperty(globalThis, "document", previous);
     else Reflect.deleteProperty(globalThis, "document");
+    if (previousStorage)
+      Object.defineProperty(globalThis, "localStorage", previousStorage);
+    else Reflect.deleteProperty(globalThis, "localStorage");
   });
-  await import("../header.ts");
+  const { enhanceJudyCursor } = await import("../header.ts");
   const toggle = document.querySelector("button")!;
   toggle.click();
   assert.equal(toggle.getAttribute("aria-pressed"), "true");
   toggle.click();
   assert.equal(toggle.getAttribute("aria-pressed"), "false");
+  const trigger = document.querySelector(".judy-cursor-trigger")!;
+  const click = (metaKey = false) => {
+    const event = new window.Event("click", {
+      bubbles: true,
+      cancelable: true,
+    });
+    Object.defineProperties(event, {
+      button: { value: 0 },
+      metaKey: { value: metaKey },
+    });
+    trigger.dispatchEvent(event);
+    return event;
+  };
+  assert.equal(click(true).defaultPrevented, false);
+  assert.equal(
+    document.documentElement.classList.contains("has-judy-cursor"),
+    false,
+  );
+  for (const enabled of [true, false, true]) {
+    assert.equal(click().defaultPrevented, true);
+    assert.equal(
+      document.documentElement.classList.contains("has-judy-cursor"),
+      enabled,
+    );
+    assert.equal(saved.get("judy-cursor"), String(enabled));
+    const restored = parseHTML("<html><body></body></html>").document;
+    enhanceJudyCursor(restored);
+    assert.equal(
+      restored.documentElement.classList.contains("has-judy-cursor"),
+      enabled,
+    );
+  }
+  toggle.click();
+  assert.equal(
+    document.documentElement.classList.contains("has-judy-cursor"),
+    true,
+  );
+  const blocked = parseHTML(
+    '<html><body><a class="judy-cursor-trigger" href="">sysadminwitch</a></body></html>',
+  );
+  Object.defineProperty(globalThis, "localStorage", {
+    get() {
+      throw new DOMException("storage blocked", "SecurityError");
+    },
+    configurable: true,
+  });
+  const warning = t.mock.method(console, "warn", () => {});
+  enhanceJudyCursor(blocked.document);
+  const blockedClick = new blocked.window.Event("click", {
+    bubbles: true,
+    cancelable: true,
+  });
+  Object.defineProperty(blockedClick, "button", { value: 0 });
+  blocked.document.querySelector("a")!.dispatchEvent(blockedClick);
+  assert.equal(
+    blocked.document.documentElement.classList.contains("has-judy-cursor"),
+    true,
+  );
+  assert.equal(warning.mock.callCount(), 2);
 });
