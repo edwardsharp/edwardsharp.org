@@ -16,6 +16,7 @@ tags:
     "microcontroller",
     "3dprinting",
     "modelz",
+    "python",
   ]
 ---
 
