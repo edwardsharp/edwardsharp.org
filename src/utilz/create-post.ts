@@ -302,6 +302,17 @@ export function githubRepositoryURL(value: string): string {
   return `https://github.com/${match[1]}/${repo}`;
 }
 
+export function demoSiteURL(value: string): string {
+  const url = new URL(value);
+  if (
+    !["http:", "https:"].includes(url.protocol) ||
+    url.username ||
+    url.password
+  )
+    throw new Error("enter an HTTP(S) demo URL without credentials");
+  return url.href;
+}
+
 async function githubAPI(endpoint: string): Promise<unknown> {
   const { stdout } = await execute("gh", ["api", "--method", "GET", endpoint], {
     maxBuffer: 16 * 1024 * 1024,
@@ -398,6 +409,7 @@ export interface NewPost {
   images: { filename: string; alt: string }[];
   media?: { filename: string; kind: "video" | "audio" };
   source?: string;
+  demoURL?: string;
   body?: string;
 }
 
@@ -406,6 +418,10 @@ export async function createPost(root: string, post: NewPost): Promise<string> {
   const kind = post.kind.trim();
   titleSlug(title);
   titleSlug(kind);
+  const demoURL =
+    post.demoURL === undefined ? undefined : demoSiteURL(post.demoURL);
+  if (demoURL && kind !== "code")
+    throw new Error("demo URLs are only supported for code posts");
   if (post.media && post.media.kind !== kind)
     throw new Error("media kind must match the post kind");
   const normalized = sourceDate(post.date.date);
@@ -530,7 +546,7 @@ export async function createPost(root: string, post: NewPost): Promise<string> {
     if (post.location_name?.trim())
       fields.location_name = post.location_name.trim();
     if (post.source) fields.source = githubRepositoryURL(post.source);
-    if (kind === "code" && post.body !== undefined)
+    if (kind === "code" && (post.body !== undefined || demoURL))
       fields.render_with_liquid = false;
     const preview = outputs[0];
     if (preview) {
@@ -544,6 +560,10 @@ export async function createPost(root: string, post: NewPost): Promise<string> {
       )
       .join("\n\n");
     const sections = [body];
+    if (demoURL)
+      sections.push(
+        `<iframe class="code-demo" src="${escapeHTML(demoURL)}" title="${escapeHTML(title)}" width="100%" height="480" loading="lazy" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe>`,
+      );
     if (post.media && mediaOutput) {
       const url = `{{ '${mediaOutput.url}' | relative_url }}`;
       if (post.media.kind === "video") {

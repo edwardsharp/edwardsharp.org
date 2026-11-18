@@ -210,89 +210,114 @@ test("the seeded date can be accepted or replaced without losing the normal date
   }
 });
 
-test("the code wizard asks for GitHub first and writes the repository date, source, and opted-in README", async (t) => {
+test("the code wizard offers an independent optional demo URL alongside GitHub and README import", async (t) => {
   t.mock.method(console, "log", () => {});
-  const root = await mkdtemp(join(tmpdir(), "post-github-prompts-"));
-  t.after(() => rm(root, { recursive: true, force: true }));
-  await mkdir(join(root, "content/_posts/2014"), { recursive: true });
-  await writeFile(join(root, "_config.yml"), "timezone: America/New_York\n");
-  await writeFile(
-    join(root, "content/_posts/2014/2014-01-01-fixture.md"),
-    "---\nkind: code\ntags: []\n---\n",
-  );
-  const url = "https://github.com/example/project";
-  const created = "2010-01-02T03:04:05.000Z";
-  const readme = "# project\n\n{{ literal }}\n";
-  const responses = {
-    "repos/example/project": {
-      html_url: url,
-      created_at: "2010-01-02T03:04:05Z",
-      private: false,
-    },
-    "repos/example/project/readme": {
-      name: "README.md",
-      encoding: "base64",
-      content: Buffer.from(readme).toString("base64"),
-    },
-  };
-  const bin = join(root, "bin");
-  await mkdir(bin);
-  const gh = join(bin, "gh");
-  await writeFile(
-    gh,
-    `#!/usr/bin/env node\nconst responses = ${JSON.stringify(responses)};\nconst endpoint = process.argv.at(-1);\nif (!Object.hasOwn(responses, endpoint)) throw new Error("unexpected GitHub endpoint: " + endpoint);\nconsole.log(JSON.stringify(responses[endpoint]));\n`,
-  );
-  await chmod(gh, 0o755);
-  const previous = process.env.PATH;
-  process.env.PATH = `${bin}${process.platform === "win32" ? ";" : ":"}${previous ?? ""}`;
-  t.after(() => {
-    if (previous === undefined) delete process.env.PATH;
-    else process.env.PATH = previous;
-  });
-  const input = new PassThrough();
-  const output = promptOutput();
-  const controller = new AbortController();
-  let screen = "";
-  output.on("data", (chunk) => {
-    screen += chunk.toString();
-  });
-  const result = newPost(root, { input, output, signal: controller.signal });
-  async function answer(message: string, keys: string) {
-    for (let i = 0; i < 300 && !screen.includes(message); i++)
-      await setTimeout(10);
-    assert.ok(screen.includes(message), screen);
-    screen = "";
-    input.write(keys);
-  }
-  try {
-    await answer("kind (type to search or add)", "code");
-    await setTimeout(400);
-    input.write("\r");
-    await answer("GitHub repository URL (optional)", `${url}.git\r`);
-    await answer("import the repository README as post content?", "y\r");
-    for (let i = 0; i < 300 && !screen.includes("date (flexible;"); i++)
-      await setTimeout(10);
-    assert.ok(screen.replace(/\r?\n/g, "").includes(created), screen);
-    await answer("date (flexible;", "\r");
-    await answer("use this date?", "y\r");
-    await answer("name / title", "project\r");
-    await answer("tags (none;", "\r");
-    await answer("done / skip", "\r");
-    await answer("images (0 selected;", "\x1b[A\r");
-    await answer("write this post and prepare its media?", "y\r");
-    const filename = await result;
-    assert.ok(filename);
-    const text = await readFile(filename, "utf8");
-    const header = parse(text.split("---")[1] ?? "");
-    assert.equal(header.date, created);
-    assert.equal(header.source, url);
-    assert.equal(header.render_with_liquid, false);
-    assert.ok(text.includes(readme));
-  } finally {
-    controller.abort();
-    await result.catch(() => {});
-    input.destroy();
-    output.destroy();
+  for (const flow of ["repository and demo", "demo only", "skip both"]) {
+    await t.test(flow, async (t) => {
+      const withRepository = flow === "repository and demo";
+      const demoURL =
+        flow === "skip both" ? "" : "https://demo.example/?a=1&b=2";
+      const root = await mkdtemp(join(tmpdir(), "post-github-prompts-"));
+      t.after(() => rm(root, { recursive: true, force: true }));
+      await mkdir(join(root, "content/_posts/2014"), { recursive: true });
+      await writeFile(
+        join(root, "_config.yml"),
+        "timezone: America/New_York\n",
+      );
+      await writeFile(
+        join(root, "content/_posts/2014/2014-01-01-fixture.md"),
+        "---\nkind: code\ntags: []\n---\n",
+      );
+      const url = "https://github.com/example/project";
+      const created = "2010-01-02T03:04:05.000Z";
+      const readme = "# project\n\n{{ literal }}\n";
+      const responses = {
+        "repos/example/project": {
+          html_url: url,
+          created_at: "2010-01-02T03:04:05Z",
+          private: false,
+        },
+        "repos/example/project/readme": {
+          name: "README.md",
+          encoding: "base64",
+          content: Buffer.from(readme).toString("base64"),
+        },
+      };
+      const bin = join(root, "bin");
+      await mkdir(bin);
+      const gh = join(bin, "gh");
+      await writeFile(
+        gh,
+        `#!/usr/bin/env node\nconst responses = ${JSON.stringify(responses)};\nconst endpoint = process.argv.at(-1);\nif (!Object.hasOwn(responses, endpoint)) throw new Error("unexpected GitHub endpoint: " + endpoint);\nconsole.log(JSON.stringify(responses[endpoint]));\n`,
+      );
+      await chmod(gh, 0o755);
+      const previous = process.env.PATH;
+      process.env.PATH = `${bin}${process.platform === "win32" ? ";" : ":"}${previous ?? ""}`;
+      t.after(() => {
+        if (previous === undefined) delete process.env.PATH;
+        else process.env.PATH = previous;
+      });
+      const input = new PassThrough();
+      const output = promptOutput();
+      const controller = new AbortController();
+      let screen = "";
+      output.on("data", (chunk) => {
+        screen += chunk.toString();
+      });
+      const result = newPost(root, {
+        input,
+        output,
+        signal: controller.signal,
+      });
+      async function answer(message: string, keys: string) {
+        for (let i = 0; i < 300 && !screen.includes(message); i++)
+          await setTimeout(10);
+        assert.ok(screen.includes(message), screen);
+        screen = "";
+        input.write(keys);
+      }
+      try {
+        await answer("kind (type to search or add)", "code");
+        await setTimeout(400);
+        input.write("\r");
+        await answer(
+          "GitHub repository URL (optional)",
+          withRepository ? `${url}.git\r` : "\r",
+        );
+        if (withRepository)
+          await answer("import the repository README as post content?", "y\r");
+        await answer("demo site URL (optional)", `${demoURL}\r`);
+        for (let i = 0; i < 300 && !screen.includes("date (flexible;"); i++)
+          await setTimeout(10);
+        if (withRepository)
+          assert.ok(screen.replace(/\r?\n/g, "").includes(created), screen);
+        await answer("date (flexible;", withRepository ? "\r" : "2014-09-30\r");
+        await answer("use this date?", "y\r");
+        await answer("name / title", "project\r");
+        await answer("tags (none;", "\r");
+        await answer("done / skip", "\r");
+        await answer("images (0 selected;", "\x1b[A\r");
+        await answer("write this post and prepare its media?", "y\r");
+        const filename = await result;
+        assert.ok(filename);
+        const text = await readFile(filename, "utf8");
+        const header = parse(text.split("---")[1] ?? "");
+        assert.equal(header.date, withRepository ? created : "2014-09-30");
+        assert.equal(header.source, withRepository ? url : undefined);
+        assert.equal(header.render_with_liquid, demoURL ? false : undefined);
+        assert.equal(text.includes(readme), withRepository);
+        const { document } = parseHTML(text.split("---").slice(2).join("---"));
+        assert.equal(
+          document.querySelector("iframe")?.getAttribute("src"),
+          demoURL || undefined,
+        );
+      } finally {
+        controller.abort();
+        await result.catch(() => {});
+        input.destroy();
+        output.destroy();
+      }
+    });
   }
 });
 
@@ -375,6 +400,7 @@ test("code posts persist the repository source, imported Markdown, and an overri
     tags: [],
     images: [],
     source: "https://github.com/example/project.git",
+    demoURL: "https://demo.example/",
     body,
   });
   const text = await readFile(filename, "utf8");
@@ -383,6 +409,7 @@ test("code posts persist the repository source, imported Markdown, and an overri
   assert.equal(header.date, "2014-09-30");
   assert.equal(header.render_with_liquid, false);
   assert.ok(text.includes(body));
+  assert.ok(text.indexOf("<iframe") < text.indexOf(body));
   const rendered = renderedPosts(root)[0];
   assert.ok(rendered);
   const { document } = parseHTML(rendered.html);
@@ -391,6 +418,49 @@ test("code posts persist the repository source, imported Markdown, and an overri
       .querySelector("code")
       ?.textContent.includes("{{ example }} {% include missing.html %}"),
   );
+  assert.equal(
+    document.querySelector("iframe")?.getAttribute("src"),
+    "https://demo.example/",
+  );
+});
+
+test("demo-only posts render escaped iframe attributes literally and invalid demo URLs publish nothing", async (t) => {
+  const root = await mkdtemp(join(tmpdir(), "post-demo-"));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  const post: NewPost = {
+    title: 'project "demo" & <preview>',
+    kind: "code",
+    date: parsePostDate("2014-09-30"),
+    tags: [],
+    images: [],
+  };
+  for (const demoURL of [
+    "/relative",
+    "javascript:alert(1)",
+    "data:text/html,demo",
+    "ftp://demo.example/",
+    "https://user:password@demo.example/",
+  ])
+    await assert.rejects(createPost(root, { ...post, demoURL }));
+  await assert.rejects(
+    createPost(root, {
+      ...post,
+      kind: "entry",
+      demoURL: "https://demo.example/",
+    }),
+    /only supported for code posts/,
+  );
+  assert.deepEqual(await readdir(root), []);
+  const demoURL = 'https://demo.example/?a=1&label="demo"&literal={{example}}';
+  await createPost(root, { ...post, demoURL });
+  const rendered = renderedPosts(root)[0];
+  assert.ok(rendered);
+  const { document } = parseHTML(rendered.html);
+  const iframe = document.querySelector("iframe.code-demo");
+  assert.ok(iframe);
+  assert.equal(iframe.getAttribute("src"), new URL(demoURL).href);
+  assert.equal(iframe.getAttribute("title"), post.title);
+  assert.equal(document.querySelector("preview"), null);
 });
 
 test("video and audio posts transcode media, retain original files, and use optional WebP previews", async (t) => {

@@ -20,6 +20,7 @@ import { locationKey, tagKey } from "../ts/feed-filters.ts";
 import {
   createPost,
   DateInputError,
+  demoSiteURL,
   expandPath,
   githubRepositoryURL,
   mediaCreationDate,
@@ -457,6 +458,7 @@ export async function newPost(
   let images: NewPost["images"] | undefined;
   let media: NewPost["media"];
   let source: string | undefined;
+  let demoURL: string | undefined;
   let body: string | undefined;
   if (["photo", "screenshot", "doodle"].includes(kind)) {
     images = await requestImages(root, true, false, context);
@@ -517,6 +519,23 @@ export async function newPost(
         );
       }
     }
+    const demo = await input(
+      {
+        message: "demo site URL (optional)",
+        validate(value) {
+          if (!value.trim()) return true;
+          try {
+            demoSiteURL(value.trim());
+            return true;
+          } catch (error) {
+            if (error instanceof Error) return error.message;
+            throw error;
+          }
+        },
+      },
+      context,
+    );
+    if (demo.trim()) demoURL = demoSiteURL(demo.trim());
   }
   const date = await requestDate(catalog.timezone, dateDefault, context);
   const title = await input(
@@ -552,6 +571,7 @@ export async function newPost(
     images,
     ...(media ? { media } : {}),
     ...(source ? { source } : {}),
+    ...(demoURL ? { demoURL } : {}),
     ...(body !== undefined ? { body } : {}),
     ...(location ? { location_name: location } : {}),
   };
@@ -568,6 +588,7 @@ export async function newPost(
         preview: images[0]?.filename,
         media,
         source,
+        demoURL,
         importedReadme: body !== undefined,
       },
       null,

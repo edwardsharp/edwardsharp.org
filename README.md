@@ -27,7 +27,7 @@ uses [@inquirer npm package](https://npmjs.com/package/inquirer) for interactive
 
 photo, screenshot, and doodle posts choose images first; video/audio posts choose their media file first. the editable date prompt defaults to the first file's filesystem creation time, not EXIF or filename dates. video/audio are converted to H.264/AAC MP4 (up to 1920px wide) / MP3 with metadata stripped and a 100 MB output limit; they still offer optional preview images. requires ffmpeg for video/audio.
 
-code posts first offer an optional github repo URL. with a URL, `gh api` supplies the editable repository creation date and the repository URL becomes `source`. optionally import its markdown README verbatim as the post body. requires GitHub CLI authentication (`gh auth login`); private-repository imports warn.
+code posts first offer an optional github repo URL. with a URL, `gh api` supplies the editable repository creation date and the repository URL becomes `source`. optionally import its markdown README verbatim as the post body. requires GitHub CLI authentication (`gh auth login`); private-repository imports warn. a separate optional HTTP(S) demo URL adds a lazy-loaded, sandboxed iframe above the README.
 
 requires python 3.11+, imagemagick, and full disk access for your terminal/editor; notes.app scriptz also needs automation permission: `python3 src/utilz/.tools/notes-exporter/notes_permission.py --ask`
 
