@@ -14,7 +14,7 @@ import {
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { PassThrough } from "node:stream";
-import test from "node:test";
+import test, { type TestContext } from "node:test";
 import { setTimeout } from "node:timers/promises";
 import { fileURLToPath } from "node:url";
 import { parseHTML } from "linkedom";
@@ -39,6 +39,34 @@ function promptOutput(): PassThrough {
   // Unlike a terminal, a PassThrough would close after the first prompt.
   output.end = () => output;
   return output;
+}
+
+async function mockGitHubCLI(
+  t: TestContext,
+  root: string,
+  responses: Record<string, unknown>,
+): Promise<void> {
+  const bin = join(root, "bin");
+  await mkdir(bin);
+  const gh = join(bin, "gh");
+  await writeFile(
+    gh,
+    `#!/usr/bin/env node\nconst responses = ${JSON.stringify(responses)};\nconst endpoint = process.argv.at(-1);\nif (!Object.hasOwn(responses, endpoint)) throw new Error("unexpected GitHub endpoint: " + endpoint);\nconst response = responses[endpoint];\nif (response.type === "Buffer") console.log(JSON.stringify({encoding:"base64", content:Buffer.from(response.data).toString("base64")}));\nelse console.log(JSON.stringify(response));\n`,
+  );
+  await chmod(gh, 0o755);
+  const previous = process.env.PATH;
+  process.env.PATH = `${bin}${process.platform === "win32" ? ";" : ":"}${previous ?? ""}`;
+  t.after(() => {
+    if (previous === undefined) delete process.env.PATH;
+    else process.env.PATH = previous;
+  });
+}
+
+function imageFixture(): Buffer {
+  const result = spawnSync("magick", ["-size", "8x8", "xc:magenta", "png:-"]);
+  assert.ifError(result.error);
+  assert.equal(result.status, 0, result.stderr.toString());
+  return result.stdout;
 }
 
 function renderedPosts(root: string): { kind: string; html: string }[] {
@@ -230,7 +258,8 @@ test("the code wizard offers an independent optional demo URL alongside GitHub a
       );
       const url = "https://github.com/example/project";
       const created = "2010-01-02T03:04:05.000Z";
-      const readme = "# project\n\n{{ literal }}\n";
+      const readme =
+        "# project\n\n{{ literal }}\n\n![cloud](../assets/cloud.png)\n";
       const responses = {
         "repos/example/project": {
           html_url: url,
@@ -239,24 +268,13 @@ test("the code wizard offers an independent optional demo URL alongside GitHub a
         },
         "repos/example/project/readme": {
           name: "README.md",
+          path: "docs/README.md",
           encoding: "base64",
           content: Buffer.from(readme).toString("base64"),
         },
+        "repos/example/project/contents/assets/cloud.png": imageFixture(),
       };
-      const bin = join(root, "bin");
-      await mkdir(bin);
-      const gh = join(bin, "gh");
-      await writeFile(
-        gh,
-        `#!/usr/bin/env node\nconst responses = ${JSON.stringify(responses)};\nconst endpoint = process.argv.at(-1);\nif (!Object.hasOwn(responses, endpoint)) throw new Error("unexpected GitHub endpoint: " + endpoint);\nconsole.log(JSON.stringify(responses[endpoint]));\n`,
-      );
-      await chmod(gh, 0o755);
-      const previous = process.env.PATH;
-      process.env.PATH = `${bin}${process.platform === "win32" ? ";" : ":"}${previous ?? ""}`;
-      t.after(() => {
-        if (previous === undefined) delete process.env.PATH;
-        else process.env.PATH = previous;
-      });
+      await mockGitHubCLI(t, root, responses);
       const input = new PassThrough();
       const output = promptOutput();
       const controller = new AbortController();
@@ -305,7 +323,15 @@ test("the code wizard offers an independent optional demo URL alongside GitHub a
         assert.equal(header.date, withRepository ? created : "2014-09-30");
         assert.equal(header.source, withRepository ? url : undefined);
         assert.equal(header.render_with_liquid, demoURL ? false : undefined);
-        assert.equal(text.includes(readme), withRepository);
+        assert.equal(
+          text.includes("# project\n\n{{ literal }}"),
+          withRepository,
+        );
+        if (withRepository) {
+          assert.ok(!text.includes("../assets/cloud.png"));
+          assert.equal(header.preview_alt, "cloud");
+          assert.ok((await stat(join(root, header.preview_image))).size > 0);
+        }
         const { document } = parseHTML(text.split("---").slice(2).join("---"));
         assert.equal(
           document.querySelector("iframe")?.getAttribute("src"),
@@ -345,16 +371,17 @@ test("GitHub repository metadata and Markdown README imports validate responses 
     private: false,
   });
   const readme = "# example\n\n```liquid\n{{ literal }}\n```\n";
-  assert.equal(
+  assert.deepEqual(
     await readGitHubReadme(url, async (endpoint) => {
       assert.equal(endpoint, "repos/example/project/readme");
       return {
         name: "README.md",
+        path: "docs/README.md",
         encoding: "base64",
         content: Buffer.from(readme).toString("base64") + "\n",
       };
     }),
-    readme,
+    { body: readme, path: "docs/README.md" },
   );
   await assert.rejects(
     readGitHubRepository(url, async () => ({
@@ -367,6 +394,7 @@ test("GitHub repository metadata and Markdown README imports validate responses 
   await assert.rejects(
     readGitHubReadme(url, async () => ({
       name: "README.md",
+      path: "README.md",
       encoding: "base64",
       content: "%%%broken",
     })),
@@ -375,6 +403,7 @@ test("GitHub repository metadata and Markdown README imports validate responses 
   await assert.rejects(
     readGitHubReadme(url, async () => ({
       name: "README.rst",
+      path: "README.rst",
       encoding: "base64",
       content: "",
     })),
@@ -386,6 +415,127 @@ test("GitHub repository metadata and Markdown README imports validate responses 
     }),
     /README not found/,
   );
+});
+
+test("README imports localize inline, reference, HTML, and remote images without changing links or code examples", async (t) => {
+  const root = await mkdtemp(join(tmpdir(), "post-readme-images-"));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  const png = imageFixture();
+  await mockGitHubCLI(t, root, {
+    "repos/example/project/contents/assets/cloud%20photo.png": {
+      encoding: "none",
+      sha: "a".repeat(40),
+    },
+    [`repos/example/project/git/blobs/${"a".repeat(40)}`]: png,
+  });
+  const requests: string[] = [];
+  t.mock.method(globalThis, "fetch", async (source: string) => {
+    requests.push(source);
+    if (source === "https://images.example/badge.svg")
+      return new Response(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8"><rect width="8" height="8" fill="pink"/></svg>',
+      );
+    assert.equal(
+      source,
+      "https://raw.githubusercontent.com/example/project/main/pinned.png",
+    );
+    return new Response(new Uint8Array(png));
+  });
+  const examples =
+    '```markdown\n![example](not-real.png)\n<img src="also-not-real.png">\n```\n\n`![inline](not-real.png)`\n\n<!-- <img src="comment.png"> -->';
+  const body = [
+    "# images",
+    '![cloud | sky](../assets/cloud%20photo.png "weather")',
+    "![again][cloud]",
+    '[cloud]: ../assets/cloud%20photo.png "reference title"',
+    "[open original][cloud]",
+    "[![badge](https://images.example/badge.svg)](https://demo.example/)",
+    '<img src="../assets/cloud%20photo.png" alt="HTML" width="100">',
+    "![pinned](https://github.com/example/project/blob/main/pinned.png?raw=1)",
+    examples,
+  ].join("\n\n");
+  const filename = await createPost(root, {
+    title: "images",
+    kind: "code",
+    date: parsePostDate("2014-09-30"),
+    tags: [],
+    images: [],
+    source: "https://github.com/example/project",
+    readmePath: "docs/README.md",
+    body,
+  });
+  const text = await readFile(filename, "utf8");
+  assert.ok(text.includes(examples));
+  assert.ok(
+    text.includes('[cloud]: ../assets/cloud%20photo.png "reference title"'),
+  );
+  const header = parse(text.split("---")[1] ?? "");
+  assert.equal(header.preview_alt, "cloud | sky");
+  assert.deepEqual(requests, [
+    "https://images.example/badge.svg",
+    "https://raw.githubusercontent.com/example/project/main/pinned.png",
+  ]);
+  const media = join(root, "content/media/2014");
+  const files = await readdir(media);
+  assert.equal(files.length, 3);
+  for (const file of files) {
+    const checked = spawnSync(
+      "magick",
+      ["identify", "-format", "%m", join(media, file)],
+      { encoding: "utf8" },
+    );
+    assert.equal(checked.status, 0, checked.stderr);
+    assert.equal(checked.stdout, "WEBP");
+  }
+  const rendered = renderedPosts(root)[0];
+  assert.ok(rendered);
+  const { document } = parseHTML(rendered.html);
+  const images = [...document.querySelectorAll("img")];
+  assert.equal(images.length, 5);
+  assert.ok(
+    images.every((image) =>
+      image.getAttribute("src")?.startsWith("/preview/content/media/2014/"),
+    ),
+  );
+  assert.equal(images[0]?.getAttribute("alt"), "cloud | sky");
+  assert.equal(images[0]?.getAttribute("src"), images[1]?.getAttribute("src"));
+  assert.equal(images[1]?.getAttribute("title"), "reference title");
+  assert.equal(
+    document
+      .querySelector("a[href='https://demo.example/'] img")
+      ?.getAttribute("alt"),
+    "badge",
+  );
+});
+
+test("failed README image downloads and conversions leave no published posts or media", async (t) => {
+  for (const failure of ["HTTP error", "corrupt image"]) {
+    await t.test(failure, async (t) => {
+      const root = await mkdtemp(join(tmpdir(), "post-readme-failure-"));
+      t.after(() => rm(root, { recursive: true, force: true }));
+      await mockGitHubCLI(t, root, {
+        "repos/example/project/contents/valid.png": imageFixture(),
+      });
+      t.mock.method(globalThis, "fetch", async () =>
+        failure === "HTTP error"
+          ? new Response("missing", { status: 404 })
+          : new Response("not an image"),
+      );
+      await assert.rejects(
+        createPost(root, {
+          title: "failed images",
+          kind: "code",
+          date: parsePostDate("2014-09-30"),
+          tags: [],
+          images: [],
+          source: "https://github.com/example/project",
+          body: "![valid](valid.png)\n\n![broken](https://images.example/broken.png)",
+        }),
+        failure === "HTTP error" ? /README image HTTP 404/ : /magick/,
+      );
+      assert.deepEqual(await readdir(root), ["bin"]);
+    });
+  }
 });
 
 test("code posts persist the repository source, imported Markdown, and an overridden date without evaluating Liquid", async (t) => {

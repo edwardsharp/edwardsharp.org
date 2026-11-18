@@ -26,6 +26,7 @@ import {
   transcodeVideo,
 } from "./import-images.ts";
 import { escapeHTML, sourceDate } from "./import-social.ts";
+import { prepareReadmeImages } from "./github-readme-images.ts";
 import {
   availablePostStem,
   classifyPost,
@@ -353,14 +354,18 @@ export async function readGitHubRepository(
 export async function readGitHubReadme(
   value: string,
   request = githubAPI,
-): Promise<string> {
+): Promise<{ body: string; path: string }> {
   const url = githubRepositoryURL(value);
   const data = await request(`repos/${new URL(url).pathname.slice(1)}/readme`);
   if (
     !isRecord(data) ||
     data.encoding !== "base64" ||
     typeof data.content !== "string" ||
-    typeof data.name !== "string"
+    typeof data.name !== "string" ||
+    typeof data.path !== "string" ||
+    !data.path ||
+    data.path.startsWith("/") ||
+    data.path.split("/").some((part) => part === "." || part === "..")
   )
     throw new Error("GitHub returned invalid README content");
   if (!/\.(?:md|markdown|mdown)$/i.test(data.name))
@@ -368,9 +373,12 @@ export async function readGitHubReadme(
   const encoded = data.content.replace(/\s+/g, "");
   if (!/^(?:[a-z\d+/]{4})*(?:[a-z\d+/]{2}==|[a-z\d+/]{3}=)?$/i.test(encoded))
     throw new Error("GitHub returned invalid base64 README content");
-  return new TextDecoder("utf-8", { fatal: true }).decode(
-    Buffer.from(encoded, "base64"),
-  );
+  return {
+    body: new TextDecoder("utf-8", { fatal: true }).decode(
+      Buffer.from(encoded, "base64"),
+    ),
+    path: data.path,
+  };
 }
 
 export const postMediaExtensions: Record<
@@ -411,6 +419,7 @@ export interface NewPost {
   source?: string;
   demoURL?: string;
   body?: string;
+  readmePath?: string;
 }
 
 export async function createPost(root: string, post: NewPost): Promise<string> {
@@ -461,6 +470,16 @@ export async function createPost(root: string, post: NewPost): Promise<string> {
   const published: string[] = [];
   let written = false;
   try {
+    const readme =
+      kind === "code" && post.source && post.body !== undefined
+        ? await prepareReadmeImages(
+            post.body,
+            githubRepositoryURL(post.source),
+            post.readmePath ?? "README.md",
+            temporary,
+            `/content/media/${year}/${basename}`,
+          )
+        : undefined;
     const outputs: { filename: string; url: string; alt: string }[] = [];
     for (const [index, image] of post.images.entries()) {
       if (!isAbsolute(image.filename) || !(await stat(image.filename)).isFile())
@@ -548,7 +567,7 @@ export async function createPost(root: string, post: NewPost): Promise<string> {
     if (post.source) fields.source = githubRepositoryURL(post.source);
     if (kind === "code" && (post.body !== undefined || demoURL))
       fields.render_with_liquid = false;
-    const preview = outputs[0];
+    const preview = outputs[0] ?? readme?.images[0];
     if (preview) {
       fields.preview_image = preview.url;
       fields.preview_alt = preview.alt;
@@ -579,8 +598,13 @@ export async function createPost(root: string, post: NewPost): Promise<string> {
         );
       }
     }
-    if (post.body) sections.push(post.body);
-    for (const output of [...outputs, ...(mediaOutput ? [mediaOutput] : [])]) {
+    const postBody = readme?.body ?? post.body;
+    if (postBody) sections.push(postBody);
+    for (const output of [
+      ...outputs,
+      ...(readme?.images ?? []),
+      ...(mediaOutput ? [mediaOutput] : []),
+    ]) {
       const destination = join(root, output.url.slice(1));
       await mkdir(dirname(destination), { recursive: true });
       const parent = await realpath(dirname(destination));

@@ -460,6 +460,7 @@ export async function newPost(
   let source: string | undefined;
   let demoURL: string | undefined;
   let body: string | undefined;
+  let readmePath: string | undefined;
   if (["photo", "screenshot", "doodle"].includes(kind)) {
     images = await requestImages(root, true, false, context);
     dateDefault = await mediaCreationDate(images[0]!.filename);
@@ -502,7 +503,7 @@ export async function newPost(
       dateDefault = repository.createdAt;
       if (repository.private)
         console.warn(
-          "private repository: imported README content will become public with this site",
+          "private repository: imported README content and images will become public with this site",
         );
       if (
         await confirm(
@@ -513,9 +514,11 @@ export async function newPost(
           context,
         )
       ) {
-        body = await readGitHubReadme(repository.url);
+        const readme = await readGitHubReadme(repository.url);
+        body = readme.body;
+        readmePath = readme.path;
         console.log(
-          "README imported verbatim; review relative links and images before publishing",
+          "README images will be downloaded as WebP when written; review other relative links before publishing",
         );
       }
     }
@@ -573,6 +576,7 @@ export async function newPost(
     ...(source ? { source } : {}),
     ...(demoURL ? { demoURL } : {}),
     ...(body !== undefined ? { body } : {}),
+    ...(readmePath ? { readmePath } : {}),
     ...(location ? { location_name: location } : {}),
   };
   console.log(
