@@ -1,4 +1,5 @@
 import { constants } from "node:fs";
+import { execFile } from "node:child_process";
 import {
   copyFile,
   mkdir,
@@ -12,8 +13,9 @@ import {
   writeFile,
 } from "node:fs/promises";
 import { homedir, tmpdir } from "node:os";
-import { dirname, isAbsolute, join, resolve, sep } from "node:path";
+import { dirname, extname, isAbsolute, join, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
+import { promisify } from "node:util";
 import { casual } from "chrono-node";
 import { parseDocument } from "yaml";
 import { locationKey, tagKey } from "../ts/feed-filters.ts";
@@ -21,6 +23,7 @@ import {
   imageOutputExtension,
   stripImage,
   titleSlug,
+  transcodeVideo,
 } from "./import-images.ts";
 import { escapeHTML, sourceDate } from "./import-social.ts";
 import {
@@ -31,6 +34,8 @@ import {
   postStem,
   siteTimezone,
 } from "./post-format.ts";
+
+const execute = promisify(execFile);
 
 export interface PostDate {
   date: string;
@@ -268,6 +273,122 @@ export function expandPath(text: string, root: string): string {
   return resolve(root, path);
 }
 
+export async function mediaCreationDate(filename: string): Promise<string> {
+  const info = await stat(filename);
+  if (!info.isFile()) throw new Error(`media must be a file: ${filename}`);
+  if (!Number.isFinite(info.birthtimeMs) || info.birthtimeMs <= 0)
+    throw new Error(`file creation date unavailable: ${filename}`);
+  return info.birthtime.toISOString();
+}
+
+export function githubRepositoryURL(value: string): string {
+  const url = new URL(value);
+  const match = /^\/([a-z\d-]+)\/([a-z\d_.-]+)\/?$/i.exec(url.pathname);
+  const repo = match?.[2]?.replace(/\.git$/i, "");
+  if (
+    !["https:", "http:"].includes(url.protocol) ||
+    url.hostname.toLowerCase() !== "github.com" ||
+    url.port ||
+    url.username ||
+    url.password ||
+    !match ||
+    !repo ||
+    repo === "." ||
+    repo === ".."
+  )
+    throw new Error(
+      "enter a GitHub repository URL: https://github.com/owner/repo",
+    );
+  return `https://github.com/${match[1]}/${repo}`;
+}
+
+async function githubAPI(endpoint: string): Promise<unknown> {
+  const { stdout } = await execute("gh", ["api", "--method", "GET", endpoint], {
+    maxBuffer: 16 * 1024 * 1024,
+  });
+  return JSON.parse(stdout);
+}
+
+export interface GitHubRepository {
+  url: string;
+  createdAt: string;
+  private: boolean;
+}
+
+export async function readGitHubRepository(
+  value: string,
+  request = githubAPI,
+): Promise<GitHubRepository> {
+  const url = githubRepositoryURL(value);
+  const data = await request(`repos/${new URL(url).pathname.slice(1)}`);
+  if (
+    !isRecord(data) ||
+    typeof data.html_url !== "string" ||
+    typeof data.created_at !== "string" ||
+    !/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ$/.test(data.created_at) ||
+    !Number.isFinite(Date.parse(data.created_at)) ||
+    new Date(data.created_at).toISOString().replace(".000Z", "Z") !==
+      data.created_at ||
+    typeof data.private !== "boolean"
+  )
+    throw new Error("GitHub returned invalid repository metadata");
+  return {
+    url: githubRepositoryURL(data.html_url),
+    createdAt: new Date(data.created_at).toISOString(),
+    private: data.private,
+  };
+}
+
+export async function readGitHubReadme(
+  value: string,
+  request = githubAPI,
+): Promise<string> {
+  const url = githubRepositoryURL(value);
+  const data = await request(`repos/${new URL(url).pathname.slice(1)}/readme`);
+  if (
+    !isRecord(data) ||
+    data.encoding !== "base64" ||
+    typeof data.content !== "string" ||
+    typeof data.name !== "string"
+  )
+    throw new Error("GitHub returned invalid README content");
+  if (!/\.(?:md|markdown|mdown)$/i.test(data.name))
+    throw new Error(`repository README is not Markdown: ${data.name}`);
+  const encoded = data.content.replace(/\s+/g, "");
+  if (!/^(?:[a-z\d+/]{4})*(?:[a-z\d+/]{2}==|[a-z\d+/]{3}=)?$/i.test(encoded))
+    throw new Error("GitHub returned invalid base64 README content");
+  return new TextDecoder("utf-8", { fatal: true }).decode(
+    Buffer.from(encoded, "base64"),
+  );
+}
+
+export const postMediaExtensions: Record<
+  "video" | "audio",
+  ReadonlySet<string>
+> = {
+  video: new Set([
+    ".mov",
+    ".mp4",
+    ".m4v",
+    ".webm",
+    ".mkv",
+    ".avi",
+    ".mpeg",
+    ".mpg",
+  ]),
+  audio: new Set([
+    ".mp3",
+    ".m4a",
+    ".aac",
+    ".wav",
+    ".aiff",
+    ".aif",
+    ".flac",
+    ".ogg",
+    ".opus",
+  ]),
+};
+
 export interface NewPost {
   title: string;
   kind: string;
@@ -275,6 +396,9 @@ export interface NewPost {
   tags: string[];
   location_name?: string;
   images: { filename: string; alt: string }[];
+  media?: { filename: string; kind: "video" | "audio" };
+  source?: string;
+  body?: string;
 }
 
 export async function createPost(root: string, post: NewPost): Promise<string> {
@@ -282,6 +406,8 @@ export async function createPost(root: string, post: NewPost): Promise<string> {
   const kind = post.kind.trim();
   titleSlug(title);
   titleSlug(kind);
+  if (post.media && post.media.kind !== kind)
+    throw new Error("media kind must match the post kind");
   const normalized = sourceDate(post.date.date);
   const timed =
     post.date.precision === "second" || post.date.precision === "minute";
@@ -326,7 +452,13 @@ export async function createPost(root: string, post: NewPost): Promise<string> {
           `image must be an existing absolute file path: ${image.filename}`,
         );
       imageOutputExtension(image.filename);
-      const name = `${basename}${post.images.length > 1 ? `-image-${index + 1}` : ""}.webp`;
+      const suffix =
+        post.media && index === 0
+          ? "-poster"
+          : post.media || post.images.length > 1
+            ? `-image-${index + 1}`
+            : "";
+      const name = `${basename}${suffix}.webp`;
       const filename = join(temporary, name);
       stripImage(image.filename, filename);
       if ((await stat(filename)).size >= 100_000_000)
@@ -338,6 +470,51 @@ export async function createPost(root: string, post: NewPost): Promise<string> {
         url: `/content/media/${year}/${name}`,
         alt: image.alt,
       });
+    }
+    let mediaOutput: { filename: string; url: string } | undefined;
+    if (post.media) {
+      const media = post.media;
+      if (!isAbsolute(media.filename) || !(await stat(media.filename)).isFile())
+        throw new Error(
+          `media must be an existing absolute file path: ${media.filename}`,
+        );
+      if (
+        !postMediaExtensions[media.kind].has(
+          extname(media.filename).toLowerCase(),
+        )
+      )
+        throw new Error(`unsupported ${media.kind}: ${media.filename}`);
+      const name = `${basename}.${media.kind === "video" ? "mp4" : "mp3"}`;
+      const filename = join(temporary, name);
+      if (media.kind === "video") transcodeVideo(media.filename, filename);
+      else
+        await execute("ffmpeg", [
+          "-nostdin",
+          "-v",
+          "error",
+          "-n",
+          "-i",
+          media.filename,
+          "-map",
+          "0:a:0",
+          "-vn",
+          "-map_metadata",
+          "-1",
+          "-map_metadata:s",
+          "-1",
+          "-map_chapters",
+          "-1",
+          "-c:a",
+          "libmp3lame",
+          "-q:a",
+          "2",
+          filename,
+        ]);
+      if ((await stat(filename)).size >= 100_000_000)
+        throw new Error(
+          `media exceeds GitHub's 100 MB limit: ${media.filename}`,
+        );
+      mediaOutput = { filename, url: `/content/media/${year}/${name}` };
     }
     const fields: Record<string, unknown> = {
       title,
@@ -352,18 +529,38 @@ export async function createPost(root: string, post: NewPost): Promise<string> {
     };
     if (post.location_name?.trim())
       fields.location_name = post.location_name.trim();
+    if (post.source) fields.source = githubRepositoryURL(post.source);
+    if (kind === "code" && post.body !== undefined)
+      fields.render_with_liquid = false;
     const preview = outputs[0];
     if (preview) {
       fields.preview_image = preview.url;
       fields.preview_alt = preview.alt;
     }
-    const body = outputs
+    const body = (post.media?.kind === "video" ? outputs.slice(1) : outputs)
       .map(
         ({ url, alt }) =>
           `![${escapeHTML(alt).replace(/[\\[\]]/g, "\\$&")}](${url})`,
       )
       .join("\n\n");
-    for (const output of outputs) {
+    const sections = [body];
+    if (post.media && mediaOutput) {
+      const url = `{{ '${mediaOutput.url}' | relative_url }}`;
+      if (post.media.kind === "video") {
+        const poster = preview
+          ? ` poster="{{ '${preview.url}' | relative_url }}"`
+          : "";
+        sections.push(
+          `<video controls playsinline preload="metadata"${poster}><source src="${url}" type="video/mp4"><a href="${url}">download video</a></video>`,
+        );
+      } else {
+        sections.push(
+          `<audio controls preload="metadata"><source src="${url}" type="audio/mpeg"><a href="${url}">download audio</a></audio>`,
+        );
+      }
+    }
+    if (post.body) sections.push(post.body);
+    for (const output of [...outputs, ...(mediaOutput ? [mediaOutput] : [])]) {
       const destination = join(root, output.url.slice(1));
       await mkdir(dirname(destination), { recursive: true });
       const parent = await realpath(dirname(destination));
@@ -379,7 +576,7 @@ export async function createPost(root: string, post: NewPost): Promise<string> {
       !(await realpath(directory)).startsWith(`${await realpath(root)}${sep}`)
     )
       throw new Error("post destination leaves the repository");
-    const content = `${postFrontMatter(fields)}${body}\n`;
+    const content = `${postFrontMatter(fields)}${sections.filter(Boolean).join("\n\n")}\n`;
     const destination = join(directory, `${basename}.md`);
     await writeFile(destination, content, { flag: "wx" });
     written = true;

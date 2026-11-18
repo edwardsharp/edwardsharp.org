@@ -281,6 +281,44 @@ export function stripImage(input: string, output: string): void {
     throw new Error(`image metadata profiles remain: ${output}`);
 }
 
+export function transcodeVideo(input: string, output: string): void {
+  run("ffmpeg", [
+    "-nostdin",
+    "-v",
+    "error",
+    "-n",
+    "-i",
+    input,
+    "-map",
+    "0:v:0",
+    "-map",
+    "0:a?",
+    "-map_metadata",
+    "-1",
+    "-map_metadata:s",
+    "-1",
+    "-map_chapters",
+    "-1",
+    "-vf",
+    "scale=trunc(min(1920\\,iw)/2)*2:-2",
+    "-c:v",
+    "libx264",
+    "-preset",
+    "medium",
+    "-crf",
+    "24",
+    "-pix_fmt",
+    "yuv420p",
+    "-c:a",
+    "aac",
+    "-b:a",
+    "128k",
+    "-movflags",
+    "+faststart",
+    output,
+  ]);
+}
+
 async function collect(options: ImageImportOptions): Promise<ImageGroup[]> {
   const directory = resolve(options.directory);
   const children = await readdir(directory, { withFileTypes: true });
@@ -588,41 +626,7 @@ export async function importImages(
         const url = `/content/media/${year}/${name}`;
         const liquidURL = (path: string) => `{{ '${path}' | relative_url }}`;
         if (video) {
-          run("ffmpeg", [
-            "-nostdin",
-            "-v",
-            "error",
-            "-n",
-            "-i",
-            asset.filename,
-            "-map",
-            "0:v:0",
-            "-map",
-            "0:a?",
-            "-map_metadata",
-            "-1",
-            "-map_metadata:s",
-            "-1",
-            "-map_chapters",
-            "-1",
-            "-vf",
-            "scale=trunc(min(1920\\,iw)/2)*2:-2",
-            "-c:v",
-            "libx264",
-            "-preset",
-            "medium",
-            "-crf",
-            "24",
-            "-pix_fmt",
-            "yuv420p",
-            "-c:a",
-            "aac",
-            "-b:a",
-            "128k",
-            "-movflags",
-            "+faststart",
-            local,
-          ]);
+          transcodeVideo(asset.filename, local);
           const poster = join(temporary, `${stem}-poster.jpg`);
           const rawPoster = join(temporary, "poster.jpg");
           run("ffmpeg", [

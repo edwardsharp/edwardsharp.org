@@ -21,7 +21,12 @@ import {
   createPost,
   DateInputError,
   expandPath,
+  githubRepositoryURL,
+  mediaCreationDate,
   parsePostDate,
+  postMediaExtensions,
+  readGitHubReadme,
+  readGitHubRepository,
   readPostCatalog,
   type NewPost,
   type PostDate,
@@ -74,39 +79,46 @@ async function requestPath(
   message: string,
   mode: PathMode,
   optional = false,
+  context?: Parameters<typeof input>[1],
 ): Promise<string | undefined> {
   for (;;) {
-    const method = await select({
-      message,
-      choices: [
-        {
-          name: "system picker",
-          value: "picker",
-          disabled:
-            process.platform !== "darwin"
-              ? "macOS only; use a text path"
-              : false,
-        },
-        { name: "type/paste a path", value: "text" },
-        ...(optional ? [{ name: "skip", value: "skip" }] : []),
-      ],
-    });
+    const method = await select(
+      {
+        message,
+        choices: [
+          {
+            name: "system picker",
+            value: "picker",
+            disabled:
+              process.platform !== "darwin"
+                ? "macOS only; use a text path"
+                : false,
+          },
+          { name: "type/paste a path", value: "text" },
+          ...(optional ? [{ name: "skip", value: "skip" }] : []),
+        ],
+      },
+      context,
+    );
     if (method === "skip") return undefined;
     let filename: string;
     if (method === "text") {
-      const text = await input({
-        message: `${message} path`,
-        validate: async (value) => {
-          if (!value.trim()) return "enter a path";
-          try {
-            await checkPath(expandPath(value, root), mode);
-            return true;
-          } catch (error) {
-            if (error instanceof PathInputError) return error.message;
-            throw error;
-          }
+      const text = await input(
+        {
+          message: `${message} path`,
+          validate: async (value) => {
+            if (!value.trim()) return "enter a path";
+            try {
+              await checkPath(expandPath(value, root), mode);
+              return true;
+            } catch (error) {
+              if (error instanceof PathInputError) return error.message;
+              throw error;
+            }
+          },
         },
-      });
+        context,
+      );
       filename = expandPath(text, root);
     } else {
       const picker =
@@ -129,13 +141,16 @@ async function requestPath(
       if (!chosen) throw new Error("picker returned no path");
       filename = chosen;
       if (mode === "new-folder") {
-        const name = await input({
-          message: "new folder name (blank uses the selected empty folder)",
-          validate: (value) =>
-            !value ||
-            (value !== "." && value !== ".." && basename(value) === value) ||
-            "enter a folder name, not a path",
-        });
+        const name = await input(
+          {
+            message: "new folder name (blank uses the selected empty folder)",
+            validate: (value) =>
+              !value ||
+              (value !== "." && value !== ".." && basename(value) === value) ||
+              "enter a folder name, not a path",
+          },
+          context,
+        );
         if (name) filename = join(filename, name);
       }
     }
@@ -153,8 +168,9 @@ async function requiredPath(
   root: string,
   message: string,
   mode: PathMode,
+  context?: Parameters<typeof input>[1],
 ): Promise<string> {
-  const filename = await requestPath(root, message, mode);
+  const filename = await requestPath(root, message, mode, false, context);
   if (!filename) throw new Error(`missing ${message}`);
   return filename;
 }
@@ -165,31 +181,38 @@ async function suggestion(
   key: (value: string) => string,
   optional: boolean,
   defaultValue?: string,
+  context?: Parameters<typeof input>[1],
 ): Promise<string> {
-  return search({
-    message,
-    ...(defaultValue ? { default: defaultValue } : {}),
-    pageSize: 12,
-    source(term) {
-      const query = term?.trim() ?? "";
-      const identity = key(query);
-      const matches = known.filter(
-        (value) =>
-          !query ||
-          value.toLowerCase().includes(query.toLowerCase()) ||
-          (identity && key(value).includes(identity)),
-      );
-      return [
-        ...(optional && !query ? [{ name: "done / skip", value: "" }] : []),
-        ...matches.map((value) => ({ name: value, value })),
-        ...(query && identity && !known.some((value) => key(value) === identity)
-          ? [{ name: `use "${query}" (new)`, value: query }]
-          : []),
-        ...(optional && query ? [{ name: "skip / done", value: "" }] : []),
-      ];
+  return search(
+    {
+      message,
+      ...(defaultValue ? { default: defaultValue } : {}),
+      pageSize: 12,
+      source(term) {
+        const query = term?.trim() ?? "";
+        const identity = key(query);
+        const matches = known.filter(
+          (value) =>
+            !query ||
+            value.toLowerCase().includes(query.toLowerCase()) ||
+            (identity && key(value).includes(identity)),
+        );
+        return [
+          ...(optional && !query ? [{ name: "done / skip", value: "" }] : []),
+          ...matches.map((value) => ({ name: value, value })),
+          ...(query &&
+          identity &&
+          !known.some((value) => key(value) === identity)
+            ? [{ name: `use "${query}" (new)`, value: query }]
+            : []),
+          ...(optional && query ? [{ name: "skip / done", value: "" }] : []),
+        ];
+      },
+      validate: (value) =>
+        optional || !!key(value) || "choose or enter a value",
     },
-    validate: (value) => optional || !!key(value) || "choose or enter a value",
-  });
+    context,
+  );
 }
 
 function tagChoices(known: string[], text: string) {
@@ -300,23 +323,30 @@ export async function requestTags(
   return tagPrompt({ known }, context);
 }
 
-async function requestDate(timezone: string): Promise<PostDate> {
+export async function requestDate(
+  timezone: string,
+  defaultValue = "today",
+  context?: Parameters<typeof input>[1],
+): Promise<PostDate> {
   let previous = "";
   const reference = new Date();
   for (;;) {
-    const text = await input({
-      message: `date (flexible; offset-free times use ${timezone})`,
-      default: previous || "today",
-      validate: (value) => {
-        try {
-          parsePostDate(value, reference, timezone);
-          return true;
-        } catch (error) {
-          if (error instanceof DateInputError) return error.message;
-          throw error;
-        }
+    const text = await input(
+      {
+        message: `date (flexible; offset-free times use ${timezone})`,
+        default: previous || defaultValue,
+        validate: (value) => {
+          try {
+            parsePostDate(value, reference, timezone);
+            return true;
+          } catch (error) {
+            if (error instanceof DateInputError) return error.message;
+            throw error;
+          }
+        },
       },
-    });
+      context,
+    );
     previous = text;
     const date = parsePostDate(text, reference, timezone);
     console.log(
@@ -332,26 +362,41 @@ async function requestDate(timezone: string): Promise<PostDate> {
         }).format(new Date(date.date)),
       );
     }
-    if (await confirm({ message: "use this date?", default: false }))
+    if (await confirm({ message: "use this date?", default: false }, context))
       return date;
   }
 }
 
-async function requestImages(root: string): Promise<NewPost["images"]> {
+async function requestImages(
+  root: string,
+  required = false,
+  preview = false,
+  context?: Parameters<typeof input>[1],
+): Promise<NewPost["images"]> {
   const images: NewPost["images"] = [];
   for (;;) {
-    const method = await select({
-      message: `images (${images.length} selected; first is the preview)`,
-      choices: [
-        {
-          name: "system picker (select one or more)",
-          value: "picker",
-          disabled: process.platform !== "darwin" ? "macOS only" : false,
-        },
-        { name: "type/paste an image path", value: "text" },
-        { name: "done", value: "done" },
-      ],
-    });
+    const method = await select(
+      {
+        message: `${preview ? "preview images" : "images"} (${images.length} selected; first is the preview)`,
+        choices: [
+          {
+            name: "system picker (select one or more)",
+            value: "picker",
+            disabled: process.platform !== "darwin" ? "macOS only" : false,
+          },
+          { name: "type/paste an image path", value: "text" },
+          {
+            name: "done",
+            value: "done",
+            disabled:
+              required && images.length === 0
+                ? "choose at least one image"
+                : false,
+          },
+        ],
+      },
+      context,
+    );
     if (method === "done") return images;
     let files: string[];
     if (method === "picker") {
@@ -368,7 +413,9 @@ async function requestImages(root: string): Promise<NewPost["images"]> {
       }
       files = chosen;
     } else {
-      files = [expandPath(await input({ message: "image path" }), root)];
+      files = [
+        expandPath(await input({ message: "image path" }, context), root),
+      ];
     }
     for (const filename of files) {
       if (!imageExtensions.has(extname(filename).toLowerCase())) {
@@ -382,15 +429,21 @@ async function requestImages(root: string): Promise<NewPost["images"]> {
         console.error(`image not added: ${error.message}`);
         continue;
       }
-      const alt = await input({
-        message: `alt text: ${basename(filename)} (blank for decorative)`,
-      });
+      const alt = await input(
+        {
+          message: `alt text: ${basename(filename)} (blank for decorative)`,
+        },
+        context,
+      );
       images.push({ filename, alt });
     }
   }
 }
 
-export async function newPost(root: string): Promise<string | undefined> {
+export async function newPost(
+  root: string,
+  context?: Parameters<typeof input>[1],
+): Promise<string | undefined> {
   const catalog = await readPostCatalog(root);
   const kind = await suggestion(
     "kind (type to search or add)",
@@ -398,34 +451,108 @@ export async function newPost(root: string): Promise<string | undefined> {
     (value) => value.trim().toLowerCase(),
     false,
     "entry",
+    context,
   );
-  const date = await requestDate(catalog.timezone);
-  const title = await input({
-    message: "name / title",
-    validate: (value) => {
-      try {
-        titleSlug(value);
-        return true;
-      } catch (error) {
-        if (error instanceof Error) return error.message;
-        throw error;
+  let dateDefault = "today";
+  let images: NewPost["images"] | undefined;
+  let media: NewPost["media"];
+  let source: string | undefined;
+  let body: string | undefined;
+  if (["photo", "screenshot", "doodle"].includes(kind)) {
+    images = await requestImages(root, true, false, context);
+    dateDefault = await mediaCreationDate(images[0]!.filename);
+  } else if (kind === "video" || kind === "audio") {
+    for (;;) {
+      const filename = await requiredPath(
+        root,
+        `choose ${kind}`,
+        "file",
+        context,
+      );
+      if (!postMediaExtensions[kind].has(extname(filename).toLowerCase())) {
+        console.error(`unsupported ${kind}: ${filename}`);
+        continue;
       }
+      media = { filename, kind };
+      dateDefault = await mediaCreationDate(filename);
+      break;
+    }
+  } else if (kind === "code") {
+    const url = await input(
+      {
+        message: "GitHub repository URL (optional)",
+        validate(value) {
+          if (!value.trim()) return true;
+          try {
+            githubRepositoryURL(value.trim());
+            return true;
+          } catch (error) {
+            if (error instanceof Error) return error.message;
+            throw error;
+          }
+        },
+      },
+      context,
+    );
+    if (url.trim()) {
+      const repository = await readGitHubRepository(url.trim());
+      source = repository.url;
+      dateDefault = repository.createdAt;
+      if (repository.private)
+        console.warn(
+          "private repository: imported README content will become public with this site",
+        );
+      if (
+        await confirm(
+          {
+            message: "import the repository README as post content?",
+            default: false,
+          },
+          context,
+        )
+      ) {
+        body = await readGitHubReadme(repository.url);
+        console.log(
+          "README imported verbatim; review relative links and images before publishing",
+        );
+      }
+    }
+  }
+  const date = await requestDate(catalog.timezone, dateDefault, context);
+  const title = await input(
+    {
+      message: "name / title",
+      validate: (value) => {
+        try {
+          titleSlug(value);
+          return true;
+        } catch (error) {
+          if (error instanceof Error) return error.message;
+          throw error;
+        }
+      },
     },
-  });
-  const tags = await requestTags(catalog.tags);
+    context,
+  );
+  const tags = await requestTags(catalog.tags, context);
   const location = await suggestion(
     "location_name (optional; search/add or skip)",
     catalog.locations,
     locationKey,
     true,
+    undefined,
+    context,
   );
-  const images = await requestImages(root);
+  images ??= await requestImages(root, false, !!media, context);
   const post: NewPost = {
     title,
     kind,
     date,
     tags,
     images,
+    ...(media ? { media } : {}),
+    ...(source ? { source } : {}),
+    ...(body !== undefined ? { body } : {}),
     ...(location ? { location_name: location } : {}),
   };
   console.log(
@@ -439,16 +566,22 @@ export async function newPost(root: string): Promise<string | undefined> {
         location_name: location || undefined,
         images: images.map(({ filename, alt }) => ({ filename, alt })),
         preview: images[0]?.filename,
+        media,
+        source,
+        importedReadme: body !== undefined,
       },
       null,
       2,
     ),
   );
   if (
-    !(await confirm({
-      message: "write this post and copy/strip its images?",
-      default: false,
-    }))
+    !(await confirm(
+      {
+        message: "write this post and prepare its media?",
+        default: false,
+      },
+      context,
+    ))
   ) {
     console.log("not written");
     return undefined;
