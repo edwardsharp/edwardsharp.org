@@ -9,6 +9,6 @@ source: "https://cmdshft4.tumblr.com/post/60245694160"
 tags: []
 ---
 
-<figure><img src="{{ '/content/media/2013/2013-09-04-fuckingvimeo.webp' | relative_url }}" alt="#fuckingvimeo" title="#fuckingvimeo" loading="lazy" decoding="async"></figure>
+![#fuckingvimeo](/content/media/2013/2013-09-04-fuckingvimeo.webp)
 
 <p>#fuckingvimeo</p>

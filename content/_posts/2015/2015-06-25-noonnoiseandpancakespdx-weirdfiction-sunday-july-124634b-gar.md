@@ -9,7 +9,7 @@ source: "https://lacunaclub.tumblr.com/post/122452002199"
 tags: ["lacuna"]
 ---
 
-<figure><img src="{{ '/content/media/2015/2015-06-25-noonnoiseandpancakespdx-weirdfiction-sunday-july-124634b-gar.webp' | relative_url }}" alt="noonnoiseandpancakespdx: WEIRDFICTIONhttp://weird-fiction.net/NOON, SUNDAY, JULY 124634b GARFIELD AV pancakes provided!suggested donation (for the artists) https://www.facebook.com/events/448275165338990/" title="noonnoiseandpancakespdx: WEIRDFICTIONhttp://weird-fiction.net/NOON, SUNDAY, JULY 124634b GARFIELD AV pancakes provided!suggested donation (for the artists) https://www.facebook.com/events/448275165338990/" loading="lazy" decoding="async"></figure>
+![noonnoiseandpancakespdx: WEIRDFICTIONhttp://weird-fiction.net/NOON, SUNDAY, JULY 124634b GARFIELD AV pancakes provided!suggested donation (for the artists) https://www.facebook.com/events/448275165338990/](/content/media/2015/2015-06-25-noonnoiseandpancakespdx-weirdfiction-sunday-july-124634b-gar.webp)
 
 <p><a href="http://noonnoiseandpancakespdx.tumblr.com/post/122450981672/weir-dfic-tion-http-weird-fiction-net-noon">noonnoiseandpancakespdx</a>:</p>
 

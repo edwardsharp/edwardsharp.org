@@ -9,6 +9,6 @@ source: "https://cmdshft4.tumblr.com/post/85787181762"
 tags: ["EULA"]
 ---
 
-<figure><img src="{{ '/content/media/2014/2014-05-14-fine-i-fucking-agree-to-yr-eula.webp' | relative_url }}" alt="fine, i fucking agree to yr EULA" title="fine, i fucking agree to yr EULA" loading="lazy" decoding="async"></figure>
+![fine, i fucking agree to yr EULA](/content/media/2014/2014-05-14-fine-i-fucking-agree-to-yr-eula.webp)
 
 <p>fine, i fucking agree to yr EULA</p>

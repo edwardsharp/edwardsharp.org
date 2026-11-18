@@ -9,7 +9,7 @@ source: "https://lacunaclub.tumblr.com/post/120355197954"
 tags: ["noonnoiseandpancakes","pdx","lacuna"]
 ---
 
-<figure><img src="{{ '/content/media/2015/2015-05-31-noonnoiseandpancakespdx-jmej-xnor-sunday-june-14-20154634b-n.webp' | relative_url }}" alt="noonnoiseandpancakespdx: jmej/xnorhttp://anestheticaudio.com/ http://x37v.info/NOON, SUNDAY, JUNE 14, 20154634b NE GARFIELD AVpancakes provided! (suggested donation for the artists)https://www.facebook.com/events/1472299979727209/" title="noonnoiseandpancakespdx: jmej/xnorhttp://anestheticaudio.com/ http://x37v.info/NOON, SUNDAY, JUNE 14, 20154634b NE GARFIELD AVpancakes provided! (suggested donation for the artists)https://www.facebook.com/events/1472299979727209/" loading="lazy" decoding="async"></figure>
+![noonnoiseandpancakespdx: jmej/xnorhttp://anestheticaudio.com/ http://x37v.info/NOON, SUNDAY, JUNE 14, 20154634b NE GARFIELD AVpancakes provided! (suggested donation for the artists)https://www.facebook.com/events/1472299979727209/](/content/media/2015/2015-05-31-noonnoiseandpancakespdx-jmej-xnor-sunday-june-14-20154634b-n.webp)
 
 <p><a href="http://noonnoiseandpancakespdx.tumblr.com/post/119006896212/jmej-xnor-http-anestheticaudio-com">noonnoiseandpancakespdx</a>:</p>
 

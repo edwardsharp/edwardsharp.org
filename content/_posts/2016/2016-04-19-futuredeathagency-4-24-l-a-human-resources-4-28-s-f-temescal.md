@@ -9,7 +9,7 @@ source: "https://lacunaclub.tumblr.com/post/143044831999"
 tags: ["lacuna"]
 ---
 
-<figure><img src="{{ '/content/media/2016/2016-04-19-futuredeathagency-4-24-l-a-human-resources-4-28-s-f-temescal.webp' | relative_url }}" alt="futuredeathagency: 4/24 L.A. (HUMAN RESOURCES); 4/28 S.F. (TEMESCAL ARTS CENTER); 5/1 PDX (LACUNA)" title="futuredeathagency: 4/24 L.A. (HUMAN RESOURCES); 4/28 S.F. (TEMESCAL ARTS CENTER); 5/1 PDX (LACUNA)" loading="lazy" decoding="async"></figure>
+![futuredeathagency: 4/24 L.A. (HUMAN RESOURCES); 4/28 S.F. (TEMESCAL ARTS CENTER); 5/1 PDX (LACUNA)](/content/media/2016/2016-04-19-futuredeathagency-4-24-l-a-human-resources-4-28-s-f-temescal.webp)
 
 <p><a href="http://futuredeathagency.tumblr.com/post/143044793014">futuredeathagency</a>:</p>
 <blockquote>

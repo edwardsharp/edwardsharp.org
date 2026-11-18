@@ -9,10 +9,10 @@ source: "https://lacunaclub.tumblr.com/post/164455107209"
 tags: ["lacuna","portland","performance","performanceart","pdx"]
 ---
 
-<figure><img src="{{ '/content/media/2017/2017-08-21-allie-hankins-anastasia-clarke-jennifer-gerry-mochi-agogo-ph-image-1.webp' | relative_url }}" alt="Allie Hankins; Anastasia Clarke/Jennifer Gerry; Mochi Agogo photoz: Ayako Kataoka" title="Allie Hankins; Anastasia Clarke/Jennifer Gerry; Mochi Agogo photoz: Ayako Kataoka" loading="lazy" decoding="async"></figure>
+![Allie Hankins; Anastasia Clarke/Jennifer Gerry; Mochi Agogo photoz: Ayako Kataoka](/content/media/2017/2017-08-21-allie-hankins-anastasia-clarke-jennifer-gerry-mochi-agogo-ph-image-1.webp)
 
-<figure><img src="{{ '/content/media/2017/2017-08-21-allie-hankins-anastasia-clarke-jennifer-gerry-mochi-agogo-ph-image-2.webp' | relative_url }}" alt="Allie Hankins; Anastasia Clarke/Jennifer Gerry; Mochi Agogo photoz: Ayako Kataoka" title="Allie Hankins; Anastasia Clarke/Jennifer Gerry; Mochi Agogo photoz: Ayako Kataoka" loading="lazy" decoding="async"></figure>
+![Allie Hankins; Anastasia Clarke/Jennifer Gerry; Mochi Agogo photoz: Ayako Kataoka](/content/media/2017/2017-08-21-allie-hankins-anastasia-clarke-jennifer-gerry-mochi-agogo-ph-image-2.webp)
 
-<figure><img src="{{ '/content/media/2017/2017-08-21-allie-hankins-anastasia-clarke-jennifer-gerry-mochi-agogo-ph-image-3.webp' | relative_url }}" alt="Allie Hankins; Anastasia Clarke/Jennifer Gerry; Mochi Agogo photoz: Ayako Kataoka" title="Allie Hankins; Anastasia Clarke/Jennifer Gerry; Mochi Agogo photoz: Ayako Kataoka" loading="lazy" decoding="async"></figure>
+![Allie Hankins; Anastasia Clarke/Jennifer Gerry; Mochi Agogo photoz: Ayako Kataoka](/content/media/2017/2017-08-21-allie-hankins-anastasia-clarke-jennifer-gerry-mochi-agogo-ph-image-3.webp)
 
 <p>Allie Hankins; Anastasia Clarke/Jennifer Gerry; Mochi Agogo <br>photoz: Ayako Kataoka</p>

@@ -9,7 +9,7 @@ source: "https://cmdshft4.tumblr.com/post/15389528706"
 tags: []
 ---
 
-<figure><img src="{{ '/content/media/2012/2012-01-06-bend-reflect.webp' | relative_url }}" alt="BEND // REFLECT Screen shot 2011-12-30 at 3.41.09 AM" title="BEND // REFLECT Screen shot 2011-12-30 at 3.41.09 AM" loading="lazy" decoding="async"></figure>
+![BEND // REFLECT Screen shot 2011-12-30 at 3.41.09 AM](/content/media/2012/2012-01-06-bend-reflect.webp)
 
 <p>BEND // REFLECT&#160;</p>
 <p>Screen shot 2011-12-30 at 3.41.09 AM</p>

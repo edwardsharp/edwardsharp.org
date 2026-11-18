@@ -9,7 +9,7 @@ source: "https://lacunaclub.tumblr.com/post/125997308449"
 tags: ["lacuna"]
 ---
 
-<figure><img src="{{ '/content/media/2015/2015-08-06-noonnoiseandpancakespdx-jeph-nor.webp' | relative_url }}" alt="noonnoiseandpancakespdx: jeph norhttps://soundcloud.com/formofthedestructor/https://www.facebook.com/VoltDiverspaintinghttps://evanspacht.bandcamp.com/album/experiments-in-noise-feedbackNOON, SUNDAY, AUGUST 164634b GARFIELD AV pancakes provided!suggested donation (for the artists)https://www.facebook.com/events/1636169499974054/" title="noonnoiseandpancakespdx: jeph norhttps://soundcloud.com/formofthedestructor/https://www.facebook.com/VoltDiverspaintinghttps://evanspacht.bandcamp.com/album/experiments-in-noise-feedbackNOON, SUNDAY, AUGUST 164634b GARFIELD AV pancakes provided!suggested donation (for the artists)https://www.facebook.com/events/1636169499974054/" loading="lazy" decoding="async"></figure>
+![noonnoiseandpancakespdx: jeph norhttps://soundcloud.com/formofthedestructor/https://www.facebook.com/VoltDiverspaintinghttps://evanspacht.bandcamp.com/album/experiments-in-noise-feedbackNOON, SUNDAY, AUGUST 164634b GARFIELD AV pancakes provided!suggested donation (for the artists)https://www.facebook.com/events/1636169499974054/](/content/media/2015/2015-08-06-noonnoiseandpancakespdx-jeph-nor.webp)
 
 <p><a href="http://noonnoiseandpancakespdx.tumblr.com/post/125997229332">noonnoiseandpancakespdx</a>:</p>
 <blockquote>

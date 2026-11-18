@@ -9,6 +9,6 @@ source: "https://nothappenings.tumblr.com/post/76919610975"
 tags: ["merch","talk of the town","nohappenings","futuredeathtoll","ppl"]
 ---
 
-<figure><img src="{{ '/content/media/2014/2014-02-16-available-on-tour-120-todo-a-diy-zine-of-120x-performance-id.webp' | relative_url }}" alt="available on tour: 120#TODO (a diy zine of 120x performance ideaz)" title="available on tour: 120#TODO (a diy zine of 120x performance ideaz)" loading="lazy" decoding="async"></figure>
+![available on tour: 120#TODO (a diy zine of 120x performance ideaz)](/content/media/2014/2014-02-16-available-on-tour-120-todo-a-diy-zine-of-120x-performance-id.webp)
 
 <p>available on tour: 120#TODO (a diy zine of 120x performance ideaz)</p>

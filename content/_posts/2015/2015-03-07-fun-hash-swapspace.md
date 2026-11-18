@@ -9,6 +9,6 @@ source: "https://cmdshft4.tumblr.com/post/113034649517"
 tags: []
 ---
 
-<figure><img src="{{ '/content/media/2015/2015-03-07-fun-hash-swapspace.webp' | relative_url }}" alt="#fun_hash #swapspace" title="#fun_hash #swapspace" loading="lazy" decoding="async"></figure>
+![#fun_hash #swapspace](/content/media/2015/2015-03-07-fun-hash-swapspace.webp)
 
 <p>#fun_hash #swapspace</p>

@@ -9,6 +9,6 @@ source: "https://lacunaclub.tumblr.com/post/135176050094"
 tags: ["lacuna"]
 ---
 
-<figure><img src="{{ '/content/media/2015/2015-12-14-futuredeathagency.webp' | relative_url }}" alt="#futuredeathagency" title="#futuredeathagency" loading="lazy" decoding="async"></figure>
+![#futuredeathagency](/content/media/2015/2015-12-14-futuredeathagency.webp)
 
 <p>#futuredeathagency</p>

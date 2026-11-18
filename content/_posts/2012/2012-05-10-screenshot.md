@@ -9,4 +9,4 @@ source: "https://cmdshft4.tumblr.com/post/22795058000"
 tags: []
 ---
 
-<figure><img src="{{ '/content/media/2012/2012-05-10-screenshot.webp' | relative_url }}" alt="screenshot" title="screenshot" loading="lazy" decoding="async"></figure>
+![screenshot](/content/media/2012/2012-05-10-screenshot.webp)

@@ -9,7 +9,7 @@ source: "https://lacunaclub.tumblr.com/post/122451990114"
 tags: ["lacuna"]
 ---
 
-<figure><img src="{{ '/content/media/2015/2015-06-25-noonnoiseandpancakespdx-faxesnoon-sunday-july-264634b-garfie.webp' | relative_url }}" alt="noonnoiseandpancakespdx: FAXESNOON, SUNDAY, JULY 264634b GARFIELD AV pancakes provided!suggested donation (for the artists) http://lacuna.club/https://www.facebook.com/events/443565805816003/" title="noonnoiseandpancakespdx: FAXESNOON, SUNDAY, JULY 264634b GARFIELD AV pancakes provided!suggested donation (for the artists) http://lacuna.club/https://www.facebook.com/events/443565805816003/" loading="lazy" decoding="async"></figure>
+![noonnoiseandpancakespdx: FAXESNOON, SUNDAY, JULY 264634b GARFIELD AV pancakes provided!suggested donation (for the artists) http://lacuna.club/https://www.facebook.com/events/443565805816003/](/content/media/2015/2015-06-25-noonnoiseandpancakespdx-faxesnoon-sunday-july-264634b-garfie.webp)
 
 <p><a href="http://noonnoiseandpancakespdx.tumblr.com/post/122451016497">noonnoiseandpancakespdx</a>:</p>
 

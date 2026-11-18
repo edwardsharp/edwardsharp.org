@@ -9,6 +9,6 @@ source: "https://nothappenings.tumblr.com/post/140310435016"
 tags: ["nohappenings","futuredeathtoll","ppl"]
 ---
 
-<figure><img src="{{ '/content/media/2014/2014-04-08-tour-blog-on-culturebot.webp' | relative_url }}" alt="TOUR BLOG on culturebot: http://www.culturebot.org/author/panoplylab/" title="TOUR BLOG on culturebot: http://www.culturebot.org/author/panoplylab/" loading="lazy" decoding="async"></figure>
+![TOUR BLOG on culturebot: http://www.culturebot.org/author/panoplylab/](/content/media/2014/2014-04-08-tour-blog-on-culturebot.webp)
 
 <p>TOUR BLOG on culturebot:&#160;<a href="http://www.culturebot.org/author/panoplylab/">http://www.culturebot.org/author/panoplylab/</a></p>

@@ -9,6 +9,6 @@ source: "https://nothappenings.tumblr.com/post/79484127735"
 tags: ["nohappenings","futuredeathtoll","ppl"]
 ---
 
-<figure><img src="{{ '/content/media/2014/2014-03-13-mrg-special.webp' | relative_url }}" alt="MRG SPECIAL" title="MRG SPECIAL" loading="lazy" decoding="async"></figure>
+![MRG SPECIAL](/content/media/2014/2014-03-13-mrg-special.webp)
 
 <p>MRG SPECIAL</p>

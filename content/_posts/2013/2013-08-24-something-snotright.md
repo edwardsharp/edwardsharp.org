@@ -9,6 +9,6 @@ source: "https://cmdshft4.tumblr.com/post/59218631703"
 tags: []
 ---
 
-<figure><img src="{{ '/content/media/2013/2013-08-24-something-snotright.webp' | relative_url }}" alt="#something'snotright" title="#something'snotright" loading="lazy" decoding="async"></figure>
+![#something'snotright](/content/media/2013/2013-08-24-something-snotright.webp)
 
 <p>#something'snotright</p>

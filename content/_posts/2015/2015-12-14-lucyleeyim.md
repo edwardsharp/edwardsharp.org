@@ -9,6 +9,6 @@ source: "https://lacunaclub.tumblr.com/post/135176145854"
 tags: ["lacuna"]
 ---
 
-<figure><img src="{{ '/content/media/2015/2015-12-14-lucyleeyim.webp' | relative_url }}" alt="#lucyleeyim" title="#lucyleeyim" loading="lazy" decoding="async"></figure>
+![#lucyleeyim](/content/media/2015/2015-12-14-lucyleeyim.webp)
 
 <p>#lucyleeyim</p>

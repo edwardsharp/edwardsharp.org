@@ -9,4 +9,4 @@ source: "https://cmdshft4.tumblr.com/post/35815925822"
 tags: ["burden"]
 ---
 
-<figure><img src="{{ '/content/media/2012/2012-11-15-screenshot-4.gif' | relative_url }}" alt="screenshot" title="screenshot" loading="lazy" decoding="async"></figure>
+![screenshot](/content/media/2012/2012-11-15-screenshot-4.gif)

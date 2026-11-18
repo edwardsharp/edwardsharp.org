@@ -9,7 +9,7 @@ source: "https://cmdshft4.tumblr.com/post/18331963848"
 tags: []
 ---
 
-<figure><img src="{{ '/content/media/2012/2012-02-26-arthateart-mark-manders.webp' | relative_url }}" alt="arthateart: mark manders" title="arthateart: mark manders" loading="lazy" decoding="async"></figure>
+![arthateart: mark manders](/content/media/2012/2012-02-26-arthateart-mark-manders.webp)
 
 <p><a href="http://arthateart.tumblr.com/post/18318170952/mark-manders">arthateart</a>:</p>
 <blockquote>

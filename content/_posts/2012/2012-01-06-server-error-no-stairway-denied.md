@@ -9,7 +9,7 @@ source: "https://cmdshft4.tumblr.com/post/15389672928"
 tags: []
 ---
 
-<figure><img src="{{ '/content/media/2012/2012-01-06-server-error-no-stairway-denied.webp' | relative_url }}" alt="Server error. No Stairway, denied! Screen shot 2012-01-01 at 3.05.45 AM" title="Server error. No Stairway, denied! Screen shot 2012-01-01 at 3.05.45 AM" loading="lazy" decoding="async"></figure>
+![Server error. No Stairway, denied! Screen shot 2012-01-01 at 3.05.45 AM](/content/media/2012/2012-01-06-server-error-no-stairway-denied.webp)
 
 <p>Server error. No Stairway, denied!</p>
 <p>Screen shot 2012-01-01 at 3.05.45 AM</p>

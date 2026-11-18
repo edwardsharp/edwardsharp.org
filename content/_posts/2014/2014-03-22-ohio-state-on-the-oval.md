@@ -9,20 +9,20 @@ source: "https://nothappenings.tumblr.com/post/80398829904"
 tags: ["nohappenings","futuredeathtoll","ppl"]
 ---
 
-<figure><img src="{{ '/content/media/2014/2014-03-22-ohio-state-on-the-oval-image-1.webp' | relative_url }}" alt="Ohio State on the Oval" title="Ohio State on the Oval" loading="lazy" decoding="async"></figure>
+![Ohio State on the Oval](/content/media/2014/2014-03-22-ohio-state-on-the-oval-image-1.webp)
 
-<figure><img src="{{ '/content/media/2014/2014-03-22-ohio-state-on-the-oval-image-2.webp' | relative_url }}" alt="Ohio State on the Oval" title="Ohio State on the Oval" loading="lazy" decoding="async"></figure>
+![Ohio State on the Oval](/content/media/2014/2014-03-22-ohio-state-on-the-oval-image-2.webp)
 
-<figure><img src="{{ '/content/media/2014/2014-03-22-ohio-state-on-the-oval-image-3.webp' | relative_url }}" alt="Ohio State on the Oval" title="Ohio State on the Oval" loading="lazy" decoding="async"></figure>
+![Ohio State on the Oval](/content/media/2014/2014-03-22-ohio-state-on-the-oval-image-3.webp)
 
-<figure><img src="{{ '/content/media/2014/2014-03-22-ohio-state-on-the-oval-image-4.webp' | relative_url }}" alt="Ohio State on the Oval" title="Ohio State on the Oval" loading="lazy" decoding="async"></figure>
+![Ohio State on the Oval](/content/media/2014/2014-03-22-ohio-state-on-the-oval-image-4.webp)
 
-<figure><img src="{{ '/content/media/2014/2014-03-22-ohio-state-on-the-oval-image-5.webp' | relative_url }}" alt="Ohio State on the Oval" title="Ohio State on the Oval" loading="lazy" decoding="async"></figure>
+![Ohio State on the Oval](/content/media/2014/2014-03-22-ohio-state-on-the-oval-image-5.webp)
 
-<figure><img src="{{ '/content/media/2014/2014-03-22-ohio-state-on-the-oval-image-6.webp' | relative_url }}" alt="Ohio State on the Oval" title="Ohio State on the Oval" loading="lazy" decoding="async"></figure>
+![Ohio State on the Oval](/content/media/2014/2014-03-22-ohio-state-on-the-oval-image-6.webp)
 
-<figure><img src="{{ '/content/media/2014/2014-03-22-ohio-state-on-the-oval-image-7.webp' | relative_url }}" alt="Ohio State on the Oval" title="Ohio State on the Oval" loading="lazy" decoding="async"></figure>
+![Ohio State on the Oval](/content/media/2014/2014-03-22-ohio-state-on-the-oval-image-7.webp)
 
-<figure><img src="{{ '/content/media/2014/2014-03-22-ohio-state-on-the-oval-image-8.webp' | relative_url }}" alt="Ohio State on the Oval" title="Ohio State on the Oval" loading="lazy" decoding="async"></figure>
+![Ohio State on the Oval](/content/media/2014/2014-03-22-ohio-state-on-the-oval-image-8.webp)
 
 <p>Ohio State on the Oval</p>

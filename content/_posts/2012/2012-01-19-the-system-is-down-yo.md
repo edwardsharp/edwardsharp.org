@@ -9,8 +9,12 @@ source: "https://cmdshft4.tumblr.com/post/16140257057"
 tags: []
 ---
 
-<figure><img src="{{ '/content/media/2012/2012-01-19-the-system-is-down-yo-image-1.webp' | relative_url }}" alt="Screen shot 2012-01-19 at 3.43.13 PM" title="Screen shot 2012-01-19 at 3.43.13 PM" loading="lazy" decoding="async"><figcaption>Screen shot 2012-01-19 at 3.43.13 PM</figcaption></figure>
+![Screen shot 2012-01-19 at 3.43.13 PM](/content/media/2012/2012-01-19-the-system-is-down-yo-image-1.webp)
 
-<figure><img src="{{ '/content/media/2012/2012-01-19-the-system-is-down-yo-image-2.webp' | relative_url }}" alt="Screen shot 2012-01-19 at 3.43.04 PM" title="Screen shot 2012-01-19 at 3.43.04 PM" loading="lazy" decoding="async"><figcaption>Screen shot 2012-01-19 at 3.43.04 PM</figcaption></figure>
+Screen shot 2012-01-19 at 3.43.13 PM
+
+![Screen shot 2012-01-19 at 3.43.04 PM](/content/media/2012/2012-01-19-the-system-is-down-yo-image-2.webp)
+
+Screen shot 2012-01-19 at 3.43.04 PM
 
 <p>THE SYSTEM IS DOWN, YO!</p>

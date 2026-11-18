@@ -9,10 +9,10 @@ source: "https://nothappenings.tumblr.com/post/79382071107"
 tags: ["The Kent Bellows Studio and Center for Visual Arts","nohappenings","futuredeathtoll","ppl"]
 ---
 
-<figure><img src="{{ '/content/media/2014/2014-03-12-photos-taken-by-weston-thomson-image-1.webp' | relative_url }}" alt="(photos taken by Weston Thomson)" title="(photos taken by Weston Thomson)" loading="lazy" decoding="async"></figure>
+![(photos taken by Weston Thomson)](/content/media/2014/2014-03-12-photos-taken-by-weston-thomson-image-1.webp)
 
-<figure><img src="{{ '/content/media/2014/2014-03-12-photos-taken-by-weston-thomson-image-2.webp' | relative_url }}" alt="(photos taken by Weston Thomson)" title="(photos taken by Weston Thomson)" loading="lazy" decoding="async"></figure>
+![(photos taken by Weston Thomson)](/content/media/2014/2014-03-12-photos-taken-by-weston-thomson-image-2.webp)
 
-<figure><img src="{{ '/content/media/2014/2014-03-12-photos-taken-by-weston-thomson-image-3.webp' | relative_url }}" alt="(photos taken by Weston Thomson)" title="(photos taken by Weston Thomson)" loading="lazy" decoding="async"></figure>
+![(photos taken by Weston Thomson)](/content/media/2014/2014-03-12-photos-taken-by-weston-thomson-image-3.webp)
 
 <p>(photos taken by&#160;Weston Thomson)</p>

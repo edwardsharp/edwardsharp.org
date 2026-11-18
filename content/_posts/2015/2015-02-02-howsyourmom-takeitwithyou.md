@@ -9,6 +9,6 @@ source: "https://cmdshft4.tumblr.com/post/109926167892"
 tags: []
 ---
 
-<figure><img src="{{ '/content/media/2015/2015-02-02-howsyourmom-takeitwithyou.webp' | relative_url }}" alt="#howsyourmom #takeitwithyou" title="#howsyourmom #takeitwithyou" loading="lazy" decoding="async"></figure>
+![#howsyourmom #takeitwithyou](/content/media/2015/2015-02-02-howsyourmom-takeitwithyou.webp)
 
 <p>#howsyourmom #takeitwithyou</p>

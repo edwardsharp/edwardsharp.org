@@ -9,6 +9,6 @@ source: "https://cmdshft4.tumblr.com/post/109926222002"
 tags: []
 ---
 
-<figure><img src="{{ '/content/media/2015/2015-02-02-iputaspellonyou.webp' | relative_url }}" alt="#iputaspellonyou" title="#iputaspellonyou" loading="lazy" decoding="async"></figure>
+![#iputaspellonyou](/content/media/2015/2015-02-02-iputaspellonyou.webp)
 
 <p>#iputaspellonyou</p>

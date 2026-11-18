@@ -4,7 +4,22 @@ title: "future_death_agency__black_tapez"
 date: "2018-03-10T03:19:51.000Z"
 date_precision: "second"
 source: "https://archive.org/details/future_death_agency__black_tapez__zip"
-tags: ["archive","link","archive.org","futuredeath.agency","lacuna","future death agency","black tapez","3dwardsharp","twon moss","portland","oregon"]
+location_name: "pdx"
+tags:
+  [
+    "archive",
+    "link",
+    "archive.org",
+    "futuredeath.agency",
+    "lacuna",
+    "future death agency",
+    "black tapez",
+    "3dwardsharp",
+    "twon",
+    "portland",
+    "oregon",
+    "pdx",
+  ]
 ---
 
 **future_death_agency**

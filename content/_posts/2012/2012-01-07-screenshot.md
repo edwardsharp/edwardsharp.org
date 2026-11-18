@@ -9,6 +9,6 @@ source: "https://cmdshft4.tumblr.com/post/15479728763"
 tags: []
 ---
 
-<figure><img src="{{ '/content/media/2012/2012-01-07-screenshot.webp' | relative_url }}" alt="Screen shot 2011-11-14 at 11.06.43 PM" title="Screen shot 2011-11-14 at 11.06.43 PM" loading="lazy" decoding="async"></figure>
+![Screen shot 2011-11-14 at 11.06.43 PM](/content/media/2012/2012-01-07-screenshot.webp)
 
 <p>Screen shot 2011-11-14 at 11.06.43 PM</p>

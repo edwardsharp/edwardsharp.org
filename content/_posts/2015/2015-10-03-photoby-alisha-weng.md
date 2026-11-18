@@ -9,8 +9,8 @@ source: "https://lacunaclub.tumblr.com/post/130423662319"
 tags: ["NOTSENTLETTERS","lacuna"]
 ---
 
-<figure><img src="{{ '/content/media/2015/2015-10-03-photoby-alisha-weng-image-1.webp' | relative_url }}" alt="photoby: Alisha Weng" title="photoby: Alisha Weng" loading="lazy" decoding="async"></figure>
+![photoby: Alisha Weng](/content/media/2015/2015-10-03-photoby-alisha-weng-image-1.webp)
 
-<figure><img src="{{ '/content/media/2015/2015-10-03-photoby-alisha-weng-image-2.webp' | relative_url }}" alt="photoby: Alisha Weng" title="photoby: Alisha Weng" loading="lazy" decoding="async"></figure>
+![photoby: Alisha Weng](/content/media/2015/2015-10-03-photoby-alisha-weng-image-2.webp)
 
 <p>photoby: Alisha Weng</p>

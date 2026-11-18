@@ -9,7 +9,7 @@ source: "https://lacunaclub.tumblr.com/post/127750489604"
 tags: ["lacuna"]
 ---
 
-<figure><img src="{{ '/content/media/2015/2015-08-27-noonnoiseandpancakespdx-claus-muzak-no-parades-noon-sunday-a.webp' | relative_url }}" alt="noonnoiseandpancakespdx: claus muzakhttp://lucaskuzma.com/ no paradeshttps://noparades.bandcamp.com/ NOON, SUNDAY, AUGUST 303126 SE ANKENY ST pancakes provided!suggested donation (for the artists) https://www.facebook.com/events/716238401839604/" title="noonnoiseandpancakespdx: claus muzakhttp://lucaskuzma.com/ no paradeshttps://noparades.bandcamp.com/ NOON, SUNDAY, AUGUST 303126 SE ANKENY ST pancakes provided!suggested donation (for the artists) https://www.facebook.com/events/716238401839604/" loading="lazy" decoding="async"></figure>
+![noonnoiseandpancakespdx: claus muzakhttp://lucaskuzma.com/ no paradeshttps://noparades.bandcamp.com/ NOON, SUNDAY, AUGUST 303126 SE ANKENY ST pancakes provided!suggested donation (for the artists) https://www.facebook.com/events/716238401839604/](/content/media/2015/2015-08-27-noonnoiseandpancakespdx-claus-muzak-no-parades-noon-sunday-a.webp)
 
 <p><a href="http://noonnoiseandpancakespdx.tumblr.com/post/127750449367">noonnoiseandpancakespdx</a>:</p>
 <blockquote>

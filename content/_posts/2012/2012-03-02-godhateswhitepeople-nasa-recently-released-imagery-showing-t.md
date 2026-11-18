@@ -9,7 +9,7 @@ source: "https://cmdshft4.tumblr.com/post/18640004141"
 tags: []
 ---
 
-<figure><a href="http://travelerschecks.tumblr.com/"><img src="{{ '/content/media/2012/2012-03-02-godhateswhitepeople-nasa-recently-released-imagery-showing-t.webp' | relative_url }}" alt="godhateswhitepeople: NASA recently released imagery showing the deforestation of America …in just 34 years. Humans suck." title="godhateswhitepeople: NASA recently released imagery showing the deforestation of America …in just 34 years. Humans suck." loading="lazy" decoding="async"></a></figure>
+[![godhateswhitepeople: NASA recently released imagery showing the deforestation of America …in just 34 years. Humans suck.](/content/media/2012/2012-03-02-godhateswhitepeople-nasa-recently-released-imagery-showing-t.webp)](http://travelerschecks.tumblr.com/)
 
 <p><a href="http://godhateswhitepeople.tumblr.com/post/18584654870/nasa-recently-released-imagery-showing-the">godhateswhitepeople</a>:</p>
 <blockquote>

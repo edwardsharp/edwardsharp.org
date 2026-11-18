@@ -9,6 +9,6 @@ source: "https://cmdshft4.tumblr.com/post/31781406200"
 tags: []
 ---
 
-<figure><img src="{{ '/content/media/2012/2012-09-18-dear-administrator.webp' | relative_url }}" alt="dear administrator" title="dear administrator" loading="lazy" decoding="async"></figure>
+![dear administrator](/content/media/2012/2012-09-18-dear-administrator.webp)
 
 <p>dear administrator&#160;</p>

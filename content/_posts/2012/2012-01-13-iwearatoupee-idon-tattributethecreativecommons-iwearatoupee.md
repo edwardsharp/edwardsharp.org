@@ -9,7 +9,7 @@ source: "https://cmdshft4.tumblr.com/post/15805374579"
 tags: []
 ---
 
-<figure><img src="{{ '/content/media/2012/2012-01-13-iwearatoupee-idon-tattributethecreativecommons-iwearatoupee.webp' | relative_url }}" alt="#iwearatoupée #idon'tattributethecreativecommons #iwearatoupée Screen shot 2012-01-13 at 6.26.57 PM" title="#iwearatoupée #idon'tattributethecreativecommons #iwearatoupée Screen shot 2012-01-13 at 6.26.57 PM" loading="lazy" decoding="async"></figure>
+![#iwearatoupée #idon'tattributethecreativecommons #iwearatoupée Screen shot 2012-01-13 at 6.26.57 PM](/content/media/2012/2012-01-13-iwearatoupee-idon-tattributethecreativecommons-iwearatoupee.webp)
 
 <p>#iwearatoupée&#160;</p>
 <p>#idon'tattributethecreativecommons</p>

@@ -9,6 +9,6 @@ source: "https://cmdshft4.tumblr.com/post/109926272517"
 tags: []
 ---
 
-<figure><img src="{{ '/content/media/2015/2015-02-02-zomg-hugeorgan.webp' | relative_url }}" alt="#zomg #hugeorgan" title="#zomg #hugeorgan" loading="lazy" decoding="async"></figure>
+![#zomg #hugeorgan](/content/media/2015/2015-02-02-zomg-hugeorgan.webp)
 
 <p>#zomg #hugeorgan</p>

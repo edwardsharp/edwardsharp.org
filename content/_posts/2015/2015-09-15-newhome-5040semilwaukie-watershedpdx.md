@@ -9,6 +9,6 @@ source: "https://lacunaclub.tumblr.com/post/129130646079"
 tags: ["lacuna"]
 ---
 
-<figure><img src="{{ '/content/media/2015/2015-09-15-newhome-5040semilwaukie-watershedpdx.webp' | relative_url }}" alt="#newhome #5040seMilwaukie #watershedpdx" title="#newhome #5040seMilwaukie #watershedpdx" loading="lazy" decoding="async"></figure>
+![#newhome #5040seMilwaukie #watershedpdx](/content/media/2015/2015-09-15-newhome-5040semilwaukie-watershedpdx.webp)
 
 <p>#newhome #5040seMilwaukie #watershedpdx</p>

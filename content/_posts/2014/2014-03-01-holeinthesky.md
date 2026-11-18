@@ -9,6 +9,6 @@ source: "https://nothappenings.tumblr.com/post/78219778406"
 tags: ["nohappenings","futuredeathtoll","ppl"]
 ---
 
-<figure><img src="{{ '/content/media/2014/2014-03-01-holeinthesky.webp' | relative_url }}" alt="@holeinthesky" title="@holeinthesky" loading="lazy" decoding="async"></figure>
+![@holeinthesky](/content/media/2014/2014-03-01-holeinthesky.webp)
 
 <p>@holeinthesky</p>

@@ -9,7 +9,7 @@ source: "https://cmdshft4.tumblr.com/post/15993933489"
 tags: []
 ---
 
-<figure><img src="{{ '/content/media/2012/2012-01-16-winter-weather-service-update.webp' | relative_url }}" alt="Winter weather service update Screen shot 2012-01-16 at 8.47.38 PM" title="Winter weather service update Screen shot 2012-01-16 at 8.47.38 PM" loading="lazy" decoding="async"></figure>
+![Winter weather service update Screen shot 2012-01-16 at 8.47.38 PM](/content/media/2012/2012-01-16-winter-weather-service-update.webp)
 
 <p>Winter weather service update</p>
 <p>Screen shot 2012-01-16 at 8.47.38 PM</p>

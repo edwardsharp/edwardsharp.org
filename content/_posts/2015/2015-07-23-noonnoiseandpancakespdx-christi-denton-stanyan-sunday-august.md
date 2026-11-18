@@ -9,7 +9,7 @@ source: "https://lacunaclub.tumblr.com/post/124869103459"
 tags: ["noonnoiseandpancakespdx","portland","noise","charlesstanyan","christidenton","lacuna"]
 ---
 
-<figure><img src="{{ '/content/media/2015/2015-07-23-noonnoiseandpancakespdx-christi-denton-stanyan-sunday-august.webp' | relative_url }}" alt="noonnoiseandpancakespdx: christi dentonhttp://christidenton.comcharles stanyanhttp://charlesstanyan.comNOON, SUNDAY, AUGUST 94634b GARFIELD AV pancakes provided!suggested donation (for the artists) https://www.facebook.com/events/1680231962209075/" title="noonnoiseandpancakespdx: christi dentonhttp://christidenton.comcharles stanyanhttp://charlesstanyan.comNOON, SUNDAY, AUGUST 94634b GARFIELD AV pancakes provided!suggested donation (for the artists) https://www.facebook.com/events/1680231962209075/" loading="lazy" decoding="async"></figure>
+![noonnoiseandpancakespdx: christi dentonhttp://christidenton.comcharles stanyanhttp://charlesstanyan.comNOON, SUNDAY, AUGUST 94634b GARFIELD AV pancakes provided!suggested donation (for the artists) https://www.facebook.com/events/1680231962209075/](/content/media/2015/2015-07-23-noonnoiseandpancakespdx-christi-denton-stanyan-sunday-august.webp)
 
 <p><a href="http://noonnoiseandpancakespdx.tumblr.com/post/124869040322/christi-denton-http-christidenton-com-charles">noonnoiseandpancakespdx</a>:</p>
 

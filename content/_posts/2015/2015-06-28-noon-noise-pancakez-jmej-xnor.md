@@ -5,7 +5,8 @@ date: "2015-06-28T22:52:00.000Z"
 date_precision: "second"
 preview_image: "/content/media/2015/2015-06-28-noon-noise-pancakez-jmej-xnor.webp"
 source: "https://www.youtube.com/watch?v=sKwj_rbIDZI"
-tags: ["youtube","video","lacuna","XNOR Gate","noonnoiseandpancakespdx","portland","noise","pancakes"]
+redirect_from: "/post/2015-06-28-jmej-xnor-sunday-june-14-2015/"
+tags: ["youtube","video","lacuna","XNOR Gate","noonnoiseandpancakespdx","portland","noise","pancakes","jmej","xnor"]
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/sKwj_rbIDZI" title="NOON NOISE &amp; PANCAKEZ: JMEJ &amp; XNOR" loading="lazy" allowfullscreen></iframe></div>
@@ -21,3 +22,5 @@ NOON, SUNDAY, JUNE 14, 2015
 [http://noonnoiseandpancakespdx.tumblr.com/](http://noonnoiseandpancakespdx.tumblr.com/)
 
 [original youtube post](https://www.youtube.com/watch?v=sKwj_rbIDZI)
+
+[Tumblr post](https://lacunaclub.tumblr.com/post/122714462309)

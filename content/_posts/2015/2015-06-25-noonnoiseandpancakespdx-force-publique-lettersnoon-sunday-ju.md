@@ -9,7 +9,7 @@ source: "https://lacunaclub.tumblr.com/post/122451995929"
 tags: ["lacuna"]
 ---
 
-<figure><img src="{{ '/content/media/2015/2015-06-25-noonnoiseandpancakespdx-force-publique-lettersnoon-sunday-ju.webp' | relative_url }}" alt="noonnoiseandpancakespdx: Force Publiquehttp://forcepubliquemusic.com/common lettersNOON, SUNDAY, JULY 194634b GARFIELD AV pancakes provided!suggested donation (for the artists) https://www.facebook.com/events/853715478042648/" title="noonnoiseandpancakespdx: Force Publiquehttp://forcepubliquemusic.com/common lettersNOON, SUNDAY, JULY 194634b GARFIELD AV pancakes provided!suggested donation (for the artists) https://www.facebook.com/events/853715478042648/" loading="lazy" decoding="async"></figure>
+![noonnoiseandpancakespdx: Force Publiquehttp://forcepubliquemusic.com/common lettersNOON, SUNDAY, JULY 194634b GARFIELD AV pancakes provided!suggested donation (for the artists) https://www.facebook.com/events/853715478042648/](/content/media/2015/2015-06-25-noonnoiseandpancakespdx-force-publique-lettersnoon-sunday-ju.webp)
 
 <p><a href="http://noonnoiseandpancakespdx.tumblr.com/post/122450999992/force-publique-http-forcepubliquemusic-com">noonnoiseandpancakespdx</a>:</p>
 

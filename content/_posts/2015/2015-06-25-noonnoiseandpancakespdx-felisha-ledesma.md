@@ -9,7 +9,7 @@ source: "https://lacunaclub.tumblr.com/post/122451984444"
 tags: ["lacuna"]
 ---
 
-<figure><img src="{{ '/content/media/2015/2015-06-25-noonnoiseandpancakespdx-felisha-ledesma.webp' | relative_url }}" alt="noonnoiseandpancakespdx: Felisha Ledesmahttp://felishaledesma.tumblr.com/https://virgin-blood.bandcamp.com/Carlson-Goodwin-Potterhttps://soundcloud.com/matt-carlsonhttps://soundcloud.com/bonusplayshttps://soundcloud.com/million-mistsNOON, SUNDAY, AUGUST 24634b GARFIELD AV pancakes provided!suggested donation (for the artists) https://www.facebook.com/events/1674215656135556/" title="noonnoiseandpancakespdx: Felisha Ledesmahttp://felishaledesma.tumblr.com/https://virgin-blood.bandcamp.com/Carlson-Goodwin-Potterhttps://soundcloud.com/matt-carlsonhttps://soundcloud.com/bonusplayshttps://soundcloud.com/million-mistsNOON, SUNDAY, AUGUST 24634b GARFIELD AV pancakes provided!suggested donation (for the artists) https://www.facebook.com/events/1674215656135556/" loading="lazy" decoding="async"></figure>
+![noonnoiseandpancakespdx: Felisha Ledesmahttp://felishaledesma.tumblr.com/https://virgin-blood.bandcamp.com/Carlson-Goodwin-Potterhttps://soundcloud.com/matt-carlsonhttps://soundcloud.com/bonusplayshttps://soundcloud.com/million-mistsNOON, SUNDAY, AUGUST 24634b GARFIELD AV pancakes provided!suggested donation (for the artists) https://www.facebook.com/events/1674215656135556/](/content/media/2015/2015-06-25-noonnoiseandpancakespdx-felisha-ledesma.webp)
 
 <p><a href="http://noonnoiseandpancakespdx.tumblr.com/post/122451036742/felisha-ledesma-http-felishaledesma-tumblr-com">noonnoiseandpancakespdx</a>:</p>
 

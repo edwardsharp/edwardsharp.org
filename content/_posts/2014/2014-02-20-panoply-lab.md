@@ -9,6 +9,6 @@ source: "https://nothappenings.tumblr.com/post/77276638108"
 tags: ["nohappenings","futuredeathtoll","ppl"]
 ---
 
-<figure><img src="{{ '/content/media/2014/2014-02-20-panoply-lab.webp' | relative_url }}" alt="PANOPLY LAB" title="PANOPLY LAB" loading="lazy" decoding="async"></figure>
+![PANOPLY LAB](/content/media/2014/2014-02-20-panoply-lab.webp)
 
 <p>PANOPLY LAB</p>

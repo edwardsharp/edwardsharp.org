@@ -9,12 +9,12 @@ source: "https://nothappenings.tumblr.com/post/79239028383"
 tags: ["spacejam","nohappenings","futuredeathtoll","ppl"]
 ---
 
-<figure><img src="{{ '/content/media/2014/2014-03-11-st-louis-mo-image-1.webp' | relative_url }}" alt="ST LOUIS MO" title="ST LOUIS MO" loading="lazy" decoding="async"></figure>
+![ST LOUIS MO](/content/media/2014/2014-03-11-st-louis-mo-image-1.webp)
 
-<figure><img src="{{ '/content/media/2014/2014-03-11-st-louis-mo-image-2.webp' | relative_url }}" alt="ST LOUIS MO" title="ST LOUIS MO" loading="lazy" decoding="async"></figure>
+![ST LOUIS MO](/content/media/2014/2014-03-11-st-louis-mo-image-2.webp)
 
-<figure><img src="{{ '/content/media/2014/2014-03-11-st-louis-mo-image-3.webp' | relative_url }}" alt="ST LOUIS MO" title="ST LOUIS MO" loading="lazy" decoding="async"></figure>
+![ST LOUIS MO](/content/media/2014/2014-03-11-st-louis-mo-image-3.webp)
 
-<figure><img src="{{ '/content/media/2014/2014-03-11-st-louis-mo-image-4.webp' | relative_url }}" alt="ST LOUIS MO" title="ST LOUIS MO" loading="lazy" decoding="async"></figure>
+![ST LOUIS MO](/content/media/2014/2014-03-11-st-louis-mo-image-4.webp)
 
 <p>ST LOUIS MO</p>

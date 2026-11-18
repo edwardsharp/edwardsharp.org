@@ -9,6 +9,6 @@ source: "https://lacunaclub.tumblr.com/post/127430430544"
 tags: ["lacuna"]
 ---
 
-<figure><img src="{{ '/content/media/2015/2015-08-23-joelshanahan-noonnoiseandpancakespdx.webp' | relative_url }}" alt="#joelshanahan #noonnoiseandpancakespdx" title="#joelshanahan #noonnoiseandpancakespdx" loading="lazy" decoding="async"></figure>
+![#joelshanahan #noonnoiseandpancakespdx](/content/media/2015/2015-08-23-joelshanahan-noonnoiseandpancakespdx.webp)
 
 <p>#joelshanahan #noonnoiseandpancakespdx</p>
