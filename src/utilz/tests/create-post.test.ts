@@ -156,12 +156,11 @@ test("media kinds pick their files before the editable creation-date prompt and 
         await answer("kind (type to search or add)", kind);
         await setTimeout(400);
         input.write("\r");
-        const chooseText = process.platform === "darwin" ? "\x1b[B\r" : "\r";
         await wait(image ? "images (0 selected;" : `choose ${kind}`);
         assert.ok(!screen.includes("date (flexible;"), screen);
         await answer(
           image ? "images (0 selected;" : `choose ${kind}`,
-          chooseText,
+          "\x1b[B\r",
         );
         await answer(
           image ? "image path" : `choose ${kind} path`,
