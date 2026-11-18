@@ -7,6 +7,7 @@ preview_image: "/content/media/2015/2015-06-28-noon-noise-pancakez-infiltration-
 source: "https://www.youtube.com/watch?v=x-8oC-pQ_4E"
 redirect_from: "/post/2015-06-28-infiltration-lab-sunday-june-28/"
 tags: ["youtube","video","lacuna","noonnoiseandpancakespdx","noise","portland","pdx","infiltrationlab","pancakes"]
+location_name: "portland, or"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/x-8oC-pQ_4E" title="NOON NOISE &amp; PANCAKEZ: INFILTRATION LAB" loading="lazy" allowfullscreen></iframe></div>

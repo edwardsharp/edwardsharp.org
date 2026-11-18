@@ -7,6 +7,7 @@ preview_image: "/content/media/2014/2014-03-13-mrg-special.webp"
 preview_alt: "MRG SPECIAL"
 source: "https://nothappenings.tumblr.com/post/79484127735"
 tags: ["nohappenings","futuredeathtoll","ppl"]
+location_name: "brooklyn, ny"
 ---
 
 ![MRG SPECIAL](/content/media/2014/2014-03-13-mrg-special.webp)

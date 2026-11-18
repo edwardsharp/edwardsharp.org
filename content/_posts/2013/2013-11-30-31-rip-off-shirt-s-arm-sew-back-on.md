@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-30-31-rip-off-shirt-s-arm-sew-back-on.webp"
 source: "https://www.youtube.com/watch?v=ib03ROZbsaY"
 tags: ["youtube","video","futuredeathtoll","performance","dance","portland","choreography","noise","throbbing","electronic","brooklyn","black friday","door busterz"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/ib03ROZbsaY" title="31. rip off shirt's arm, sew back on" loading="lazy" allowfullscreen></iframe></div>

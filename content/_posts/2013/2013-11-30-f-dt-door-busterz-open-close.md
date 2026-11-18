@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-30-f-dt-door-busterz-open-close.webp"
 source: "https://www.youtube.com/watch?v=Sv4yxQ6Gidk"
 tags: ["youtube","video","futuredeathtoll","performance","dance","portland","choreography","noise","throbbing","electronic","brooklyn","door busterz"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/Sv4yxQ6Gidk" title="F-DT door busterz open/close" loading="lazy" allowfullscreen></iframe></div>

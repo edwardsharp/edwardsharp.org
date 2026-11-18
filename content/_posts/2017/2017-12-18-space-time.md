@@ -8,6 +8,7 @@ last_modified: "2018-03-22T15:12:19-04:00"
 render_with_liquid: false
 preview_alt: ""
 tags: ["panoplylab","#TODO"]
+location_name: "brooklyn, ny"
 ---
 
 ## SPACE

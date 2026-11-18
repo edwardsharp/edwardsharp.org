@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-29-65-take-off-your-bootz-put-one-back-one-and-walk-around-the.webp"
 source: "https://www.youtube.com/watch?v=Rkbr47wW7b0"
 tags: ["youtube","video","futuredeathtoll","performance","dance","portland","choreography","noise","throbbing","electronic"]
+location_name: "portland, or"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/Rkbr47wW7b0" title="65. take off your bootz put one back one and walk around the room" loading="lazy" allowfullscreen></iframe></div>

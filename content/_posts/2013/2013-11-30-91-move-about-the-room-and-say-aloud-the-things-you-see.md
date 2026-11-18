@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-30-91-move-about-the-room-and-say-aloud-the-things-you-see.webp"
 source: "https://www.youtube.com/watch?v=RQGPSYS3INs"
 tags: ["youtube","video","futuredeathtoll","performance","dance","choreography","noise","throbbing","electronic","brooklyn"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/RQGPSYS3INs" title="91. move about the room and say aloud the things you see" loading="lazy" allowfullscreen></iframe></div>

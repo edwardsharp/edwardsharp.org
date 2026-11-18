@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-30-96-untie-and-retie-your-shoez.webp"
 source: "https://www.youtube.com/watch?v=QF_7SYjpROE"
 tags: ["youtube","video","futuredeathtoll","performance","dance","choreography","noise","throbbing","electronic","brooklyn","door busterz"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/QF_7SYjpROE" title="96. untie and retie your shoez" loading="lazy" allowfullscreen></iframe></div>

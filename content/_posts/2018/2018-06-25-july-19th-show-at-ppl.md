@@ -6,6 +6,7 @@ date_precision: "second"
 last_modified: "2018-07-20T01:36:32-04:00"
 render_with_liquid: false
 tags: ["panoplylab"]
+location_name: "brooklyn, ny"
 ---
 
 Chloe Alexandra

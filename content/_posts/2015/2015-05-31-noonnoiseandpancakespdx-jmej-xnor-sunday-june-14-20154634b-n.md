@@ -7,6 +7,7 @@ preview_image: "/content/media/2015/2015-05-31-noonnoiseandpancakespdx-jmej-xnor
 preview_alt: "noonnoiseandpancakespdx: jmej/xnorhttp://anestheticaudio.com/ http://x37v.info/NOON, SUNDAY, JUNE 14, 20154634b NE GARFIELD AVpancakes provided! (suggested dona"
 source: "https://lacunaclub.tumblr.com/post/120355197954"
 tags: ["noonnoiseandpancakes","pdx","lacuna"]
+location_name: "portland, or"
 ---
 
 ![noonnoiseandpancakespdx: jmej/xnorhttp://anestheticaudio.com/ http://x37v.info/NOON, SUNDAY, JUNE 14, 20154634b NE GARFIELD AVpancakes provided! (suggested donation for the artists)https://www.facebook.com/events/1472299979727209/](/content/media/2015/2015-05-31-noonnoiseandpancakespdx-jmej-xnor-sunday-june-14-20154634b-n.webp)

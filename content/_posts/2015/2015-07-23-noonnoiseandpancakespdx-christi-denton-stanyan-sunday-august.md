@@ -7,6 +7,7 @@ preview_image: "/content/media/2015/2015-07-23-noonnoiseandpancakespdx-christi-d
 preview_alt: "noonnoiseandpancakespdx: christi dentonhttp://christidenton.comcharles stanyanhttp://charlesstanyan.comNOON, SUNDAY, AUGUST 94634b GARFIELD AV pancakes provided"
 source: "https://lacunaclub.tumblr.com/post/124869103459"
 tags: ["noonnoiseandpancakespdx","portland","noise","charlesstanyan","christidenton","lacuna"]
+location_name: "portland, or"
 ---
 
 ![noonnoiseandpancakespdx: christi dentonhttp://christidenton.comcharles stanyanhttp://charlesstanyan.comNOON, SUNDAY, AUGUST 94634b GARFIELD AV pancakes provided!suggested donation (for the artists) https://www.facebook.com/events/1680231962209075/](/content/media/2015/2015-07-23-noonnoiseandpancakespdx-christi-denton-stanyan-sunday-august.webp)

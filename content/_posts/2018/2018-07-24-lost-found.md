@@ -6,6 +6,7 @@ date_precision: "day"
 preview_image: "/content/media/2018/2018-07-24-lost-found.webp"
 source: "https://futuredeathtoll.bandcamp.com/album/lost-found"
 tags: ["bandcamp","audio","futuredeathtoll","album","electronic","easy listening","lost and found","noise","New York"]
+location_name: "nyc"
 ---
 
 <iframe title="lost&amp;found" width="100%" height="472" loading="lazy" src="https://bandcamp.com/EmbeddedPlayer/album=262345593/size=large/bgcol=000000/linkcol=ff00ff/artwork=none/transparent=false/"></iframe>

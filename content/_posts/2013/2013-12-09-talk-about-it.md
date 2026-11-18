@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-12-09-talk-about-it.webp"
 source: "https://www.youtube.com/watch?v=yAULI5awwxg"
 tags: ["youtube","video","futuredeathtoll","performance","dance","portland","choreography","noise","throbbing","electronic","panoply","nyc"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/yAULI5awwxg" title="talk about it" loading="lazy" allowfullscreen></iframe></div>

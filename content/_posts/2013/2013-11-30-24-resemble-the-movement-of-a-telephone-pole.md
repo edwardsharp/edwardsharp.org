@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-30-24-resemble-the-movement-of-a-telephone-pole.webp"
 source: "https://www.youtube.com/watch?v=18Mgdcwtd9A"
 tags: ["youtube","video","futuredeathtoll","performance","dance","portland","choreography","noise","throbbing","electronic","brooklyn","door busterz","black friday"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/18Mgdcwtd9A" title="24. resemble the movement of a telephone pole" loading="lazy" allowfullscreen></iframe></div>

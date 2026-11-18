@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-30-8-666-website-shopping-cart.webp"
 source: "https://www.youtube.com/watch?v=_UBfzpbbYzA"
 tags: ["youtube","video","futuredeathtoll","performance","dance","portland","choreography","noise","throbbing","electronic","brooklyn","black friday"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/_UBfzpbbYzA" title="8. $666 website shopping cart" loading="lazy" allowfullscreen></iframe></div>

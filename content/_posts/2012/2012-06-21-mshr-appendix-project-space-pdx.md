@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2012/2012-06-21-mshr-appendix-project-space-pdx.webp"
 source: "https://www.youtube.com/watch?v=ilbILMi7KVU"
 tags: ["youtube","video","PDX","Appendix","APPENDIX_PROJECT_SPACE","MSHR"]
+location_name: "portland, or"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/ilbILMi7KVU" title="MSHR @ Appendix Project Space, PDX" loading="lazy" allowfullscreen></iframe></div>

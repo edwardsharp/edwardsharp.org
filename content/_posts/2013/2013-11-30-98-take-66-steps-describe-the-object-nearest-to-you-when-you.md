@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-30-98-take-66-steps-describe-the-object-nearest-to-you-when-you.webp"
 source: "https://www.youtube.com/watch?v=-zG-l_4LvrQ"
 tags: ["youtube","video","futuredeathtoll","performance","dance","portland","choreography","noise","throbbing","electronic","brooklyn","door busterz"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/-zG-l_4LvrQ" title="98. take 66 steps, describe the object nearest to you when you complete" loading="lazy" allowfullscreen></iframe></div>

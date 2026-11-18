@@ -6,6 +6,7 @@ date_precision: "day"
 preview_image: "/content/media/2013/2013-11-21-dronecorp.webp"
 source: "https://futuredeathtoll.bandcamp.com/album/dronecorp"
 tags: ["bandcamp","audio","futuredeathtoll","album","electronic","easy listening","noise","New York"]
+location_name: "nyc"
 ---
 
 <iframe title="dronecorp" width="100%" height="472" loading="lazy" src="https://bandcamp.com/EmbeddedPlayer/album=520168328/size=large/bgcol=000000/linkcol=ff00ff/artwork=none/transparent=false/"></iframe>

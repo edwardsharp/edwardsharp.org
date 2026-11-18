@@ -7,6 +7,7 @@ preview_image: "/content/media/2014/2014-03-11-kansas-city-mo-image-1.webp"
 preview_alt: "KANSAS CITY MO"
 source: "https://nothappenings.tumblr.com/post/79239147706"
 tags: ["nohappenings","futuredeathtoll","ppl"]
+location_name: "brooklyn, ny"
 ---
 
 ![KANSAS CITY MO](/content/media/2014/2014-03-11-kansas-city-mo-image-1.webp)

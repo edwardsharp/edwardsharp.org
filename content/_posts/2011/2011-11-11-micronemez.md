@@ -6,6 +6,7 @@ date_precision: "day"
 preview_image: "/content/media/2011/2011-11-11-micronemez.webp"
 source: "https://futuredeathtoll.bandcamp.com/album/micronemez"
 tags: ["bandcamp","audio","futuredeathtoll","album","electronic","easy listening","noise","New York"]
+location_name: "nyc"
 ---
 
 <iframe title="micronemez" width="100%" height="472" loading="lazy" src="https://bandcamp.com/EmbeddedPlayer/album=1912214066/size=large/bgcol=000000/linkcol=ff00ff/artwork=none/transparent=false/"></iframe>

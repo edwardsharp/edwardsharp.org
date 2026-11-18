@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-30-28-maintain-a-sense-of-purpose.webp"
 source: "https://www.youtube.com/watch?v=lcthuCgLiWM"
 tags: ["youtube","video","futuredeathtoll","performance","dance","portland","choreography","noise","throbbing","electronic","brooklyn","black friday"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/lcthuCgLiWM" title="28. maintain a sense of purpose" loading="lazy" allowfullscreen></iframe></div>

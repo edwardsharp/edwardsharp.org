@@ -7,6 +7,7 @@ preview_image: "/content/media/2017/2017-08-21-allie-hankins-anastasia-clarke-je
 preview_alt: "Allie Hankins; Anastasia Clarke/Jennifer Gerry; Mochi Agogo photoz: Ayako Kataoka"
 source: "https://lacunaclub.tumblr.com/post/164455107209"
 tags: ["lacuna","portland","performance","performanceart","pdx"]
+location_name: "portland, or"
 ---
 
 ![Allie Hankins; Anastasia Clarke/Jennifer Gerry; Mochi Agogo photoz: Ayako Kataoka](/content/media/2017/2017-08-21-allie-hankins-anastasia-clarke-jennifer-gerry-mochi-agogo-ph-image-1.webp)

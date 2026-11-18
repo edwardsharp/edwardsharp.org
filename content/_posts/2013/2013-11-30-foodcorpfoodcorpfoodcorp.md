@@ -6,6 +6,7 @@ date_precision: "minute"
 preview_image: "/content/media/2013/2013-11-30-foodcorpfoodcorpfoodcorp.webp"
 preview_alt: "#foodcorpfoodcorpfoodcorp"
 tags: ["photo","foodcorpfoodcorpfoodcorp"]
+location_name: "brooklyn, ny"
 ---
 
 ![#foodcorpfoodcorpfoodcorp](/content/media/2013/2013-11-30-foodcorpfoodcorpfoodcorp.webp)

@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-04-17-houseofdesire.webp"
 source: "https://www.youtube.com/watch?v=p2NO8r8xijs"
 tags: ["youtube","video","futuredeathtoll","place","pdx","dance","performance","noise","live","no input","blaze orange","projection","bash"]
+location_name: "portland, or"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/p2NO8r8xijs" title="HOUSEOFDESIRE" loading="lazy" allowfullscreen></iframe></div>

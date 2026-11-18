@@ -7,6 +7,7 @@ preview_image: "/content/media/2014/2014-03-15-spativm-in-the-parish-project-141
 preview_alt: "SPATIVM (in the Parish Project) 1416 “O” Street, Suite IV, Lincoln, NE"
 source: "https://nothappenings.tumblr.com/post/79680158522"
 tags: ["nohappenings","futuredeathtoll","ppl"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 400 / 225"><iframe src="https://www.youtube-nocookie.com/embed/nLLZkNPYExM" title="SPATIVM" loading="lazy" allowfullscreen allow="fullscreen; picture-in-picture"></iframe></div>

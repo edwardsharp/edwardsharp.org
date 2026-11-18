@@ -5,6 +5,7 @@ date: "2014-02-25T15:45:00.000Z"
 date_precision: "second"
 source: "https://nothappenings.tumblr.com/post/77810156397"
 tags: ["talk of the town","nohappenings","futuredeathtoll","ppl"]
+location_name: "brooklyn, ny"
 ---
 
 <p><a href="http://www.peri0d.com/1/post/2014/02/on-fear-touring-the-privilege-of-auto-intervention-and-scaring-oneself.html">On fear: touring, the privilege of auto-intervention, and scaring oneself.</a></p>

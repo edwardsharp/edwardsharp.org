@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2010/2010-11-24-wft-valentinez.webp"
 source: "https://www.youtube.com/watch?v=bdsXg1mu_h4"
 tags: ["youtube","video","wft","Portland"]
+location_name: "portland, or"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/bdsXg1mu_h4" title="WFT++ @ Valentinez" loading="lazy" allowfullscreen></iframe></div>

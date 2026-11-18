@@ -6,6 +6,7 @@ date_precision: "day"
 preview_image: "/content/media/2013/2013-01-01-temperamental-machine-hydrocarbonz.webp"
 source: "https://futuredeathtoll.bandcamp.com/album/temperamental-machine-hydrocarbonz"
 tags: ["bandcamp","audio","futuredeathtoll","album","electronic","drone","easy listening","industrial","instrumental","micronemez","noise","pure data","software","New York","midi"]
+location_name: "nyc"
 ---
 
 <iframe title="temperamental machine [hydrocarbonz]" width="100%" height="472" loading="lazy" src="https://bandcamp.com/EmbeddedPlayer/album=772136082/size=large/bgcol=000000/linkcol=ff00ff/artwork=none/transparent=false/"></iframe>

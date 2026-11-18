@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-29-78-continuously-take-off-and-put-on-your-shirt.webp"
 source: "https://www.youtube.com/watch?v=xYJf7gM4JC0"
 tags: ["youtube","video","futuredeathtoll","performance","choreography","noise","throbbing","electronic","brooklyn","panoply performance lab","12hourz","black friday","buy nothing day","door busterz"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/xYJf7gM4JC0" title="78. continuously take off and put on your shirt" loading="lazy" allowfullscreen></iframe></div>

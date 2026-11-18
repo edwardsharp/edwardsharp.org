@@ -6,6 +6,7 @@ date_precision: "day"
 preview_image: "/content/media/2009/2009-12-15-struggle-bar.webp"
 source: "https://futuredeathtoll.bandcamp.com/album/struggle-bar"
 tags: ["bandcamp","audio","futuredeathtoll","album","electronic","easy listening","noise","portland","New York"]
+location_name: "portland, or"
 ---
 
 <iframe title="struggle_bar" width="100%" height="472" loading="lazy" src="https://bandcamp.com/EmbeddedPlayer/album=1963144450/size=large/bgcol=000000/linkcol=ff00ff/artwork=none/transparent=false/"></iframe>

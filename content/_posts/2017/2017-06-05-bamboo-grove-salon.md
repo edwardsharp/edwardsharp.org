@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2017/2017-06-05-bamboo-grove-salon.webp"
 source: "https://www.youtube.com/watch?v=0IcvbrWvV-I"
 tags: ["youtube","video","futuredeathtoll","performance","portland","noise","throbbing","electronic"]
+location_name: "portland, or"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/0IcvbrWvV-I" title="bamboo grove salon" loading="lazy" allowfullscreen></iframe></div>

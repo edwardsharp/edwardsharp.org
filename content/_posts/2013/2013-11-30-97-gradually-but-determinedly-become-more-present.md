@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-30-97-gradually-but-determinedly-become-more-present.webp"
 source: "https://www.youtube.com/watch?v=y76Wz9TfiLM"
 tags: ["youtube","video","futuredeathtoll","performance","dance","choreography","noise","throbbing","electronic","brooklyn","door busterz"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/y76Wz9TfiLM" title="97. gradually but determinedly become more present" loading="lazy" allowfullscreen></iframe></div>

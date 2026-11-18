@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-30-21-yell-along-with-the-wind-and-the-sea-and-the-roar-gasolin.webp"
 source: "https://www.youtube.com/watch?v=v-1Rtc-THU4"
 tags: ["youtube","video","futuredeathtoll","performance","dance","portland","choreography","noise","throbbing","electronic","brooklyn","black friday","door busterz"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/v-1Rtc-THU4" title="21. yell along with the wind and the sea and the roar gasoline enginez" loading="lazy" allowfullscreen></iframe></div>

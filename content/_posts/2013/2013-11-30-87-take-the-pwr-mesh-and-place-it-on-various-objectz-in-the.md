@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-30-87-take-the-pwr-mesh-and-place-it-on-various-objectz-in-the.webp"
 source: "https://www.youtube.com/watch?v=kd3BAogIQ3A"
 tags: ["youtube","video","futuredeathtoll","performance","dance","choreography","noise","throbbing","electronic","brooklyn","door busterz"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/kd3BAogIQ3A" title="87. take the PWR MESH and place it on various objectz in the space..." loading="lazy" allowfullscreen></iframe></div>

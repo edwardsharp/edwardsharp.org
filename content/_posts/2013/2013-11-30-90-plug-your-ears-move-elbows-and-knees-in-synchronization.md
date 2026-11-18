@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-30-90-plug-your-ears-move-elbows-and-knees-in-synchronization.webp"
 source: "https://www.youtube.com/watch?v=jfa4XT5NqGc"
 tags: ["youtube","video","futuredeathtoll","performance","dance","portland","choreography","noise","throbbing","electronic"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/jfa4XT5NqGc" title="90. plug your ears, move elbows and knees in synchronization" loading="lazy" allowfullscreen></iframe></div>

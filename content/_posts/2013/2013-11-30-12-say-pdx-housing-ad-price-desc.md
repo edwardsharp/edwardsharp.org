@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-30-12-say-pdx-housing-ad-price-desc.webp"
 source: "https://www.youtube.com/watch?v=g4mXrSdhfHk"
 tags: ["youtube","video","futuredeathtoll","performance","dance","portland","choreography","noise","throbbing","electronic","brooklyn","door busterz"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/g4mXrSdhfHk" title="12. say PDX housing ad price/desc." loading="lazy" allowfullscreen></iframe></div>

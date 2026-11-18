@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-29-71-and-72-whip-the-floor-and-whip-the-walls-with-the-non-buc.webp"
 source: "https://www.youtube.com/watch?v=jre-Ur11KQw"
 tags: ["youtube","video","futuredeathtoll","performance","choreography","noise","throbbing","electronic","brooklyn","door busterz","belt","whip"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/jre-Ur11KQw" title="71. and 72. whip the floor and whip the walls with the non buckle side of your belt" loading="lazy" allowfullscreen></iframe></div>

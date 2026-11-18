@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-30-22-hum-along-with-the-power-generator.webp"
 source: "https://www.youtube.com/watch?v=w8Y4xlXPP4M"
 tags: ["youtube","video","futuredeathtoll","performance","dance","portland","choreography","noise","throbbing","electronic","brooklyn","door busterz","black friday"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/w8Y4xlXPP4M" title="22. hum along with the power generator" loading="lazy" allowfullscreen></iframe></div>

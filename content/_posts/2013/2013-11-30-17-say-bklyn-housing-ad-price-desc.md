@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-30-17-say-bklyn-housing-ad-price-desc.webp"
 source: "https://www.youtube.com/watch?v=qAw6FyOW3MA"
 tags: ["youtube","video","futuredeathtoll","performance","dance","portland","choreography","noise","throbbing","electronic","black friday","door busterz","brooklyn"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/qAw6FyOW3MA" title="17. say BKLYN housing ad price/desc." loading="lazy" allowfullscreen></iframe></div>

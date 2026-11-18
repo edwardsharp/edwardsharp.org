@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2011/2011-09-05-dustin-zemel-omniscient-documentary-experiment-1-false-front.webp"
 source: "https://www.youtube.com/watch?v=Ton7rbX0Urg"
 tags: ["youtube","video","PDX","FALSE_FRONT"]
+location_name: "portland, or"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/Ton7rbX0Urg" title="Dustin Zemel -- Omniscient Documentary: Experiment 1 @ False Front" loading="lazy" allowfullscreen></iframe></div>

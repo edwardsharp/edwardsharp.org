@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-30-1-sprinkle-glitter.webp"
 source: "https://www.youtube.com/watch?v=FKEMQVHAxwM"
 tags: ["youtube","video","futuredeathtoll","performance","dance","portland","choreography","noise","throbbing","electronic","brooklyn","door busterz","black friday"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/FKEMQVHAxwM" title="1. sprinkle glitter" loading="lazy" allowfullscreen></iframe></div>

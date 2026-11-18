@@ -7,6 +7,7 @@ preview_image: "/content/media/2014/2014-03-13-lincoln-ne-iowa-city-ia-image-1.w
 preview_alt: "LINCOLN, NE & IOWA CITY, IA"
 source: "https://nothappenings.tumblr.com/post/79484118342"
 tags: ["nohappenings","futuredeathtoll","ppl"]
+location_name: "brooklyn, ny"
 ---
 
 ![LINCOLN, NE &amp; IOWA CITY, IA](/content/media/2014/2014-03-13-lincoln-ne-iowa-city-ia-image-1.webp)

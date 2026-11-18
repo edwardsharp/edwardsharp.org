@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-29-64-with-one-or-more-objects-create-a-line-on-the-ground-cros.webp"
 source: "https://www.youtube.com/watch?v=fx_slZVBBgc"
 tags: ["youtube","video","futuredeathtoll","performance","dance","choreography","noise","throbbing","electronic","brooklyn"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/fx_slZVBBgc" title="64. with one or more objects create a line on the ground cross back and forth..." loading="lazy" allowfullscreen></iframe></div>

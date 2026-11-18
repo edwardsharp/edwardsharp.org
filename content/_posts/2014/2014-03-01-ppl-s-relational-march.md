@@ -5,6 +5,7 @@ date: "2014-03-01T20:21:00.000Z"
 date_precision: "second"
 source: "https://nothappenings.tumblr.com/post/78240510149"
 tags: ["talk of the town","culturebot","nohappenings","futuredeathtoll","ppl"]
+location_name: "brooklyn, ny"
 ---
 
 <p><a href="http://www.culturebot.org/2014/02/20931/ppls-relational-march/">PPL’s Relational March</a></p>

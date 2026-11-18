@@ -5,6 +5,7 @@ date: "2014-03-11T05:19:27.000Z"
 date_precision: "second"
 source: "https://nothappenings.tumblr.com/post/79239979831"
 tags: ["kcmasterpiece","nohappenings","futuredeathtoll","ppl"]
+location_name: "brooklyn, ny"
 ---
 
 <p>ZOMG</p>

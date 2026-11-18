@@ -5,7 +5,7 @@ date: "2018-03-10T02:52:31.000Z"
 date_precision: "second"
 preview_image: "/content/media/2018/2018-03-09-future-death-agency-black-tapez.webp"
 source: "https://archive.org/details/future_death_agency__black_tapez"
-location_name: "pdx"
+location_name: "portland, or"
 tags:
   [
     "archive",

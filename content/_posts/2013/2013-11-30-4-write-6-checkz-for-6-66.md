@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-30-4-write-6-checkz-for-6-66.webp"
 source: "https://www.youtube.com/watch?v=MU227OhwrY0"
 tags: ["youtube","video","futuredeathtoll","performance","dance","portland","choreography","noise","throbbing","electronic","door busterz","brooklyn"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/MU227OhwrY0" title="4. write 6 checkz for 6.66" loading="lazy" allowfullscreen></iframe></div>

@@ -4,6 +4,7 @@ title: "DORKBOT OPENMICSURGERY"
 date: "2012-12-24T16:07:00-05:00"
 date_precision: "second"
 tags: ["dorkbotpdx","open mic surgery","someday lounge","portland","pd-extended","processing"]
+location_name: "portland, or"
 ---
 
 <div class="video-embed" style="aspect-ratio: 212 / 120">

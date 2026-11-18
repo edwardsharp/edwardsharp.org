@@ -7,6 +7,7 @@ preview_image: "/content/media/2015/2015-06-28-noon-noise-pancakez-jmej-xnor.web
 source: "https://www.youtube.com/watch?v=sKwj_rbIDZI"
 redirect_from: "/post/2015-06-28-jmej-xnor-sunday-june-14-2015/"
 tags: ["youtube","video","lacuna","XNOR Gate","noonnoiseandpancakespdx","portland","noise","pancakes","jmej","xnor"]
+location_name: "portland, or"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/sKwj_rbIDZI" title="NOON NOISE &amp; PANCAKEZ: JMEJ &amp; XNOR" loading="lazy" allowfullscreen></iframe></div>

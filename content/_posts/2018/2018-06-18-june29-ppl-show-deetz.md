@@ -6,6 +6,7 @@ date_precision: "second"
 last_modified: "2018-06-18T20:18:17-04:00"
 render_with_liquid: false
 tags: ["panoplylab"]
+location_name: "brooklyn, ny"
 ---
 
 LASH ####

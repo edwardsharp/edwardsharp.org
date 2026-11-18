@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-29-62-handcuff-your-legs-ballgag-contactmic-your-mouth-and-craw.webp"
 source: "https://www.youtube.com/watch?v=9COriwWYvxI"
 tags: ["youtube","video","futuredeathtoll","performance","dance","choreography","noise","throbbing","electronic","brooklyn","door busterz"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/9COriwWYvxI" title="62. handcuff your legs, ballgag/contactmic your mouth, and crawl around the room on your stomach" loading="lazy" allowfullscreen></iframe></div>

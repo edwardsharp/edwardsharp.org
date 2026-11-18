@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-08-04-prisoncorp14-tr-c-ash.webp"
 source: "https://www.youtube.com/watch?v=wfxVGzzd6Jk"
 tags: ["youtube","video","futuredeathtoll","performance","choreography","noise","throbbing","chezbushwick","brooklyn","trash cash"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/wfxVGzzd6Jk" title="prisoncorp14 [tr/c/ash]" loading="lazy" allowfullscreen></iframe></div>

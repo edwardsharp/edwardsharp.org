@@ -5,6 +5,7 @@ date: "2014-04-02T16:18:23.000Z"
 date_precision: "second"
 source: "https://nothappenings.tumblr.com/post/81495260518"
 tags: ["nohappenings","futuredeathtoll","ppl"]
+location_name: "brooklyn, ny"
 ---
 
 <p><a href="https://www.flickr.com/photos/charlottestreet/sets/72157642353345615/">Let's Make a Mess</a></p>

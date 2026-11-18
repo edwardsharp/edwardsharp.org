@@ -6,6 +6,7 @@ date_precision: "day"
 preview_image: "/content/media/2014/2014-04-09-live-on-wfmu-my-castle-of-quiet.webp"
 source: "https://futuredeathtoll.bandcamp.com/album/live-on-wfmu-my-castle-of-quiet"
 tags: ["bandcamp","audio","futuredeathtoll","album","electronic","easy listening","noise","New York","217"]
+location_name: "nyc"
 ---
 
 <iframe title="LIVE on WFMU my castle of quiet" width="100%" height="472" loading="lazy" src="https://bandcamp.com/EmbeddedPlayer/album=242002913/size=large/bgcol=000000/linkcol=ff00ff/artwork=none/transparent=false/"></iframe>

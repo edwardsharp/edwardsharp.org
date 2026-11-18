@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-07-20-pwr-mesh-lobster-claw.webp"
 source: "https://www.youtube.com/watch?v=wprur_GN-xE"
 tags: ["youtube","video","futuredeathtoll","performance","noise","throbbing","electronic","new york","hauser and wirth","lobster","american flag","claw","lobster clawz","paul mccarthy","artist","Art Exhibition (Type Of Exhibition)"]
+location_name: "nyc"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/wprur_GN-xE" title="PWR_MESH LOBSTER CLAW" loading="lazy" allowfullscreen></iframe></div>

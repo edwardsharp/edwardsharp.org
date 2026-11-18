@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-30-79-move-specifically-in-response-to-sounds-around-you-2.webp"
 source: "https://www.youtube.com/watch?v=L5kPv6FzVZA"
 tags: ["youtube","video","futuredeathtoll","performance","dance","choreography","noise","throbbing","electronic","door busterz","brooklyn"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/L5kPv6FzVZA" title="79. move specifically in response to sounds around you" loading="lazy" allowfullscreen></iframe></div>

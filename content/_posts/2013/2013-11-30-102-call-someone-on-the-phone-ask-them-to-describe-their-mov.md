@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-30-102-call-someone-on-the-phone-ask-them-to-describe-their-mov.webp"
 source: "https://www.youtube.com/watch?v=LbGCuI2x6fI"
 tags: ["youtube","video","futuredeathtoll","performance","dance","portland","choreography","noise","throbbing","electronic","brooklyn","door busterz","black friday"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/LbGCuI2x6fI" title="102. call someone on the phone, ask them to describe their movements, recreate these" loading="lazy" allowfullscreen></iframe></div>

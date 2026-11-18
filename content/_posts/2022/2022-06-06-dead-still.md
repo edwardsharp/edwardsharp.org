@@ -6,6 +6,7 @@ date_precision: "day"
 preview_image: "/content/media/2022/2022-06-06-dead-still.webp"
 source: "https://futuredeathtoll.bandcamp.com/album/dead-still"
 tags: ["bandcamp","audio","futuredeathtoll","album","electronic","diy or die","easy listening","noise","New York"]
+location_name: "nyc"
 ---
 
 <iframe title="dead still" width="100%" height="472" loading="lazy" src="https://bandcamp.com/EmbeddedPlayer/album=1756242508/size=large/bgcol=000000/linkcol=ff00ff/artwork=none/transparent=false/"></iframe>

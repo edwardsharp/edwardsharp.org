@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-30-f-dt-door-busterz-black-out.webp"
 source: "https://www.youtube.com/watch?v=om4VfTpAsqc"
 tags: ["youtube","video","futuredeathtoll","performance","dance","portland","choreography","noise","throbbing","electronic","black friday","door busterz"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/om4VfTpAsqc" title="F-DT door busterz black out" loading="lazy" allowfullscreen></iframe></div>

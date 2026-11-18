@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-30-84-stand-in-a-corner-of-the-room.webp"
 source: "https://www.youtube.com/watch?v=Yg5pEg01l8k"
 tags: ["youtube","video","futuredeathtoll","performance","dance","choreography","noise","throbbing","electronic","door busterz","brooklyn"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/Yg5pEg01l8k" title="84. stand in a corner of the room" loading="lazy" allowfullscreen></iframe></div>

@@ -7,6 +7,7 @@ preview_image: "/content/media/2014/2014-03-22-ohio-state-on-the-oval-image-1.we
 preview_alt: "Ohio State on the Oval"
 source: "https://nothappenings.tumblr.com/post/80398829904"
 tags: ["nohappenings","futuredeathtoll","ppl"]
+location_name: "brooklyn, ny"
 ---
 
 ![Ohio State on the Oval](/content/media/2014/2014-03-22-ohio-state-on-the-oval-image-1.webp)

@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-29-61-handcuff-your-hand-to-a-chair.webp"
 source: "https://www.youtube.com/watch?v=s_4n7laAnts"
 tags: ["youtube","video","futuredeathtoll","performance","dance","choreography","noise","throbbing","electronic","brooklyn","door busterz"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/s_4n7laAnts" title="61. handcuff your hand to a chair" loading="lazy" allowfullscreen></iframe></div>

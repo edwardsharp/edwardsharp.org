@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-30-104-try-to-calm-a-crowd.webp"
 source: "https://www.youtube.com/watch?v=tEuZXot1jRU"
 tags: ["youtube","video","futuredeathtoll","performance","dance","portland","choreography","noise","throbbing","electronic","brooklyn","black friday","door busterz"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/tEuZXot1jRU" title="104. try to calm a crowd" loading="lazy" allowfullscreen></iframe></div>

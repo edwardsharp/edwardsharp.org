@@ -7,6 +7,7 @@ preview_image: "/content/media/2014/2014-03-12-photos-taken-by-weston-thomson-im
 preview_alt: "(photos taken by Weston Thomson)"
 source: "https://nothappenings.tumblr.com/post/79382071107"
 tags: ["The Kent Bellows Studio and Center for Visual Arts","nohappenings","futuredeathtoll","ppl"]
+location_name: "brooklyn, ny"
 ---
 
 ![(photos taken by Weston Thomson)](/content/media/2014/2014-03-12-photos-taken-by-weston-thomson-image-1.webp)

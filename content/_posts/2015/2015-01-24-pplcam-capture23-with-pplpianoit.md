@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2015/2015-01-24-pplcam-capture23-with-pplpianoit.webp"
 source: "https://www.youtube.com/watch?v=1rKK35MiWvI"
 tags: ["youtube","video","ppl","panoply","meserole","edward sharp","dance","with","juicebox","radiator"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/1rKK35MiWvI" title="pplcam capture23 with pplpianoit" loading="lazy" allowfullscreen></iframe></div>

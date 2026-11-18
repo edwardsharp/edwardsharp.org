@@ -7,6 +7,7 @@ preview_image: "/content/media/2015/2015-06-25-infiltration-lab-mozz-sunday-june
 preview_alt: "infiltration labhttp://infiltrationlab.com/twon mozzhttp://nathanaelthayermoss.com/NOON, SUNDAY, JUNE 284634b GARFIELD AV pancakes provided!suggested donation ("
 source: "https://lacunaclub.tumblr.com/post/122464520594"
 tags: ["noonnoiseandpancakes","noise","pancakes","pdx","twon","twonmozz","infiltrationlab","lacuna"]
+location_name: "portland, or"
 ---
 
 ![infiltration labhttp://infiltrationlab.com/twon mozzhttp://nathanaelthayermoss.com/NOON, SUNDAY, JUNE 284634b GARFIELD AV pancakes provided!suggested donation (for the artists) https://www.facebook.com/events/701188300003020/](/content/media/2015/2015-06-25-infiltration-lab-mozz-sunday-june-284634b-garfield-av-pancak.webp)

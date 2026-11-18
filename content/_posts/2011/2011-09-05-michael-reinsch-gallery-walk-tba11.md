@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2011/2011-09-05-michael-reinsch-gallery-walk-tba11.webp"
 source: "https://www.youtube.com/watch?v=BUqRWOq4SI4"
 tags: ["youtube","video","PDX","TBA"]
+location_name: "portland, or"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/BUqRWOq4SI4" title="Michael Reinsch Gallery Walk TBA11" loading="lazy" allowfullscreen></iframe></div>

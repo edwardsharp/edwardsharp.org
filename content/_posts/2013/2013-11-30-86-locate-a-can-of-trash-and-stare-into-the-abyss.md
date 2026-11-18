@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-30-86-locate-a-can-of-trash-and-stare-into-the-abyss.webp"
 source: "https://www.youtube.com/watch?v=7S-u8qlHhHg"
 tags: ["youtube","video","futuredeathtoll","performance","dance","choreography","noise","throbbing","electronic","brooklyn","door busterz"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/7S-u8qlHhHg" title="86. locate a can of trash and stare into the abyss" loading="lazy" allowfullscreen></iframe></div>

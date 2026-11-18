@@ -6,6 +6,7 @@ date_precision: "second"
 preview_image: "/content/media/2013/2013-11-30-14-contact-mic-floor.webp"
 source: "https://www.youtube.com/watch?v=fpZWL8KaMQA"
 tags: ["youtube","video","futuredeathtoll","performance","dance","portland","choreography","noise","throbbing","electronic"]
+location_name: "brooklyn, ny"
 ---
 
 <div class="video-embed" style="aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/fpZWL8KaMQA" title="14. contact mic floor" loading="lazy" allowfullscreen></iframe></div>
