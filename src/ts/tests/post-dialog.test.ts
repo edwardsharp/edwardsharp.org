@@ -1,11 +1,33 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
+import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
+import { runInNewContext } from "node:vm";
 import test from "node:test";
 import { parseHTML } from "linkedom";
 import { enhancePostDialog } from "../post-dialog.ts";
 
-test("post locations render after dates, escape markup, and omit empty names", () => {
+test("initializing the carousel demo does not steal focus from the reader", async (t) => {
+  const html = await readFile(
+    new URL(
+      "../../../content/media/2020/2020-10-10-tiny-lil-carousel-demo.html",
+      import.meta.url,
+    ),
+    "utf8",
+  );
+  const { document } = parseHTML(html);
+  const carousel = document.querySelector<HTMLElement>(".carousel");
+  assert.ok(carousel);
+  const focus = t.mock.fn();
+  carousel.focus = focus;
+  const initialize = t.mock.fn();
+  for (const script of document.querySelectorAll("script:not([src])"))
+    runInNewContext(script.textContent, { document, tns: initialize });
+  assert.equal(initialize.mock.callCount(), 1);
+  assert.equal(focus.mock.callCount(), 0);
+});
+
+test("post metadata renders date, linked kind, and optional location with escaped filter URLs", () => {
   const root = fileURLToPath(new URL("../../../", import.meta.url));
   const result = spawnSync(
     "bundle",
@@ -21,14 +43,17 @@ test("post locations render after dates, escape markup, and omit empty names", (
       site = Jekyll::Site.new(Jekyll.configuration("source" => ARGV.fetch(0), "baseurl" => "/reader-test", "quiet" => true))
       source = File.read(File.join(ARGV.fetch(0), "src/_layouts/post.html"), encoding: "UTF-8")
       template = Liquid::Template.parse(source)
-      puts JSON.generate(["A <venue> & City", nil, "", "  "].map do |location|
+      kinds = ["code", "photo", nil, "audio & <demo>"]
+      puts JSON.generate(["A <venue> & City", nil, "", "  "].each_with_index.map do |location, index|
         html = template.render!(
-          { "page" => { "title" => "fixture", "date" => "2026-11-15", "tags" => [], "location_name" => location } },
+          { "page" => { "title" => "fixture", "date" => "2026-11-15", "tags" => [], "location_name" => location, "kind" => kinds[index] } },
           registers: { site: site }
         )
         date = Nokogiri::HTML5.fragment(html).at_css(".eyebrow")
         { text: date.text.gsub(/\\s+/, " ").strip, html: date.to_html, elements: date.element_children.map(&:name),
           href: date.at_css(".post-location a")&.[]("href"),
+          kind: date.at_css(".post-kind a").text,
+          kind_href: date.at_css(".post-kind a")["href"],
           pin: date.at_css(".post-location svg")&.attributes&.transform_values(&:value) }
       end)
     `,
@@ -39,8 +64,11 @@ test("post locations render after dates, escape markup, and omit empty names", (
   assert.ifError(result.error);
   assert.equal(result.status, 0, result.stderr);
   const rendered = JSON.parse(result.stdout);
-  assert.equal(rendered[0].text, "Sunday, November 15, 2026 A <venue> & City");
-  assert.deepEqual(rendered[0].elements, ["time", "span"]);
+  assert.equal(
+    rendered[0].text,
+    "Sunday, November 15, 2026 code A <venue> & City",
+  );
+  assert.deepEqual(rendered[0].elements, ["time", "span", "span"]);
   assert.match(rendered[0].html, /&lt;venue&gt; &amp; City/);
   assert.equal(
     rendered[0].href,
@@ -49,9 +77,22 @@ test("post locations render after dates, escape markup, and omit empty names", (
   assert.equal(rendered[0].pin["aria-hidden"], "true");
   assert.equal(rendered[0].pin.focusable, "false");
   assert.equal(rendered[0].pin.viewBox, "0 0 24 24");
+  assert.deepEqual(
+    rendered.map((entry: { kind: string; kind_href: string }) => [
+      entry.kind,
+      entry.kind_href,
+    ]),
+    [
+      ["code", "/reader-test/?type=code"],
+      ["photo", "/reader-test/?type=photo"],
+      ["entry", "/reader-test/?type=entry"],
+      ["audio & <demo>", "/reader-test/?type=audio+%26+%3Cdemo%3E"],
+    ],
+  );
+  assert.match(rendered[3].html, /audio &amp; &lt;demo&gt;/);
   for (const entry of rendered.slice(1)) {
-    assert.equal(entry.text, "Sunday, November 15, 2026");
-    assert.deepEqual(entry.elements, ["time"]);
+    assert.equal(entry.text, `Sunday, November 15, 2026 ${entry.kind}`);
+    assert.deepEqual(entry.elements, ["time", "span"]);
     assert.equal(entry.href, null);
     assert.equal(entry.pin, null);
   }

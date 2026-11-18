@@ -306,7 +306,8 @@ main {
   font-style: italic;
 }
 
-.post-location {
+.post-location,
+.post-kind {
   margin-inline-start: 0.5em;
 }
 
@@ -1189,6 +1190,14 @@ html.post-dialog-open {
   font-size: 0.875rem;
 }
 .prose iframe {
+  border: 0;
+}
+
+iframe.code-demo {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: 480px;
   border: 0;
 }
 

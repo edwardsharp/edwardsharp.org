@@ -134,10 +134,6 @@ body {
     autoplayButtonOutput: false,
     nav: false,
   });
-  var carousel = document.querySelector(".carousel");
-  if (carousel) {
-    carousel.focus();
-  }
 })();
 ```
 

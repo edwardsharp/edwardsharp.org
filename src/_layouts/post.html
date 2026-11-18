@@ -1,10 +1,14 @@
 ---
 layout: default
 ---
-<article class="post" data-kind="{{ page.kind | default: 'entry' | escape }}">
+{% assign post_kind = page.kind | default: 'entry' %}
+<article class="post" data-kind="{{ post_kind | escape }}">
   <header class="page-heading">
     <p class="eyebrow">
       <time datetime="{{ page.date | date_to_xmlschema }}">{% include post-date.html post=page %}</time>
+      <span class="post-kind">
+        <a href="{{ '/' | relative_url }}?type={{ post_kind | url_encode | escape }}">{{ post_kind | escape }}</a>
+      </span>
       {% assign location_name = page.location_name | default: '' | strip %}
       {% unless location_name == '' %}
         <span class="post-location">
