@@ -43,18 +43,27 @@ export function judyGravity(x: number, y: number, angle: number) {
 export function createJudyCursor(root: Document) {
   const view = root.defaultView;
   if (!view) throw new Error("mobile Judy needs a browser window");
+  const size = 96;
+  const edgeInset = 40;
   const overlay = root.createElement("div");
   overlay.className = "judy-playground";
-  const judy = root.createElement("div");
-  judy.className = "judy-cursor-sprite";
+  const stage = root.createElementNS("http://www.w3.org/2000/svg", "svg");
+  stage.setAttribute("class", "judy-cursor-stage");
+  stage.setAttribute("aria-hidden", "true");
+  const judy = root.createElementNS("http://www.w3.org/2000/svg", "image");
+  judy.setAttribute("class", "judy-cursor-sprite");
   judy.setAttribute("aria-hidden", "true");
-  judy.style.width = judy.style.height = "96px";
+  judy.setAttribute("width", String(size));
+  judy.setAttribute("height", String(size));
+  judy.setAttribute(
+    "href",
+    new URL("../src/assets/judy.png", import.meta.url).href,
+  );
   const status = root.createElement("span");
   status.className = "judy-status";
   status.setAttribute("role", "status");
-  overlay.append(judy, status);
-  const popover = typeof overlay.showPopover === "function";
-  if (popover) overlay.setAttribute("popover", "manual");
+  stage.append(judy);
+  overlay.append(stage, status);
   const reduced = view.matchMedia("(prefers-reduced-motion: reduce)");
   const motion = view.DeviceMotionEvent;
   const needsPermission =
@@ -72,22 +81,43 @@ export function createJudyCursor(root: Document) {
   let offsetY = 0;
   const touches = new Map<number, { x: number; y: number; time: number }>();
   const draw = () => {
-    judy.style.transform = `translate3d(${state.x}px, ${state.y}px, 0)`;
+    judy.setAttribute("x", String(state.x));
+    judy.setAttribute("y", String(state.y));
   };
   const measure = () => {
     const viewport = view.visualViewport;
     const width = viewport?.width ?? view.innerWidth;
-    const height = viewport?.height ?? view.innerHeight;
+    const visibleHeight = viewport?.height ?? view.innerHeight;
+    const windowHeight = Math.max(
+      view.innerHeight,
+      Math.min(view.outerHeight, view.screen.height),
+    );
+    // Safari can report zero safe-area insets while its bars still obscure the page.
+    const topBleed = windowHeight > view.innerHeight ? size : 0;
+    const height = windowHeight + topBleed - 2 * edgeInset;
     offsetX = viewport?.offsetLeft ?? 0;
-    offsetY = viewport?.offsetTop ?? 0;
+    const nextOffsetY = (viewport?.offsetTop ?? 0) - topBleed + edgeInset;
+    state.y += offsetY - nextOffsetY;
+    offsetY = nextOffsetY;
+    let left = offsetX + view.scrollX;
+    let top = offsetY + view.scrollY;
+    const dialog = overlay.parentElement?.closest("dialog[open]");
+    if (dialog) {
+      const rect = dialog.getBoundingClientRect();
+      left = offsetX + dialog.scrollLeft - rect.left;
+      top = offsetY + dialog.scrollTop - rect.top;
+    }
     Object.assign(overlay.style, {
-      left: `${offsetX}px`,
-      top: `${offsetY}px`,
-      width: `${width}px`,
-      height: `${height}px`,
+      left: `${left}px`,
+      top: `${top}px`,
     });
-    bounds.width = Math.max(0, width - 96);
-    bounds.height = Math.max(0, height - 96);
+    Object.assign(status.style, {
+      right: `calc(${-width}px + max(0.5rem, env(safe-area-inset-right, 0px)))`,
+      bottom: `calc(${-visibleHeight - topBleed + edgeInset}px + max(0.5rem, env(safe-area-inset-bottom, 0px)))`,
+      maxWidth: `calc(${width}px - 1rem)`,
+    });
+    bounds.width = Math.max(0, width - size);
+    bounds.height = Math.max(0, height - size);
     state.x = clamp(state.x, 0, bounds.width);
     state.y = clamp(state.y, 0, bounds.height);
     draw();
@@ -142,8 +172,8 @@ export function createJudyCursor(root: Document) {
       time: event.timeStamp,
     });
     if (reduced.matches) {
-      state.x = clamp(event.clientX - offsetX - 48, 0, bounds.width);
-      state.y = clamp(event.clientY - offsetY - 48, 0, bounds.height);
+      state.x = clamp(event.clientX - offsetX - size / 2, 0, bounds.width);
+      state.y = clamp(event.clientY - offsetY - size / 2, 0, bounds.height);
       draw();
     } else if (previous) {
       const dt = Math.max(16, event.timeStamp - previous.time);
@@ -158,8 +188,8 @@ export function createJudyCursor(root: Document) {
         900,
       );
     } else {
-      const dx = state.x + 48 - (event.clientX - offsetX);
-      const dy = state.y + 48 - (event.clientY - offsetY);
+      const dx = state.x + size / 2 - (event.clientX - offsetX);
+      const dy = state.y + size / 2 - (event.clientY - offsetY);
       const distance = Math.hypot(dx, dy) || 1;
       state.vx += (dx / distance) * 240;
       state.vy += (dy / distance) * 240;
@@ -170,14 +200,17 @@ export function createJudyCursor(root: Document) {
     const parent =
       [...root.querySelectorAll("dialog[open]")].at(-1) ?? root.body;
     if (overlay.parentElement !== parent) parent.append(overlay);
-    if (popover) {
-      if (overlay.matches(":popover-open")) overlay.hidePopover();
-      overlay.showPopover();
-    }
+    measure();
   };
   const dialogs = new view.MutationObserver((changes) => {
     if (
-      changes.some((change) => change.target instanceof view.HTMLDialogElement)
+      changes.some(
+        (change) =>
+          change.type === "attributes" &&
+          change.attributeName === "open" &&
+          change.target instanceof view.Element &&
+          change.target.localName === "dialog",
+      )
     )
       bringForward();
   });
@@ -206,7 +239,6 @@ export function createJudyCursor(root: Document) {
       enabled = next;
       if (enabled) {
         bringForward();
-        measure();
         message();
         root.addEventListener("pointerdown", touch, { passive: true });
         root.addEventListener("pointermove", touch, { passive: true });
@@ -219,6 +251,10 @@ export function createJudyCursor(root: Document) {
           attributeFilter: ["open"],
         });
         view.addEventListener("resize", measure);
+        view.addEventListener("scroll", measure, {
+          passive: true,
+          capture: true,
+        });
         view.visualViewport?.addEventListener("resize", measure);
         view.visualViewport?.addEventListener("scroll", measure);
         view.addEventListener("pagehide", pause);
@@ -238,13 +274,13 @@ export function createJudyCursor(root: Document) {
         root.removeEventListener("visibilitychange", visibility);
         dialogs.disconnect();
         view.removeEventListener("resize", measure);
+        view.removeEventListener("scroll", measure, true);
         view.visualViewport?.removeEventListener("resize", measure);
         view.visualViewport?.removeEventListener("scroll", measure);
         view.removeEventListener("pagehide", pause);
         view.removeEventListener("pageshow", resume);
         reduced.removeEventListener("change", motionPreference);
         view.removeEventListener("devicemotion", motionChanged);
-        if (popover && overlay.matches(":popover-open")) overlay.hidePopover();
         overlay.remove();
       }
     },

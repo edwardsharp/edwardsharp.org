@@ -17,13 +17,16 @@ test("Judy carries momentum with friction and screen-oriented gravity", () => {
   assert.ok(Math.abs(landscape.y - 80) < 0.001);
 });
 
-test("Judy never requests permission on restore or touch, and denied motion leaves touch mode working", async (t) => {
+test("Judy crosses browser-bar bounds without requesting permission on restore or touch", async (t) => {
   const { document, window } = parseHTML("<html><body></body></html>");
   let permission = "granted";
+  let reduced = false;
   const request = t.mock.fn(async () => permission);
   const properties: Record<string, unknown> = {
     matchMedia: () => ({
-      matches: false,
+      get matches() {
+        return reduced;
+      },
       addEventListener() {},
       removeEventListener() {},
     }),
@@ -31,6 +34,10 @@ test("Judy never requests permission on restore or touch, and denied motion leav
     isSecureContext: true,
     innerWidth: 390,
     innerHeight: 844,
+    outerHeight: 844,
+    screen: { height: 844 },
+    scrollX: 0,
+    scrollY: 0,
     requestAnimationFrame: () => 1,
     cancelAnimationFrame() {},
   };
@@ -52,6 +59,12 @@ test("Judy never requests permission on restore or touch, and denied motion leav
   });
   judy.setEnabled(true);
   assert.ok(document.querySelector(".judy-cursor-sprite"));
+  const overlay = document.querySelector<HTMLElement>(".judy-playground")!;
+  assert.equal(overlay.hasAttribute("popover"), false);
+  assert.equal(overlay.style.top, "40px");
+  Object.defineProperty(window, "scrollY", { value: 300, configurable: true });
+  window.dispatchEvent(new window.Event("scroll"));
+  assert.equal(overlay.style.top, "340px");
   assert.equal(request.mock.callCount(), 0);
   const touch = new window.Event("pointerdown", {
     bubbles: true,
@@ -67,6 +80,48 @@ test("Judy never requests permission on restore or touch, and denied motion leav
   document.dispatchEvent(new window.Event("visibilitychange"));
   assert.equal(touch.defaultPrevented, false);
   assert.equal(request.mock.callCount(), 0);
+  Object.defineProperties(window, {
+    innerWidth: { value: 393, configurable: true },
+    innerHeight: { value: 695, configurable: true },
+    outerHeight: { value: 852, configurable: true },
+    screen: { value: { height: 852 }, configurable: true },
+  });
+  reduced = true;
+  window.dispatchEvent(new window.Event("resize"));
+  const sprite = document.querySelector(".judy-cursor-sprite")!;
+  const spriteTop = () => {
+    return (
+      Number.parseFloat(overlay.style.top) +
+      Number(sprite.getAttribute("y")) -
+      window.scrollY
+    );
+  };
+  const moveTo = (clientY: number) => {
+    const event = new window.Event("pointerdown", {
+      bubbles: true,
+      cancelable: true,
+    });
+    Object.defineProperties(event, {
+      pointerType: { value: "touch" },
+      pointerId: { value: 2 },
+      clientX: { value: 150 },
+      clientY: { value: clientY },
+    });
+    document.body.dispatchEvent(event);
+    assert.equal(event.defaultPrevented, false);
+  };
+  moveTo(-1000);
+  assert.equal(spriteTop(), -56);
+  moveTo(2000);
+  assert.equal(spriteTop() + 96, 812);
+  assert.equal(request.mock.callCount(), 0);
+  reduced = false;
+  for (const name of ["innerWidth", "innerHeight", "outerHeight", "screen"])
+    Object.defineProperty(window, name, {
+      value: properties[name],
+      configurable: true,
+    });
+  window.dispatchEvent(new window.Event("resize"));
   await judy.requestMotion();
   assert.equal(request.mock.callCount(), 1);
   assert.equal(
@@ -75,6 +130,9 @@ test("Judy never requests permission on restore or touch, and denied motion leav
   );
   judy.setEnabled(false);
   assert.equal(document.querySelector(".judy-playground"), null);
+  Object.defineProperty(window, "scrollY", { value: 600, configurable: true });
+  window.dispatchEvent(new window.Event("scroll"));
+  assert.equal(overlay.style.top, "340px");
   judy.setEnabled(true);
   assert.equal(request.mock.callCount(), 1);
   permission = "denied";

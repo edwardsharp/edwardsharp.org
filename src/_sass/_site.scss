@@ -52,23 +52,28 @@ html.has-judy-cursor * {
 }
 
 .judy-playground {
-  position: fixed;
+  position: absolute;
   z-index: 2147483647;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
   margin: 0;
   padding: 0;
   border: 0;
-  overflow: hidden;
+  overflow: visible;
   background: transparent;
   pointer-events: none;
 }
 
-.judy-cursor-sprite {
+.judy-cursor-stage {
   position: absolute;
   top: 0;
   left: 0;
-  background: url("../src/assets/judy.png") center / contain no-repeat;
-  will-change: transform;
+  width: 1px;
+  height: 1px;
+  // SVG ink can overflow without extending the document's scrollable area.
+  overflow: visible;
 }
 
 .judy-status {
@@ -135,17 +140,19 @@ a:is(:hover, :focus-visible) {
 }
 
 .skip-link {
-  position: fixed;
+  position: absolute;
   z-index: 20;
-  top: calc(0.75rem + env(safe-area-inset-top, 0px));
+  top: 0;
   left: calc(1rem + env(safe-area-inset-left, 0px));
   padding: 0.5rem 1rem;
   --link-color: var(--text);
-  background: var(--surface);
-  transform: translateY(-200%);
+  transform: translateY(-100%);
 }
 
 .skip-link:focus {
+  position: fixed;
+  top: calc(0.75rem + env(safe-area-inset-top, 0px));
+  background: var(--surface);
   transform: none;
 }
 
@@ -169,10 +176,14 @@ a:is(:hover, :focus-visible) {
   gap: 1rem;
 }
 
-.site-header {
+.site-header-layer {
   position: sticky;
   top: 0;
   z-index: 10;
+}
+
+.site-header {
+  position: relative;
   align-items: center;
   flex-wrap: wrap;
   gap: clamp(0.5rem, 2vw, 1rem);
@@ -180,6 +191,27 @@ a:is(:hover, :focus-visible) {
   padding-block-start: calc(1rem + env(safe-area-inset-top, 0px));
   font-family: "Fraunces", Georgia, serif;
   font-weight: 100;
+}
+
+@supports (animation-timeline: scroll(root block)) {
+  .site-header-layer {
+    position: relative;
+  }
+
+  .site-header {
+    animation: pin-header 1s linear both;
+    animation-timeline: scroll(root block);
+    animation-range: var(--header-scroll-start, 0px) 100%;
+  }
+}
+
+@keyframes pin-header {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(var(--header-scroll-distance, 0px));
+  }
 }
 
 .site-header::before,

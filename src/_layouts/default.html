@@ -38,7 +38,9 @@
           </section>
         {% endif %}
       {% endunless %}
-      {% include header.html %}
+      <div class="site-header-layer">
+        {% include header.html %}
+      </div>
       <main id="main" tabindex="-1">{{ content }}</main>
       {% unless page.feed %}
         <footer class="site-footer">

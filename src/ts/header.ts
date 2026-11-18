@@ -68,7 +68,17 @@ function enhanceHeader(header: HTMLElement) {
   if (!wordmark || !navigation || !toggle)
     throw new Error("header navigation controls are missing");
 
+  const layer = header.closest<HTMLElement>(".site-header-layer") ?? header;
+  const updateScrollRange = () => {
+    const root = document.documentElement;
+    header.style.setProperty("--header-scroll-start", `${layer.offsetTop}px`);
+    header.style.setProperty(
+      "--header-scroll-distance",
+      `${Math.max(0, root.scrollHeight - root.clientHeight - layer.offsetTop)}px`,
+    );
+  };
   const updateHeight = () => {
+    updateScrollRange();
     document.documentElement.style.setProperty(
       "--header-height",
       `${header.getBoundingClientRect().height}px`,
@@ -146,8 +156,15 @@ function enhanceHeader(header: HTMLElement) {
     if (element) resize.observe(element);
   update();
   void document.fonts.ready.then(update);
+  const scrollRange = new ResizeObserver(updateScrollRange);
+  scrollRange.observe(document.body);
+  window.addEventListener("resize", updateScrollRange);
   window.addEventListener("pagehide", (event) => {
-    if (!event.persisted) resize.disconnect();
+    if (!event.persisted) {
+      resize.disconnect();
+      scrollRange.disconnect();
+      window.removeEventListener("resize", updateScrollRange);
+    }
   });
 }
 
