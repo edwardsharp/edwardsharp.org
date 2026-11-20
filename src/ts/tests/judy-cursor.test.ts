@@ -124,10 +124,11 @@ test("Judy crosses browser-bar bounds without requesting permission on restore o
   window.dispatchEvent(new window.Event("resize"));
   await judy.requestMotion();
   assert.equal(request.mock.callCount(), 1);
-  assert.equal(
-    document.querySelector<HTMLElement>(".judy-status")?.hidden,
-    true,
+  assert.deepEqual(
+    [...overlay.children].map((element) => element.localName),
+    ["svg"],
   );
+  assert.equal(document.querySelector(".judy-status"), null);
   judy.setEnabled(false);
   assert.equal(document.querySelector(".judy-playground"), null);
   Object.defineProperty(window, "scrollY", { value: 600, configurable: true });
@@ -137,9 +138,10 @@ test("Judy crosses browser-bar bounds without requesting permission on restore o
   assert.equal(request.mock.callCount(), 1);
   permission = "denied";
   await judy.requestMotion();
-  assert.match(
-    document.querySelector(".judy-status")?.textContent ?? "",
-    /declined.*touches/,
+  assert.equal(document.querySelector(".judy-status"), null);
+  assert.deepEqual(
+    [...overlay.children].map((element) => element.localName),
+    ["svg"],
   );
   assert.ok(document.querySelector(".judy-cursor-sprite"));
 });

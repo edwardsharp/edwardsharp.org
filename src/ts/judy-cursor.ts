@@ -59,17 +59,10 @@ export function createJudyCursor(root: Document) {
     "href",
     new URL("../src/assets/judy.png", import.meta.url).href,
   );
-  const status = root.createElement("span");
-  status.className = "judy-status";
-  status.setAttribute("role", "status");
   stage.append(judy);
-  overlay.append(stage, status);
+  overlay.append(stage);
   const reduced = view.matchMedia("(prefers-reduced-motion: reduce)");
   const motion = view.DeviceMotionEvent;
-  const needsPermission =
-    motion &&
-    "requestPermission" in motion &&
-    typeof motion.requestPermission === "function";
   const state: JudyState = { x: 20, y: 120, vx: 40, vy: 25 };
   const bounds = { width: 0, height: 0 };
   let gravity = { x: 0, y: 0 };
@@ -87,7 +80,6 @@ export function createJudyCursor(root: Document) {
   const measure = () => {
     const viewport = view.visualViewport;
     const width = viewport?.width ?? view.innerWidth;
-    const visibleHeight = viewport?.height ?? view.innerHeight;
     const windowHeight = Math.max(
       view.innerHeight,
       Math.min(view.outerHeight, view.screen.height),
@@ -110,11 +102,6 @@ export function createJudyCursor(root: Document) {
     Object.assign(overlay.style, {
       left: `${left}px`,
       top: `${top}px`,
-    });
-    Object.assign(status.style, {
-      right: `calc(${-width}px + max(0.5rem, env(safe-area-inset-right, 0px)))`,
-      bottom: `calc(${-visibleHeight - topBleed + edgeInset}px + max(0.5rem, env(safe-area-inset-bottom, 0px)))`,
-      maxWidth: `calc(${width}px - 1rem)`,
     });
     bounds.width = Math.max(0, width - size);
     bounds.height = Math.max(0, height - size);
@@ -155,7 +142,6 @@ export function createJudyCursor(root: Document) {
       acceleration.y,
       view.screen.orientation?.angle ?? view.orientation ?? 0,
     );
-    status.hidden = true;
   };
   const touch = (event: PointerEvent) => {
     if (
@@ -214,23 +200,9 @@ export function createJudyCursor(root: Document) {
     )
       bringForward();
   });
-  const message = () => {
-    status.hidden = false;
-    status.textContent = reduced.matches
-      ? "Judy follows taps · reduced motion"
-      : !view.isSecureContext
-        ? "touch Judy · tilt needs HTTPS"
-        : !motion
-          ? "touch Judy · tilt unavailable"
-          : needsPermission
-            ? "touch Judy · toggle sysadminwitch off/on to allow tilt"
-            : "";
-    if (!status.textContent) status.hidden = true;
-  };
   const motionPreference = () => {
     gravity = { x: 0, y: 0 };
     state.vx = state.vy = 0;
-    message();
     resume();
   };
   return {
@@ -239,7 +211,6 @@ export function createJudyCursor(root: Document) {
       enabled = next;
       if (enabled) {
         bringForward();
-        message();
         root.addEventListener("pointerdown", touch, { passive: true });
         root.addEventListener("pointermove", touch, { passive: true });
         root.addEventListener("pointerup", release, { passive: true });
@@ -302,11 +273,8 @@ export function createJudyCursor(root: Document) {
       try {
         const permission: unknown = await motion.requestPermission();
         if (!enabled) return;
-        if (permission === "granted") status.hidden = true;
-        else if (permission === "denied") {
-          status.hidden = false;
-          status.textContent = "tilt declined · touches still move Judy";
-        } else throw new Error("unexpected Judy motion permission response");
+        if (permission !== "granted" && permission !== "denied")
+          throw new Error("unexpected Judy motion permission response");
       } catch (error) {
         if (
           !(error instanceof DOMException) ||
@@ -314,10 +282,6 @@ export function createJudyCursor(root: Document) {
         )
           throw error;
         console.warn("could not enable Judy motion controls", error);
-        if (enabled) {
-          status.hidden = false;
-          status.textContent = "tilt unavailable · touches still move Judy";
-        }
       } finally {
         requesting = false;
       }
